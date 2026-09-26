@@ -48,7 +48,10 @@ test("publication is main-only and gates the artifact on the full verification s
   assert.match(publish, /if: \$\{\{ github\.ref == 'refs\/heads\/main' \}\}/u);
   assertVerificationOrder(build);
   assert.ok(build.indexOf("run: npm test") < build.indexOf("actions/upload-artifact@v4"));
-  assert.match(build, /name: openspec-docs-dist\n\s+path: dist\//u);
+  assert.match(build, /cp \.github\/gh-pages\/esa\.jsonc/u);
+  assert.match(build, /cp \.github\/gh-pages\/wrangler\.jsonc/u);
+  assert.match(build, /cp -R dist\/\. "\$PUBLICATION_DIR\/dist\/"/u);
+  assert.match(build, /name: openspec-docs-dist\n\s+path: \.deploy\/gh-pages\//u);
   assert.match(build, /if-no-files-found: error/u);
 });
 
@@ -61,10 +64,18 @@ test("publication passes a verified artifact to an isolated, serialized writer",
   assert.match(publish, /needs: build/u);
   assert.match(publish, /actions\/download-artifact@v4[\s\S]*?name: openspec-docs-dist/u);
   assert.ok(publish.indexOf("actions/download-artifact@v4") < publish.indexOf("peaceiris/actions-gh-pages@v4"));
-  assert.match(publish, /publish_dir: \.\/dist/u);
+  assert.match(publish, /publish_dir: \.\/\.deploy\/gh-pages/u);
   assert.match(publish, /publish_branch: gh-pages/u);
   assert.match(build, /permissions:\n\s+contents: read/u);
   assert.match(publish, /permissions:\n\s+contents: write/u);
   assert.doesNotMatch(build, /contents: write/u);
   assert.doesNotMatch(workflow.slice(0, workflow.indexOf("jobs:")), /contents: write/u);
+});
+
+test("ESA and Wrangler configs serve the built static site from the publication payload", async () => {
+  const esa = await readFile(new URL(".github/gh-pages/esa.jsonc", root), "utf8");
+  const wrangler = await readFile(new URL(".github/gh-pages/wrangler.jsonc", root), "utf8");
+
+  assert.match(esa, /"assets":\s*\{\s*"directory": "\.\/dist"/u);
+  assert.match(wrangler, /"assets":\s*\{\s*"directory": "\.\/dist"/u);
 });
