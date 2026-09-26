@@ -1,11 +1,12 @@
 # OpenSpec Docs
 
-An independently buildable Astro/Starlight site for OpenSpec documentation. Authored pages live in this repository and do not depend on the HagiCode Docs content pipeline.
+An independently buildable Astro/Starlight site for OpenSpec documentation. English documentation is imported at build time from the pinned `Fission-AI/openspec` submodule; the Chinese home and reviewed translations remain site-owned.
 
 ## Local development
 
 ```bash
 npm install
+git submodule update --init --recursive
 npm run dev
 npm run check
 npm run build
@@ -13,7 +14,25 @@ npm run preview
 npm test
 ```
 
-Run `npm test` after a build; the suite checks both source contracts and generated routes.
+`dev`, `check`, and `build` import the pinned upstream `docs/**/*.md` files into the ignored `src/content/docs/en-US/` directory before starting Astro. The importer maps `docs/README.md` to the English home, preserves nested topic paths, resolves internal Markdown links, copies referenced local assets, and fails with an actionable error for missing or unsupported input. Generated content is replaced on every run; it is never used as a fallback when the submodule is unavailable.
+
+`npm run check` also checks translation baselines. Run `npm test` after a build; the suite checks importer behavior, source contracts, and generated routes.
+
+## Reviewing upstream updates
+
+The `upstream/openspec` gitlink pins the exact source revision. Builds never fetch the latest branch. To review a candidate update:
+
+```bash
+git -C upstream/openspec fetch origin
+git -C upstream/openspec log --oneline HEAD..origin/main
+git -C upstream/openspec diff HEAD..origin/main -- docs/
+git -C upstream/openspec checkout --detach <reviewed-commit>
+npm run check
+npm run build
+npm test
+```
+
+Commit the new submodule pointer only after reviewing the source changes and generated site. CI and publication workflows check out submodules recursively, and publication remains gated on successful verification.
 
 ## GitHub Actions
 
@@ -32,9 +51,19 @@ Publishing the branch does not configure a host or change where `https://openspe
 
 ## Writing and localizing pages
 
-Add guide Markdown or MDX pages under `src/content/docs/guides/`. Chinese pages use that directory directly; English translations go under `src/content/docs/en-US/guides/`. The sidebar discovers guide pages automatically and uses each page's `title` and `description` frontmatter. The locale home pages are `src/content/docs/index.mdx` and `src/content/docs/en-US/index.mdx`.
+The Chinese locale home is `src/content/docs/index.mdx`. Do not edit generated English pages under `src/content/docs/en-US/`; add or revise upstream English content in the upstream repository and review a new pinned revision here.
 
-When adding a locale, configure its Starlight route and document language in `astro.config.mjs`, add locale-keyed shell copy in `src/i18n/site-copy.mjs`, and provide translated pages under the locale's content directory. The language link keeps a topic URL when the target translation is published and otherwise links to that locale's home page.
+Keep reviewed translations in the corresponding site-owned locale path, using the same topic path as the English source. When reviewing a translation against upstream, add its locale/topic entry to `src/content/translation-baselines.json` with the source path, SHA-256, and reviewed upstream revision. Compute the source hash with `sha256sum upstream/openspec/docs/<source-file>`. `npm run check:translation-baselines` reports changed or removed sources and translations that have no baseline; it never overwrites translation content. The Chinese home is locale shell content, not an upstream translation, and does not need a baseline.
+
+When adding a locale, configure its Starlight route and document language in `astro.config.mjs`, add locale-keyed shell copy in `src/i18n/site-copy.mjs`, and provide reviewed translated pages under the locale's content directory. The language link keeps a topic URL when the target translation is published and otherwise links to that locale's home page.
+
+## HagiCode promotion
+
+Every page renders a localized, server-rendered HagiCode introduction after its article content and before Starlight's metadata, pagination, and site footer. This article-end link points directly to `https://www.hagicode.com` and does not depend on JavaScript or remote promotion data.
+
+The separate viewport-bottom banner starts with localized HagiCode fallback copy. Its client enhancement discovers `promotion-flags` and `promotion-content` through the HagiCode Index catalog, then uses the stable `/promote.json` and `/promote_content.json` endpoints if catalog discovery fails. It shows the first enabled, in-window campaign with matching, usable localized content; missing, invalid, or unavailable campaign data leaves the local fallback in place. Campaign data is fetched only in the browser, never during the static build.
+
+The banner hides while the site footer intersects the viewport and can be dismissed independently of the article-end introduction. Dismissals are stored per campaign or fallback when browser storage is available and apply to the current page view when storage is blocked.
 
 ## Analytics and privacy
 
