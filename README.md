@@ -26,7 +26,7 @@ npm run build
 npm test
 ```
 
-The publication workflow runs on pushes to `main` and can be started manually for `main`. It publishes the verified build output to the root of the `gh-pages` branch; manual runs selected for other branches are skipped. The build job is read-only, and only the publisher needs `contents: write`. In repository settings, allow Actions' `GITHUB_TOKEN` to write repository contents (`Settings > Actions > General > Workflow permissions`); organization policy must also permit this access.
+The publication workflow runs on pushes to `main` and can be started manually for `main`. It publishes the verified build with `esa.jsonc`, `wrangler.jsonc`, and `dist/` at the root of the `gh-pages` branch; manual runs selected for other branches are skipped. The deployment configs live in `.github/gh-pages/`. The build job is read-only, and only the publisher needs `contents: write`. In repository settings, allow Actions' `GITHUB_TOKEN` to write repository contents (`Settings > Actions > General > Workflow permissions`); organization policy must also permit this access.
 
 Publishing the branch does not configure a host or change where `https://openspec.hagicode.com` is served from. Any hosting source, domain, and routing setup remains separate.
 
