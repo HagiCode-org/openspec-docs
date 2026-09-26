@@ -1,0 +1,37 @@
+---
+import DefaultHead from "@astrojs/starlight/components/Head.astro";
+import { getAnalyticsIdentifiers } from "../lib/analytics-config.mjs";
+
+const analyticsIdentifiers = getAnalyticsIdentifiers(
+  import.meta.env.PROD,
+  import.meta.env.PUBLIC_OPENSPEC_GA_ID,
+  import.meta.env.PUBLIC_OPENSPEC_51LA_ID,
+);
+---
+
+<DefaultHead />
+{
+  analyticsIdentifiers && (
+    <script
+      type="application/json"
+      data-openspec-analytics
+      data-google-id={analyticsIdentifiers.googleId}
+      data-51la-id={analyticsIdentifiers.fiftyOneLaId}
+    />
+  )
+}
+<script>
+  import { initializeAnalytics } from "../lib/analytics-client.mjs";
+
+  const configuration = document.querySelector("[data-openspec-analytics]");
+  if (configuration) {
+    initializeAnalytics(
+      {
+        hostname: window.location.hostname,
+        googleId: configuration.getAttribute("data-google-id") ?? "",
+        fiftyOneLaId: configuration.getAttribute("data-51la-id") ?? "",
+      },
+      window,
+    );
+  }
+</script>

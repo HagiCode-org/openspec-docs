@@ -1,0 +1,13 @@
+:root {
+  --sl-content-width: 50rem;
+}
+
+:focus-visible {
+  outline-color: var(--sl-color-text-accent);
+}
+
+@media (max-width: 30rem) {
+  :root {
+    --sl-nav-gap: 0.5rem;
+  }
+}

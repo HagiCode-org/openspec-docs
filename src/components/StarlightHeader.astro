@@ -1,0 +1,84 @@
+---
+import Search from "@astrojs/starlight/components/Search.astro";
+import SiteTitle from "@astrojs/starlight/components/SiteTitle.astro";
+import SocialIcons from "@astrojs/starlight/components/SocialIcons.astro";
+import ThemeSelect from "@astrojs/starlight/components/ThemeSelect.astro";
+import { getCollection } from "astro:content";
+import { getLocaleHref } from "../lib/locale-navigation.mjs";
+import { SITE_COPY } from "../i18n/site-copy.mjs";
+
+const locale = Astro.locals?.starlightRoute?.locale === "en-US" ? "en-US" : "root";
+const targetLocale = locale === "root" ? "en-US" : "root";
+const copy = SITE_COPY[locale];
+const publishedIds = (await getCollection("docs")).map(({ id }) => id);
+const languageHref = getLocaleHref(Astro.url.pathname, targetLocale, publishedIds);
+---
+
+<div class="header">
+  <div class="title-wrapper sl-flex">
+    <SiteTitle />
+    <a class="language-link" href={languageHref} hreflang={SITE_COPY[targetLocale].lang} aria-label={copy.languageControlLabel}>
+      {copy.languageLabel}
+    </a>
+  </div>
+  <div class="sl-flex print:hidden">
+    <Search />
+  </div>
+  <div class="sl-hidden md:sl-flex print:hidden right-group">
+    <div class="sl-flex social-icons">
+      <SocialIcons />
+    </div>
+    <ThemeSelect />
+  </div>
+</div>
+
+<style>
+  @layer starlight.core {
+    .header {
+      display: flex;
+      gap: var(--sl-nav-gap);
+      justify-content: space-between;
+      align-items: center;
+      height: 100%;
+    }
+
+    .title-wrapper {
+      gap: 0.65rem;
+      align-items: center;
+      min-width: 0;
+      padding: 0.25rem;
+      margin: -0.25rem;
+    }
+
+    .language-link {
+      flex-shrink: 0;
+      padding: 0.35rem 0.55rem;
+      border-radius: var(--sl-radius-sm);
+      color: var(--sl-color-text);
+      font-size: var(--sl-text-sm);
+      text-decoration: none;
+    }
+
+    .language-link:hover {
+      background: var(--sl-color-gray-6);
+      color: var(--sl-color-white);
+    }
+
+    .language-link:focus-visible {
+      outline: 2px solid var(--sl-color-text-accent);
+      outline-offset: 2px;
+    }
+
+    .right-group,
+    .social-icons {
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .social-icons::after {
+      content: "";
+      height: 2rem;
+      border-inline-end: 1px solid var(--sl-color-gray-5);
+    }
+  }
+</style>
