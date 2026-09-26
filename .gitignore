@@ -4,3 +4,5 @@ dist/
 .env
 .env.*
 !.env.example
+/src/content/docs/en-US/
+/public/en-US/assets/

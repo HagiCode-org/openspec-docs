@@ -4,11 +4,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "import:english": "node scripts/import-upstream-docs.mjs",
+    "dev": "npm run import:english && astro dev",
+    "build": "npm run import:english && astro build",
     "preview": "astro preview",
-    "check": "astro check",
-    "test": "node --test"
+    "check": "npm run import:english && npm run check:translation-baselines && astro check",
+    "check:translation-baselines": "node scripts/check-translation-baselines.mjs",
+    "test": "node --test test/*.test.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.1",

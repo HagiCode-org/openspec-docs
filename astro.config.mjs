@@ -20,20 +20,6 @@ export default defineConfig({
           lang: "en-US",
         },
       },
-      sidebar: [
-        {
-          label: "Documentation",
-          translations: { "zh-CN": "文档", "en-US": "Documentation" },
-          items: [
-            { slug: "index" },
-            {
-              label: "Guides",
-              translations: { "zh-CN": "指南", "en-US": "Guides" },
-              items: [{ autogenerate: { directory: "guides" } }],
-            },
-          ],
-        },
-      ],
       components: {
         Head: "./src/components/StarlightHead.astro",
         Header: "./src/components/StarlightHeader.astro",

@@ -1,0 +1,3 @@
+[submodule "upstream/openspec"]
+	path = upstream/openspec
+	url = https://github.com/Fission-AI/openspec.git

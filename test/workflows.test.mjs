@@ -32,6 +32,7 @@ test("CI covers pull requests, main pushes, and weekly verification with read-on
   assert.match(workflow, /^  push:\n    branches: \[main\]/mu);
   assert.match(workflow, /^  schedule:\n    - cron: "0 6 \* \* 1"/mu);
   assert.match(workflow, /^permissions:\n  contents: read$/mu);
+  assert.match(workflow, /uses: actions\/checkout@v4\n\s+with:\n\s+submodules: recursive/u);
   assert.match(workflow, /node-version: 22/u);
   assert.match(workflow, /cache: npm\n\s+cache-dependency-path: package-lock\.json/u);
   assertVerificationOrder(workflow);
@@ -46,6 +47,7 @@ test("publication is main-only and gates the artifact on the full verification s
   assert.match(workflow, /^  workflow_dispatch:$/mu);
   assert.match(build, /if: \$\{\{ github\.ref == 'refs\/heads\/main' \}\}/u);
   assert.match(publish, /if: \$\{\{ github\.ref == 'refs\/heads\/main' \}\}/u);
+  assert.match(build, /uses: actions\/checkout@v4\n\s+with:\n\s+submodules: recursive/u);
   assertVerificationOrder(build);
   assert.ok(build.indexOf("run: npm test") < build.indexOf("actions/upload-artifact@v4"));
   assert.match(build, /cp \.github\/gh-pages\/esa\.jsonc/u);
