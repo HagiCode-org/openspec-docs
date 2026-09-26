@@ -1,0 +1,15 @@
+---
+import { SITE_COPY } from "../i18n/site-copy.mjs";
+
+const locale = Astro.locals?.starlightRoute?.locale === "en-US" ? "en-US" : "root";
+const copy = SITE_COPY[locale];
+---
+
+<section class="hagicode-end-card" aria-labelledby="hagicode-end-card-title" data-hagicode-end-card>
+  <div>
+    <p class="hagicode-end-card__eyebrow">HagiCode</p>
+    <h2 id="hagicode-end-card-title">{copy.hagicodeTitle}</h2>
+    <p>{copy.hagicodeDescription}</p>
+  </div>
+  <a href="https://www.hagicode.com">{copy.hagicodeVisitLabel}</a>
+</section>

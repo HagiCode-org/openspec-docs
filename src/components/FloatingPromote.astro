@@ -1,0 +1,37 @@
+---
+import { SITE_COPY } from "../i18n/site-copy.mjs";
+
+const locale = Astro.locals?.starlightRoute?.locale === "en-US" ? "en-US" : "root";
+const copy = SITE_COPY[locale];
+---
+
+<aside
+  class="hagicode-floating-promotion"
+  aria-label={copy.promoteAriaLabel}
+  data-hagicode-promotion
+  data-locale={locale}
+  data-promotion-signature="fallback:hagicode"
+>
+  <div class="hagicode-floating-promotion__content">
+    <div class="hagicode-floating-promotion__copy">
+      <strong data-promotion-title>{copy.promoteTitle}</strong>
+      <p data-promotion-description>{copy.promoteDescription}</p>
+    </div>
+    <a data-promotion-link href="https://www.hagicode.com">{copy.promoteVisitLabel}</a>
+    <button type="button" data-promotion-dismiss aria-label={copy.promoteCloseLabel}>
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+</aside>
+
+<script>
+  import { enhancePromotionCard } from "../lib/promotion-client.mjs";
+  import { loadFirstPromotion } from "../lib/promote-loader.mjs";
+
+  const card = document.querySelector<HTMLElement>("[data-hagicode-promotion]");
+  if (card) {
+    enhancePromotionCard(card, {
+      loadPromotion: () => loadFirstPromotion({ locale: card.dataset.locale }),
+    });
+  }
+</script>
