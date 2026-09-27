@@ -1,0 +1,525 @@
+<!DOCTYPE html><html lang="es-ES" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-g5ptsecz"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Supported Tools | OpenSpec Docs</title><link rel="canonical" href="https://openspec.hagicode.com/en-US/supported-tools/"/><link rel="sitemap" href="/sitemap-index.xml"/><link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml"/><meta name="generator" content="Astro v7.3.5"/><meta name="generator" content="Starlight v0.42.4"/><meta property="og:title" content="Supported Tools"/><meta property="og:type" content="article"/><meta property="og:url" content="https://openspec.hagicode.com/es-ES/supported-tools/"/><meta property="og:locale" content="es-ES"/><meta property="og:description" content="OpenSpec documentation"/><meta property="og:site_name" content="OpenSpec Docs"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="OpenSpec documentation"/><meta property="og:locale" content="en_US"><script type="module">function e(e,t,n){let r=e.createElement(`script`);return r.id=t,r.async=!0,r.src=n,e.head.appendChild(r),r}function t({hostname:t,googleId:n=``,fiftyOneLaId:r=``},i){if(t===`openspec.hagicode.com`&&i&&(i.__openspecAnalyticsLoaded??=new Set,n&&!i.__openspecAnalyticsLoaded.has(`google`)&&(i.__openspecAnalyticsLoaded.add(`google`),i.dataLayer??=[],i.gtag??=(...e)=>i.dataLayer.push(e),i.gtag(`js`,new Date),i.gtag(`config`,n),e(i.document,`openspec-google-analytics`,`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(n)}`)),r&&!i.__openspecAnalyticsLoaded.has(`51la`))){i.__openspecAnalyticsLoaded.add(`51la`);let t=e(i.document,`openspec-51la-analytics`,`https://sdk.51.la/js-sdk-pro.min.js`);t.onload=()=>{i.LA?.init({id:r,ck:r,autoTrack:!0,hashMode:!0,screenRecord:!1})}}}var n=document.querySelector(`[data-openspec-analytics]`);n&&t({hostname:window.location.hostname,googleId:n.getAttribute(`data-google-id`)??``,fiftyOneLaId:n.getAttribute(`data-51la-id`)??``},window);</script><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg><svg aria-hidden="true" class="dark astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg><svg aria-hidden="true" class="auto astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg></template><link rel="stylesheet" href="/_astro/print.ehPL0gv-.css" media="print"><link rel="stylesheet" href="/_astro/common.BWBeT9nr.css"><script type="module" src="/_astro/page.Dwipeu-R.js"></script></head><body class="astro-g5ptsecz"><a class="sl-skip-link astro-qb7clj6f" href="#_top">Ir al contenido</a><div class="page sl-flex astro-yntsjkba"><header class="header astro-yntsjkba"><div class="header astro-pajnjz4f"><div class="title-wrapper sl-flex astro-pajnjz4f"><a href="/es-ES" class="site-title sl-flex astro-6rvad3va"><span class="astro-6rvad3va" translate="no">OpenSpec Docs</span></a><div class="language-control astro-lrvowteo" data-language-chooser><button class="language-trigger astro-lrvowteo" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="language-dialog-c44fc8e3-cc1a-4bb5-89f4-236e3b2fa1d5" aria-label="Seleccionar idioma" title="Español"><span class="astro-lrvowteo">Español</span><span class="language-trigger__icon astro-lrvowteo" aria-hidden="true">⌄</span></button><dialog class="language-dialog astro-lrvowteo" id="language-dialog-c44fc8e3-cc1a-4bb5-89f4-236e3b2fa1d5" aria-labelledby="language-dialog-c44fc8e3-cc1a-4bb5-89f4-236e3b2fa1d5-title"><div class="language-dialog__header astro-lrvowteo"><div class="astro-lrvowteo"><h2 id="language-dialog-c44fc8e3-cc1a-4bb5-89f4-236e3b2fa1d5-title" class="astro-lrvowteo">Seleccionar idioma</h2><p class="astro-lrvowteo">Idioma actual: <strong class="astro-lrvowteo">Español</strong></p></div><form method="dialog" class="astro-lrvowteo"><button class="language-dialog__close astro-lrvowteo" type="submit" aria-label="Cerrar selector de idioma">×</button></form></div><ul class="language-options astro-lrvowteo" aria-label="Seleccionar idioma"><li class="astro-lrvowteo"><a href="/zh-CN/supported-tools/" hreflang="zh-CN" lang="zh-CN" data-language-option data-locale="zh-CN" class="astro-lrvowteo"><span class="astro-lrvowteo">简体中文</span></a></li><li class="astro-lrvowteo"><a href="/en-US/supported-tools/" hreflang="en-US" lang="en-US" data-language-option data-locale="en-US" class="astro-lrvowteo"><span class="astro-lrvowteo">English</span></a></li><li class="astro-lrvowteo"><a href="/zh-Hant/supported-tools/" hreflang="zh-Hant" lang="zh-Hant" data-language-option data-locale="zh-Hant" class="astro-lrvowteo"><span class="astro-lrvowteo">繁體中文</span></a></li><li class="astro-lrvowteo"><a href="/ja-JP/supported-tools/" hreflang="ja-JP" lang="ja-JP" data-language-option data-locale="ja-JP" class="astro-lrvowteo"><span class="astro-lrvowteo">日本語</span></a></li><li class="astro-lrvowteo"><a href="/ko-KR/supported-tools/" hreflang="ko-KR" lang="ko-KR" data-language-option data-locale="ko-KR" class="astro-lrvowteo"><span class="astro-lrvowteo">한국어</span></a></li><li class="astro-lrvowteo"><a href="/de-DE/supported-tools/" hreflang="de-DE" lang="de-DE" data-language-option data-locale="de-DE" class="astro-lrvowteo"><span class="astro-lrvowteo">Deutsch</span></a></li><li class="astro-lrvowteo"><a href="/fr-FR/supported-tools/" hreflang="fr-FR" lang="fr-FR" data-language-option data-locale="fr-FR" class="astro-lrvowteo"><span class="astro-lrvowteo">Français</span></a></li><li class="astro-lrvowteo"><a href="/es-ES/supported-tools/" hreflang="es-ES" lang="es-ES" aria-current="page" data-language-option data-locale="es-ES" class="astro-lrvowteo"><span class="astro-lrvowteo">Español</span><span class="language-option__selected astro-lrvowteo">Seleccionado</span></a></li><li class="astro-lrvowteo"><a href="/pt-BR/supported-tools/" hreflang="pt-BR" lang="pt-BR" data-language-option data-locale="pt-BR" class="astro-lrvowteo"><span class="astro-lrvowteo">Português (Brasil)</span></a></li><li class="astro-lrvowteo"><a href="/ru-RU/supported-tools/" hreflang="ru-RU" lang="ru-RU" data-language-option data-locale="ru-RU" class="astro-lrvowteo"><span class="astro-lrvowteo">Русский</span></a></li></ul></dialog><noscript><nav class="language-fallback astro-lrvowteo" aria-label="Seleccionar idioma"><span class="astro-lrvowteo">Idioma actual: Español</span><ul class="language-options astro-lrvowteo"><li class="astro-lrvowteo"><a href="/zh-CN/supported-tools/" hreflang="zh-CN" lang="zh-CN" class="astro-lrvowteo">简体中文</a></li><li class="astro-lrvowteo"><a href="/en-US/supported-tools/" hreflang="en-US" lang="en-US" class="astro-lrvowteo">English</a></li><li class="astro-lrvowteo"><a href="/zh-Hant/supported-tools/" hreflang="zh-Hant" lang="zh-Hant" class="astro-lrvowteo">繁體中文</a></li><li class="astro-lrvowteo"><a href="/ja-JP/supported-tools/" hreflang="ja-JP" lang="ja-JP" class="astro-lrvowteo">日本語</a></li><li class="astro-lrvowteo"><a href="/ko-KR/supported-tools/" hreflang="ko-KR" lang="ko-KR" class="astro-lrvowteo">한국어</a></li><li class="astro-lrvowteo"><a href="/de-DE/supported-tools/" hreflang="de-DE" lang="de-DE" class="astro-lrvowteo">Deutsch</a></li><li class="astro-lrvowteo"><a href="/fr-FR/supported-tools/" hreflang="fr-FR" lang="fr-FR" class="astro-lrvowteo">Français</a></li><li class="astro-lrvowteo"><a href="/es-ES/supported-tools/" hreflang="es-ES" lang="es-ES" class="astro-lrvowteo">Español<span class="language-option__selected astro-lrvowteo">Seleccionado</span></a></li><li class="astro-lrvowteo"><a href="/pt-BR/supported-tools/" hreflang="pt-BR" lang="pt-BR" class="astro-lrvowteo">Português (Brasil)</a></li><li class="astro-lrvowteo"><a href="/ru-RU/supported-tools/" hreflang="ru-RU" lang="ru-RU" class="astro-lrvowteo">Русский</a></li></ul></nav></noscript></div><script type="module" src="/_astro/StarlightLanguageSelect.astro_astro_type_script_index_0_lang.CKSYRNqy.js"></script></div><div class="sl-flex print:hidden astro-pajnjz4f"><site-search class="astro-pajnjz4f astro-b5kgnn7o" data-translations="{&quot;placeholder&quot;:&quot;Buscar&quot;,&quot;clear_search&quot;:&quot;Limpiar&quot;,&quot;load_more&quot;:&quot;Cargar más resultados&quot;,&quot;search_label&quot;:&quot;Buscar página&quot;,&quot;filters_label&quot;:&quot;Filtros&quot;,&quot;zero_results&quot;:&quot;Ningún resultado para: [SEARCH_TERM]&quot;,&quot;many_results&quot;:&quot;[COUNT] resultados para: [SEARCH_TERM]&quot;,&quot;one_result&quot;:&quot;[COUNT] resultado para: [SEARCH_TERM]&quot;,&quot;alt_search&quot;:&quot;Ningún resultado para [SEARCH_TERM]. Mostrando resultados para: [DIFFERENT_TERM]&quot;,&quot;search_suggestion&quot;:&quot;Ningún resultado para [SEARCH_TERM]. Prueba alguna de estas búsquedas:&quot;,&quot;searching&quot;:&quot;Buscando [SEARCH_TERM]...&quot;}"><button data-open-modal disabled aria-label="Buscar" aria-keyshortcuts="Control+K" class="astro-b5kgnn7o"><svg aria-hidden="true" class="astro-b5kgnn7o astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg><span class="sl-hidden md:sl-block astro-b5kgnn7o" aria-hidden="true">Buscar</span><kbd class="sl-hidden md:sl-flex astro-b5kgnn7o" style="display: none;"><kbd class="astro-b5kgnn7o">Ctrl</kbd><kbd class="astro-b5kgnn7o">K</kbd></kbd></button><dialog style="padding:0" aria-label="Buscar" class="astro-b5kgnn7o"><div class="dialog-frame sl-flex astro-b5kgnn7o"><button data-close-modal class="sl-flex md:sl-hidden astro-b5kgnn7o">Cancelar</button><div class="search-container astro-b5kgnn7o"><div id="starlight__search" class="astro-b5kgnn7o"></div></div></div></dialog></site-search><script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script><script type="module" src="/_astro/Search.astro_astro_type_script_index_0_lang.DZqJ8Bdf.js"></script></div><div class="sl-hidden md:sl-flex print:hidden right-group astro-pajnjz4f"><div class="sl-flex social-icons astro-pajnjz4f"><a href="https://github.com/HagiCode-org/openspec-docs" rel="me" class="sl-flex astro-n2mnl6yq"><span class="sr-only astro-n2mnl6yq">GitHub</span><svg aria-hidden="true" class="astro-n2mnl6yq astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-2z5xp7gb"><span class="sr-only astro-2z5xp7gb">Seleccionar tema</span><svg aria-hidden="true" class="icon label-icon astro-2z5xp7gb astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-2z5xp7gb"><option value="dark" class="astro-2z5xp7gb">Oscuro</option><option value="light" class="astro-2z5xp7gb">Claro</option><option value="auto" selected class="astro-2z5xp7gb">Automático</option></select><svg aria-hidden="true" class="icon caret astro-2z5xp7gb astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script><script type="module">var e=`starlight-theme`,t=e=>e===`auto`||e===`dark`||e===`light`?e:`auto`,n=()=>t(typeof localStorage<`u`&&localStorage.getItem(e));function r(t){typeof localStorage<`u`&&localStorage.setItem(e,t===`light`||t===`dark`?t:``)}var i=()=>matchMedia(`(prefers-color-scheme: light)`).matches?`light`:`dark`;function a(e){StarlightThemeProvider.updatePickers(e),document.documentElement.dataset.theme=e===`auto`?i():e,r(e)}matchMedia(`(prefers-color-scheme: light)`).addEventListener(`change`,()=>{n()===`auto`&&a(`auto`)});var o=class extends HTMLElement{constructor(){super(),a(n()),this.querySelector(`select`)?.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&a(t(e.currentTarget.value))})}};customElements.define(`starlight-theme-select`,o);</script></div></div></header><nav class="sidebar print:hidden astro-yntsjkba" aria-label="Navegación principal"><button popovertarget="starlight__sidebar" class="sl-menu-button sl-flex md:sl-hidden print:hidden astro-r2osgdlg"><svg aria-hidden="true" class="open-menu astro-r2osgdlg astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg><svg aria-hidden="true" class="close-menu astro-r2osgdlg astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg><span class="sr-only astro-r2osgdlg">Menú</span></button><script type="module">var e=class extends HTMLElement{constructor(){super();let e=matchMedia(`(min-width: 50em)`),t=()=>{this.popover=e.matches?null:`auto`};t(),e.addEventListener(`change`,()=>t()),this.addEventListener(`toggle`,({newState:e})=>this.trapFocus(e===`open`))}trapFocus(e){document.querySelectorAll(`.main-frame, .sl-skip-link`).forEach(t=>{t.toggleAttribute(`inert`,e)})}};customElements.define(`sl-sidebar-pane`,e);</script><sl-sidebar-pane popover id="starlight__sidebar" class="sidebar-pane astro-yntsjkba"><div class="sidebar-content sl-flex astro-yntsjkba"><sl-sidebar-state-persist data-hash="11pppem" class="astro-ipdry5cl"><script aria-hidden="true">
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script><ul class="top-level astro-rmhv4bp6"><li class="astro-rmhv4bp6"><a href="/es-ES/agent-contract/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">OpenSpec Agent Contract</span></a></li><li class="astro-rmhv4bp6"><a href="/es-ES/cli/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">CLI Reference</span></a></li><li class="astro-rmhv4bp6"><a href="/es-ES/commands/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">Commands</span></a></li><li class="astro-rmhv4bp6"><a href="/es-ES/community/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">Community Showcase</span></a></li><li class="astro-rmhv4bp6"><a href="/es-ES/concepts/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">Concepts</span></a></li><li class="astro-rmhv4bp6"><a href="/es-ES/customization/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">Customization</span></a></li><li class="astro-rmhv4bp6"><a href="/es-ES/editing-changes/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">Editing &amp; Iterating on a Change</span></a></li><li class="astro-rmhv4bp6"><a href="/es-ES/examples/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">Examples &amp; Recipes</span></a></li><li class="astro-rmhv4bp6"><a href="/es-ES/existing-projects/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">Using OpenSpec in an Existing Project</span></a></li><li class="astro-rmhv4bp6"><a href="/es-ES/explore/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">Explore First</span></a></li><li class="astro-rmhv4bp6"><a href="/es-ES/faq/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">FAQ</span></a></li><li class="astro-rmhv4bp6"><a href="/es-ES/getting-started/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">Getting Started</span></a></li><li class="astro-rmhv4bp6"><a href="/es-ES/glossary/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">Glossary</span></a></li><li class="astro-rmhv4bp6"><a href="/es-ES/how-commands-work/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">How Commands Work</span></a></li><li class="astro-rmhv4bp6"><a href="/es-ES/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">Documentación de OpenSpec</span></a></li><li class="astro-rmhv4bp6"><a href="/es-ES/installation/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">Installation</span></a></li><li class="astro-rmhv4bp6"><a href="/es-ES/migration-guide/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">Migrating to OPSX</span></a></li><li class="astro-rmhv4bp6"><a href="/es-ES/multi-language/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">Multi-Language Guide</span></a></li><li class="astro-rmhv4bp6"><a href="/es-ES/opsx/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">OPSX Workflow</span></a></li><li class="astro-rmhv4bp6"><a href="/es-ES/overview/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">Core Concepts at a Glance</span></a></li><li class="astro-rmhv4bp6"><a href="/es-ES/reviewing-changes/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">Reviewing a Change</span></a></li><li class="astro-rmhv4bp6"><details open class="astro-rmhv4bp6"><summary class="astro-rmhv4bp6"><span class="group-label astro-rmhv4bp6"><span class="large astro-rmhv4bp6">stores-beta</span></span><svg aria-hidden="true" class="caret astro-rmhv4bp6 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="0"></sl-sidebar-restore><ul class="astro-rmhv4bp6"><li class="astro-rmhv4bp6"><a href="/es-ES/stores-beta/user-guide/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Stores: Plan in Its Own Repo</span></a></li></ul></details></li><li class="astro-rmhv4bp6"><a href="/es-ES/supported-tools/" aria-current="page" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">Supported Tools</span></a></li><li class="astro-rmhv4bp6"><a href="/es-ES/team-workflow/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">OpenSpec on a Team</span></a></li><li class="astro-rmhv4bp6"><a href="/es-ES/troubleshooting/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">Troubleshooting</span></a></li><li class="astro-rmhv4bp6"><a href="/es-ES/workflows/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">Workflows</span></a></li><li class="astro-rmhv4bp6"><a href="/es-ES/writing-specs/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">Writing Good Specs</span></a></li></ul><script aria-hidden="true">
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script></sl-sidebar-state-persist><div class="md:sl-hidden"><div class="mobile-preferences sl-flex astro-p4azlveh"><div class="social-icons astro-p4azlveh"><a href="https://github.com/HagiCode-org/openspec-docs" rel="me" class="sl-flex astro-n2mnl6yq"><span class="sr-only astro-n2mnl6yq">GitHub</span><svg aria-hidden="true" class="astro-n2mnl6yq astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-2z5xp7gb"><span class="sr-only astro-2z5xp7gb">Seleccionar tema</span><svg aria-hidden="true" class="icon label-icon astro-2z5xp7gb astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-2z5xp7gb"><option value="dark" class="astro-2z5xp7gb">Oscuro</option><option value="light" class="astro-2z5xp7gb">Claro</option><option value="auto" selected class="astro-2z5xp7gb">Automático</option></select><svg aria-hidden="true" class="icon caret astro-2z5xp7gb astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script><div class="language-control astro-lrvowteo" data-language-chooser><button class="language-trigger astro-lrvowteo" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="language-dialog-22385a45-f095-4b1f-9d5f-14f6eb7cb959" aria-label="Seleccionar idioma" title="Español"><span class="astro-lrvowteo">Español</span><span class="language-trigger__icon astro-lrvowteo" aria-hidden="true">⌄</span></button><dialog class="language-dialog astro-lrvowteo" id="language-dialog-22385a45-f095-4b1f-9d5f-14f6eb7cb959" aria-labelledby="language-dialog-22385a45-f095-4b1f-9d5f-14f6eb7cb959-title"><div class="language-dialog__header astro-lrvowteo"><div class="astro-lrvowteo"><h2 id="language-dialog-22385a45-f095-4b1f-9d5f-14f6eb7cb959-title" class="astro-lrvowteo">Seleccionar idioma</h2><p class="astro-lrvowteo">Idioma actual: <strong class="astro-lrvowteo">Español</strong></p></div><form method="dialog" class="astro-lrvowteo"><button class="language-dialog__close astro-lrvowteo" type="submit" aria-label="Cerrar selector de idioma">×</button></form></div><ul class="language-options astro-lrvowteo" aria-label="Seleccionar idioma"><li class="astro-lrvowteo"><a href="/zh-CN/supported-tools/" hreflang="zh-CN" lang="zh-CN" data-language-option data-locale="zh-CN" class="astro-lrvowteo"><span class="astro-lrvowteo">简体中文</span></a></li><li class="astro-lrvowteo"><a href="/en-US/supported-tools/" hreflang="en-US" lang="en-US" data-language-option data-locale="en-US" class="astro-lrvowteo"><span class="astro-lrvowteo">English</span></a></li><li class="astro-lrvowteo"><a href="/zh-Hant/supported-tools/" hreflang="zh-Hant" lang="zh-Hant" data-language-option data-locale="zh-Hant" class="astro-lrvowteo"><span class="astro-lrvowteo">繁體中文</span></a></li><li class="astro-lrvowteo"><a href="/ja-JP/supported-tools/" hreflang="ja-JP" lang="ja-JP" data-language-option data-locale="ja-JP" class="astro-lrvowteo"><span class="astro-lrvowteo">日本語</span></a></li><li class="astro-lrvowteo"><a href="/ko-KR/supported-tools/" hreflang="ko-KR" lang="ko-KR" data-language-option data-locale="ko-KR" class="astro-lrvowteo"><span class="astro-lrvowteo">한국어</span></a></li><li class="astro-lrvowteo"><a href="/de-DE/supported-tools/" hreflang="de-DE" lang="de-DE" data-language-option data-locale="de-DE" class="astro-lrvowteo"><span class="astro-lrvowteo">Deutsch</span></a></li><li class="astro-lrvowteo"><a href="/fr-FR/supported-tools/" hreflang="fr-FR" lang="fr-FR" data-language-option data-locale="fr-FR" class="astro-lrvowteo"><span class="astro-lrvowteo">Français</span></a></li><li class="astro-lrvowteo"><a href="/es-ES/supported-tools/" hreflang="es-ES" lang="es-ES" aria-current="page" data-language-option data-locale="es-ES" class="astro-lrvowteo"><span class="astro-lrvowteo">Español</span><span class="language-option__selected astro-lrvowteo">Seleccionado</span></a></li><li class="astro-lrvowteo"><a href="/pt-BR/supported-tools/" hreflang="pt-BR" lang="pt-BR" data-language-option data-locale="pt-BR" class="astro-lrvowteo"><span class="astro-lrvowteo">Português (Brasil)</span></a></li><li class="astro-lrvowteo"><a href="/ru-RU/supported-tools/" hreflang="ru-RU" lang="ru-RU" data-language-option data-locale="ru-RU" class="astro-lrvowteo"><span class="astro-lrvowteo">Русский</span></a></li></ul></dialog><noscript><nav class="language-fallback astro-lrvowteo" aria-label="Seleccionar idioma"><span class="astro-lrvowteo">Idioma actual: Español</span><ul class="language-options astro-lrvowteo"><li class="astro-lrvowteo"><a href="/zh-CN/supported-tools/" hreflang="zh-CN" lang="zh-CN" class="astro-lrvowteo">简体中文</a></li><li class="astro-lrvowteo"><a href="/en-US/supported-tools/" hreflang="en-US" lang="en-US" class="astro-lrvowteo">English</a></li><li class="astro-lrvowteo"><a href="/zh-Hant/supported-tools/" hreflang="zh-Hant" lang="zh-Hant" class="astro-lrvowteo">繁體中文</a></li><li class="astro-lrvowteo"><a href="/ja-JP/supported-tools/" hreflang="ja-JP" lang="ja-JP" class="astro-lrvowteo">日本語</a></li><li class="astro-lrvowteo"><a href="/ko-KR/supported-tools/" hreflang="ko-KR" lang="ko-KR" class="astro-lrvowteo">한국어</a></li><li class="astro-lrvowteo"><a href="/de-DE/supported-tools/" hreflang="de-DE" lang="de-DE" class="astro-lrvowteo">Deutsch</a></li><li class="astro-lrvowteo"><a href="/fr-FR/supported-tools/" hreflang="fr-FR" lang="fr-FR" class="astro-lrvowteo">Français</a></li><li class="astro-lrvowteo"><a href="/es-ES/supported-tools/" hreflang="es-ES" lang="es-ES" class="astro-lrvowteo">Español<span class="language-option__selected astro-lrvowteo">Seleccionado</span></a></li><li class="astro-lrvowteo"><a href="/pt-BR/supported-tools/" hreflang="pt-BR" lang="pt-BR" class="astro-lrvowteo">Português (Brasil)</a></li><li class="astro-lrvowteo"><a href="/ru-RU/supported-tools/" hreflang="ru-RU" lang="ru-RU" class="astro-lrvowteo">Русский</a></li></ul></nav></noscript></div></div></div></div></sl-sidebar-pane></nav><div class="main-frame astro-yntsjkba"><script type="module">var e=document.getElementById(`starlight__sidebar`),t=e?.querySelector(`sl-sidebar-state-persist`),n=`sl-sidebar-state`,r=()=>{let r=[],i=t?.dataset.hash||``;try{let e=sessionStorage.getItem(n),t=JSON.parse(e||`{}`);Array.isArray(t.open)&&t.hash===i&&(r=t.open)}catch{}return{hash:i,open:r,scroll:e?.scrollTop||0}},i=e=>{try{sessionStorage.setItem(n,JSON.stringify(e))}catch{}},a=()=>i(r()),o=(e,t)=>{let n=r();n.open[t]=e,i(n)};t?.addEventListener(`click`,e=>{if(!(e.target instanceof Element))return;let t=e.target.closest(`summary`)?.closest(`details`);if(!t)return;let n=t.querySelector(`sl-sidebar-restore`),r=parseInt(n?.dataset.index||``);isNaN(r)||o(!t.open,r)}),addEventListener(`visibilitychange`,()=>{document.visibilityState===`hidden`&&a()});</script><div class="lg:sl-flex astro-lrzkfocr"><aside class="right-sidebar-container print:hidden astro-lrzkfocr"><div class="right-sidebar astro-lrzkfocr"><div class="lg:sl-hidden astro-qok35upx"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-66cqc7ze"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-66cqc7ze"><details id="starlight__mobile-toc" class="astro-66cqc7ze"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-66cqc7ze"><span class="toggle sl-flex astro-66cqc7ze">En esta página<svg aria-hidden="true" class="caret astro-66cqc7ze astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-66cqc7ze"></span></summary><div class="dropdown astro-66cqc7ze"><ul class="isMobile astro-jugkfwgx" style="--depth: 0;"><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#_top" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">Resumen</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#how-it-works" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">How It Works</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#how-to-invoke" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">How To Invoke</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#tool-directory-reference" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">Tool Directory Reference</span></a><ul class="isMobile astro-jugkfwgx" style="--depth: 1;"><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#github-copilot-cloud-coding-agent" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">GitHub Copilot cloud coding agent</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#when-to-pick-the-shared-agents-target" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">When to pick the shared .agents target</span></a></li></ul></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#non-interactive-setup" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">Non-Interactive Setup</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#workflow-dependent-installation" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">Workflow-Dependent Installation</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#generated-skill-names" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">Generated Skill Names</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#related" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">Related</span></a></li></ul></div></details></nav></mobile-starlight-toc><script type="module" src="/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.C3fM4Kra.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-qok35upx"><div class="sl-container astro-qok35upx"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">En esta página</h2><ul class="astro-jugkfwgx" style="--depth: 0;"><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#_top" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">Resumen</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#how-it-works" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">How It Works</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#how-to-invoke" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">How To Invoke</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#tool-directory-reference" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">Tool Directory Reference</span></a><ul class="astro-jugkfwgx" style="--depth: 1;"><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#github-copilot-cloud-coding-agent" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">GitHub Copilot cloud coding agent</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#when-to-pick-the-shared-agents-target" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">When to pick the shared .agents target</span></a></li></ul></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#non-interactive-setup" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">Non-Interactive Setup</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#workflow-dependent-installation" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">Workflow-Dependent Installation</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#generated-skill-names" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">Generated Skill Names</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#related" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">Related</span></a></li></ul></nav></starlight-toc><script type="module" src="/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BpJaGz7G.js"></script></div></div></div></aside><div class="main-pane astro-lrzkfocr"><main data-pagefind-body class="astro-g5ptsecz" lang="es-ES" dir="ltr"><div class="content-panel astro-a7po4psb"><div class="sl-container astro-a7po4psb"><div lang="en-US"><h1 id="_top" class="astro-bebwqqxs">Supported Tools</h1></div></div></div><div class="content-panel astro-a7po4psb"><div class="sl-container astro-a7po4psb"><div class="sl-markdown-content"><aside class="english-fallback-notice astro-lxhitrmu"><p class="astro-lxhitrmu">Este tema aún no está traducido al español; se muestra el original en inglés.<a href="/en-US/supported-tools/" class="astro-lxhitrmu">Leer el original en inglés</a></p></aside><div lang="en-US" class="astro-lxhitrmu"><p>OpenSpec works with many AI coding assistants. When you run <code dir="auto">openspec init</code>, OpenSpec configures selected tools using your active profile/workflow selection and delivery mode.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="how-it-works">How It Works</h2><a class="sl-anchor-link" href="#how-it-works"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Sección titulada «How It Works»</span></a></div>
+<p>For each selected tool, OpenSpec can install:</p>
+<ol>
+<li><strong>Skills</strong> (if delivery includes skills): <code dir="auto">.../skills/openspec-*/SKILL.md</code></li>
+<li><strong>Commands</strong> (if delivery includes commands): tool-specific <code dir="auto">opsx-*</code> command files</li>
+</ol>
+<p>Codex is skills-only: OpenSpec installs <code dir="auto">.agents/skills/openspec-*/SKILL.md</code> for Codex even when delivery is set to <code dir="auto">commands</code>, and it does not generate Codex custom prompt files. Existing OpenSpec-managed skills under the legacy <code dir="auto">.codex/skills</code> path are reconciled after their replacements are written; custom and divergent files are preserved.</p>
+<p>By default, OpenSpec uses the <code dir="auto">core</code> profile, which includes:</p>
+<ul>
+<li><code dir="auto">propose</code></li>
+<li><code dir="auto">explore</code></li>
+<li><code dir="auto">apply</code></li>
+<li><code dir="auto">update</code></li>
+<li><code dir="auto">sync</code></li>
+<li><code dir="auto">archive</code></li>
+</ul>
+<p>You can enable expanded workflows (<code dir="auto">new</code>, <code dir="auto">continue</code>, <code dir="auto">ff</code>, <code dir="auto">verify</code>, <code dir="auto">bulk-archive</code>, <code dir="auto">onboard</code>) via <code dir="auto">openspec config profile</code>, then run <code dir="auto">openspec update</code>.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="how-to-invoke">How To Invoke</h2><a class="sl-anchor-link" href="#how-to-invoke"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Sección titulada «How To Invoke»</span></a></div>
+<p>These docs use <code dir="auto">/opsx:propose</code> as the canonical name, but each tool spells it the
+way it loads the file OpenSpec wrote. Find your tool’s command path in the
+<a href="#tool-directory-reference">Tool Directory Reference</a> below, then match its shape here.</p>
+<table>
+<thead>
+<tr>
+<th>Command file OpenSpec writes</th>
+<th>You type</th>
+<th>Tools</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">.../commands/opsx/&lt;id&gt;.*</code> — an <code dir="auto">opsx/</code> folder namespaces it</td>
+<td><code dir="auto">/opsx:&lt;id&gt;</code></td>
+<td>Claude Code, CodeBuddy, Crush, Gemini CLI, Lingma, Qoder, ZCode</td>
+</tr>
+<tr>
+<td><code dir="auto">.../opsx-&lt;id&gt;.*</code> — the filename is the command</td>
+<td><code dir="auto">/opsx-&lt;id&gt;</code></td>
+<td>Every other tool with generated command files, except Amazon Q and Devin</td>
+</tr>
+<tr>
+<td><code dir="auto">.devin/workflows/opsx-&lt;id&gt;.md</code> — read by only one of Devin’s two agents</td>
+<td><code dir="auto">/opsx-&lt;id&gt;</code> on Devin Desktop, <code dir="auto">/openspec-&lt;skill&gt;</code> on Devin Local</td>
+<td>Devin Desktop****</td>
+</tr>
+<tr>
+<td><code dir="auto">.amazonq/prompts/opsx-&lt;id&gt;.md</code> — a prompt, not a command</td>
+<td><code dir="auto">@opsx-&lt;id&gt;</code></td>
+<td>Amazon Q Developer</td>
+</tr>
+<tr>
+<td>none — skills only</td>
+<td><code dir="auto">/openspec-&lt;skill&gt;</code></td>
+<td>CodeArts, ForgeCode, Hermes, MiniMax Code, Mistral Vibe, Zed Agent, shared <code dir="auto">.agents</code></td>
+</tr>
+<tr>
+<td>none — Kimi Code</td>
+<td><code dir="auto">/skill:openspec-&lt;skill&gt;</code></td>
+<td>Kimi Code</td>
+</tr>
+<tr>
+<td>none — Codex CLI</td>
+<td><code dir="auto">$openspec-&lt;skill&gt;</code></td>
+<td>Codex (<a href="https://github.com/openai/codex/issues/11817"><code dir="auto">/openspec-&lt;skill&gt;</code> is not recognized</a>)</td>
+</tr>
+</tbody>
+</table>
+<p>So <code dir="auto">/opsx:propose</code> is <code dir="auto">/opsx-propose</code> in Cursor, <code dir="auto">@opsx-propose</code> in Amazon Q, and
+<code dir="auto">$openspec-propose</code> in Codex.</p>
+<p>Two things vary independently, which is why the rows do not collapse:</p>
+<ul>
+<li><strong>The name.</strong> Rows 1–2 differ only in how the file names the command, and the
+<code dir="auto">opsx-&lt;id&gt;</code> / <code dir="auto">opsx:&lt;id&gt;</code> stem is the same for every tool with generated
+command files.</li>
+<li><strong>The wrapper.</strong> Amazon Q loads its files into a prompt library invoked with
+<code dir="auto">@</code>. Skills-only tools generate no command files at all, so their last three
+rows use <em>skill</em> names — listed under
+<a href="#generated-skill-names">Generated Skill Names</a> — which do not map one-to-one
+onto command ids (<code dir="auto">/opsx:apply</code> is the <code dir="auto">openspec-apply-change</code> skill).</li>
+</ul>
+<p>The command path patterns above are extension-neutral (<code dir="auto">.*</code>) on purpose: the
+extension is the tool’s (<code dir="auto">.toml</code> for Gemini CLI, <code dir="auto">.prompt</code> for Continue,
+<code dir="auto">.prompt.md</code> for Kiro and GitHub Copilot), and a few tools show the name with
+its extension in the picker. Match the directory shape, not the extension.</p>
+<p>The files OpenSpec generates, and the “Getting started” hint printed after setup,
+already use the right form for the tools you selected — so the fastest answer is
+to read the hint.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="tool-directory-reference">Tool Directory Reference</h2><a class="sl-anchor-link" href="#tool-directory-reference"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Sección titulada «Tool Directory Reference»</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Tool (ID)</th>
+<th>Skills path pattern</th>
+<th>Command path pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Amazon Q Developer (<code dir="auto">amazon-q</code>)</td>
+<td><code dir="auto">.amazonq/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.amazonq/prompts/opsx-&lt;id&gt;.md</code></td>
+</tr>
+<tr>
+<td>Antigravity (<code dir="auto">antigravity</code>)</td>
+<td><code dir="auto">.agent/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.agent/workflows/opsx-&lt;id&gt;.md</code></td>
+</tr>
+<tr>
+<td>Auggie (<code dir="auto">auggie</code>)</td>
+<td><code dir="auto">.augment/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.augment/commands/opsx-&lt;id&gt;.md</code></td>
+</tr>
+<tr>
+<td>IBM Bob Shell (<code dir="auto">bob</code>)</td>
+<td><code dir="auto">.bob/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.bob/commands/opsx-&lt;id&gt;.md</code></td>
+</tr>
+<tr>
+<td>Claude Code (<code dir="auto">claude</code>)</td>
+<td><code dir="auto">.claude/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.claude/commands/opsx/&lt;id&gt;.md</code></td>
+</tr>
+<tr>
+<td>Cline (<code dir="auto">cline</code>)</td>
+<td><code dir="auto">.cline/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.clinerules/workflows/opsx-&lt;id&gt;.md</code></td>
+</tr>
+<tr>
+<td>Command Code (<code dir="auto">command-code</code>)</td>
+<td><code dir="auto">.commandcode/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.commandcode/commands/opsx-&lt;id&gt;.md</code></td>
+</tr>
+<tr>
+<td>CodeArts (<code dir="auto">codeartsagent</code>)</td>
+<td><code dir="auto">.codeartsdoer/skills/openspec-*/SKILL.md</code></td>
+<td>Not generated (no command adapter; use skill-based <code dir="auto">/openspec-*</code> invocations)</td>
+</tr>
+<tr>
+<td>CodeBuddy (<code dir="auto">codebuddy</code>)</td>
+<td><code dir="auto">.codebuddy/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.codebuddy/commands/opsx/&lt;id&gt;.md</code></td>
+</tr>
+<tr>
+<td>Codex (<code dir="auto">codex</code>)</td>
+<td><code dir="auto">.agents/skills/openspec-*/SKILL.md</code></td>
+<td>Not generated (skills-only; use <code dir="auto">$openspec-*</code>)</td>
+</tr>
+<tr>
+<td>Devin Desktop, formerly Windsurf (<code dir="auto">devin</code>)</td>
+<td><code dir="auto">.devin/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.devin/workflows/opsx-&lt;id&gt;.md</code>****</td>
+</tr>
+<tr>
+<td>ForgeCode (<code dir="auto">forgecode</code>)</td>
+<td><code dir="auto">.forge/skills/openspec-*/SKILL.md</code></td>
+<td>Not generated (no command adapter; use skill-based <code dir="auto">/openspec-*</code> invocations)</td>
+</tr>
+<tr>
+<td>Continue (<code dir="auto">continue</code>)</td>
+<td><code dir="auto">.continue/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.continue/prompts/opsx-&lt;id&gt;.prompt</code></td>
+</tr>
+<tr>
+<td>CoStrict (<code dir="auto">costrict</code>)</td>
+<td><code dir="auto">.cospec/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.cospec/openspec/commands/opsx-&lt;id&gt;.md</code></td>
+</tr>
+<tr>
+<td>Crush (<code dir="auto">crush</code>)</td>
+<td><code dir="auto">.crush/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.crush/commands/opsx/&lt;id&gt;.md</code></td>
+</tr>
+<tr>
+<td>Cursor (<code dir="auto">cursor</code>)</td>
+<td><code dir="auto">.cursor/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.cursor/commands/opsx-&lt;id&gt;.md</code></td>
+</tr>
+<tr>
+<td>Factory Droid (<code dir="auto">factory</code>)</td>
+<td><code dir="auto">.factory/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.factory/commands/opsx-&lt;id&gt;.md</code></td>
+</tr>
+<tr>
+<td>Gemini CLI (<code dir="auto">gemini</code>)</td>
+<td><code dir="auto">.gemini/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.gemini/commands/opsx/&lt;id&gt;.toml</code></td>
+</tr>
+<tr>
+<td>GitHub Copilot (<code dir="auto">github-copilot</code>)</td>
+<td><code dir="auto">.github/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.github/prompts/opsx-&lt;id&gt;.prompt.md</code>**</td>
+</tr>
+<tr>
+<td>Hermes Agent (<code dir="auto">hermes</code>)</td>
+<td><code dir="auto">.hermes/skills/openspec-*/SKILL.md</code>***</td>
+<td>Not generated (no command adapter; use skill-based <code dir="auto">/openspec-*</code> invocations)</td>
+</tr>
+<tr>
+<td>iFlow (<code dir="auto">iflow</code>)</td>
+<td><code dir="auto">.iflow/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.iflow/commands/opsx-&lt;id&gt;.md</code></td>
+</tr>
+<tr>
+<td>Junie (<code dir="auto">junie</code>)</td>
+<td><code dir="auto">.junie/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.junie/commands/opsx-&lt;id&gt;.md</code></td>
+</tr>
+<tr>
+<td>Kilo Code (<code dir="auto">kilocode</code>)</td>
+<td><code dir="auto">.kilocode/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.kilo/command/opsx-&lt;id&gt;.md</code></td>
+</tr>
+<tr>
+<td>Kimi Code (<code dir="auto">kimi</code>)</td>
+<td><code dir="auto">.kimi-code/skills/openspec-*/SKILL.md</code></td>
+<td>Not generated (no command adapter; use skill-based <code dir="auto">/skill:openspec-*</code> invocations)</td>
+</tr>
+<tr>
+<td>Kiro (<code dir="auto">kiro</code>)</td>
+<td><code dir="auto">.kiro/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.kiro/prompts/opsx-&lt;id&gt;.prompt.md</code></td>
+</tr>
+<tr>
+<td>Lingma (<code dir="auto">lingma</code>)</td>
+<td><code dir="auto">.lingma/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.lingma/commands/opsx/&lt;id&gt;.md</code></td>
+</tr>
+<tr>
+<td>MiniMax Code (<code dir="auto">minimax-code</code>)</td>
+<td><code dir="auto">~/.minimax/skills/openspec-*/SKILL.md</code></td>
+<td>Not generated (no command adapter; use MiniMax Code skills)</td>
+</tr>
+<tr>
+<td>Mistral Vibe (<code dir="auto">vibe</code>)</td>
+<td><code dir="auto">.vibe/skills/openspec-*/SKILL.md</code></td>
+<td>Not generated (no command adapter; use skill-based <code dir="auto">/openspec-*</code> invocations)</td>
+</tr>
+<tr>
+<td>Oh My Pi (<code dir="auto">oh-my-pi</code>)</td>
+<td><code dir="auto">.omp/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.omp/commands/opsx-&lt;id&gt;.md</code></td>
+</tr>
+<tr>
+<td>OpenCode (<code dir="auto">opencode</code>)</td>
+<td><code dir="auto">.opencode/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.opencode/commands/opsx-&lt;id&gt;.md</code></td>
+</tr>
+<tr>
+<td>Pi (<code dir="auto">pi</code>)</td>
+<td><code dir="auto">.pi/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.pi/prompts/opsx-&lt;id&gt;.md</code></td>
+</tr>
+<tr>
+<td>SourceCraft Code Assistant for VS Code (<code dir="auto">codeassistant</code>)</td>
+<td><code dir="auto">.codeassistant/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.codeassistant/commands/opsx-&lt;id&gt;.md</code></td>
+</tr>
+<tr>
+<td>Qoder (<code dir="auto">qoder</code>)</td>
+<td><code dir="auto">.qoder/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.qoder/commands/opsx/&lt;id&gt;.md</code></td>
+</tr>
+<tr>
+<td>Qwen Code (<code dir="auto">qwen</code>)</td>
+<td><code dir="auto">.qwen/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.qwen/commands/opsx-&lt;id&gt;.md</code></td>
+</tr>
+<tr>
+<td><a href="https://support.atlassian.com/rovo/docs/use-rovo-dev-cli/">Rovo Dev CLI</a> (<code dir="auto">rovodev</code>)</td>
+<td><code dir="auto">.rovodev/skills/openspec-*/SKILL.md</code></td>
+<td>Not generated. Rovo has no slash-command surface — it matches skills automatically or by prompt (e.g. “use the openspec-propose skill”); <code dir="auto">/skills</code> only manages them. Generated content references skills by name, never as <code dir="auto">/openspec-*</code> commands.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Zoo-Code-Org/Zoo-Code">Zoo Code</a> (<code dir="auto">roocode</code>)</td>
+<td><code dir="auto">.roo/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.roo/commands/opsx-&lt;id&gt;.md</code></td>
+</tr>
+<tr>
+<td>Trae (<code dir="auto">trae</code>)</td>
+<td><code dir="auto">.trae/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.trae/commands/opsx-&lt;id&gt;.md</code></td>
+</tr>
+<tr>
+<td><a href="https://zed.dev/docs/ai/skills">Zed Agent</a> (<code dir="auto">zed</code>)</td>
+<td><code dir="auto">.agents/skills/openspec-*/SKILL.md</code></td>
+<td>Not generated (skills-only; use <code dir="auto">/openspec-*</code> or <code dir="auto">@openspec-*</code>)</td>
+</tr>
+<tr>
+<td>ZCode (<code dir="auto">zcode</code>)</td>
+<td><code dir="auto">.zcode/skills/openspec-*/SKILL.md</code></td>
+<td><code dir="auto">.zcode/commands/opsx/&lt;id&gt;.md</code></td>
+</tr>
+<tr>
+<td>Shared <code dir="auto">.agents</code> skills (<code dir="auto">agents</code>)</td>
+<td><code dir="auto">.agents/skills/openspec-*/SKILL.md</code></td>
+<td>Not generated (no command adapter; use skill-based <code dir="auto">/openspec-*</code> invocations)</td>
+</tr>
+</tbody>
+</table>
+<p>** GitHub Copilot prompt files are recognized as custom slash commands in IDE extensions (VS Code, JetBrains, Visual Studio). Copilot CLI does not currently consume <code dir="auto">.github/prompts/*.prompt.md</code> directly. Selecting <code dir="auto">github-copilot</code> can also set up the GitHub-hosted <strong>cloud coding agent</strong> — see <a href="#github-copilot-cloud-coding-agent">GitHub Copilot cloud coding agent</a> below.</p>
+<p>*** Hermes loads skills from <code dir="auto">~/.hermes/skills/</code> by default. To use project-local OpenSpec skills, add the project <code dir="auto">.hermes/skills/</code> directory to <code dir="auto">skills.external_dirs</code> in <code dir="auto">~/.hermes/config.yaml</code>; Hermes then exposes skills with user-facing slash invocations such as <code dir="auto">/openspec-propose</code>.</p>
+<p>**** Windsurf was <a href="https://docs.devin.ai/desktop/devin-desktop-faq">rebranded to Devin Desktop</a> on June 2, 2026, and its config directory moved: <code dir="auto">.devin/</code> is the preferred read + write location, <code dir="auto">.windsurf/</code> a legacy read-only fallback. OpenSpec follows the rename — the tool id is <code dir="auto">devin</code>, and <code dir="auto">--tools windsurf</code> still resolves to it so existing setup scripts keep working. A project still holding OpenSpec files in <code dir="auto">.windsurf/</code> is offered the move on the next <code dir="auto">openspec update</code>; declining leaves them in place, and files you wrote yourself are never touched. Workflows are invoked by filename, so <code dir="auto">.devin/workflows/opsx-apply.md</code> is <code dir="auto">/opsx-apply</code>. The <a href="https://docs.devin.ai/desktop/devin-local">Devin Local agent does not support workflows</a> — only skills, and it does not read <code dir="auto">.windsurf/</code> at all — so whenever OpenSpec writes Devin skills it keeps their bodies, and the getting-started hint, on <code dir="auto">/openspec-*</code> skill invocations, which work on both agents. Under commands-only delivery no skills are written and both fall back to <code dir="auto">/opsx-*</code>.</p>
+<p>SourceCraft Code Assistant support targets its VS Code extension. Its <a href="https://sourcecraft.dev/portal/docs/en/code-assistant/operations/agent/slash-commands">custom commands</a> and <a href="https://sourcecraft.dev/portal/docs/ru/code-assistant/operations/agent/skills">skills</a> are available only in VS Code. This integration does not configure SourceCraft web or JetBrains.</p>
+<p>With skills-only delivery, ask Code Assistant to use the <code dir="auto">openspec-propose</code> skill with your idea. Skills activate through request matching; OpenSpec does not generate <code dir="auto">/openspec-*</code> commands for this tool.</p>
+<p>MiniMax Code is a global skills-only integration. OpenSpec writes only its
+<code dir="auto">openspec-*</code> directories under <code dir="auto">~/.minimax/skills/</code>; it does not create
+repo-local <code dir="auto">.minimax</code> or <code dir="auto">.mavis</code> directories. Commands-only delivery leaves
+existing global MiniMax Code skills untouched so one project’s delivery setting
+cannot remove skills used by another project.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="github-copilot-cloud-coding-agent">GitHub Copilot cloud coding agent</h3><a class="sl-anchor-link" href="#github-copilot-cloud-coding-agent"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Sección titulada «GitHub Copilot cloud coding agent»</span></a></div>
+<p>GitHub’s <a href="https://docs.github.com/en/copilot/using-github-copilot/coding-agent">Copilot coding agent</a> runs on GitHub in a GitHub Actions environment — separate from Copilot in your editor. OpenSpec can set it up to use the OpenSpec CLI by generating two files:</p>
+<ul>
+<li><code dir="auto">.github/workflows/copilot-setup-steps.yml</code> — installs <code dir="auto">@fission-ai/openspec</code> in the agent’s environment</li>
+<li><code dir="auto">.github/agents/openspec.agent.md</code> — tells the agent how to drive OpenSpec</li>
+</ul>
+<p>Because this writes a GitHub Actions workflow into your repository, it is <strong>opt-in</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>How</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">openspec init</code> (interactive)</td>
+<td>Asks whether to set up cloud files. Default is <strong>No</strong>.</td>
+</tr>
+<tr>
+<td><code dir="auto">openspec init --copilot-cloud</code></td>
+<td>Sets them up without prompting (for scripts/CI).</td>
+</tr>
+<tr>
+<td><code dir="auto">openspec init --no-copilot-cloud</code></td>
+<td>Skips them without prompting, and removes any previously generated ones.</td>
+</tr>
+<tr>
+<td><code dir="auto">openspec update</code></td>
+<td>Never prompts. Refreshes the files only if you opted in (or the project already has them). If you opted out, it removes OpenSpec-managed cloud files.</td>
+</tr>
+</tbody>
+</table>
+<p>Your choice is saved in <code dir="auto">openspec/config.yaml</code> as <code dir="auto">githubCopilot.cloudAgent: true|false</code>, so non-interactive updates honor it. OpenSpec only ever writes or removes files whose content it generated — if you customize <code dir="auto">copilot-setup-steps.yml</code> or <code dir="auto">openspec.agent.md</code>, or already have your own, it is left untouched (and <code dir="auto">init</code>/<code dir="auto">update</code> tell you so).</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="when-to-pick-the-shared-agents-target">When to pick the shared <code dir="auto">.agents</code> target</h3><a class="sl-anchor-link" href="#when-to-pick-the-shared-agents-target"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Sección titulada «When to pick the shared .agents target»</span></a></div>
+<p><code dir="auto">agents</code> is the vendor-neutral option: it writes skills to <code dir="auto">.agents/skills/</code>, the
+shared root many agent tools read, instead of a tool-specific directory.</p>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Pick</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Your tool has its own row above</td>
+<td>Its own ID — you get that tool’s integration, including slash commands where it supports them</td>
+</tr>
+<tr>
+<td>Several agents on one repo, all reading <code dir="auto">.agents/skills</code></td>
+<td><code dir="auto">agents</code> — one skill tree instead of one per tool</td>
+</tr>
+<tr>
+<td>Your tool isn’t listed yet but reads <code dir="auto">.agents/skills</code></td>
+<td><code dir="auto">agents</code></td>
+</tr>
+</tbody>
+</table>
+<p>Selecting it alongside a tool-specific ID is fine; each normally writes to its
+own root. Codex and Zed Agent are the exceptions because they use the same canonical
+<code dir="auto">.agents</code> root. If Codex is selected with Zed or <code dir="auto">agents</code>, OpenSpec keeps one
+Codex-led tree. Its handoffs name both <code dir="auto">$openspec-*</code> for Codex and
+<code dir="auto">/openspec-*</code> for other agents, so <code dir="auto">--tools all</code> and existing multi-agent
+setups keep working without two writers overwriting the same files.
+OpenSpec also offers it automatically once a project has a <code dir="auto">.agents/skills/</code>
+directory — a bare <code dir="auto">.agents/</code> is not enough, since tools use that root for rules
+and subagent definitions too. Note <code dir="auto">.agents</code> is not <code dir="auto">.agent</code>: the singular
+directory belongs to Antigravity.</p>
+<p>Two things to know:</p>
+<ul>
+<li><strong>Skills only.</strong> No command adapter exists, so no <code dir="auto">opsx-*</code> command files are
+written; with a commands-inclusive delivery mode <code dir="auto">openspec init</code> lists <code dir="auto">agents</code>
+among the tools it reports under <code dir="auto">Commands skipped for: … (no adapter)</code>.
+Invoke the workflows by skill name —
+most assistants that read <code dir="auto">.agents/skills</code> spell that <code dir="auto">/openspec-propose</code>, the form
+OpenSpec’s setup hint prints. The target is vendor-neutral, so check your
+assistant’s own docs if it uses another form.</li>
+<li><strong>No <code dir="auto">AGENTS.md</code> is created or edited.</strong> The target is the <code dir="auto">.agents/</code> directory.
+If your root <code dir="auto">AGENTS.md</code> still carries OpenSpec marker blocks from an older
+version, <code dir="auto">openspec update</code> strips them — see the <a href="/en-US/migration-guide/">Migration Guide</a>.</li>
+</ul>
+<p>Zed support here is for the built-in Zed Agent. Zed External Agents and Terminal
+Threads use their own integrations. Agent Skills require
+<a href="https://github.com/zed-industries/zed/releases/tag/v1.4.2">Zed v1.4.2</a> or newer.
+Project-local skills are unavailable in an untrusted worktree until you
+<a href="https://zed.dev/docs/worktree-trust">grant trust</a>.</p>
+<p>Because <code dir="auto">.agents/skills/</code> is shared by Codex, Zed Agent, and the vendor-neutral target,
+it is worth knowing what OpenSpec claims there:
+it writes, refreshes, and removes only the <code dir="auto">openspec-*</code> skill directories for your
+selected workflows, plus an <code dir="auto">.openspec-target</code> marker that records whether Codex,
+Zed Agent, or the vendor-neutral target rendered that shared tree. Anything else in that
+directory is left alone. Treat the <code dir="auto">openspec-*</code> names and marker as OpenSpec’s —
+edits inside them are replaced on the next <code dir="auto">openspec update</code>, the same as for
+every other tool.</p>
+<p>For pre-marker projects, OpenSpec infers ownership from managed skill references:
+<code dir="auto">$openspec-*</code> means Codex and <code dir="auto">/openspec-*</code> means the vendor-neutral target. A
+generic canonical tree alongside legacy <code dir="auto">.codex/skills</code> is treated as an older
+dual-target install and consolidated into the compatible shared tree.</p>
+<p><code dir="auto">openspec update</code> honors this ownership too. If a project owns <code dir="auto">.agents</code> as the
+vendor-neutral target and a leftover Codex install is detected only from stray
+prompt files, the update leaves the established <code dir="auto">agents</code> tree in place instead of
+rewriting it with Codex syntax, and preserves those legacy prompt files rather
+than deleting them. To hand the shared tree to Codex, run <code dir="auto">openspec init --tools codex</code> explicitly.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="non-interactive-setup">Non-Interactive Setup</h2><a class="sl-anchor-link" href="#non-interactive-setup"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Sección titulada «Non-Interactive Setup»</span></a></div>
+<p>For CI/CD or scripted setup, use <code dir="auto">--tools</code> (and optionally <code dir="auto">--profile</code>):</p>
+<div class="expressive-code"><link rel="stylesheet" href="/_astro/ec.w36nc.css"><script type="module" src="/_astro/ec.0vx5m.js"></script><figure class="frame is-terminal not-content"><figcaption class="header"><span class="title"></span><span class="sr-only">Ventana de terminal</span></figcaption><pre data-language="bash"><code><div class="ec-line"><div class="code"><span style="--0:#919F9F;--1:#5F636F"># Configure specific tools</span></div></div><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3B61B0">openspec</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">init</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">--tools</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">claude,cursor</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#919F9F;--1:#5F636F"># Configure all supported tools</span></div></div><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3B61B0">openspec</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">init</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">--tools</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">all</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#919F9F;--1:#5F636F"># Skip tool configuration</span></div></div><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3B61B0">openspec</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">init</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">--tools</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">none</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#919F9F;--1:#5F636F"># Override profile for this init run</span></div></div><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3B61B0">openspec</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">init</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">--profile</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">core</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copiar al portapapeles" data-copied="¡Copiado!" data-code="openspec init --tools claude,cursoropenspec init --tools allopenspec init --tools noneopenspec init --profile core"><div></div></button></div></figure></div>
+<p><strong>Available tool IDs (<code dir="auto">--tools</code>)</strong> — <code dir="auto">windsurf</code> is also accepted, as an alias for <code dir="auto">devin</code>: <code dir="auto">amazon-q</code>, <code dir="auto">antigravity</code>, <code dir="auto">auggie</code>, <code dir="auto">bob</code>, <code dir="auto">claude</code>, <code dir="auto">cline</code>, <code dir="auto">command-code</code>, <code dir="auto">codeartsagent</code>, <code dir="auto">codex</code>, <code dir="auto">devin</code>, <code dir="auto">forgecode</code>, <code dir="auto">codebuddy</code>, <code dir="auto">continue</code>, <code dir="auto">costrict</code>, <code dir="auto">crush</code>, <code dir="auto">cursor</code>, <code dir="auto">factory</code>, <code dir="auto">gemini</code>, <code dir="auto">github-copilot</code>, <code dir="auto">hermes</code>, <code dir="auto">iflow</code>, <code dir="auto">junie</code>, <code dir="auto">kilocode</code>, <code dir="auto">kimi</code>, <code dir="auto">kiro</code>, <code dir="auto">lingma</code>, <code dir="auto">minimax-code</code>, <code dir="auto">vibe</code>, <code dir="auto">oh-my-pi</code>, <code dir="auto">opencode</code>, <code dir="auto">pi</code>, <code dir="auto">qoder</code>, <code dir="auto">qwen</code>, <code dir="auto">roocode</code>, <code dir="auto">codeassistant</code>, <code dir="auto">trae</code>, <code dir="auto">zed</code>, <code dir="auto">zcode</code>, <code dir="auto">agents</code></p>
+<div class="sl-heading-wrapper level-h2"><h2 id="workflow-dependent-installation">Workflow-Dependent Installation</h2><a class="sl-anchor-link" href="#workflow-dependent-installation"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Sección titulada «Workflow-Dependent Installation»</span></a></div>
+<p>OpenSpec installs workflow artifacts based on selected workflows:</p>
+<ul>
+<li><strong>Core profile (default):</strong> <code dir="auto">propose</code>, <code dir="auto">explore</code>, <code dir="auto">apply</code>, <code dir="auto">update</code>, <code dir="auto">sync</code>, <code dir="auto">archive</code></li>
+<li><strong>Custom selection:</strong> any subset of all workflow IDs:
+<code dir="auto">propose</code>, <code dir="auto">explore</code>, <code dir="auto">new</code>, <code dir="auto">continue</code>, <code dir="auto">apply</code>, <code dir="auto">update</code>, <code dir="auto">ff</code>, <code dir="auto">sync</code>, <code dir="auto">archive</code>, <code dir="auto">bulk-archive</code>, <code dir="auto">verify</code>, <code dir="auto">onboard</code></li>
+</ul>
+<p>In other words, skill/command counts are profile-dependent and delivery-dependent, not fixed.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="generated-skill-names">Generated Skill Names</h2><a class="sl-anchor-link" href="#generated-skill-names"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Sección titulada «Generated Skill Names»</span></a></div>
+<p>When selected by profile/workflow config, OpenSpec generates these skills:</p>
+<ul>
+<li><code dir="auto">openspec-propose</code></li>
+<li><code dir="auto">openspec-explore</code></li>
+<li><code dir="auto">openspec-new-change</code></li>
+<li><code dir="auto">openspec-continue-change</code></li>
+<li><code dir="auto">openspec-apply-change</code></li>
+<li><code dir="auto">openspec-update-change</code></li>
+<li><code dir="auto">openspec-ff-change</code></li>
+<li><code dir="auto">openspec-sync-specs</code></li>
+<li><code dir="auto">openspec-archive-change</code></li>
+<li><code dir="auto">openspec-bulk-archive-change</code></li>
+<li><code dir="auto">openspec-verify-change</code></li>
+<li><code dir="auto">openspec-onboard</code></li>
+</ul>
+<p>See <a href="/en-US/commands/">Commands</a> for command behavior and <a href="/en-US/cli/">CLI</a> for <code dir="auto">init</code>/<code dir="auto">update</code> options.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="related">Related</h2><a class="sl-anchor-link" href="#related"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Sección titulada «Related»</span></a></div>
+<ul>
+<li><a href="/en-US/cli/">CLI Reference</a> — Terminal commands</li>
+<li><a href="/en-US/commands/">Commands</a> — Slash commands and skills</li>
+<li><a href="/en-US/getting-started/">Getting Started</a> — First-time setup</li>
+</ul>
+</div></div><section class="hagicode-end-card" aria-labelledby="hagicode-end-card-title" data-hagicode-end-card><div class="hagicode-end-card__intro"><h2 id="hagicode-end-card-title">HagiCode</h2><p class="hagicode-end-card__lead">HagiCode es un espacio de trabajo de programación con agentes, flujos de OpenSpec, ejecución multiagente y vistas de Hero Dungeon.</p><p class="hagicode-end-card__subheadline">Convierte ideas en software útil con un flujo de trabajo con agentes más inteligente, rápido y ameno.</p></div><figure class="hagicode-end-card__visual"><img src="/img/hagicode/light-main.png" alt="Interfaz principal de HagiCode con tema claro" width="3137" height="1235" loading="lazy" decoding="async"></figure><ul class="hagicode-end-card__features" aria-label="HagiCode"><li data-hagicode-feature><strong>Smart</strong><span>OpenSpec convierte la intención en un itinerario ejecutable desde la idea hasta la entrega.</span></li><li data-hagicode-feature><strong>Efficient</strong><span>Los flujos multiagente permiten avanzar en paralelo con la investigación, implementación y revisión.</span></li><li data-hagicode-feature><strong>Fun</strong><span>Hero Dungeon hace que las largas sesiones de programación sean visuales y colaborativas.</span></li></ul><a class="hagicode-end-card__visit" href="https://www.hagicode.com">Visitar HagiCode</a></section><aside class="hagicode-floating-promotion" aria-label="Promoción de HagiCode" data-hagicode-promotion data-locale="es-ES" data-promotion-signature="fallback:hagicode"><div class="hagicode-floating-promotion__content"><div class="hagicode-floating-promotion__copy"><strong data-promotion-title>Descubre HagiCode</strong><p data-promotion-description>Conoce las herramientas de programación con IA y flujos de proyecto de HagiCode.</p></div><span class="hagicode-floating-promotion__media"><img data-promotion-image data-fallback-src="/img/hagicode/light-main.png" data-fallback-alt="Vista previa de la interfaz del producto HagiCode" src="/img/hagicode/light-main.png" alt="Vista previa de la interfaz del producto HagiCode" width="3137" height="1235" loading="eager" decoding="async"></span><a data-promotion-link href="https://www.hagicode.com">Visitar HagiCode</a><button type="button" data-promotion-dismiss aria-label="Cerrar promoción de HagiCode"><span aria-hidden="true">×</span></button></div></aside><script type="module" src="/_astro/FloatingPromote.astro_astro_type_script_index_0_lang.B5ql3uer.js"></script><footer class="sl-flex site-footer astro-rgwewuyk"><div class="meta sl-flex astro-rgwewuyk"></div><div class="pagination-links print:hidden astro-b5raizh3" dir="ltr"><a href="/es-ES/stores-beta/user-guide/" rel="prev" class="astro-b5raizh3"><svg aria-hidden="true" class="astro-b5raizh3 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17 11H9.41l3.3-3.29a1.004 1.004 0 1 0-1.42-1.42l-5 5a1 1 0 0 0-.21.33 1 1 0 0 0 0 .76 1 1 0 0 0 .21.33l5 5a1.002 1.002 0 0 0 1.639-.325 1 1 0 0 0-.219-1.095L9.41 13H17a1 1 0 0 0 0-2Z"/></svg><span class="astro-b5raizh3">Página anterior<br class="astro-b5raizh3"><span class="link-title astro-b5raizh3">Stores: Plan in Its Own Repo</span></span></a><a href="/es-ES/team-workflow/" rel="next" class="astro-b5raizh3"><svg aria-hidden="true" class="astro-b5raizh3 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17.92 11.62a1.001 1.001 0 0 0-.21-.33l-5-5a1.003 1.003 0 1 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219l5-5a1 1 0 0 0 .21-.33 1 1 0 0 0 0-.76Z"/></svg><span class="astro-b5raizh3">Página siguiente<br class="astro-b5raizh3"><span class="link-title astro-b5raizh3">OpenSpec on a Team</span></span></a></div><nav aria-label="Enlaces del sitio" class="astro-rgwewuyk"><a href="/zh-CN/" lang="zh-CN" aria-label="OpenSpec 文档首页" class="astro-rgwewuyk">简体中文</a><a href="/en-US/" lang="en-US" aria-label="OpenSpec documentation home" class="astro-rgwewuyk">English</a><a href="https://github.com/HagiCode-org/openspec-docs" class="astro-rgwewuyk"><svg aria-hidden="true" class="astro-rgwewuyk astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg> Código fuente en GitHub</a><a href="https://github.com/HagiCode-org/openspec-docs/issues" class="astro-rgwewuyk">Informar de un problema</a></nav><p class="astro-rgwewuyk">© 2026 Documentación de OpenSpec</p><a class="kudos sl-flex astro-rgwewuyk" href="https://starlight.astro.build"><svg aria-hidden="true" class="astro-rgwewuyk astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path fill-rule="evenodd" d="M15.19 6.75 12 0 8.81 6.75l-.19.38-1.68-1.88a1.2 1.2 0 1 0-1.69 1.69L7.13 8.8h-.38L0 12l6.75 3.19h.38l-1.88 1.87a1.2 1.2 0 1 0 1.69 1.69l1.68-1.88.2.38L12 24l3.19-6.75v-.38l1.69 1.88a1.2 1.2 0 1 0 1.68-1.69l-1.68-1.68.37-.2L24 12l-6.75-3.19-.38-.19 1.7-1.68a1.2 1.2 0 1 0-1.7-1.69L15.2 7.13v-.38ZM12 7.13l-.38.93a8.18 8.18 0 0 1-3.56 3.56l-.94.38.94.38a8.18 8.18 0 0 1 3.56 3.56l.38.94.38-.94a8.18 8.18 0 0 1 3.56-3.56l.94-.38-.94-.38a8.18 8.18 0 0 1-3.56-3.56L12 7.12Z"/><path d="M22.12 3.56a1.2 1.2 0 1 0-1.68-1.69l-.57.57a1.2 1.2 0 0 0 1.7 1.68l.55-.56Zm-18 .75c-.37.38-1.12.38-1.68 0l-.57-.56a1.2 1.2 0 0 1 1.7-1.69l.55.56c.57.38.57 1.13 0 1.7Zm0 15.38c-.37-.38-1.12-.38-1.68 0l-.57.56a1.2 1.2 0 1 0 1.7 1.69l.55-.57c.57-.37.57-1.12 0-1.68Zm18 .75a1.2 1.2 0 1 1-1.68 1.68l-.57-.56a1.2 1.2 0 0 1 1.7-1.69l.55.57Z"/></svg> Creado con Starlight</a></footer></div></div></main></div></div></div></div></body></html>

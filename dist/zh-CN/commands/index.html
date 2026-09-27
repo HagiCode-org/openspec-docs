@@ -1,0 +1,863 @@
+<!DOCTYPE html><html lang="zh-CN" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-g5ptsecz"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>命令 | OpenSpec Docs</title><link rel="canonical" href="https://openspec.hagicode.com/zh-CN/commands/"/><link rel="alternate" hreflang="zh-CN" href="https://openspec.hagicode.com/zh-CN/commands/"/><link rel="alternate" hreflang="en-US" href="https://openspec.hagicode.com/en-US/commands/"/><link rel="alternate" hreflang="zh-Hant" href="https://openspec.hagicode.com/zh-Hant/commands/"/><link rel="alternate" hreflang="ja-JP" href="https://openspec.hagicode.com/ja-JP/commands/"/><link rel="alternate" hreflang="ko-KR" href="https://openspec.hagicode.com/ko-KR/commands/"/><link rel="alternate" hreflang="de-DE" href="https://openspec.hagicode.com/de-DE/commands/"/><link rel="alternate" hreflang="fr-FR" href="https://openspec.hagicode.com/fr-FR/commands/"/><link rel="alternate" hreflang="es-ES" href="https://openspec.hagicode.com/es-ES/commands/"/><link rel="alternate" hreflang="pt-BR" href="https://openspec.hagicode.com/pt-BR/commands/"/><link rel="alternate" hreflang="ru-RU" href="https://openspec.hagicode.com/ru-RU/commands/"/><link rel="alternate" hreflang="x-default" href="https://openspec.hagicode.com/en-US/commands/"/><link rel="sitemap" href="/sitemap-index.xml"/><link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml"/><meta name="generator" content="Astro v7.3.5"/><meta name="generator" content="Starlight v0.42.4"/><meta property="og:title" content="命令"/><meta property="og:type" content="article"/><meta property="og:url" content="https://openspec.hagicode.com/zh-CN/commands/"/><meta property="og:locale" content="zh-CN"/><meta property="og:description" content="OpenSpec documentation"/><meta property="og:site_name" content="OpenSpec Docs"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="OpenSpec documentation"/><script type="module">function e(e,t,n){let r=e.createElement(`script`);return r.id=t,r.async=!0,r.src=n,e.head.appendChild(r),r}function t({hostname:t,googleId:n=``,fiftyOneLaId:r=``},i){if(t===`openspec.hagicode.com`&&i&&(i.__openspecAnalyticsLoaded??=new Set,n&&!i.__openspecAnalyticsLoaded.has(`google`)&&(i.__openspecAnalyticsLoaded.add(`google`),i.dataLayer??=[],i.gtag??=(...e)=>i.dataLayer.push(e),i.gtag(`js`,new Date),i.gtag(`config`,n),e(i.document,`openspec-google-analytics`,`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(n)}`)),r&&!i.__openspecAnalyticsLoaded.has(`51la`))){i.__openspecAnalyticsLoaded.add(`51la`);let t=e(i.document,`openspec-51la-analytics`,`https://sdk.51.la/js-sdk-pro.min.js`);t.onload=()=>{i.LA?.init({id:r,ck:r,autoTrack:!0,hashMode:!0,screenRecord:!1})}}}var n=document.querySelector(`[data-openspec-analytics]`);n&&t({hostname:window.location.hostname,googleId:n.getAttribute(`data-google-id`)??``,fiftyOneLaId:n.getAttribute(`data-51la-id`)??``},window);</script><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg><svg aria-hidden="true" class="dark astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg><svg aria-hidden="true" class="auto astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg></template><link rel="stylesheet" href="/_astro/print.ehPL0gv-.css" media="print"><link rel="stylesheet" href="/_astro/common.BWBeT9nr.css"><script type="module" src="/_astro/page.Dwipeu-R.js"></script></head><body class="astro-g5ptsecz"><a class="sl-skip-link astro-qb7clj6f" href="#_top">跳转到内容</a><div class="page sl-flex astro-yntsjkba"><header class="header astro-yntsjkba"><div class="header astro-pajnjz4f"><div class="title-wrapper sl-flex astro-pajnjz4f"><a href="/zh-CN" class="site-title sl-flex astro-6rvad3va"><span class="astro-6rvad3va" translate="no">OpenSpec Docs</span></a><div class="language-control astro-lrvowteo" data-language-chooser><button class="language-trigger astro-lrvowteo" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="language-dialog-e1b60595-0077-4dfd-ada7-639fa08a07a8" aria-label="选择语言" title="简体中文"><span class="astro-lrvowteo">简体中文</span><span class="language-trigger__icon astro-lrvowteo" aria-hidden="true">⌄</span></button><dialog class="language-dialog astro-lrvowteo" id="language-dialog-e1b60595-0077-4dfd-ada7-639fa08a07a8" aria-labelledby="language-dialog-e1b60595-0077-4dfd-ada7-639fa08a07a8-title"><div class="language-dialog__header astro-lrvowteo"><div class="astro-lrvowteo"><h2 id="language-dialog-e1b60595-0077-4dfd-ada7-639fa08a07a8-title" class="astro-lrvowteo">选择语言</h2><p class="astro-lrvowteo">当前语言: <strong class="astro-lrvowteo">简体中文</strong></p></div><form method="dialog" class="astro-lrvowteo"><button class="language-dialog__close astro-lrvowteo" type="submit" aria-label="关闭语言选择">×</button></form></div><ul class="language-options astro-lrvowteo" aria-label="选择语言"><li class="astro-lrvowteo"><a href="/zh-CN/commands/" hreflang="zh-CN" lang="zh-CN" aria-current="page" data-language-option data-locale="zh-CN" class="astro-lrvowteo"><span class="astro-lrvowteo">简体中文</span><span class="language-option__selected astro-lrvowteo">已选择</span></a></li><li class="astro-lrvowteo"><a href="/en-US/commands/" hreflang="en-US" lang="en-US" data-language-option data-locale="en-US" class="astro-lrvowteo"><span class="astro-lrvowteo">English</span></a></li><li class="astro-lrvowteo"><a href="/zh-Hant/commands/" hreflang="zh-Hant" lang="zh-Hant" data-language-option data-locale="zh-Hant" class="astro-lrvowteo"><span class="astro-lrvowteo">繁體中文</span></a></li><li class="astro-lrvowteo"><a href="/ja-JP/commands/" hreflang="ja-JP" lang="ja-JP" data-language-option data-locale="ja-JP" class="astro-lrvowteo"><span class="astro-lrvowteo">日本語</span></a></li><li class="astro-lrvowteo"><a href="/ko-KR/commands/" hreflang="ko-KR" lang="ko-KR" data-language-option data-locale="ko-KR" class="astro-lrvowteo"><span class="astro-lrvowteo">한국어</span></a></li><li class="astro-lrvowteo"><a href="/de-DE/commands/" hreflang="de-DE" lang="de-DE" data-language-option data-locale="de-DE" class="astro-lrvowteo"><span class="astro-lrvowteo">Deutsch</span></a></li><li class="astro-lrvowteo"><a href="/fr-FR/commands/" hreflang="fr-FR" lang="fr-FR" data-language-option data-locale="fr-FR" class="astro-lrvowteo"><span class="astro-lrvowteo">Français</span></a></li><li class="astro-lrvowteo"><a href="/es-ES/commands/" hreflang="es-ES" lang="es-ES" data-language-option data-locale="es-ES" class="astro-lrvowteo"><span class="astro-lrvowteo">Español</span></a></li><li class="astro-lrvowteo"><a href="/pt-BR/commands/" hreflang="pt-BR" lang="pt-BR" data-language-option data-locale="pt-BR" class="astro-lrvowteo"><span class="astro-lrvowteo">Português (Brasil)</span></a></li><li class="astro-lrvowteo"><a href="/ru-RU/commands/" hreflang="ru-RU" lang="ru-RU" data-language-option data-locale="ru-RU" class="astro-lrvowteo"><span class="astro-lrvowteo">Русский</span></a></li></ul></dialog><noscript><nav class="language-fallback astro-lrvowteo" aria-label="选择语言"><span class="astro-lrvowteo">当前语言: 简体中文</span><ul class="language-options astro-lrvowteo"><li class="astro-lrvowteo"><a href="/zh-CN/commands/" hreflang="zh-CN" lang="zh-CN" class="astro-lrvowteo">简体中文<span class="language-option__selected astro-lrvowteo">已选择</span></a></li><li class="astro-lrvowteo"><a href="/en-US/commands/" hreflang="en-US" lang="en-US" class="astro-lrvowteo">English</a></li><li class="astro-lrvowteo"><a href="/zh-Hant/commands/" hreflang="zh-Hant" lang="zh-Hant" class="astro-lrvowteo">繁體中文</a></li><li class="astro-lrvowteo"><a href="/ja-JP/commands/" hreflang="ja-JP" lang="ja-JP" class="astro-lrvowteo">日本語</a></li><li class="astro-lrvowteo"><a href="/ko-KR/commands/" hreflang="ko-KR" lang="ko-KR" class="astro-lrvowteo">한국어</a></li><li class="astro-lrvowteo"><a href="/de-DE/commands/" hreflang="de-DE" lang="de-DE" class="astro-lrvowteo">Deutsch</a></li><li class="astro-lrvowteo"><a href="/fr-FR/commands/" hreflang="fr-FR" lang="fr-FR" class="astro-lrvowteo">Français</a></li><li class="astro-lrvowteo"><a href="/es-ES/commands/" hreflang="es-ES" lang="es-ES" class="astro-lrvowteo">Español</a></li><li class="astro-lrvowteo"><a href="/pt-BR/commands/" hreflang="pt-BR" lang="pt-BR" class="astro-lrvowteo">Português (Brasil)</a></li><li class="astro-lrvowteo"><a href="/ru-RU/commands/" hreflang="ru-RU" lang="ru-RU" class="astro-lrvowteo">Русский</a></li></ul></nav></noscript></div><script type="module" src="/_astro/StarlightLanguageSelect.astro_astro_type_script_index_0_lang.CKSYRNqy.js"></script></div><div class="sl-flex print:hidden astro-pajnjz4f"><site-search class="astro-pajnjz4f astro-b5kgnn7o" data-translations="{&quot;placeholder&quot;:&quot;搜索&quot;}"><button data-open-modal disabled aria-label="搜索" aria-keyshortcuts="Control+K" class="astro-b5kgnn7o"><svg aria-hidden="true" class="astro-b5kgnn7o astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg><span class="sl-hidden md:sl-block astro-b5kgnn7o" aria-hidden="true">搜索</span><kbd class="sl-hidden md:sl-flex astro-b5kgnn7o" style="display: none;"><kbd class="astro-b5kgnn7o">Ctrl</kbd><kbd class="astro-b5kgnn7o">K</kbd></kbd></button><dialog style="padding:0" aria-label="搜索" class="astro-b5kgnn7o"><div class="dialog-frame sl-flex astro-b5kgnn7o"><button data-close-modal class="sl-flex md:sl-hidden astro-b5kgnn7o">取消</button><div class="search-container astro-b5kgnn7o"><div id="starlight__search" class="astro-b5kgnn7o"></div></div></div></dialog></site-search><script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script><script type="module" src="/_astro/Search.astro_astro_type_script_index_0_lang.DZqJ8Bdf.js"></script></div><div class="sl-hidden md:sl-flex print:hidden right-group astro-pajnjz4f"><div class="sl-flex social-icons astro-pajnjz4f"><a href="https://github.com/HagiCode-org/openspec-docs" rel="me" class="sl-flex astro-n2mnl6yq"><span class="sr-only astro-n2mnl6yq">GitHub</span><svg aria-hidden="true" class="astro-n2mnl6yq astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-2z5xp7gb"><span class="sr-only astro-2z5xp7gb">选择主题</span><svg aria-hidden="true" class="icon label-icon astro-2z5xp7gb astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-2z5xp7gb"><option value="dark" class="astro-2z5xp7gb">深色</option><option value="light" class="astro-2z5xp7gb">浅色</option><option value="auto" selected class="astro-2z5xp7gb">自动</option></select><svg aria-hidden="true" class="icon caret astro-2z5xp7gb astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script><script type="module">var e=`starlight-theme`,t=e=>e===`auto`||e===`dark`||e===`light`?e:`auto`,n=()=>t(typeof localStorage<`u`&&localStorage.getItem(e));function r(t){typeof localStorage<`u`&&localStorage.setItem(e,t===`light`||t===`dark`?t:``)}var i=()=>matchMedia(`(prefers-color-scheme: light)`).matches?`light`:`dark`;function a(e){StarlightThemeProvider.updatePickers(e),document.documentElement.dataset.theme=e===`auto`?i():e,r(e)}matchMedia(`(prefers-color-scheme: light)`).addEventListener(`change`,()=>{n()===`auto`&&a(`auto`)});var o=class extends HTMLElement{constructor(){super(),a(n()),this.querySelector(`select`)?.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&a(t(e.currentTarget.value))})}};customElements.define(`starlight-theme-select`,o);</script></div></div></header><nav class="sidebar print:hidden astro-yntsjkba" aria-label="主导航"><button popovertarget="starlight__sidebar" class="sl-menu-button sl-flex md:sl-hidden print:hidden astro-r2osgdlg"><svg aria-hidden="true" class="open-menu astro-r2osgdlg astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg><svg aria-hidden="true" class="close-menu astro-r2osgdlg astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg><span class="sr-only astro-r2osgdlg">打开导航菜单</span></button><script type="module">var e=class extends HTMLElement{constructor(){super();let e=matchMedia(`(min-width: 50em)`),t=()=>{this.popover=e.matches?null:`auto`};t(),e.addEventListener(`change`,()=>t()),this.addEventListener(`toggle`,({newState:e})=>this.trapFocus(e===`open`))}trapFocus(e){document.querySelectorAll(`.main-frame, .sl-skip-link`).forEach(t=>{t.toggleAttribute(`inert`,e)})}};customElements.define(`sl-sidebar-pane`,e);</script><sl-sidebar-pane popover id="starlight__sidebar" class="sidebar-pane astro-yntsjkba"><div class="sidebar-content sl-flex astro-yntsjkba"><sl-sidebar-state-persist data-hash="00otrqk" class="astro-ipdry5cl"><script aria-hidden="true">
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script><ul class="top-level astro-rmhv4bp6"><li class="astro-rmhv4bp6"><a href="/zh-CN/agent-contract/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">OpenSpec 智能体契约</span></a></li><li class="astro-rmhv4bp6"><a href="/zh-CN/cli/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">CLI 参考</span></a></li><li class="astro-rmhv4bp6"><a href="/zh-CN/commands/" aria-current="page" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">命令</span></a></li><li class="astro-rmhv4bp6"><a href="/zh-CN/community/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">社区展示</span></a></li><li class="astro-rmhv4bp6"><a href="/zh-CN/concepts/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">概念</span></a></li><li class="astro-rmhv4bp6"><a href="/zh-CN/customization/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">自定义</span></a></li><li class="astro-rmhv4bp6"><a href="/zh-CN/editing-changes/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">编辑和迭代变更</span></a></li><li class="astro-rmhv4bp6"><a href="/zh-CN/examples/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">示例与操作配方</span></a></li><li class="astro-rmhv4bp6"><a href="/zh-CN/existing-projects/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">在现有项目中使用 OpenSpec</span></a></li><li class="astro-rmhv4bp6"><a href="/zh-CN/explore/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">先探索</span></a></li><li class="astro-rmhv4bp6"><a href="/zh-CN/faq/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">常见问题</span></a></li><li class="astro-rmhv4bp6"><a href="/zh-CN/getting-started/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">快速入门</span></a></li><li class="astro-rmhv4bp6"><a href="/zh-CN/glossary/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">术语表</span></a></li><li class="astro-rmhv4bp6"><a href="/zh-CN/how-commands-work/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">命令的工作方式</span></a></li><li class="astro-rmhv4bp6"><a href="/zh-CN/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">OpenSpec 文档</span></a></li><li class="astro-rmhv4bp6"><a href="/zh-CN/installation/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">安装</span></a></li><li class="astro-rmhv4bp6"><a href="/zh-CN/migration-guide/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">迁移到 OPSX</span></a></li><li class="astro-rmhv4bp6"><a href="/zh-CN/multi-language/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">多语言指南</span></a></li><li class="astro-rmhv4bp6"><a href="/zh-CN/opsx/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">OPSX 工作流</span></a></li><li class="astro-rmhv4bp6"><a href="/zh-CN/overview/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">核心概念速览</span></a></li><li class="astro-rmhv4bp6"><a href="/zh-CN/reviewing-changes/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">审查变更</span></a></li><li class="astro-rmhv4bp6"><details open class="astro-rmhv4bp6"><summary class="astro-rmhv4bp6"><span class="group-label astro-rmhv4bp6"><span class="large astro-rmhv4bp6">stores-beta</span></span><svg aria-hidden="true" class="caret astro-rmhv4bp6 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="0"></sl-sidebar-restore><ul class="astro-rmhv4bp6"><li class="astro-rmhv4bp6"><a href="/zh-CN/stores-beta/user-guide/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">存储库：将规划放入独立仓库</span></a></li></ul></details></li><li class="astro-rmhv4bp6"><a href="/zh-CN/supported-tools/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">支持的工具</span></a></li><li class="astro-rmhv4bp6"><a href="/zh-CN/team-workflow/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">在团队中使用 OpenSpec</span></a></li><li class="astro-rmhv4bp6"><a href="/zh-CN/troubleshooting/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">故障排除</span></a></li><li class="astro-rmhv4bp6"><a href="/zh-CN/workflows/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">工作流</span></a></li><li class="astro-rmhv4bp6"><a href="/zh-CN/writing-specs/" class="large astro-rmhv4bp6"><span class="astro-rmhv4bp6">编写良好的规格说明</span></a></li></ul><script aria-hidden="true">
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script></sl-sidebar-state-persist><div class="md:sl-hidden"><div class="mobile-preferences sl-flex astro-p4azlveh"><div class="social-icons astro-p4azlveh"><a href="https://github.com/HagiCode-org/openspec-docs" rel="me" class="sl-flex astro-n2mnl6yq"><span class="sr-only astro-n2mnl6yq">GitHub</span><svg aria-hidden="true" class="astro-n2mnl6yq astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-2z5xp7gb"><span class="sr-only astro-2z5xp7gb">选择主题</span><svg aria-hidden="true" class="icon label-icon astro-2z5xp7gb astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-2z5xp7gb"><option value="dark" class="astro-2z5xp7gb">深色</option><option value="light" class="astro-2z5xp7gb">浅色</option><option value="auto" selected class="astro-2z5xp7gb">自动</option></select><svg aria-hidden="true" class="icon caret astro-2z5xp7gb astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script><div class="language-control astro-lrvowteo" data-language-chooser><button class="language-trigger astro-lrvowteo" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="language-dialog-76768f62-6896-4fcd-b3f0-f52d60d36cab" aria-label="选择语言" title="简体中文"><span class="astro-lrvowteo">简体中文</span><span class="language-trigger__icon astro-lrvowteo" aria-hidden="true">⌄</span></button><dialog class="language-dialog astro-lrvowteo" id="language-dialog-76768f62-6896-4fcd-b3f0-f52d60d36cab" aria-labelledby="language-dialog-76768f62-6896-4fcd-b3f0-f52d60d36cab-title"><div class="language-dialog__header astro-lrvowteo"><div class="astro-lrvowteo"><h2 id="language-dialog-76768f62-6896-4fcd-b3f0-f52d60d36cab-title" class="astro-lrvowteo">选择语言</h2><p class="astro-lrvowteo">当前语言: <strong class="astro-lrvowteo">简体中文</strong></p></div><form method="dialog" class="astro-lrvowteo"><button class="language-dialog__close astro-lrvowteo" type="submit" aria-label="关闭语言选择">×</button></form></div><ul class="language-options astro-lrvowteo" aria-label="选择语言"><li class="astro-lrvowteo"><a href="/zh-CN/commands/" hreflang="zh-CN" lang="zh-CN" aria-current="page" data-language-option data-locale="zh-CN" class="astro-lrvowteo"><span class="astro-lrvowteo">简体中文</span><span class="language-option__selected astro-lrvowteo">已选择</span></a></li><li class="astro-lrvowteo"><a href="/en-US/commands/" hreflang="en-US" lang="en-US" data-language-option data-locale="en-US" class="astro-lrvowteo"><span class="astro-lrvowteo">English</span></a></li><li class="astro-lrvowteo"><a href="/zh-Hant/commands/" hreflang="zh-Hant" lang="zh-Hant" data-language-option data-locale="zh-Hant" class="astro-lrvowteo"><span class="astro-lrvowteo">繁體中文</span></a></li><li class="astro-lrvowteo"><a href="/ja-JP/commands/" hreflang="ja-JP" lang="ja-JP" data-language-option data-locale="ja-JP" class="astro-lrvowteo"><span class="astro-lrvowteo">日本語</span></a></li><li class="astro-lrvowteo"><a href="/ko-KR/commands/" hreflang="ko-KR" lang="ko-KR" data-language-option data-locale="ko-KR" class="astro-lrvowteo"><span class="astro-lrvowteo">한국어</span></a></li><li class="astro-lrvowteo"><a href="/de-DE/commands/" hreflang="de-DE" lang="de-DE" data-language-option data-locale="de-DE" class="astro-lrvowteo"><span class="astro-lrvowteo">Deutsch</span></a></li><li class="astro-lrvowteo"><a href="/fr-FR/commands/" hreflang="fr-FR" lang="fr-FR" data-language-option data-locale="fr-FR" class="astro-lrvowteo"><span class="astro-lrvowteo">Français</span></a></li><li class="astro-lrvowteo"><a href="/es-ES/commands/" hreflang="es-ES" lang="es-ES" data-language-option data-locale="es-ES" class="astro-lrvowteo"><span class="astro-lrvowteo">Español</span></a></li><li class="astro-lrvowteo"><a href="/pt-BR/commands/" hreflang="pt-BR" lang="pt-BR" data-language-option data-locale="pt-BR" class="astro-lrvowteo"><span class="astro-lrvowteo">Português (Brasil)</span></a></li><li class="astro-lrvowteo"><a href="/ru-RU/commands/" hreflang="ru-RU" lang="ru-RU" data-language-option data-locale="ru-RU" class="astro-lrvowteo"><span class="astro-lrvowteo">Русский</span></a></li></ul></dialog><noscript><nav class="language-fallback astro-lrvowteo" aria-label="选择语言"><span class="astro-lrvowteo">当前语言: 简体中文</span><ul class="language-options astro-lrvowteo"><li class="astro-lrvowteo"><a href="/zh-CN/commands/" hreflang="zh-CN" lang="zh-CN" class="astro-lrvowteo">简体中文<span class="language-option__selected astro-lrvowteo">已选择</span></a></li><li class="astro-lrvowteo"><a href="/en-US/commands/" hreflang="en-US" lang="en-US" class="astro-lrvowteo">English</a></li><li class="astro-lrvowteo"><a href="/zh-Hant/commands/" hreflang="zh-Hant" lang="zh-Hant" class="astro-lrvowteo">繁體中文</a></li><li class="astro-lrvowteo"><a href="/ja-JP/commands/" hreflang="ja-JP" lang="ja-JP" class="astro-lrvowteo">日本語</a></li><li class="astro-lrvowteo"><a href="/ko-KR/commands/" hreflang="ko-KR" lang="ko-KR" class="astro-lrvowteo">한국어</a></li><li class="astro-lrvowteo"><a href="/de-DE/commands/" hreflang="de-DE" lang="de-DE" class="astro-lrvowteo">Deutsch</a></li><li class="astro-lrvowteo"><a href="/fr-FR/commands/" hreflang="fr-FR" lang="fr-FR" class="astro-lrvowteo">Français</a></li><li class="astro-lrvowteo"><a href="/es-ES/commands/" hreflang="es-ES" lang="es-ES" class="astro-lrvowteo">Español</a></li><li class="astro-lrvowteo"><a href="/pt-BR/commands/" hreflang="pt-BR" lang="pt-BR" class="astro-lrvowteo">Português (Brasil)</a></li><li class="astro-lrvowteo"><a href="/ru-RU/commands/" hreflang="ru-RU" lang="ru-RU" class="astro-lrvowteo">Русский</a></li></ul></nav></noscript></div></div></div></div></sl-sidebar-pane></nav><div class="main-frame astro-yntsjkba"><script type="module">var e=document.getElementById(`starlight__sidebar`),t=e?.querySelector(`sl-sidebar-state-persist`),n=`sl-sidebar-state`,r=()=>{let r=[],i=t?.dataset.hash||``;try{let e=sessionStorage.getItem(n),t=JSON.parse(e||`{}`);Array.isArray(t.open)&&t.hash===i&&(r=t.open)}catch{}return{hash:i,open:r,scroll:e?.scrollTop||0}},i=e=>{try{sessionStorage.setItem(n,JSON.stringify(e))}catch{}},a=()=>i(r()),o=(e,t)=>{let n=r();n.open[t]=e,i(n)};t?.addEventListener(`click`,e=>{if(!(e.target instanceof Element))return;let t=e.target.closest(`summary`)?.closest(`details`);if(!t)return;let n=t.querySelector(`sl-sidebar-restore`),r=parseInt(n?.dataset.index||``);isNaN(r)||o(!t.open,r)}),addEventListener(`visibilitychange`,()=>{document.visibilityState===`hidden`&&a()});</script><div class="lg:sl-flex astro-lrzkfocr"><aside class="right-sidebar-container print:hidden astro-lrzkfocr"><div class="right-sidebar astro-lrzkfocr"><div class="lg:sl-hidden astro-qok35upx"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-66cqc7ze"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-66cqc7ze"><details id="starlight__mobile-toc" class="astro-66cqc7ze"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-66cqc7ze"><span class="toggle sl-flex astro-66cqc7ze">本页内容<svg aria-hidden="true" class="caret astro-66cqc7ze astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-66cqc7ze"></span></summary><div class="dropdown astro-66cqc7ze"><ul class="isMobile astro-jugkfwgx" style="--depth: 0;"><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#_top" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">概述</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#快速参考" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">快速参考</span></a><ul class="isMobile astro-jugkfwgx" style="--depth: 1;"><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#默认快捷路径core-配置档案" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">默认快捷路径（core 配置档案）</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#扩展工作流命令自定义工作流选择" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">扩展工作流命令（自定义工作流选择）</span></a></li></ul></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#命令参考" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">命令参考</span></a><ul class="isMobile astro-jugkfwgx" style="--depth: 1;"><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#opsxpropose" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">/opsx:propose</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#opsxexplore" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">/opsx:explore</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#opsxnew" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">/opsx:new</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#opsxcontinue" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">/opsx:continue</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#opsxff" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">/opsx:ff</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#opsxapply" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">/opsx:apply</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#opsxupdate" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">/opsx:update</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#opsxverify" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">/opsx:verify</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#opsxsync" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">/opsx:sync</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#opsxarchive" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">/opsx:archive</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#opsxbulk-archive" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">/opsx:bulk-archive</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#opsxonboard" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">/opsx:onboard</span></a></li></ul></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#不同-ai-工具的命令语法" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">不同 AI 工具的命令语法</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#旧版命令" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">旧版命令</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#故障排除" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">故障排除</span></a><ul class="isMobile astro-jugkfwgx" style="--depth: 1;"><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#未找到变更" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">“未找到变更”</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#没有就绪的产物" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">“没有就绪的产物”</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#未找到-schema" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">“未找到 Schema”</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#无法识别命令" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">无法识别命令</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#产物生成不正确" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">产物生成不正确</span></a></li></ul></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#后续步骤" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">后续步骤</span></a></li></ul></div></details></nav></mobile-starlight-toc><script type="module" src="/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.C3fM4Kra.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-qok35upx"><div class="sl-container astro-qok35upx"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">本页内容</h2><ul class="astro-jugkfwgx" style="--depth: 0;"><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#_top" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">概述</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#快速参考" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">快速参考</span></a><ul class="astro-jugkfwgx" style="--depth: 1;"><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#默认快捷路径core-配置档案" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">默认快捷路径（core 配置档案）</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#扩展工作流命令自定义工作流选择" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">扩展工作流命令（自定义工作流选择）</span></a></li></ul></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#命令参考" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">命令参考</span></a><ul class="astro-jugkfwgx" style="--depth: 1;"><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#opsxpropose" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">/opsx:propose</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#opsxexplore" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">/opsx:explore</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#opsxnew" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">/opsx:new</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#opsxcontinue" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">/opsx:continue</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#opsxff" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">/opsx:ff</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#opsxapply" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">/opsx:apply</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#opsxupdate" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">/opsx:update</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#opsxverify" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">/opsx:verify</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#opsxsync" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">/opsx:sync</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#opsxarchive" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">/opsx:archive</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#opsxbulk-archive" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">/opsx:bulk-archive</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#opsxonboard" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">/opsx:onboard</span></a></li></ul></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#不同-ai-工具的命令语法" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">不同 AI 工具的命令语法</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#旧版命令" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">旧版命令</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#故障排除" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">故障排除</span></a><ul class="astro-jugkfwgx" style="--depth: 1;"><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#未找到变更" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">“未找到变更”</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#没有就绪的产物" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">“没有就绪的产物”</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#未找到-schema" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">“未找到 Schema”</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#无法识别命令" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">无法识别命令</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#产物生成不正确" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">产物生成不正确</span></a></li></ul></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#后续步骤" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">后续步骤</span></a></li></ul></nav></starlight-toc><script type="module" src="/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BpJaGz7G.js"></script></div></div></div></aside><div class="main-pane astro-lrzkfocr"><main data-pagefind-body class="astro-g5ptsecz" lang="zh-CN" dir="ltr"><div class="content-panel astro-a7po4psb"><div class="sl-container astro-a7po4psb"><h1 id="_top" class="astro-bebwqqxs">命令</h1></div></div><div class="content-panel astro-a7po4psb"><div class="sl-container astro-a7po4psb"><div class="sl-markdown-content"><p>本页是 OpenSpec 斜杠命令参考。这些命令应在 AI 编程助手的聊天界面中调用（例如 Claude Code、Cursor、Devin Desktop）。</p>
+<p>工作流模式以及每个命令的适用场景，请参阅<a href="/zh-CN/workflows/">工作流</a>。CLI 命令请参阅 <a href="/zh-CN/cli/">CLI</a>。</p>
+<p>本文使用 <code dir="auto">/opsx:&lt;command&gt;</code> 作为标准形式。部分工具的拼写不同——Cursor 和 GitHub Copilot 注册为 <code dir="auto">/opsx-propose</code>，Codex 使用 <code dir="auto">$openspec-propose</code>——因此请查看<a href="/zh-CN/supported-tools/">如何调用</a>中适用于你所用工具的格式。OpenSpec 生成的文件已经采用正确形式。</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="快速参考">快速参考</h2><a class="sl-anchor-link" href="#快速参考"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “快速参考”</span></a></div>
+<div class="sl-heading-wrapper level-h3"><h3 id="默认快捷路径core-配置档案">默认快捷路径（<code dir="auto">core</code> 配置档案）</h3><a class="sl-anchor-link" href="#默认快捷路径core-配置档案"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “默认快捷路径（core 配置档案）”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">/opsx:propose</code></td>
+<td>创建变更，并在一步中生成规划产物</td>
+</tr>
+<tr>
+<td><code dir="auto">/opsx:explore</code></td>
+<td>在确定变更方案之前梳理想法</td>
+</tr>
+<tr>
+<td><code dir="auto">/opsx:apply</code></td>
+<td>实现变更中的任务</td>
+</tr>
+<tr>
+<td><code dir="auto">/opsx:update</code></td>
+<td>修改变更的规划产物并保持内容协调</td>
+</tr>
+<tr>
+<td><code dir="auto">/opsx:sync</code></td>
+<td>将差异规格说明合并到主规格说明</td>
+</tr>
+<tr>
+<td><code dir="auto">/opsx:archive</code></td>
+<td>归档已完成的变更</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h3"><h3 id="扩展工作流命令自定义工作流选择">扩展工作流命令（自定义工作流选择）</h3><a class="sl-anchor-link" href="#扩展工作流命令自定义工作流选择"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “扩展工作流命令（自定义工作流选择）”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">/opsx:new</code></td>
+<td>创建新的变更脚手架</td>
+</tr>
+<tr>
+<td><code dir="auto">/opsx:continue</code></td>
+<td>根据依赖关系创建下一个产物</td>
+</tr>
+<tr>
+<td><code dir="auto">/opsx:ff</code></td>
+<td>快进：一次性创建所有规划产物</td>
+</tr>
+<tr>
+<td><code dir="auto">/opsx:verify</code></td>
+<td>验证实现是否符合产物</td>
+</tr>
+<tr>
+<td><code dir="auto">/opsx:bulk-archive</code></td>
+<td>一次性归档多个变更</td>
+</tr>
+<tr>
+<td><code dir="auto">/opsx:onboard</code></td>
+<td>通过完整工作流进行引导式教程</td>
+</tr>
+</tbody>
+</table>
+<p>默认全局配置档案为 <code dir="auto">core</code>。若要启用扩展工作流命令，请运行 <code dir="auto">openspec config profile</code> 并选择工作流，然后在项目中运行 <code dir="auto">openspec update</code>。</p>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="命令参考">命令参考</h2><a class="sl-anchor-link" href="#命令参考"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “命令参考”</span></a></div>
+<div class="sl-heading-wrapper level-h3"><h3 id="opsxpropose"><code dir="auto">/opsx:propose</code></h3><a class="sl-anchor-link" href="#opsxpropose"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “/opsx:propose”</span></a></div>
+<p>新建变更，并在一步中生成规划产物。这是 <code dir="auto">core</code> 配置档案中的默认起始命令。</p>
+<p><strong>语法：</strong></p>
+<div class="expressive-code"><link rel="stylesheet" href="/_astro/ec.w36nc.css"><script type="module" src="/_astro/ec.0vx5m.js"></script><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="text"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">/opsx:propose [change-name-or-description]</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="复制到剪贴板" data-copied="复制成功！" data-code="/opsx:propose [change-name-or-description]"><div></div></button></div></figure></div>
+<p><strong>参数：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>必需</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">change-name-or-description</code></td>
+<td>否</td>
+<td>kebab-case 名称或自然语言变更描述</td>
+</tr>
+</tbody>
+</table>
+<p><strong>功能：</strong></p>
+<ul>
+<li>创建 <code dir="auto">openspec/changes/&lt;change-name&gt;/</code></li>
+<li>生成实现之前所需的产物（对于 <code dir="auto">spec-driven</code>：proposal、specs、design、tasks）</li>
+<li>变更准备好使用 <code dir="auto">/opsx:apply</code> 后停止</li>
+</ul>
+<p><strong>示例：</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="text"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">You: /opsx:propose add-dark-mode</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">AI:  Created openspec/changes/add-dark-mode/</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ proposal.md</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ specs/ui/spec.md</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ design.md</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ tasks.md</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Ready for implementation. Run /opsx:apply.</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="复制到剪贴板" data-copied="复制成功！" data-code="You: /opsx:propose add-dark-modeAI:  Created openspec/changes/add-dark-mode/     ✓ proposal.md     ✓ specs/ui/spec.md     ✓ design.md     ✓ tasks.md     Ready for implementation. Run /opsx:apply."><div></div></button></div></figure></div>
+<p><strong>提示：</strong></p>
+<ul>
+<li>如需最快的端到端流程，请使用此命令。</li>
+<li>如果希望逐步控制产物创建，请启用扩展工作流并使用 <code dir="auto">/opsx:new</code> + <code dir="auto">/opsx:continue</code>。</li>
+</ul>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="opsxexplore"><code dir="auto">/opsx:explore</code></h3><a class="sl-anchor-link" href="#opsxexplore"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “/opsx:explore”</span></a></div>
+<blockquote>
+<p><strong>拿不准时从这里开始。</strong> Explore 是一位没有压力的思考伙伴：它会读取代码库、比较方案，并在编写任何代码之前，把模糊想法整理成具体计划。它已包含在默认配置档案中。完整说明和更多示例请参阅<a href="/zh-CN/explore/">先探索</a>指南。</p>
+</blockquote>
+<p>在确定变更方案之前梳理想法、调查问题并明确需求。</p>
+<p><strong>语法：</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">/opsx:explore [topic]</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="复制到剪贴板" data-copied="复制成功！" data-code="/opsx:explore [topic]"><div></div></button></div></figure></div>
+<p><strong>参数：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>必需</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">topic</code></td>
+<td>否</td>
+<td>想要探索或调查的内容</td>
+</tr>
+</tbody>
+</table>
+<p><strong>功能：</strong></p>
+<ul>
+<li>无需固定结构即可展开探索式对话</li>
+<li>调查代码库以回答问题</li>
+<li>比较选项和方案</li>
+<li>创建可视化图表以辅助梳理思路</li>
+<li>在你要求记录探索结果，或接受它的提议时，使用 <code dir="auto">openspec new change</code> 搭建变更并编写你指定的规划产物，或更新现有变更的产物</li>
+<li>当思路明确后，可转交给 <code dir="auto">/opsx:propose</code>（默认）或 <code dir="auto">/opsx:new</code>（扩展工作流）</li>
+</ul>
+<p><strong>示例：</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="text"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">You: /opsx:explore</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">AI:  What would you like to explore?</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">You: How should we handle authentication for the mobile app?</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">AI:  Let me investigate your current auth setup...</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">[Analyzes codebase]</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">I see you're using session-based auth for the web app.</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">For mobile, we have three main options:</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">1. JWT tokens (stateless, works offline)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">2. OAuth2 (if you need third-party login)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">3. Extend current sessions (simpler, but requires connectivity)</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Your API already has CORS configured. Which direction interests you?</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">You: Let's go with JWT.</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">AI:  That's a decision worth keeping. Want me to start a change called</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">add-jwt-auth? Just the change folder, nothing else yet.</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">You: Yes.</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">AI:  Started openspec/changes/add-jwt-auth/. Say the word and I'll</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">write the proposal, specs, and tasks from what we just worked out.</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="复制到剪贴板" data-copied="复制成功！" data-code="You: /opsx:exploreAI:  What would you like to explore?You: How should we handle authentication for the mobile app?AI:  Let me investigate your current auth setup...     [Analyzes codebase]     I see you&#x27;re using session-based auth for the web app.     For mobile, we have three main options:     1. JWT tokens (stateless, works offline)     2. OAuth2 (if you need third-party login)     3. Extend current sessions (simpler, but requires connectivity)     Your API already has CORS configured. Which direction interests you?You: Let&#x27;s go with JWT.AI:  That&#x27;s a decision worth keeping. Want me to start a change called     add-jwt-auth? Just the change folder, nothing else yet.You: Yes.AI:  Started openspec/changes/add-jwt-auth/. Say the word and I&#x27;ll     write the proposal, specs, and tasks from what we just worked out."><div></div></button></div></figure></div>
+<p><strong>提示：</strong></p>
+<ul>
+<li>需求不明确或需要调查时使用。</li>
+<li>它绝不会编写代码；除非你提出要求或接受它的建议，否则也不会写入其他内容。</li>
+<li>适合在作出决定前比较多种方案。</li>
+<li>可以读取文件并搜索代码库。</li>
+</ul>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="opsxnew"><code dir="auto">/opsx:new</code></h3><a class="sl-anchor-link" href="#opsxnew"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “/opsx:new”</span></a></div>
+<p>创建新的变更脚手架。此命令会创建变更文件夹，随后等待你使用 <code dir="auto">/opsx:continue</code> 或 <code dir="auto">/opsx:ff</code> 生成产物。</p>
+<p>此命令属于扩展工作流集（默认的 <code dir="auto">core</code> 配置档案不包含）。</p>
+<p><strong>语法：</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">/opsx:new [change-name] [--schema &lt;schema-name&gt;]</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="复制到剪贴板" data-copied="复制成功！" data-code="/opsx:new [change-name] [--schema <schema-name>]"><div></div></button></div></figure></div>
+<p><strong>参数：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>必需</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">change-name</code></td>
+<td>否</td>
+<td>变更文件夹名称（未提供时会提示输入）</td>
+</tr>
+<tr>
+<td><code dir="auto">--schema</code></td>
+<td>否</td>
+<td>要使用的工作流模式（默认来自配置或 <code dir="auto">spec-driven</code>）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>功能：</strong></p>
+<ul>
+<li>创建 <code dir="auto">openspec/changes/&lt;change-name&gt;/</code> 目录</li>
+<li>在变更文件夹中创建 <code dir="auto">.openspec.yaml</code> 元数据文件</li>
+<li>显示可供创建的第一个产物模板</li>
+<li>未提供时提示输入变更名称和模式</li>
+</ul>
+<p><strong>创建内容：</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">openspec/changes/&lt;change-name&gt;/</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">└── .openspec.yaml    # Change metadata (schema, created date)</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="复制到剪贴板" data-copied="复制成功！" data-code="openspec/changes/<change-name>/└── .openspec.yaml    # Change metadata (schema, created date)"><div></div></button></div></figure></div>
+<p><strong>示例：</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">You: /opsx:new add-dark-mode</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">AI:  Created openspec/changes/add-dark-mode/</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Schema: spec-driven</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Ready to create: proposal</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Use /opsx:continue to create it, or /opsx:ff to create all artifacts.</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="复制到剪贴板" data-copied="复制成功！" data-code="You: /opsx:new add-dark-modeAI:  Created openspec/changes/add-dark-mode/     Schema: spec-driven     Ready to create: proposal     Use /opsx:continue to create it, or /opsx:ff to create all artifacts."><div></div></button></div></figure></div>
+<p><strong>提示：</strong></p>
+<ul>
+<li>使用描述性名称：<code dir="auto">add-feature</code>、<code dir="auto">fix-bug</code>、<code dir="auto">refactor-module</code>。</li>
+<li>避免使用 <code dir="auto">update</code>、<code dir="auto">changes</code>、<code dir="auto">wip</code> 等泛化名称。</li>
+<li>也可以在项目配置 (<code dir="auto">openspec/config.yaml</code>) 中设置模式。</li>
+</ul>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="opsxcontinue"><code dir="auto">/opsx:continue</code></h3><a class="sl-anchor-link" href="#opsxcontinue"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “/opsx:continue”</span></a></div>
+<p>沿依赖链创建下一个产物。每次只创建一个产物，以便逐步推进。</p>
+<p><strong>语法：</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">/opsx:continue [change-name]</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="复制到剪贴板" data-copied="复制成功！" data-code="/opsx:continue [change-name]"><div></div></button></div></figure></div>
+<p><strong>参数：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>必需</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">change-name</code></td>
+<td>否</td>
+<td>要继续处理的变更（未提供时根据上下文推断）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>功能：</strong></p>
+<ul>
+<li>查询产物依赖图</li>
+<li>显示哪些产物已就绪，哪些仍受阻</li>
+<li>创建第一个就绪的产物</li>
+<li>读取依赖文件以获取上下文</li>
+<li>显示创建后哪些产物变为可用</li>
+</ul>
+<p><strong>示例：</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">You: /opsx:continue</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">AI:  Change: add-dark-mode</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Artifact status:</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ proposal    (done)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">◆ specs       (ready)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">◆ design      (ready)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">○ tasks       (blocked - needs: specs, design)</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Creating specs...</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">[Reads proposal.md, creates specs based on requirements]</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ Created openspec/changes/add-dark-mode/specs/ui/spec.md</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Now available: design</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Run /opsx:continue to create the next artifact.</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="复制到剪贴板" data-copied="复制成功！" data-code="You: /opsx:continueAI:  Change: add-dark-mode     Artifact status:     ✓ proposal    (done)     ◆ specs       (ready)     ◆ design      (ready)     ○ tasks       (blocked - needs: specs, design)     Creating specs...     [Reads proposal.md, creates specs based on requirements]     ✓ Created openspec/changes/add-dark-mode/specs/ui/spec.md     Now available: design     Run /opsx:continue to create the next artifact."><div></div></button></div></figure></div>
+<p><strong>提示：</strong></p>
+<ul>
+<li>希望在继续之前先审查每个产物时使用。</li>
+<li>适用于复杂变更，方便你掌控流程。</li>
+<li>多个产物可能会同时就绪。</li>
+<li>继续之前可以编辑已创建的产物。</li>
+</ul>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="opsxff"><code dir="auto">/opsx:ff</code></h3><a class="sl-anchor-link" href="#opsxff"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “/opsx:ff”</span></a></div>
+<p>快进创建产物，一次性创建所有规划产物。</p>
+<p><strong>语法：</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">/opsx:ff [change-name]</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="复制到剪贴板" data-copied="复制成功！" data-code="/opsx:ff [change-name]"><div></div></button></div></figure></div>
+<p><strong>参数：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>必需</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">change-name</code></td>
+<td>否</td>
+<td>要快进处理的变更（未提供时根据上下文推断）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>功能：</strong></p>
+<ul>
+<li>按依赖顺序创建所有产物</li>
+<li>通过待办列表跟踪进度</li>
+<li>所有 <code dir="auto">apply-required</code> 产物完成后停止</li>
+<li>创建下一个产物之前先读取每项依赖</li>
+</ul>
+<p><strong>示例：</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">You: /opsx:ff add-dark-mode</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">AI:  Fast-forwarding add-dark-mode...</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ Creating proposal.md</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ Creating specs/ui/spec.md</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ Creating design.md</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ Creating tasks.md</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">All planning artifacts complete!</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Ready for implementation. Run /opsx:apply to begin.</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="复制到剪贴板" data-copied="复制成功！" data-code="You: /opsx:ff add-dark-modeAI:  Fast-forwarding add-dark-mode...     ✓ Creating proposal.md     ✓ Creating specs/ui/spec.md     ✓ Creating design.md     ✓ Creating tasks.md     All planning artifacts complete!     Ready for implementation. Run /opsx:apply to begin."><div></div></button></div></figure></div>
+<p><strong>提示：</strong></p>
+<ul>
+<li>已经清楚要构建什么时使用。</li>
+<li>对于简单明了的变更，比 <code dir="auto">/opsx:continue</code> 更快。</li>
+<li>之后仍然可以编辑产物。</li>
+<li>适合中小型功能。</li>
+</ul>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="opsxapply"><code dir="auto">/opsx:apply</code></h3><a class="sl-anchor-link" href="#opsxapply"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “/opsx:apply”</span></a></div>
+<p>实现变更中的任务。它会逐项执行任务清单、编写代码并勾选已完成项目。</p>
+<p><strong>语法：</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">/opsx:apply [change-name]</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="复制到剪贴板" data-copied="复制成功！" data-code="/opsx:apply [change-name]"><div></div></button></div></figure></div>
+<p><strong>参数：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>必需</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">change-name</code></td>
+<td>否</td>
+<td>要实现的变更（未提供时根据上下文推断）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>功能：</strong></p>
+<ul>
+<li>读取 <code dir="auto">tasks.md</code> 并找出未完成的任务</li>
+<li>逐项执行任务</li>
+<li>根据需要编写代码、创建文件和运行测试</li>
+<li>使用复选框 <code dir="auto">[x]</code> 标记已完成的任务</li>
+</ul>
+<p><strong>示例：</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">You: /opsx:apply</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">AI:  Implementing add-dark-mode...</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Reading tasks.md:</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">- [ ] 1.1 Create ThemeContext</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">- [ ] 1.2 Add CSS custom properties</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">- [ ] 1.3 Implement localStorage persistence</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Working on 1.1: Create ThemeContext...</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">[Creates src/context/ThemeContext.tsx]</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ 1.1 Complete</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Working on 1.2: Add CSS custom properties...</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">[Updates src/styles/globals.css]</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ 1.2 Complete</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">...</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="复制到剪贴板" data-copied="复制成功！" data-code="You: /opsx:applyAI:  Implementing add-dark-mode...     Reading tasks.md:     - [ ] 1.1 Create ThemeContext     - [ ] 1.2 Add CSS custom properties     - [ ] 1.3 Implement localStorage persistence     Working on 1.1: Create ThemeContext...     [Creates src/context/ThemeContext.tsx]     ✓ 1.1 Complete     Working on 1.2: Add CSS custom properties...     [Updates src/styles/globals.css]     ✓ 1.2 Complete     ..."><div></div></button></div></figure></div>
+<p><strong>提示：</strong></p>
+<ul>
+<li>如果中断，可以从上次进度继续。</li>
+<li>并行处理多项变更时，可指定变更名称。</li>
+<li>完成状态记录在 <code dir="auto">tasks.md</code> 的复选框中。</li>
+</ul>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="opsxupdate"><code dir="auto">/opsx:update</code></h3><a class="sl-anchor-link" href="#opsxupdate"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “/opsx:update”</span></a></div>
+<p>修改变更中已有的规划产物，并协调它们之间的内容。此命令仅处理规划产物，不会修改代码。</p>
+<p><strong>语法：</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="text"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">/opsx:update [change-name]</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="复制到剪贴板" data-copied="复制成功！" data-code="/opsx:update [change-name]"><div></div></button></div></figure></div>
+<p><strong>参数：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>必需</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">change-name</code></td>
+<td>否</td>
+<td>要更新的变更（未提供时根据上下文推断）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>功能：</strong></p>
+<ul>
+<li>通过 <code dir="auto">openspec status --change &lt;name&gt; --json</code> 读取变更产物</li>
+<li>根据你的要求修改，或在未指定修改内容时检查产物之间是否矛盾</li>
+<li>可沿任一方向协调其他已有产物（一处设计修改可能需要回头调整提案）</li>
+<li>每次只处理一个产物，并在写入前逐项向你确认所有修改</li>
+<li>最后建议下一步操作：<code dir="auto">/opsx:continue</code>（存在尚未开始的产物）、<code dir="auto">/opsx:apply</code>（将修改后的计划用于代码实现），或 <code dir="auto">/opsx:archive</code>（全部完成）</li>
+</ul>
+<p><strong>缺少的文件：</strong></p>
+<ul>
+<li>如果 glob 产物（例如 <code dir="auto">specs/**/*.md</code>）至少有一个现有文件，update 可以建议创建缺少的配套文件。它会使用模式中的指令，并在创建前要求你确认具体路径。</li>
+<li>尚无任何文件的产物仍应使用 <code dir="auto">/opsx:continue</code>。有意跳过的产物不会受影响。</li>
+<li>新文件必须位于变更目录内。如果创建前确认的路径上已出现文件，update 会停止，而不会覆盖它。</li>
+</ul>
+<p><strong>示例：</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="text"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">You: /opsx:update add-dark-mode - we're storing the theme in a cookie now, not localStorage</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">AI:  Reading add-dark-mode artifacts...</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">The design references localStorage in two places; tasks 1.3 covers</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">localStorage persistence; the proposal doesn't mention storage.</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Proposed revisions:</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">1. design.md - swap localStorage decision for cookie storage</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">2. tasks.md - reword task 1.3 to cookie persistence</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Apply revision 1? (design.md)</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="复制到剪贴板" data-copied="复制成功！" data-code="You: /opsx:update add-dark-mode - we&#x27;re storing the theme in a cookie now, not localStorageAI:  Reading add-dark-mode artifacts...     The design references localStorage in two places; tasks 1.3 covers     localStorage persistence; the proposal doesn&#x27;t mention storage.     Proposed revisions:     1. design.md - swap localStorage decision for cookie storage     2. tasks.md - reword task 1.3 to cookie persistence     Apply revision 1? (design.md)"><div></div></button></div></figure></div>
+<p><strong>提示：</strong></p>
+<ul>
+<li>如果尚无产物文件，它不会启动产物创建。若已安装，可使用 <code dir="auto">/opsx:continue</code>；否则可使用 <code dir="auto">openspec status</code> 和 <code dir="auto">openspec instructions</code>。</li>
+<li>如果变更已经实现，随后应运行 <code dir="auto">/opsx:apply</code>，让代码符合修订后的计划。</li>
+<li>如果修订改变了变更的<em>意图</em>，应新建变更，而不是更新现有变更（参阅<a href="/zh-CN/opsx/">何时更新，何时重新开始</a>）。</li>
+</ul>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="opsxverify"><code dir="auto">/opsx:verify</code></h3><a class="sl-anchor-link" href="#opsxverify"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “/opsx:verify”</span></a></div>
+<p>验证实现是否符合变更产物，检查完整性、正确性和一致性。</p>
+<p><strong>语法：</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">/opsx:verify [change-name]</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="复制到剪贴板" data-copied="复制成功！" data-code="/opsx:verify [change-name]"><div></div></button></div></figure></div>
+<p><strong>参数：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>必需</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">change-name</code></td>
+<td>否</td>
+<td>要验证的变更（未提供时根据上下文推断）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>功能：</strong></p>
+<ul>
+<li>从三个维度检查实现质量</li>
+<li>在代码库中搜索实现证据</li>
+<li>将问题分为 CRITICAL、WARNING 或 SUGGESTION</li>
+<li>不会阻止归档，但会指出问题</li>
+</ul>
+<p><strong>验证维度：</strong></p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>验证内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>完整性</strong></td>
+<td>所有任务是否完成、所有需求是否实现、场景是否覆盖</td>
+</tr>
+<tr>
+<td><strong>正确性</strong></td>
+<td>实现是否符合规格意图、边界情况是否处理</td>
+</tr>
+<tr>
+<td><strong>一致性</strong></td>
+<td>设计决策是否体现在代码中、模式是否一致</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例：</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">You: /opsx:verify</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">AI:  Verifying add-dark-mode...</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">COMPLETENESS</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ All 8 tasks in tasks.md are checked</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ All requirements in specs have corresponding code</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">⚠ Scenario "System preference detection" has no test coverage</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">CORRECTNESS</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ Implementation matches spec intent</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ Edge cases from scenarios are handled</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ Error states match spec definitions</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">COHERENCE</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ Design decisions reflected in code structure</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ Naming conventions consistent with design.md</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">⚠ Design mentions "CSS variables" but implementation uses Tailwind classes</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">SUMMARY</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">─────────────────────────────</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Critical issues: 0</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Warnings: 2</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Ready to archive: Yes (with warnings)</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Recommendations:</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">1. Add test for system preference detection</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">2. Update design.md to reflect Tailwind usage, or refactor to use CSS variables</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="复制到剪贴板" data-copied="复制成功！" data-code="You: /opsx:verifyAI:  Verifying add-dark-mode...     COMPLETENESS     ✓ All 8 tasks in tasks.md are checked     ✓ All requirements in specs have corresponding code     ⚠ Scenario &quot;System preference detection&quot; has no test coverage     CORRECTNESS     ✓ Implementation matches spec intent     ✓ Edge cases from scenarios are handled     ✓ Error states match spec definitions     COHERENCE     ✓ Design decisions reflected in code structure     ✓ Naming conventions consistent with design.md     ⚠ Design mentions &quot;CSS variables&quot; but implementation uses Tailwind classes     SUMMARY     ─────────────────────────────     Critical issues: 0     Warnings: 2     Ready to archive: Yes (with warnings)     Recommendations:     1. Add test for system preference detection     2. Update design.md to reflect Tailwind usage, or refactor to use CSS variables"><div></div></button></div></figure></div>
+<p><strong>提示：</strong></p>
+<ul>
+<li>归档前运行它，以便及早发现不一致。</li>
+<li>警告不会阻止归档，但可能指出潜在问题。</li>
+<li>提交前可用它审查 AI 的工作。</li>
+<li>它可以发现产物与实现之间的偏差。</li>
+</ul>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="opsxsync"><code dir="auto">/opsx:sync</code></h3><a class="sl-anchor-link" href="#opsxsync"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “/opsx:sync”</span></a></div>
+<p><strong>可选命令。</strong> 将变更中的差异规格说明合并到主规格说明。如果需要同步，Archive 会主动提示，因此通常无需手动运行此命令。</p>
+<p><strong>语法：</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">/opsx:sync [change-name]</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="复制到剪贴板" data-copied="复制成功！" data-code="/opsx:sync [change-name]"><div></div></button></div></figure></div>
+<p><strong>参数：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>必需</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">change-name</code></td>
+<td>否</td>
+<td>要同步的变更（未提供时根据上下文推断）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>功能：</strong></p>
+<ul>
+<li>从变更文件夹读取差异规格说明</li>
+<li>解析 ADDED/MODIFIED/REMOVED/RENAMED 章节</li>
+<li>将变更合并到主 <code dir="auto">openspec/specs/</code> 目录</li>
+<li>保留差异中未提及的现有内容</li>
+<li>不会归档变更（变更仍保持活动状态）</li>
+</ul>
+<p><strong>示例：</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="text"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">You: /opsx:sync</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">AI:  Syncing add-dark-mode delta specs...</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Reading: openspec/changes/add-dark-mode/specs/ui/spec.md</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Target:  openspec/specs/ui/spec.md</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Changes to apply:</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ ADDED: Theme Selection requirement (2 scenarios)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ ADDED: Accessibility requirement (1 scenario)</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Merging...</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ openspec/specs/ui/spec.md updated</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Change remains active. Run /opsx:archive when ready to complete.</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="复制到剪贴板" data-copied="复制成功！" data-code="You: /opsx:syncAI:  Syncing add-dark-mode delta specs...     Reading: openspec/changes/add-dark-mode/specs/ui/spec.md     Target:  openspec/specs/ui/spec.md     Changes to apply:     ✓ ADDED: Theme Selection requirement (2 scenarios)     ✓ ADDED: Accessibility requirement (1 scenario)     Merging...     ✓ openspec/specs/ui/spec.md updated     Change remains active. Run /opsx:archive when ready to complete."><div></div></button></div></figure></div>
+<p><strong>何时手动运行：</strong></p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>是否使用 sync？</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>长期变更，希望在归档前先将规格说明合并到主规格中</td>
+<td>是</td>
+</tr>
+<tr>
+<td>多项并行变更需要以更新后的主规格说明为基础</td>
+<td>是</td>
+</tr>
+<tr>
+<td>想单独预览/审查合并结果</td>
+<td>是</td>
+</tr>
+<tr>
+<td>快速完成变更并直接归档</td>
+<td>否（archive 会处理）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>提示：</strong></p>
+<ul>
+<li>Sync 是智能合并，而非复制粘贴。</li>
+<li>可以向现有需求添加场景而不重复创建。</li>
+<li>同步后变更仍保持活动状态（不会归档）。</li>
+<li>大多数用户永远不需要直接调用此命令——如有需要，Archive 会提示。</li>
+</ul>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="opsxarchive"><code dir="auto">/opsx:archive</code></h3><a class="sl-anchor-link" href="#opsxarchive"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “/opsx:archive”</span></a></div>
+<p>归档已完成的变更，使其结束并移至归档文件夹。</p>
+<p><strong>语法：</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">/opsx:archive [change-name]</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="复制到剪贴板" data-copied="复制成功！" data-code="/opsx:archive [change-name]"><div></div></button></div></figure></div>
+<p><strong>参数：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>必需</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">change-name</code></td>
+<td>否</td>
+<td>要归档的变更（未提供时根据上下文推断）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>功能：</strong></p>
+<ul>
+<li>检查产物完成状态</li>
+<li>检查任务完成情况（如有未完成项则发出警告）</li>
+<li>如果差异规格说明尚未同步，则询问是否同步</li>
+<li>将变更文件夹移至 <code dir="auto">openspec/changes/archive/YYYY-MM-DD-&lt;name&gt;/</code></li>
+<li>保留所有产物作为审计记录</li>
+</ul>
+<p><strong>示例：</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="text"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">You: /opsx:archive</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">AI:  Archiving add-dark-mode...</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Artifact status:</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ proposal.md exists</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ specs/ exists</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ design.md exists</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ tasks.md exists (8/8 tasks complete)</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Delta specs: Not yet synced</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">→ Sync now? (recommended)</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">You: Yes</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">AI:  ✓ Synced specs to openspec/specs/ui/spec.md</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ Moved to openspec/changes/archive/2025-01-24-add-dark-mode/</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Change archived successfully.</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="复制到剪贴板" data-copied="复制成功！" data-code="You: /opsx:archiveAI:  Archiving add-dark-mode...     Artifact status:     ✓ proposal.md exists     ✓ specs/ exists     ✓ design.md exists     ✓ tasks.md exists (8/8 tasks complete)     Delta specs: Not yet synced     → Sync now? (recommended)You: YesAI:  ✓ Synced specs to openspec/specs/ui/spec.md     ✓ Moved to openspec/changes/archive/2025-01-24-add-dark-mode/     Change archived successfully."><div></div></button></div></figure></div>
+<p><strong>提示：</strong></p>
+<ul>
+<li>有未完成任务不会阻止归档，但会发出警告。</li>
+<li>可以在归档期间或之前同步差异规格说明。</li>
+<li>归档的变更会保留作为历史记录。</li>
+<li>可先使用 <code dir="auto">/opsx:verify</code> 检查问题。</li>
+</ul>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="opsxbulk-archive"><code dir="auto">/opsx:bulk-archive</code></h3><a class="sl-anchor-link" href="#opsxbulk-archive"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “/opsx:bulk-archive”</span></a></div>
+<p>一次性归档多个已完成的变更，并处理它们之间的规格冲突。</p>
+<p><strong>语法：</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">/opsx:bulk-archive [change-names...]</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="复制到剪贴板" data-copied="复制成功！" data-code="/opsx:bulk-archive [change-names...]"><div></div></button></div></figure></div>
+<p><strong>参数：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>必需</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">change-names</code></td>
+<td>否</td>
+<td>要归档的指定变更（未提供时会提示选择）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>功能：</strong></p>
+<ul>
+<li>列出所有已完成的变更</li>
+<li>归档前验证每项变更</li>
+<li>检测不同变更之间的规格冲突</li>
+<li>根据实际实现情况解决冲突</li>
+<li>按时间顺序归档</li>
+</ul>
+<p><strong>示例：</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">You: /opsx:bulk-archive</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">AI:  Found 3 completed changes:</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">- add-dark-mode (8/8 tasks complete)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">- fix-login-bug (3/3 tasks complete)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">- update-footer (2/2 tasks complete)</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Checking for spec conflicts...</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">⚠ add-dark-mode and update-footer both touch specs/ui/</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Inspecting codebase to resolve...</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Both changes are implemented. Will merge in chronological order:</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">1. add-dark-mode (created Jan 20)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">2. update-footer (created Jan 22)</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Archive all 3 changes?</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">You: Yes</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">AI:  ✓ Archived add-dark-mode</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ Archived fix-login-bug</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">✓ Archived update-footer</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Specs merged: add-dark-mode → update-footer</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="复制到剪贴板" data-copied="复制成功！" data-code="You: /opsx:bulk-archiveAI:  Found 3 completed changes:     - add-dark-mode (8/8 tasks complete)     - fix-login-bug (3/3 tasks complete)     - update-footer (2/2 tasks complete)     Checking for spec conflicts...     ⚠ add-dark-mode and update-footer both touch specs/ui/     Inspecting codebase to resolve...     Both changes are implemented. Will merge in chronological order:     1. add-dark-mode (created Jan 20)     2. update-footer (created Jan 22)     Archive all 3 changes?You: YesAI:  ✓ Archived add-dark-mode     ✓ Archived fix-login-bug     ✓ Archived update-footer     Specs merged: add-dark-mode → update-footer"><div></div></button></div></figure></div>
+<p><strong>提示：</strong></p>
+<ul>
+<li>适用于并行工作流。</li>
+<li>冲突解决由智能体完成（会检查代码库）。</li>
+<li>按创建顺序归档变更。</li>
+<li>覆盖规格内容前会提示。</li>
+</ul>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="opsxonboard"><code dir="auto">/opsx:onboard</code></h3><a class="sl-anchor-link" href="#opsxonboard"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “/opsx:onboard”</span></a></div>
+<p>引导你走完完整的 OpenSpec 工作流。这是一种基于真实代码库的交互式教程。</p>
+<p><strong>语法：</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">/opsx:onboard</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="复制到剪贴板" data-copied="复制成功！" data-code="/opsx:onboard"><div></div></button></div></figure></div>
+<p><strong>功能：</strong></p>
+<ul>
+<li>通过讲解带你完整走过一次工作流</li>
+<li>扫描代码库以寻找真实的改进机会</li>
+<li>创建包含真实产物的实际变更</li>
+<li>实现实际工作（规模小且安全的改动）</li>
+<li>归档完成的变更</li>
+<li>在每一步发生时说明操作原因</li>
+</ul>
+<p><strong>阶段：</strong></p>
+<ol>
+<li>欢迎并分析代码库</li>
+<li>寻找改进机会</li>
+<li>创建变更 (<code dir="auto">/opsx:new</code>)</li>
+<li>编写提案</li>
+<li>创建规格说明</li>
+<li>编写设计</li>
+<li>创建任务</li>
+<li>实现任务 (<code dir="auto">/opsx:apply</code>)</li>
+<li>验证实现</li>
+<li>归档变更</li>
+<li>总结并说明后续步骤</li>
+</ol>
+<p><strong>示例：</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">You: /opsx:onboard</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">AI:  Welcome to OpenSpec!</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">I'll walk you through the complete workflow using your actual codebase.</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">We'll find something small to improve, create a proper change for it,</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">implement it, and archive it.</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Let me scan your codebase for opportunities...</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">[Analyzes codebase]</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">I found a few things we could work on:</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">1. Add input validation to the contact form</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">2. Improve error messages in the auth flow</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">3. Add loading states to async buttons</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">     </span></span><span style="--0:#d6deeb;--1:#403f53">Which interests you? (or suggest something else)</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="复制到剪贴板" data-copied="复制成功！" data-code="You: /opsx:onboardAI:  Welcome to OpenSpec!     I&#x27;ll walk you through the complete workflow using your actual codebase.     We&#x27;ll find something small to improve, create a proper change for it,     implement it, and archive it.     Let me scan your codebase for opportunities...     [Analyzes codebase]     I found a few things we could work on:     1. Add input validation to the contact form     2. Improve error messages in the auth flow     3. Add loading states to async buttons     Which interests you? (or suggest something else)"><div></div></button></div></figure></div>
+<p><strong>提示：</strong></p>
+<ul>
+<li>适合刚开始学习工作流的新用户。</li>
+<li>使用真实代码，而不是玩具示例。</li>
+<li>会创建真实变更，你可以选择保留或放弃。</li>
+<li>整个过程需要 15–30 分钟。</li>
+</ul>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="不同-ai-工具的命令语法">不同 AI 工具的命令语法</h2><a class="sl-anchor-link" href="#不同-ai-工具的命令语法"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “不同 AI 工具的命令语法”</span></a></div>
+<p>不同 AI 工具使用的命令语法略有区别。请使用与你的工具对应的格式：</p>
+<table>
+<thead>
+<tr>
+<th>工具的命令文件</th>
+<th>语法示例</th>
+<th>示例工具</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">.../commands/opsx/&lt;id&gt;.*</code></td>
+<td><code dir="auto">/opsx:propose</code>、<code dir="auto">/opsx:apply</code></td>
+<td>Claude Code、Gemini CLI、Crush</td>
+</tr>
+<tr>
+<td><code dir="auto">.../opsx-&lt;id&gt;.*</code></td>
+<td><code dir="auto">/opsx-propose</code>、<code dir="auto">/opsx-apply</code></td>
+<td>Cursor、Devin Desktop、Copilot（IDE）、Trae、Oh My Pi</td>
+</tr>
+<tr>
+<td>无——仅支持技能</td>
+<td><code dir="auto">/openspec-propose</code>、<code dir="auto">/openspec-apply-change</code></td>
+<td>CodeArts、ForgeCode、Hermes、MiniMax Code、Mistral Vibe、Zed Agent、共享 <code dir="auto">.agents</code></td>
+</tr>
+<tr>
+<td>无——Kimi Code</td>
+<td><code dir="auto">/skill:openspec-propose</code></td>
+<td>Kimi Code</td>
+</tr>
+<tr>
+<td>无——Codex CLI</td>
+<td><code dir="auto">$openspec-propose</code></td>
+<td>Codex</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Devin Desktop 与 Devin Local：</strong> <code dir="auto">.devin/workflows/opsx-*.md</code> 文件会为 Devin Desktop 提供 <code dir="auto">/opsx-propose</code>。Devin Local 没有工作流——请使用 OpenSpec 写入 <code dir="auto">.devin/skills/</code> 的技能，例如 <code dir="auto">/openspec-propose</code>；两种智能体均可使用这些技能。</p>
+</blockquote>
+<p>不同工具中的命令意图相同，但呈现方式可能因集成而异。<a href="/zh-CN/supported-tools/">如何调用</a>列出了所有受支持的工具；此表只展示各类格式的示例。</p>
+<blockquote>
+<p><strong>注意：</strong> GitHub Copilot 命令 (<code dir="auto">.github/prompts/*.prompt.md</code>) 仅适用于 IDE 扩展（VS Code、JetBrains、Visual Studio）。GitHub Copilot CLI 目前不支持自定义提示文件；详情和替代方案请参阅<a href="/zh-CN/supported-tools/">支持的工具</a>。</p>
+</blockquote>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="旧版命令">旧版命令</h2><a class="sl-anchor-link" href="#旧版命令"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “旧版命令”</span></a></div>
+<p>这些命令使用较早的“一次性全部生成”工作流。它们仍可使用，但建议采用 OPSX 命令。</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">/openspec:proposal</code></td>
+<td>一次性创建所有产物（proposal、specs、design、tasks）</td>
+</tr>
+<tr>
+<td><code dir="auto">/openspec:apply</code></td>
+<td>实现变更</td>
+</tr>
+<tr>
+<td><code dir="auto">/openspec:archive</code></td>
+<td>归档变更</td>
+</tr>
+</tbody>
+</table>
+<p><strong>适合使用旧版命令的情况：</strong></p>
+<ul>
+<li>使用旧工作流的现有项目</li>
+<li>无需逐步创建产物的简单变更</li>
+<li>倾向于一次性完成所有工作的方式</li>
+</ul>
+<p><strong>迁移到 OPSX：</strong>
+可以使用 OPSX 命令继续处理旧版变更。两者的产物结构兼容。</p>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="故障排除">故障排除</h2><a class="sl-anchor-link" href="#故障排除"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “故障排除”</span></a></div>
+<div class="sl-heading-wrapper level-h3"><h3 id="未找到变更">“未找到变更”</h3><a class="sl-anchor-link" href="#未找到变更"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled ““未找到变更””</span></a></div>
+<p>命令无法确定要处理哪项变更。</p>
+<p><strong>解决方法：</strong></p>
+<ul>
+<li>明确指定变更名称：<code dir="auto">/opsx:apply add-dark-mode</code></li>
+<li>检查变更文件夹是否存在：<code dir="auto">openspec list</code></li>
+<li>确认当前位于正确的项目目录</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="没有就绪的产物">“没有就绪的产物”</h3><a class="sl-anchor-link" href="#没有就绪的产物"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled ““没有就绪的产物””</span></a></div>
+<p>所有产物都已完成，或因缺少依赖项而受阻。</p>
+<p><strong>解决方法：</strong></p>
+<ul>
+<li>运行 <code dir="auto">openspec status --change &lt;name&gt;</code> 查看受阻原因</li>
+<li>检查所需产物是否存在</li>
+<li>先创建缺少的依赖产物</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="未找到-schema">“未找到 Schema”</h3><a class="sl-anchor-link" href="#未找到-schema"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled ““未找到 Schema””</span></a></div>
+<p>指定的 schema 不存在。</p>
+<p><strong>解决方法：</strong></p>
+<ul>
+<li>列出可用 schema：<code dir="auto">openspec schemas</code></li>
+<li>检查 schema 名称拼写</li>
+<li>如果是自定义 schema，请创建它：<code dir="auto">openspec schema init &lt;name&gt;</code></li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="无法识别命令">无法识别命令</h3><a class="sl-anchor-link" href="#无法识别命令"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “无法识别命令”</span></a></div>
+<p>AI 工具无法识别 OpenSpec 命令。</p>
+<p><strong>解决方法：</strong></p>
+<ul>
+<li>确认已初始化 OpenSpec：<code dir="auto">openspec init</code></li>
+<li>重新生成 skills：<code dir="auto">openspec update</code></li>
+<li>检查 <code dir="auto">.claude/skills/</code> 目录是否存在（Claude Code）</li>
+<li>重启 AI 工具，使其加载新 skills</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="产物生成不正确">产物生成不正确</h3><a class="sl-anchor-link" href="#产物生成不正确"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “产物生成不正确”</span></a></div>
+<p>AI 创建的产物不完整或有误。</p>
+<p><strong>解决方法：</strong></p>
+<ul>
+<li>在 <code dir="auto">openspec/config.yaml</code> 中添加项目上下文</li>
+<li>为具体指导添加产物级规则</li>
+<li>在变更描述中提供更多细节</li>
+<li>使用 <code dir="auto">/opsx:continue</code> 而非 <code dir="auto">/opsx:ff</code>，以便更细致地控制流程</li>
+</ul>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="后续步骤">后续步骤</h2><a class="sl-anchor-link" href="#后续步骤"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “后续步骤”</span></a></div>
+<ul>
+<li><a href="/zh-CN/workflows/">工作流</a>——常见模式以及各命令的适用时机</li>
+<li><a href="/zh-CN/cli/">CLI</a>——用于管理和验证的终端命令</li>
+<li><a href="/zh-CN/customization/">定制</a>——创建自定义 schema 和工作流</li>
+</ul>
+</div><section class="hagicode-end-card" aria-labelledby="hagicode-end-card-title" data-hagicode-end-card><div class="hagicode-end-card__intro"><h2 id="hagicode-end-card-title">HagiCode</h2><p class="hagicode-end-card__lead">HagiCode 是一套智能体编码工作台：OpenSpec 工作流、多 Agent 并行执行与 Hero Dungeon 视图，把想法变成真正交付的软件。</p><p class="hagicode-end-card__subheadline">让想法更快变成好用的软件，让智能编码更聪明、更高效，也更有趣。</p></div><figure class="hagicode-end-card__visual"><img src="/img/hagicode/light-main.png" alt="HagiCode 浅色主题主界面截图" width="3137" height="1235" loading="lazy" decoding="async"></figure><ul class="hagicode-end-card__features" aria-label="HagiCode"><li data-hagicode-feature><strong>Smart</strong><span>OpenSpec 将意图转化为从想法到交付的可执行路径。</span></li><li data-hagicode-feature><strong>Efficient</strong><span>多 Agent 工作流让调研、实现与审阅并行推进。</span></li><li data-hagicode-feature><strong>Fun</strong><span>Hero Dungeon 让长时间编码协作更直观、更有参与感。</span></li></ul><a class="hagicode-end-card__visit" href="https://www.hagicode.com">访问 HagiCode</a></section><aside class="hagicode-floating-promotion" aria-label="HagiCode 推广" data-hagicode-promotion data-locale="zh-CN" data-promotion-signature="fallback:hagicode"><div class="hagicode-floating-promotion__content"><div class="hagicode-floating-promotion__copy"><strong data-promotion-title>探索 HagiCode</strong><p data-promotion-description>了解 HagiCode 的 AI 编码与项目协作工具。</p></div><span class="hagicode-floating-promotion__media"><img data-promotion-image data-fallback-src="/img/hagicode/light-main.png" data-fallback-alt="HagiCode 产品界面预览" src="/img/hagicode/light-main.png" alt="HagiCode 产品界面预览" width="3137" height="1235" loading="eager" decoding="async"></span><a data-promotion-link href="https://www.hagicode.com">访问 HagiCode</a><button type="button" data-promotion-dismiss aria-label="关闭 HagiCode 推广"><span aria-hidden="true">×</span></button></div></aside><script type="module" src="/_astro/FloatingPromote.astro_astro_type_script_index_0_lang.B5ql3uer.js"></script><footer class="sl-flex site-footer astro-rgwewuyk"><div class="meta sl-flex astro-rgwewuyk"></div><div class="pagination-links print:hidden astro-b5raizh3" dir="ltr"><a href="/zh-CN/cli/" rel="prev" class="astro-b5raizh3"><svg aria-hidden="true" class="astro-b5raizh3 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17 11H9.41l3.3-3.29a1.004 1.004 0 1 0-1.42-1.42l-5 5a1 1 0 0 0-.21.33 1 1 0 0 0 0 .76 1 1 0 0 0 .21.33l5 5a1.002 1.002 0 0 0 1.639-.325 1 1 0 0 0-.219-1.095L9.41 13H17a1 1 0 0 0 0-2Z"/></svg><span class="astro-b5raizh3">上一页<br class="astro-b5raizh3"><span class="link-title astro-b5raizh3">CLI 参考</span></span></a><a href="/zh-CN/community/" rel="next" class="astro-b5raizh3"><svg aria-hidden="true" class="astro-b5raizh3 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17.92 11.62a1.001 1.001 0 0 0-.21-.33l-5-5a1.003 1.003 0 1 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219l5-5a1 1 0 0 0 .21-.33 1 1 0 0 0 0-.76Z"/></svg><span class="astro-b5raizh3">下一页<br class="astro-b5raizh3"><span class="link-title astro-b5raizh3">社区展示</span></span></a></div><nav aria-label="站点链接" class="astro-rgwewuyk"><a href="/zh-CN/" lang="zh-CN" aria-label="OpenSpec 文档首页" class="astro-rgwewuyk">简体中文</a><a href="/en-US/" lang="en-US" aria-label="OpenSpec documentation home" class="astro-rgwewuyk">English</a><a href="https://github.com/HagiCode-org/openspec-docs" class="astro-rgwewuyk"><svg aria-hidden="true" class="astro-rgwewuyk astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg> GitHub 源码</a><a href="https://github.com/HagiCode-org/openspec-docs/issues" class="astro-rgwewuyk">反馈问题</a></nav><p class="astro-rgwewuyk">© 2026 OpenSpec 文档</p><a class="kudos sl-flex astro-rgwewuyk" href="https://starlight.astro.build"><svg aria-hidden="true" class="astro-rgwewuyk astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path fill-rule="evenodd" d="M15.19 6.75 12 0 8.81 6.75l-.19.38-1.68-1.88a1.2 1.2 0 1 0-1.69 1.69L7.13 8.8h-.38L0 12l6.75 3.19h.38l-1.88 1.87a1.2 1.2 0 1 0 1.69 1.69l1.68-1.88.2.38L12 24l3.19-6.75v-.38l1.69 1.88a1.2 1.2 0 1 0 1.68-1.69l-1.68-1.68.37-.2L24 12l-6.75-3.19-.38-.19 1.7-1.68a1.2 1.2 0 1 0-1.7-1.69L15.2 7.13v-.38ZM12 7.13l-.38.93a8.18 8.18 0 0 1-3.56 3.56l-.94.38.94.38a8.18 8.18 0 0 1 3.56 3.56l.38.94.38-.94a8.18 8.18 0 0 1 3.56-3.56l.94-.38-.94-.38a8.18 8.18 0 0 1-3.56-3.56L12 7.12Z"/><path d="M22.12 3.56a1.2 1.2 0 1 0-1.68-1.69l-.57.57a1.2 1.2 0 0 0 1.7 1.68l.55-.56Zm-18 .75c-.37.38-1.12.38-1.68 0l-.57-.56a1.2 1.2 0 0 1 1.7-1.69l.55.56c.57.38.57 1.13 0 1.7Zm0 15.38c-.37-.38-1.12-.38-1.68 0l-.57.56a1.2 1.2 0 1 0 1.7 1.69l.55-.57c.57-.37.57-1.12 0-1.68Zm18 .75a1.2 1.2 0 1 1-1.68 1.68l-.57-.56a1.2 1.2 0 0 1 1.7-1.69l.55.57Z"/></svg> 使用 Starlight 构建</a></footer></div></div></main></div></div></div></div></body></html>
