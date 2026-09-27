@@ -78,6 +78,8 @@ When adding a locale, configure its Starlight route and document language in `as
 
 The shared Starlight shell and promotion use `@hagicode/hagilight` and `@hagicode/hagilight-starlight`, pinned to published version `0.2.2`. Hagilight owns the header, locale chooser, footer, content-width control, site links, and article-end HagiCode promotion. The shared footer copyright is `HagiCode`.
 
+The all-languages documentation feed is available at `https://openspec.hagicode.com/rss.xml` and is linked from each page's metadata. Per-language feeds use `https://openspec.hagicode.com/rss.<locale>.xml` (for example, `rss.en-US.xml`).
+
 Docs retains fallback-aware title/content wrappers and localized translation and English-fallback notices. Starlight generates all page Head metadata, including the canonical and alternate links for English-fallback routes; Docs does not override it. The Hagilight width toggle, analytics providers, article-end HagiCode promotion, and campaign banner use the plugin defaults. The article promotion and campaign banner are enabled by default; the article promotion can be disabled per page with `hagicodePromotion: false` frontmatter.
 
 The shared viewport-bottom banner is shown when Hagilight finds an eligible remote campaign. Docs does not provide local fallback text; if no campaign is available, the banner stays hidden. Hagilight handles campaign discovery, localized campaign selection, dismissal, keyboard controls, reduced motion, and footer-aware visibility. Campaign data is fetched only in the browser. The banner's dismiss, navigation, and rotation control labels are English.
