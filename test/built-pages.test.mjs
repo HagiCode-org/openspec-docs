@@ -3,7 +3,11 @@ import { readdir, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
 import { LANGUAGE_OPTIONS, SITE_COPY } from "../src/i18n/site-copy.mjs";
-import { SUPPORTED_LOCALES } from "../src/lib/locale-navigation.mjs";
+import {
+  getPublishedEnglishTopicHref,
+  shouldShowAITranslationNotice,
+  SUPPORTED_LOCALES,
+} from "../src/lib/locale-navigation.mjs";
 
 async function readBuiltPage(path) {
   return readFile(new URL(`../dist/${path}`, import.meta.url), "utf8");
@@ -28,7 +32,7 @@ function builtFileForUrl(url) {
   return new URL(`../dist/${relative}`, import.meta.url);
 }
 
-test("built upstream routes expose English, authored Chinese, and fallback articles", async () => {
+test("built upstream routes expose English, authored Chinese, and reviewed locale articles", async () => {
   const [zhHome, zhOverview, enHome, enGuide, enNested, jaGuide] = await Promise.all([
     readBuiltPage("zh-CN/index.html"),
     readBuiltPage("zh-CN/overview/index.html"),
@@ -53,14 +57,85 @@ test("built upstream routes expose English, authored Chinese, and fallback artic
   assert.match(enGuide, /This guide explains how OpenSpec works/u);
   assert.match(enNested, /store<\/strong> is the answer/u);
   assert.match(jaGuide, /<html lang="ja-JP"/u);
-  assert.match(jaGuide, /lang="en-US"[^>]*>\s*<h1/u);
-  assert.match(jaGuide, /<div lang="en-US"/u);
-  assert.ok(jaGuide.includes(SITE_COPY["ja-JP"].englishFallbackNotice));
-  assert.ok(jaGuide.includes('href="/en-US/getting-started/"'));
-  assert.ok(jaGuide.includes('<link rel="canonical" href="https://openspec.hagicode.com/en-US/getting-started/"/>'));
-  assert.match(jaGuide, /<meta property="og:locale" content="en_US"/u);
-  const jaHead = jaGuide.slice(jaGuide.indexOf("<head>"), jaGuide.indexOf("</head>"));
-  assert.doesNotMatch(jaHead, /hreflang=/u);
+  assert.match(jaGuide, /<main[^>]*lang="ja-JP"/u);
+  assert.match(jaGuide, /<h1[^>]*>[^<]*[\u3040-\u30ff]/u);
+  assert.doesNotMatch(jaGuide, /This guide explains how OpenSpec works/u);
+  assert.ok(!jaGuide.includes(SITE_COPY["ja-JP"].englishFallbackNotice));
+  assert.ok(jaGuide.includes('<link rel="canonical" href="https://openspec.hagicode.com/ja-JP/getting-started/"/>'));
+});
+
+test("localized authored pages show a localized AI translation notice below the title", async () => {
+  const homePages = await Promise.all(SUPPORTED_LOCALES.map(async (locale) => [
+    locale,
+    await readBuiltPage(`${locale}/index.html`),
+  ]));
+
+  for (const [locale, html] of homePages) {
+    const notices = [...html.matchAll(/<aside class="ai-translation-notice"[\s\S]*?<\/aside>/gu)];
+    if (locale === "en-US") {
+      assert.equal(notices.length, 0);
+      continue;
+    }
+
+    assert.equal(notices.length, 1, `${locale} home has one translation notice`);
+    const copy = SITE_COPY[locale].translationNotice;
+    const notice = notices[0][0];
+    assert.ok(notice.includes(copy.label));
+    assert.ok(notice.includes(copy.title));
+    assert.ok(notice.includes(copy.description));
+    assert.ok(notice.includes(copy.viewOriginal));
+    assert.ok(notice.includes('href="/en-US/"'));
+
+    const titleEnd = html.indexOf("</h1>");
+    const noticeStart = notices[0].index;
+    const noticeEnd = noticeStart + notice.length;
+    const bodyStart = html.indexOf('class="sl-markdown-content', noticeEnd);
+    assert.ok(titleEnd >= 0 && titleEnd < noticeStart, `${locale} notice follows the title`);
+    assert.ok(bodyStart > noticeEnd, `${locale} notice precedes article content`);
+  }
+
+  const [zhTopic, enTopic, enHome, jaTopic] = await Promise.all([
+    readBuiltPage("zh-CN/overview/index.html"),
+    readBuiltPage("en-US/overview/index.html"),
+    readBuiltPage("en-US/index.html"),
+    readBuiltPage("ja-JP/writing-specs/index.html"),
+  ]);
+  assert.equal((zhTopic.match(/<aside class="ai-translation-notice"/gu) ?? []).length, 1);
+  assert.ok(zhTopic.includes(SITE_COPY["zh-CN"].translationNotice.title));
+  assert.ok(zhTopic.includes('href="/en-US/overview/"'));
+  assert.equal((enTopic.match(/<aside class="ai-translation-notice"/gu) ?? []).length, 0);
+  assert.equal((enHome.match(/<aside class="ai-translation-notice"/gu) ?? []).length, 0);
+  assert.equal((jaTopic.match(/<aside class="ai-translation-notice"/gu) ?? []).length, 1);
+  assert.ok(jaTopic.includes(SITE_COPY["ja-JP"].translationNotice.title));
+  assert.ok(!jaTopic.includes(SITE_COPY["ja-JP"].englishFallbackNotice));
+  assert.match(jaTopic, /<main[^>]*lang="ja-JP"/u);
+  assert.doesNotMatch(jaTopic, /<div lang="en-US"/u);
+});
+
+test("translation notice eligibility and English source links use published routes", () => {
+  assert.equal(shouldShowAITranslationNotice("zh-CN", false, undefined), true);
+  assert.equal(shouldShowAITranslationNotice("en-US", false, undefined), false);
+  assert.equal(shouldShowAITranslationNotice("ja-JP", true, undefined), false);
+  assert.equal(shouldShowAITranslationNotice("zh-CN", false, false), false);
+  assert.equal(shouldShowAITranslationNotice("xx-XX", false, undefined), false);
+
+  assert.equal(
+    getPublishedEnglishTopicHref("/zh-CN/overview/", ["en-US/overview.md"]),
+    "/en-US/overview/",
+  );
+  assert.equal(
+    getPublishedEnglishTopicHref("/zh-CN/unpublished/", ["zh-CN/unpublished.md"]),
+    null,
+  );
+  assert.equal(getPublishedEnglishTopicHref("/zh-CN/", ["en-US/index.md"]), "/en-US/");
+});
+
+test("translation notice styles use theme tokens with responsive spacing and visible focus", async () => {
+  const styles = await readFile(new URL("../src/styles/site.css", import.meta.url), "utf8");
+  assert.match(styles, /\.ai-translation-notice[\s\S]*?var\(--sl-color-bg-sidebar\)/u);
+  assert.match(styles, /\.ai-translation-notice__title\s*\{[^}]*color:\s*var\(--sl-color-text\)/u);
+  assert.match(styles, /@media \(max-width: 42rem\)\s*\{[\s\S]*?\.ai-translation-notice[\s\S]*?padding:/u);
+  assert.match(styles, /\.ai-translation-notice__link:focus-visible\s*\{[^}]*outline: 2px solid var\(--sl-color-text-accent\)/u);
 });
 
 test("root entry defaults to English, honors saved locales, and has a no-script link", async () => {
@@ -148,44 +223,56 @@ test("built site includes the local HagiCode preview image", async () => {
   assert.ok(image.byteLength > 0);
 });
 
-test("Chinese documentation routes and in-page references resolve in the built site", async () => {
-  const pages = await listBuiltHtml("zh-CN");
+test("translated documentation routes and in-page references resolve in the built site", async () => {
   const brokenLinks = [];
-  const headingIds = new Map();
+  for (const locale of SUPPORTED_LOCALES.filter((code) => code !== "en-US")) {
+    const pages = await listBuiltHtml(locale);
+    const headingIds = new Map();
 
-  for (const pagePath of pages) {
-    const html = await readBuiltPage(pagePath);
-    const pageUrl = new URL(`/${pagePath.replace(/index\.html$/u, "")}`, "https://openspec.hagicode.com");
-    const mainStart = html.indexOf("<main");
-    const mainEnd = html.indexOf("</main>", mainStart);
-    assert.ok(mainStart >= 0 && mainEnd >= 0, `${pagePath} has no article main element`);
-    const article = html.slice(mainStart, mainEnd + "</main>".length);
-    const ids = new Set([...article.matchAll(/\bid="([^"]+)"/gu)].map(([, id]) => id));
-    headingIds.set(pageUrl.pathname, ids);
+    for (const pagePath of pages) {
+      const html = await readBuiltPage(pagePath);
+      const pageUrl = new URL(`/${pagePath.replace(/index\.html$/u, "")}`, "https://openspec.hagicode.com");
+      const mainStart = html.indexOf("<main");
+      const mainEnd = html.indexOf("</main>", mainStart);
+      assert.ok(mainStart >= 0 && mainEnd >= 0, `${pagePath} has no article main element`);
+      const article = html.slice(mainStart, mainEnd + "</main>".length);
+      const footerStart = article.indexOf('<footer class="sl-flex site-footer');
+      const pageContent = footerStart < 0 ? article : article.slice(0, footerStart);
+      assert.match(article, new RegExp(`<main[^>]*lang="${locale}"`, "u"), `${pagePath} has localized article metadata`);
+      const ids = new Set([...article.matchAll(/\bid="([^"]+)"/gu)].map(([, id]) => id));
+      headingIds.set(pageUrl.pathname, ids);
 
-    for (const [, href] of article.matchAll(/\bhref="([^"]+)"/gu)) {
-      const target = new URL(href.replaceAll("&amp;", "&"), pageUrl);
-      if (target.origin !== pageUrl.origin) continue;
-      const targetFile = builtFileForUrl(target);
-      try {
-        await stat(targetFile);
-      } catch (error) {
-        if (error.code !== "ENOENT") throw error;
-        brokenLinks.push(`${pagePath}: ${href}`);
-        continue;
-      }
-      if (target.hash && targetFile.pathname.endsWith(".html")) {
-        let targetIds = headingIds.get(target.pathname);
-        if (!targetIds) {
-          const targetHtml = await readFile(targetFile, "utf8");
-          const targetMainStart = targetHtml.indexOf("<main");
-          const targetMainEnd = targetHtml.indexOf("</main>", targetMainStart);
-          const targetArticle = targetHtml.slice(targetMainStart, targetMainEnd + "</main>".length);
-          targetIds = new Set([...targetArticle.matchAll(/\bid="([^"]+)"/gu)].map(([, id]) => id));
-          headingIds.set(target.pathname, targetIds);
+      for (const [, href] of pageContent.matchAll(/\bhref="([^"]+)"/gu)) {
+        const target = new URL(href.replaceAll("&amp;", "&"), pageUrl);
+        if (target.origin !== pageUrl.origin) continue;
+        const targetsAnotherTranslation = SUPPORTED_LOCALES.some((otherLocale) =>
+          otherLocale !== locale
+          && otherLocale !== "en-US"
+          && target.pathname.startsWith(`/${otherLocale}/`));
+        if (targetsAnotherTranslation) {
+          brokenLinks.push(`${pagePath}: internal topic link leaves ${locale}: ${href}`);
         }
-        if (!targetIds.has(decodeURIComponent(target.hash.slice(1)))) {
+        const targetFile = builtFileForUrl(target);
+        try {
+          await stat(targetFile);
+        } catch (error) {
+          if (error.code !== "ENOENT") throw error;
           brokenLinks.push(`${pagePath}: ${href}`);
+          continue;
+        }
+        if (target.hash && targetFile.pathname.endsWith(".html")) {
+          let targetIds = headingIds.get(target.pathname);
+          if (!targetIds) {
+            const targetHtml = await readFile(targetFile, "utf8");
+            const targetMainStart = targetHtml.indexOf("<main");
+            const targetMainEnd = targetHtml.indexOf("</main>", targetMainStart);
+            const targetArticle = targetHtml.slice(targetMainStart, targetMainEnd + "</main>".length);
+            targetIds = new Set([...targetArticle.matchAll(/\bid="([^"]+)"/gu)].map(([, id]) => id));
+            headingIds.set(target.pathname, targetIds);
+          }
+          if (!targetIds.has(decodeURIComponent(target.hash.slice(1)))) {
+            brokenLinks.push(`${pagePath}: ${href}`);
+          }
         }
       }
     }
@@ -221,12 +308,10 @@ test("all locales have localized homes and the chooser offers valid translated o
     assert.ok(html.includes(SITE_COPY[locale].languageLabel));
     if (missingTopicMessages[locale]) {
       assert.ok(html.includes(missingTopicMessages[locale]));
-      const fallbackPage = await readBuiltPage(`${locale}/getting-started/index.html`);
-      assert.ok(fallbackPage.includes(SITE_COPY[locale].englishFallbackNotice));
-      assert.ok(fallbackPage.includes('href="/en-US/getting-started/"'));
-      assert.match(fallbackPage, /<div lang="en-US"/u);
-      assert.match(fallbackPage, /This guide explains how OpenSpec works/u);
-      assert.ok(fallbackPage.includes(`<link rel="canonical" href="https://openspec.hagicode.com/en-US/getting-started/"/>`));
+      const article = await readBuiltPage(`${locale}/getting-started/index.html`);
+      assert.match(article, new RegExp(`<main[^>]*lang="${locale}"`, "u"));
+      assert.ok(!article.includes(SITE_COPY[locale].englishFallbackNotice));
+      assert.doesNotMatch(article, /<div lang="en-US"/u);
     }
   }
 

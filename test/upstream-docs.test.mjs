@@ -1,10 +1,14 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { execFileSync } from "node:child_process";
+import { mkdir, mkdtemp, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 import { checkTranslationBaselines, createImportPlan, writeImportPlan } from "../scripts/upstream-docs.mjs";
+
+const reviewedLocales = ["zh-Hant", "ja-JP", "ko-KR", "de-DE", "fr-FR", "es-ES", "pt-BR", "ru-RU"];
 
 async function createFixture() {
   const root = await mkdtemp(path.join(os.tmpdir(), "openspec-docs-"));
@@ -34,6 +38,7 @@ async function withFixture(callback) {
 function markdownStructure(source) {
   const headingLevels = [];
   const codeBlocks = [];
+  const codeBlockLanguages = [];
   let openFence;
   let blockLines = [];
 
@@ -41,7 +46,11 @@ function markdownStructure(source) {
     const fence = line.match(/^ {0,3}(`{3,}|~{3,})(.*)$/u);
     if (!openFence) {
       if (fence) {
-        openFence = { character: fence[1][0], length: fence[1].length };
+        openFence = {
+          character: fence[1][0],
+          length: fence[1].length,
+          language: fence[2].trim().split(/[ \t]+/u)[0],
+        };
         blockLines = [line];
       } else {
         const heading = line.match(/^ {0,3}(#{1,6})[ \t]+/u);
@@ -58,12 +67,26 @@ function markdownStructure(source) {
       && fence[2].trim() === ""
     ) {
       codeBlocks.push(blockLines.join("\n"));
+      codeBlockLanguages.push(openFence.language);
       openFence = undefined;
       blockLines = [];
     }
   }
   if (openFence) throw new Error("Unterminated Markdown code fence");
-  return { headingLevels, codeBlocks };
+  return { headingLevels, codeBlocks, codeBlockLanguages };
+}
+
+async function listMarkdownFiles(directory, base = directory) {
+  const files = [];
+  for (const entry of await readdir(directory, { withFileTypes: true })) {
+    const absolute = path.join(directory, entry.name);
+    if (entry.isDirectory()) {
+      files.push(...await listMarkdownFiles(absolute, base));
+    } else if (entry.isFile() && entry.name.endsWith(".md")) {
+      files.push(path.relative(base, absolute).split(path.sep).join("/"));
+    }
+  }
+  return files.sort();
 }
 
 test("missing pinned docs fail with an actionable initialization command", async () => {
@@ -97,6 +120,59 @@ test("Chinese topics preserve upstream heading structure and technical examples"
     }
     if (JSON.stringify(translatedStructure.codeBlocks) !== JSON.stringify(sourceStructure.codeBlocks)) {
       failures.push(`${topic}: fenced technical examples differ (${sourceStructure.codeBlocks.length} source, ${translatedStructure.codeBlocks.length} translated)`);
+    }
+  }
+  assert.deepEqual(failures, []);
+});
+
+test("all reviewed locales cover every pinned topic with source-aligned structure", async () => {
+  const sourceRoot = new URL("../upstream/openspec/docs/", import.meta.url);
+  const sourceDirectory = fileURLToPath(sourceRoot);
+  const sourceFiles = (await listMarkdownFiles(sourceDirectory))
+    .filter((file) => file !== "README.md");
+  const topics = sourceFiles.map((file) => file.replace(/\.md$/u, ""));
+  const revision = execFileSync("git", ["-C", fileURLToPath(new URL("../upstream/openspec/", import.meta.url)), "rev-parse", "HEAD"], {
+    encoding: "utf8",
+  }).trim();
+  const baselines = JSON.parse(await readFile(new URL("../src/content/translation-baselines.json", import.meta.url), "utf8"));
+  const failures = [];
+
+  for (const locale of reviewedLocales) {
+    const localeDirectory = fileURLToPath(new URL(`../src/content/docs/${locale}/`, import.meta.url));
+    const localeFiles = (await listMarkdownFiles(localeDirectory))
+      .filter((file) => file !== "index.md" && file !== "index.mdx");
+    const localeTopics = localeFiles.map((file) => file.replace(/\.md$/u, ""));
+    if (JSON.stringify(localeTopics) !== JSON.stringify(topics)) {
+      failures.push(`${locale}: topic coverage differs (expected ${topics.length}, found ${localeFiles.length})`);
+    }
+
+    const localeBaselines = baselines[locale] ?? {};
+    if (JSON.stringify(Object.keys(localeBaselines).sort()) !== JSON.stringify(topics)) {
+      failures.push(`${locale}: baseline coverage differs from the pinned topic set`);
+    }
+
+    for (const topic of topics) {
+      const sourcePath = sourceFiles.find((file) => file.replace(/\.md$/u, "") === topic);
+      const source = await readFile(new URL(`../upstream/openspec/docs/${sourcePath}`, import.meta.url), "utf8");
+      const translated = await readFile(new URL(`../src/content/docs/${locale}/${topic}.md`, import.meta.url), "utf8");
+      const baseline = localeBaselines[topic];
+
+      if (!/^---\ntitle: .+\n---\n/u.test(translated)) failures.push(`${locale}/${topic}: missing localized title`);
+      if (/^isEnglishFallback:\s*true\s*$/mu.test(translated)) failures.push(`${locale}/${topic}: still marked as an English fallback`);
+      if (baseline?.source !== sourcePath) failures.push(`${locale}/${topic}: incorrect source path in baseline`);
+      if (baseline?.sha256 !== createHash("sha256").update(source).digest("hex")) {
+        failures.push(`${locale}/${topic}: incorrect source hash in baseline`);
+      }
+      if (baseline?.revision !== revision) failures.push(`${locale}/${topic}: incorrect source revision in baseline`);
+
+      const sourceStructure = markdownStructure(source);
+      const translatedStructure = markdownStructure(translated);
+      if (JSON.stringify(translatedStructure.headingLevels) !== JSON.stringify(sourceStructure.headingLevels.slice(1))) {
+        failures.push(`${locale}/${topic}: heading hierarchy differs`);
+      }
+      if (JSON.stringify(translatedStructure.codeBlockLanguages) !== JSON.stringify(sourceStructure.codeBlockLanguages)) {
+        failures.push(`${locale}/${topic}: code fence count or language differs`);
+      }
     }
   }
   assert.deepEqual(failures, []);
@@ -268,12 +344,12 @@ test("translation checks identify changed or removed upstream sources", async ()
     const options = { sourceDir, contentRoot, manifestPath, upstreamRoot, revision: "fixture-revision" };
     assert.equal((await checkTranslationBaselines(options)).checkedTranslations, 1);
 
-    const localizedTopic = path.join(contentRoot, "fr-FR/getting-started.md");
+    const localizedTopic = path.join(contentRoot, "zh-Hant/getting-started.md");
     await mkdir(path.dirname(localizedTopic), { recursive: true });
-    await writeFile(localizedTopic, "# Guide de démarrage\n");
+    await writeFile(localizedTopic, "# 開始使用\n");
     await assert.rejects(
       checkTranslationBaselines(options),
-      /fr-FR\/getting-started: translation has no reviewed upstream baseline/u,
+      /zh-Hant\/getting-started: translation has no reviewed upstream baseline/u,
     );
     await rm(localizedTopic);
 
