@@ -57,6 +57,17 @@ The Starlight default locale is English at `/en-US/`. The site root `/` defaults
 
 Keep reviewed translations in the corresponding site-owned locale path, using the same topic path as the English source. When reviewing a translation against upstream, add its locale/topic entry to `src/content/translation-baselines.json` with the source path, SHA-256, and reviewed upstream revision. Compute the source hash with `sha256sum upstream/openspec/docs/<source-file>`. `npm run check:translation-baselines` reports changed or removed sources and authored translations that have no baseline; generated fallbacks are excluded from this audit. Locale homes are shell content, not upstream topic translations, and do not need a baseline.
 
+Authored non-English pages show an AI-translation notice by default. Review each translation against its English source and verify important details before publishing; the notice describes AI assistance, not translation accuracy. For content known to be entirely human-translated or written, opt out with `isAITranslation: false` in its frontmatter:
+
+```yaml
+---
+title: "A human-authored page"
+isAITranslation: false
+---
+```
+
+Omitting `isAITranslation` keeps the notice enabled. English pages and generated English fallbacks are not labeled as translations; the existing fallback flag and notice remain unchanged.
+
 Use site-root paths such as `/zh-CN/getting-started/` for links between translated topics so they resolve correctly from the published locale routes.
 
 The importer tracks generated fallbacks in `src/content/docs/.generated-english-fallbacks.json`, refreshes them on each import, and removes only unchanged generated pages when an upstream topic is removed. To turn a generated fallback into an authored translation, remove its `isEnglishFallback` frontmatter flag, edit the content, add a reviewed baseline, and run `npm run import:english`; the importer then stops ignoring that path and preserves it for baseline auditing. The language chooser keeps the current topic when a translation or English source exists; it uses a locale home only for a topic with no source or matching translation.
