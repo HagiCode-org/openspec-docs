@@ -2,6 +2,7 @@ import { defineCollection } from "astro:content";
 import { docsLoader } from "@astrojs/starlight/loaders";
 import { docsSchema, i18nSchema } from "@astrojs/starlight/schema";
 import { i18nLoader } from "@astrojs/starlight/loaders";
+import { aiDisclosureSchema } from "@hagicode/hagilight-starlight/ai-disclosure-schema";
 import { z } from "astro/zod";
 
 function generateDocumentId({ entry }: { entry: string }) {
@@ -16,10 +17,7 @@ export const collections = {
   docs: defineCollection({
     loader: docsLoader({ generateId: generateDocumentId }),
     schema: docsSchema({
-      extend: z.object({
-        isEnglishFallback: z.boolean().optional(),
-        isAITranslation: z.boolean().optional(),
-      }),
+      extend: z.object({ isEnglishFallback: z.boolean().optional() }).extend(aiDisclosureSchema.shape),
     }),
   }),
   i18n: defineCollection({

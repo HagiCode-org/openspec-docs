@@ -66,7 +66,6 @@ export default defineConfig({
         },
       },
       components: {
-        Head: "./src/components/StarlightHead.astro",
         MarkdownContent: "./src/components/EnglishFallbackMarkdownContent.astro",
         PageTitle: "./src/components/EnglishFallbackPageTitle.astro",
       },
@@ -83,12 +82,6 @@ export default defineConfig({
           links: {
             siteId: "openspec-docs",
             siteUrl: "https://openspec.hagicode.com/",
-            relatedSites: [{
-              id: "hagicode-main",
-              name: localizedCopy("websiteLabel"),
-              url: "https://www.hagicode.com/",
-              supportsLocalePath: true,
-            }],
             overrides: {
               home: { label: localizedCopy("websiteLabel") },
               productDocs: {
@@ -126,13 +119,13 @@ export default defineConfig({
               ],
             },
           },
-          promoto: { enabled: false },
+          promoto: { enabled: true },
           analytics: {
-            googleAnalytics: { enabled: false },
-            fiftyOneLa: { enabled: false },
+            googleAnalytics: { enabled: true, measurementId: "G-EN03FMT2Q4" },
+            fiftyOneLa: { enabled: true, siteId: "L6b88a5yK4h2Xnci" },
           },
           aiDisclosures: {
-            isAITranslation: false,
+            isAITranslation: true,
             isAIAuthor: false,
             sourceLocale: "en-US",
           },

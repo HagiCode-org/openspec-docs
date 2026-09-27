@@ -51,23 +51,6 @@ export function getEnglishTopicHref(pathname) {
   return topic ? `/en-US/${topic}/` : "/en-US/";
 }
 
-export function getPublishedEnglishTopicHref(pathname, publishedIds) {
-  const { topic } = normalizeTopicPath(pathname);
-  const hasEnglishSource = publishedIds.some((id) => {
-    const entry = normalizeEntryId(id);
-    return entry.locale === "en-US" && entry.topic === topic;
-  });
-
-  return hasEnglishSource ? getEnglishTopicHref(pathname) : null;
-}
-
-export function shouldShowAITranslationNotice(locale, isEnglishFallback, isAITranslation) {
-  return SUPPORTED_LOCALES.includes(locale)
-    && locale !== "en-US"
-    && isEnglishFallback !== true
-    && isAITranslation !== false;
-}
-
 export function preserveUrlContext(href, currentUrl) {
   const targetUrl = new URL(href, currentUrl);
   targetUrl.search = currentUrl.search;

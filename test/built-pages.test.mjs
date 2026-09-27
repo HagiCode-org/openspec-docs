@@ -3,11 +3,7 @@ import { readdir, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
 import { LANGUAGE_OPTIONS, SITE_COPY } from "../src/i18n/site-copy.mjs";
-import {
-  getPublishedEnglishTopicHref,
-  shouldShowAITranslationNotice,
-  SUPPORTED_LOCALES,
-} from "../src/lib/locale-navigation.mjs";
+import { SUPPORTED_LOCALES } from "../src/lib/locale-navigation.mjs";
 
 async function readBuiltPage(path) {
   return readFile(new URL(`../dist/${path}`, import.meta.url), "utf8");
@@ -64,52 +60,40 @@ test("built upstream routes expose English, authored Chinese, and reviewed local
   assert.ok(jaGuide.includes('<link rel="canonical" href="https://openspec.hagicode.com/ja-JP/getting-started/"/>'));
 });
 
-test("English fallbacks retain English language semantics and canonical SEO", async () => {
-  const [head, pageTitle, markdownContent] = await Promise.all([
-    readFile(new URL("../src/components/StarlightHead.astro", import.meta.url), "utf8"),
+test("English fallbacks retain English language semantics", async () => {
+  const [pageTitle, markdownContent] = await Promise.all([
     readFile(new URL("../src/components/EnglishFallbackPageTitle.astro", import.meta.url), "utf8"),
     readFile(new URL("../src/components/EnglishFallbackMarkdownContent.astro", import.meta.url), "utf8"),
   ]);
 
-  assert.match(head, /isEnglishFallback === true/u);
-  assert.match(head, /attrs\?\.rel === "alternate"/u);
-  assert.match(head, /href: englishCanonical/u);
-  assert.match(head, /rel: "canonical", href: englishCanonical/u);
-  assert.match(head, /property="og:locale" content="en_US"/u);
   assert.match(pageTitle, /isFallback \? <div lang="en-US">/u);
   assert.match(pageTitle, /<ContentLayoutToggle \/>/u);
   assert.match(markdownContent, /isFallback && \(/u);
   assert.match(markdownContent, /isFallback \? <div lang="en-US">/u);
+  assert.match(markdownContent, /isAITranslation: !isFallback/u);
+  assert.match(markdownContent, /<HagilightMarkdownContent aiDisclosures=\{aiDisclosures\}>/u);
 });
 
-test("localized authored pages show a localized AI translation notice below the title", async () => {
+test("localized authored pages use Hagilight's localized AI translation notice after the article", async () => {
   const homePages = await Promise.all(SUPPORTED_LOCALES.map(async (locale) => [
     locale,
     await readBuiltPage(`${locale}/index.html`),
   ]));
 
   for (const [locale, html] of homePages) {
-    const notices = [...html.matchAll(/<aside class="ai-translation-notice"[\s\S]*?<\/aside>/gu)];
+    const notices = [...html.matchAll(/<aside class="hagilight-ai-disclosure" role="note">[\s\S]*?<\/aside>/gu)];
     if (locale === "en-US") {
       assert.equal(notices.length, 0);
       continue;
     }
 
     assert.equal(notices.length, 1, `${locale} home has one translation notice`);
-    const copy = SITE_COPY[locale].translationNotice;
     const notice = notices[0][0];
-    assert.ok(notice.includes(copy.label));
-    assert.ok(notice.includes(copy.title));
-    assert.ok(notice.includes(copy.description));
-    assert.ok(notice.includes(copy.viewOriginal));
     assert.ok(notice.includes('href="/en-US/"'));
 
-    const titleEnd = html.indexOf("</h1>");
     const noticeStart = notices[0].index;
-    const noticeEnd = noticeStart + notice.length;
-    const bodyStart = html.indexOf('class="sl-markdown-content', noticeEnd);
-    assert.ok(titleEnd >= 0 && titleEnd < noticeStart, `${locale} notice follows the title`);
-    assert.ok(bodyStart > noticeEnd, `${locale} notice precedes article content`);
+    const bodyStart = html.indexOf('class="sl-markdown-content');
+    assert.ok(bodyStart >= 0 && bodyStart < noticeStart, `${locale} notice follows article content`);
   }
 
   const [zhTopic, enTopic, enHome, jaTopic] = await Promise.all([
@@ -118,42 +102,25 @@ test("localized authored pages show a localized AI translation notice below the 
     readBuiltPage("en-US/index.html"),
     readBuiltPage("ja-JP/writing-specs/index.html"),
   ]);
-  assert.equal((zhTopic.match(/<aside class="ai-translation-notice"/gu) ?? []).length, 1);
-  assert.ok(zhTopic.includes(SITE_COPY["zh-CN"].translationNotice.title));
+  assert.equal((zhTopic.match(/<aside class="hagilight-ai-disclosure"/gu) ?? []).length, 1);
+  assert.ok(zhTopic.includes("本文由 AI 翻译。"));
   assert.ok(zhTopic.includes('href="/en-US/overview/"'));
-  assert.equal((enTopic.match(/<aside class="ai-translation-notice"/gu) ?? []).length, 0);
-  assert.equal((enHome.match(/<aside class="ai-translation-notice"/gu) ?? []).length, 0);
-  assert.equal((jaTopic.match(/<aside class="ai-translation-notice"/gu) ?? []).length, 1);
-  assert.ok(jaTopic.includes(SITE_COPY["ja-JP"].translationNotice.title));
+  assert.equal((enTopic.match(/<aside class="hagilight-ai-disclosure"/gu) ?? []).length, 0);
+  assert.equal((enHome.match(/<aside class="hagilight-ai-disclosure"/gu) ?? []).length, 0);
+  assert.equal((jaTopic.match(/<aside class="hagilight-ai-disclosure"/gu) ?? []).length, 1);
+  assert.ok(jaTopic.includes("この記事は AI によって翻訳されました。"));
   assert.ok(!jaTopic.includes(SITE_COPY["ja-JP"].englishFallbackNotice));
   assert.match(jaTopic, /<main[^>]*lang="ja-JP"/u);
   assert.doesNotMatch(jaTopic, /<div lang="en-US"/u);
 });
 
-test("translation notice eligibility and English source links use published routes", () => {
-  assert.equal(shouldShowAITranslationNotice("zh-CN", false, undefined), true);
-  assert.equal(shouldShowAITranslationNotice("en-US", false, undefined), false);
-  assert.equal(shouldShowAITranslationNotice("ja-JP", true, undefined), false);
-  assert.equal(shouldShowAITranslationNotice("zh-CN", false, false), false);
-  assert.equal(shouldShowAITranslationNotice("xx-XX", false, undefined), false);
-
-  assert.equal(
-    getPublishedEnglishTopicHref("/zh-CN/overview/", ["en-US/overview.md"]),
-    "/en-US/overview/",
-  );
-  assert.equal(
-    getPublishedEnglishTopicHref("/zh-CN/unpublished/", ["zh-CN/unpublished.md"]),
-    null,
-  );
-  assert.equal(getPublishedEnglishTopicHref("/zh-CN/", ["en-US/index.md"]), "/en-US/");
-});
-
-test("translation notice styles use theme tokens with responsive spacing and visible focus", async () => {
-  const styles = await readFile(new URL("../src/styles/site.css", import.meta.url), "utf8");
-  assert.match(styles, /\.ai-translation-notice[\s\S]*?var\(--sl-color-bg-sidebar\)/u);
-  assert.match(styles, /\.ai-translation-notice__title\s*\{[^}]*color:\s*var\(--sl-color-text\)/u);
-  assert.match(styles, /@media \(max-width: 42rem\)\s*\{[\s\S]*?\.ai-translation-notice[\s\S]*?padding:/u);
-  assert.match(styles, /\.ai-translation-notice__link:focus-visible\s*\{[^}]*outline: 2px solid var\(--sl-color-text-accent\)/u);
+test("AI translation notice styling comes from Hagilight", async () => {
+  const [docsStyles, hagilightStyles] = await Promise.all([
+    readFile(new URL("../src/styles/site.css", import.meta.url), "utf8"),
+    readFile(new URL("../node_modules/@hagicode/hagilight-starlight/content-width.css", import.meta.url), "utf8"),
+  ]);
+  assert.doesNotMatch(docsStyles, /ai-translation-notice/u);
+  assert.match(hagilightStyles, /\.hagilight-ai-disclosure\s*\{/u);
 });
 
 test("root entry defaults to English, honors saved locales, and has a no-script link", async () => {
@@ -170,7 +137,7 @@ test("root entry defaults to English, honors saved locales, and has a no-script 
   assert.ok(chineseHome.includes('<link rel="canonical" href="https://openspec.hagicode.com/zh-CN/"/>'));
 });
 
-test("localized pages use the shared shell and keep the Docs end card and fallback banner", async () => {
+test("localized pages use the shared shell, Docs end card, and Hagilight banner", async () => {
   const pages = await Promise.all([
     ...SUPPORTED_LOCALES.map(async (locale) => [locale, await readBuiltPage(`${locale}/index.html`), false]),
     ["en-US", await readBuiltPage("en-US/getting-started/index.html"), true],
@@ -200,10 +167,11 @@ test("localized pages use the shared shell and keep the Docs end card and fallba
     const endCard = html.indexOf("data-hagicode-end-card");
     const promotion = html.indexOf("<hagilight-promoto-banner");
     const promotionEnd = html.indexOf("</hagilight-promoto-banner>", promotion);
-    const pagination = html.indexOf("<footer", promotionEnd);
+    const pagination = html.indexOf("pagination-links");
     const footer = html.indexOf("hagilight-site-links");
     assert.ok(endCard >= 0 && endCard < promotion && promotion < promotionEnd);
-    assert.ok(promotionEnd < pagination && pagination < footer);
+    assert.ok(footer >= 0 && footer < promotion);
+    if (hasPagination) assert.ok(endCard < pagination && pagination < footer);
     assert.equal(html.split("<hagilight-promoto-banner").length - 1, 1);
     const endCardMarkup = html.slice(endCard, promotion);
     const promotionMarkup = html.slice(promotion, promotionEnd);
@@ -215,17 +183,13 @@ test("localized pages use the shared shell and keep the Docs end card and fallba
     assert.match(promotionMarkup, /data-promoto-track/u);
     assert.match(promotionMarkup, /data-promoto-dismiss[^>]*aria-label="Dismiss promotion"/u);
     assert.match(promotionMarkup, /data-locale="/u);
-    assert.match(promotionMarkup, /\/img\/hagicode\/light-main\.png/u);
-    assert.ok(promotionMarkup.includes("https://www.hagicode.com"));
-    assert.ok(promotionMarkup.includes(copy.promoteTitle));
-    assert.ok(promotionMarkup.includes(copy.promoteDescription));
-    assert.ok(promotionMarkup.includes(copy.promoteVisitLabel));
+    assert.doesNotMatch(promotionMarkup, /data-fallback=/u);
+    assert.doesNotMatch(promotionMarkup, /\/img\/hagicode\/light-main\.png/u);
 
     const footerMarkup = html.slice(footer);
     assert.ok(footerMarkup.includes(`href="https://www.hagicode.com/${locale}/"`));
     assert.ok(footerMarkup.includes(productDocsUrl));
     assert.ok(footerMarkup.includes('href="https://tasks.hagicode.com/"'));
-    assert.ok(footerMarkup.includes(copy.websiteLabel));
     assert.ok(footerMarkup.includes(copy.productDocsLabel));
     assert.ok(footerMarkup.includes(copy.hagiTaskLabel));
     assert.ok(footerMarkup.includes('href="https://github.com/Fission-AI/OpenSpec"'));
@@ -233,7 +197,6 @@ test("localized pages use the shared shell and keep the Docs end card and fallba
     assert.match(footerMarkup, /href="https:\/\/github\.com\/HagiCode-org\/openspec-docs"/u);
     assert.match(footerMarkup, /href="https:\/\/github\.com\/HagiCode-org\/openspec-docs\/issues"/u);
     assert.match(footerMarkup, /©\s+\d{4}\s+HagiCode/u);
-    if (hasPagination) assert.ok(pagination > promotionEnd);
   }
 });
 
@@ -399,10 +362,11 @@ test("retired placeholder guides are neither published nor linked", async () => 
   assert.ok(pages.every((html) => !html.includes("/guides/getting-started/")));
 });
 
-test("built production output without identifiers has no analytics bootstraps", async () => {
-  const html = await readBuiltPage("index.html");
-  assert.doesNotMatch(html, /<script type="application\/json"[^>]*data-openspec-analytics/u);
-  assert.doesNotMatch(html, /<(?:script|link)[^>]+(?:googletagmanager\.com|sdk\.51\.la)/u);
+test("built production pages load each Hagilight analytics provider once", async () => {
+  const html = await readBuiltPage("zh-CN/index.html");
+  assert.equal((html.match(/googletagmanager\.com\/gtag\/js\?id=G-EN03FMT2Q4/gu) ?? []).length, 1);
+  assert.equal((html.match(/sdk\.51\.la\/js-sdk-pro\.min\.js/gu) ?? []).length, 1);
+  assert.doesNotMatch(html, /data-openspec-analytics/u);
 });
 
 test("mobile menu keeps native locale selection and the shared chooser is keyboard-accessible", async () => {

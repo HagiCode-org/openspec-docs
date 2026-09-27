@@ -1,33 +1,17 @@
 ---
 import HagilightMarkdownContent from "@hagicode/hagilight-starlight/MarkdownContent";
-import PromotoBanner from "@hagicode/hagilight/PromotoBanner";
 import HagiCodeEndCard from "./HagiCodeEndCard.astro";
 import { isSiteLocale, SITE_COPY } from "../i18n/site-copy.mjs";
 import { getEnglishTopicHref } from "../lib/locale-navigation.mjs";
 
 const route = Astro.locals.starlightRoute;
-const locale = isSiteLocale(route?.locale)
-  ? route.locale
-  : "en-US";
+const locale = isSiteLocale(route?.locale) ? route.locale : "en-US";
 const isFallback = route?.entry.data.isEnglishFallback === true;
 const englishHref = getEnglishTopicHref(Astro.url.pathname);
 const aiDisclosures = {
-  isAITranslation: false,
+  isAITranslation: !isFallback,
   isAIAuthor: false,
   sourceLocale: "en-US",
-};
-const fallbackPromotion = {
-  id: "openspec-docs-hagicode-fallback",
-  title: SITE_COPY[locale].promoteTitle,
-  description: SITE_COPY[locale].promoteDescription,
-  ctaLabel: SITE_COPY[locale].promoteVisitLabel,
-  link: "https://www.hagicode.com",
-  image: {
-    src: "/img/hagicode/light-main.png",
-    alt: SITE_COPY[locale].promoteImageAlt,
-    width: 3137,
-    height: 1235,
-  },
 };
 ---
 
@@ -43,7 +27,6 @@ const fallbackPromotion = {
   {isFallback ? <div lang="en-US"><slot /></div> : <slot />}
 </HagilightMarkdownContent>
 <HagiCodeEndCard />
-<PromotoBanner locale={locale} fallback={fallbackPromotion} />
 
 <style>
   .english-fallback-notice {

@@ -1,34 +1,16 @@
 ---
-import { getCollection } from "astro:content";
 import DefaultPageTitle from "@astrojs/starlight/components/PageTitle.astro";
 import ContentLayoutToggle from "@hagicode/hagilight-starlight/ContentLayoutToggle";
-import AITranslationNotice from "./AITranslationNotice.astro";
-import { isSiteLocale, SITE_COPY } from "../i18n/site-copy.mjs";
-import { getPublishedEnglishTopicHref, shouldShowAITranslationNotice } from "../lib/locale-navigation.mjs";
 
 const route = Astro.locals.starlightRoute;
-const locale = route?.locale;
 const entry = route?.entry;
 const isFallback = entry?.data.isEnglishFallback === true;
-const showTranslationNotice = shouldShowAITranslationNotice(
-  locale,
-  isFallback,
-  entry?.data.isAITranslation,
-);
-const copy = isSiteLocale(locale) ? SITE_COPY[locale].translationNotice : null;
-const englishHref = showTranslationNotice
-  ? getPublishedEnglishTopicHref(
-    Astro.url.pathname,
-    (await getCollection("docs")).map(({ id }) => id),
-  )
-  : null;
 ---
 
 <div class="page-title-with-layout">
   {isFallback ? <div lang="en-US"><DefaultPageTitle /></div> : <DefaultPageTitle />}
   <ContentLayoutToggle />
 </div>
-{showTranslationNotice && copy && <AITranslationNotice copy={copy} href={englishHref} />}
 
 <style>
   .page-title-with-layout {
