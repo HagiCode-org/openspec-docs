@@ -120,10 +120,6 @@ export default defineConfig({
             },
           },
           promoto: { enabled: true },
-          analytics: {
-            googleAnalytics: { enabled: true, measurementId: "G-EN03FMT2Q4" },
-            fiftyOneLa: { enabled: true, siteId: "L6b88a5yK4h2Xnci" },
-          },
           aiDisclosures: {
             isAITranslation: true,
             isAIAuthor: false,
