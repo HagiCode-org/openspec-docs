@@ -1,7 +1,31 @@
 ---
 import DefaultHead from "@astrojs/starlight/components/Head.astro";
 import { getAnalyticsIdentifiers } from "../lib/analytics-config.mjs";
+import { getEnglishTopicHref } from "../lib/locale-navigation.mjs";
 
+const route = Astro.locals.starlightRoute;
+const isFallback = route?.entry.data.isEnglishFallback === true;
+const englishHref = getEnglishTopicHref(Astro.url.pathname);
+const englishCanonical = new URL(englishHref, Astro.site ?? Astro.url).href;
+if (isFallback) {
+  let hasCanonical = false;
+  route.head = route.head
+    .filter(({ tag, attrs }) => !(tag === "link" && attrs?.rel === "alternate"))
+    .map((item) => {
+      if (item.tag !== "link" || item.attrs?.rel !== "canonical") return item;
+      hasCanonical = true;
+      return {
+        ...item,
+        attrs: { ...item.attrs, href: englishCanonical },
+      };
+    });
+  if (!hasCanonical) {
+    route.head.push({
+      tag: "link",
+      attrs: { rel: "canonical", href: englishCanonical },
+    });
+  }
+}
 const analyticsIdentifiers = getAnalyticsIdentifiers(
   import.meta.env.PROD,
   import.meta.env.PUBLIC_OPENSPEC_GA_ID,
@@ -10,6 +34,7 @@ const analyticsIdentifiers = getAnalyticsIdentifiers(
 ---
 
 <DefaultHead />
+{isFallback && <meta property="og:locale" content="en_US" />}
 {
   analyticsIdentifiers && (
     <script

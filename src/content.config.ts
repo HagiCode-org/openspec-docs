@@ -2,6 +2,7 @@ import { defineCollection } from "astro:content";
 import { docsLoader } from "@astrojs/starlight/loaders";
 import { docsSchema, i18nSchema } from "@astrojs/starlight/schema";
 import { i18nLoader } from "@astrojs/starlight/loaders";
+import { z } from "astro/zod";
 
 function generateDocumentId({ entry }: { entry: string }) {
   const segments = entry.replace(/\.[^./]+$/u, "").split("/");
@@ -14,7 +15,9 @@ function generateDocumentId({ entry }: { entry: string }) {
 export const collections = {
   docs: defineCollection({
     loader: docsLoader({ generateId: generateDocumentId }),
-    schema: docsSchema(),
+    schema: docsSchema({
+      extend: z.object({ isEnglishFallback: z.boolean().optional() }),
+    }),
   }),
   i18n: defineCollection({
     loader: i18nLoader(),

@@ -1,0 +1,7 @@
+---
+import DefaultPageTitle from "@astrojs/starlight/components/PageTitle.astro";
+
+const isFallback = Astro.locals.starlightRoute?.entry.data.isEnglishFallback === true;
+---
+
+{isFallback ? <div lang="en-US"><DefaultPageTitle /></div> : <DefaultPageTitle />}

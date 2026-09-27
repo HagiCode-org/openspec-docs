@@ -11,6 +11,7 @@ import {
 } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { generatedFallbackPaths, writeEnglishFallbacks } from "./english-fallbacks.mjs";
 
 const REPO_ROOT = fileURLToPath(new URL("../", import.meta.url));
 const UPSTREAM_ROOT = path.join(REPO_ROOT, "upstream/openspec");
@@ -326,6 +327,7 @@ export async function createImportPlan({
 export async function writeImportPlan(plan, {
   outputDir = GENERATED_DOCS,
   assetsDir = GENERATED_ASSETS,
+  locales,
 } = {}) {
   await rm(outputDir, { recursive: true, force: true });
   await rm(assetsDir, { recursive: true, force: true });
@@ -339,6 +341,7 @@ export async function writeImportPlan(plan, {
     await mkdir(path.dirname(destination), { recursive: true });
     await copyFile(source, destination);
   }
+  await writeEnglishFallbacks(plan, { contentRoot: path.dirname(outputDir), locales });
 }
 
 export async function importUpstreamDocs(options = {}) {
@@ -393,9 +396,11 @@ export async function checkTranslationBaselines({
 
   const messages = [];
   const pages = await listContentPages(contentRoot);
+  const generatedPages = await generatedFallbackPaths(contentRoot);
   const translatedTopics = new Set();
   for (const page of pages) {
     const relative = posixPath(path.relative(contentRoot, page));
+    if (generatedPages.has(relative)) continue;
     const segments = relative.split("/");
     if (segments[0] === "en-US") continue;
     let locale = "zh-CN";

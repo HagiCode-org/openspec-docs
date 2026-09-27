@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="canonical" href="https://openspec.hagicode.com/en-US/" />
+    <meta name="robots" content="noindex" />
+    <title>OpenSpec Documentation</title>
+  </head>
+  <body>
+    <p><a href="/en-US/">Continue to the OpenSpec documentation</a></p>
+    <script>
+      import {
+        preserveUrlContext,
+        readBrowserLocalePreference,
+      } from "../lib/locale-navigation.mjs";
+
+      const locale = readBrowserLocalePreference() ?? "en-US";
+      const target = preserveUrlContext(`/${locale}/`, new URL(window.location.href));
+      window.location.replace(target);
+    </script>
+  </body>
+</html>

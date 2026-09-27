@@ -5,9 +5,12 @@ import Pagination from "@astrojs/starlight/components/Pagination.astro";
 import { Icon } from "@astrojs/starlight/components";
 import FloatingPromote from "./FloatingPromote.astro";
 import HagiCodeEndCard from "./HagiCodeEndCard.astro";
-import { SITE_COPY } from "../i18n/site-copy.mjs";
+import { isSiteLocale, SITE_COPY } from "../i18n/site-copy.mjs";
 
-const locale = Astro.locals?.starlightRoute?.locale === "en-US" ? "en-US" : "root";
+const requestedLocale = Astro.locals?.starlightRoute?.locale;
+const locale = isSiteLocale(requestedLocale)
+  ? requestedLocale
+  : "en-US";
 const copy = SITE_COPY[locale];
 const sourceUrl = "https://github.com/HagiCode-org/openspec-docs";
 ---
@@ -21,8 +24,8 @@ const sourceUrl = "https://github.com/HagiCode-org/openspec-docs";
   </div>
   <Pagination />
   <nav aria-label={copy.footerLabel}>
-    <a href="/" lang="zh-CN" aria-label={SITE_COPY.root.homeLabel}>OpenSpec 文档</a>
-    <a href="/en-US/" lang="en-US" aria-label={SITE_COPY["en-US"].homeLabel}>OpenSpec Docs</a>
+    <a href="/zh-CN/" lang="zh-CN" aria-label={SITE_COPY["zh-CN"].homeLabel}>简体中文</a>
+    <a href="/en-US/" lang="en-US" aria-label={SITE_COPY["en-US"].homeLabel}>English</a>
     <a href={sourceUrl}><Icon name="github" /> {copy.sourceLabel}</a>
     <a href={`${sourceUrl}/issues`}>{copy.issuesLabel}</a>
   </nav>
