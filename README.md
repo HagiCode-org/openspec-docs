@@ -74,13 +74,13 @@ The importer tracks generated fallbacks in `src/content/docs/.generated-english-
 
 When adding a locale, configure its Starlight route and document language in `astro.config.mjs`, add its Starlight UI strings under `src/content/i18n/`, add locale-keyed shell and fallback-notice copy in `src/i18n/site-copy.mjs`, and provide a localized home before exposing it in the language chooser. Add reviewed translated pages under the locale's content directory as they become available.
 
-## HagiCode promotion
+## Shared Hagilight shell and HagiCode promotion
 
-Every page renders a localized, server-rendered HagiCode introduction after its article content and before Starlight's metadata, pagination, and site footer. This article-end link points directly to `https://www.hagicode.com` and does not depend on JavaScript or remote promotion data.
+The shared Starlight shell and promotion use `@hagicode/hagilight` and `@hagicode/hagilight-starlight`, pinned to published version `0.2.0`. Treat that version as the compatibility boundary: review the published exports and rerun the Docs checks before upgrading. Hagilight owns the header, locale chooser, footer, and content-width control; localized site links are configured in `astro.config.mjs`. The shared footer copyright is `HagiCode`.
 
-The separate viewport-bottom banner starts with localized HagiCode fallback copy. Its client enhancement discovers `promotion-flags` and `promotion-content` through the HagiCode Index catalog, then uses the stable `/promote.json` and `/promote_content.json` endpoints if catalog discovery fails. It shows the first enabled, in-window campaign with matching, usable localized content; missing, invalid, or unavailable campaign data leaves the local fallback in place. Campaign data is fetched only in the browser, never during the static build.
+Docs retains its own Head, fallback-aware title/content wrappers, localized translation and English-fallback notices, and script-independent article-end HagiCode introduction. These preserve canonical/alternate SEO, English language markup for generated fallbacks, and the existing production-only analytics policy. The Hagilight plugin's Head, title/content overrides, analytics, and default promotion are disabled; do not re-enable them without checking for duplicate or conflicting Docs behavior.
 
-The banner hides while the site footer intersects the viewport and can be dismissed independently of the article-end introduction. Dismissals are stored per campaign or fallback when browser storage is available and apply to the current page view when storage is blocked.
+One shared viewport-bottom banner is mounted with localized HagiCode fallback copy. Hagilight handles campaign discovery, localized campaign selection, fallback when campaign data is unavailable, dismissal, keyboard controls, reduced motion, and footer-aware visibility. Campaign data is fetched only in the browser. In published version `0.2.0`, the banner's dismiss, navigation, and rotation control labels are English; this is accepted while campaign copy remains localized.
 
 ## Analytics and privacy
 
