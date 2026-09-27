@@ -57,7 +57,7 @@ The Starlight default locale is English at `/en-US/`. The site root `/` defaults
 
 Keep reviewed translations in the corresponding site-owned locale path, using the same topic path as the English source. When reviewing a translation against upstream, add its locale/topic entry to `src/content/translation-baselines.json` with the source path, SHA-256, and reviewed upstream revision. Compute the source hash with `sha256sum upstream/openspec/docs/<source-file>`. `npm run check:translation-baselines` reports changed or removed sources and authored translations that have no baseline; generated fallbacks are excluded from this audit. Locale homes are shell content, not upstream topic translations, and do not need a baseline.
 
-Authored non-English pages show an AI-translation notice by default. Review each translation against its English source and verify important details before publishing; the notice describes AI assistance, not translation accuracy. For content known to be entirely human-translated or written, opt out with `isAITranslation: false` in its frontmatter:
+Authored non-English pages use Hagilight's localized AI-translation notice after the article content. Review each translation against its English source and verify important details before publishing; the notice describes AI assistance, not translation accuracy. For content known to be entirely human-translated or written, opt out with `isAITranslation: false` in its frontmatter:
 
 ```yaml
 ---
@@ -66,7 +66,7 @@ isAITranslation: false
 ---
 ```
 
-Omitting `isAITranslation` keeps the notice enabled. English pages and generated English fallbacks are not labeled as translations; the existing fallback flag and notice remain unchanged.
+Omitting `isAITranslation` keeps the notice enabled. English pages are not labeled as translations. Generated English fallbacks keep their localized fallback notice and article language markup, but suppress Hagilight's translation disclosure.
 
 Use site-root paths such as `/zh-CN/getting-started/` for links between translated topics so they resolve correctly from the published locale routes.
 
@@ -78,15 +78,10 @@ When adding a locale, configure its Starlight route and document language in `as
 
 The shared Starlight shell and promotion use `@hagicode/hagilight` and `@hagicode/hagilight-starlight`, pinned to published version `0.2.0`. Treat that version as the compatibility boundary: review the published exports and rerun the Docs checks before upgrading. Hagilight owns the header, locale chooser, footer, and content-width control; localized site links are configured in `astro.config.mjs`. The shared footer copyright is `HagiCode`.
 
-Docs retains its own Head, fallback-aware title/content wrappers, localized translation and English-fallback notices, and script-independent article-end HagiCode introduction. These preserve canonical/alternate SEO, English language markup for generated fallbacks, and the existing production-only analytics policy. The Hagilight plugin's Head, title/content overrides, analytics, and default promotion are disabled; do not re-enable them without checking for duplicate or conflicting Docs behavior.
+Docs retains fallback-aware title/content wrappers, localized translation and English-fallback notices, and the script-independent article-end HagiCode introduction. Starlight generates all page Head metadata, including the canonical and alternate links for English-fallback routes; Docs does not override it. The Hagilight width toggle, analytics providers, and promotion banner are enabled through the plugin.
 
-One shared viewport-bottom banner is mounted with localized HagiCode fallback copy. Hagilight handles campaign discovery, localized campaign selection, fallback when campaign data is unavailable, dismissal, keyboard controls, reduced motion, and footer-aware visibility. Campaign data is fetched only in the browser. In published version `0.2.0`, the banner's dismiss, navigation, and rotation control labels are English; this is accepted while campaign copy remains localized.
+The shared viewport-bottom banner is shown when Hagilight finds an eligible remote campaign. Docs does not provide local fallback text; if no campaign is available, the banner stays hidden. Hagilight handles campaign discovery, localized campaign selection, dismissal, keyboard controls, reduced motion, and footer-aware visibility. Campaign data is fetched only in the browser. In published version `0.2.0`, the banner's dismiss, navigation, and rotation control labels are English.
 
 ## Analytics and privacy
 
-Copy `.env.example` to `.env` and set only identifiers owned by the OpenSpec documentation site:
-
-- `PUBLIC_OPENSPEC_GA_ID` enables Google Analytics.
-- `PUBLIC_OPENSPEC_51LA_ID` enables 51LA page tracking.
-
-Either provider can be enabled independently; empty values disable tracking. Analytics scripts are emitted only in production builds and are requested only when the browser is on `openspec.hagicode.com`. A locally served production preview therefore does not send analytics requests. 51LA screen recording is disabled. Review applicable privacy and consent requirements before configuring production identifiers.
+Hagilight's default Google Analytics and 51LA providers are enabled with the package's published IDs and load on production pages. The 51LA integration enables screen recording. Review applicable privacy and consent requirements before publishing or changing analytics configuration.
