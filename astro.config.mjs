@@ -12,6 +12,15 @@ export default defineConfig({
       title: "OpenSpec Docs",
       description: "OpenSpec documentation",
       defaultLocale: "en-US",
+      head: [{
+        tag: "link",
+        attrs: {
+          rel: "alternate",
+          type: "application/rss+xml",
+          title: "OpenSpec Docs",
+          href: "/rss.xml",
+        },
+      }],
       locales: Object.fromEntries(
         Object.values(hagilightLocales).map((locale) => [locale.lang, locale]),
       ),
