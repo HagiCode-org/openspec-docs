@@ -69,6 +69,7 @@ test("discovers catalog paths and chooses the first enabled ID-matched campaign"
     description: "First copy",
     ctaLabel: "Visit",
     href: "https://example.com/first",
+    image: null,
   });
 });
 
@@ -139,6 +140,28 @@ test("prefers the page locale and falls back to available nonempty localized val
   assert.equal(chinese?.ctaLabel, "查看详情");
   assert.equal(english?.title, "English title");
   assert.equal(english?.description, "English description");
+});
+
+test("normalizes campaign image metadata for the promotion card", async () => {
+  const fetchImpl = feedFetch({
+    flags: { promotes: [{ id: "with-image", on: true }] },
+    contents: {
+      contents: [{
+        id: "with-image",
+        title: { en: "Image campaign" },
+        description: { en: "Campaign with media" },
+        link: "https://example.com/campaign",
+        image: { src: "/campaign.png", alt: "Campaign preview", width: 640, height: 360 },
+      }],
+    },
+  });
+
+  assert.deepEqual((await loadFirstPromotion({ locale: "en-US", fetchImpl, now: NOW }))?.image, {
+    src: "https://index.hagicode.com/campaign.png",
+    alt: "Campaign preview",
+    width: 640,
+    height: 360,
+  });
 });
 
 test("uses stable endpoints after catalog discovery failure", async () => {

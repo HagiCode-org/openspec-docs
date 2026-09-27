@@ -31,6 +31,41 @@ async function withFixture(callback) {
   }
 }
 
+function markdownStructure(source) {
+  const headingLevels = [];
+  const codeBlocks = [];
+  let openFence;
+  let blockLines = [];
+
+  for (const line of source.replace(/\r\n?/gu, "\n").split("\n")) {
+    const fence = line.match(/^ {0,3}(`{3,}|~{3,})(.*)$/u);
+    if (!openFence) {
+      if (fence) {
+        openFence = { character: fence[1][0], length: fence[1].length };
+        blockLines = [line];
+      } else {
+        const heading = line.match(/^ {0,3}(#{1,6})[ \t]+/u);
+        if (heading) headingLevels.push(heading[1].length);
+      }
+      continue;
+    }
+
+    blockLines.push(line);
+    if (
+      fence
+      && fence[1][0] === openFence.character
+      && fence[1].length >= openFence.length
+      && fence[2].trim() === ""
+    ) {
+      codeBlocks.push(blockLines.join("\n"));
+      openFence = undefined;
+      blockLines = [];
+    }
+  }
+  if (openFence) throw new Error("Unterminated Markdown code fence");
+  return { headingLevels, codeBlocks };
+}
+
 test("missing pinned docs fail with an actionable initialization command", async () => {
   await withFixture(async ({ root, upstreamRoot }) => {
     await assert.rejects(
@@ -42,6 +77,29 @@ test("missing pinned docs fail with an actionable initialization command", async
       /git submodule update --init --recursive/u,
     );
   });
+});
+
+test("Chinese topics preserve upstream heading structure and technical examples", async () => {
+  const baselines = JSON.parse(await readFile(new URL("../src/content/translation-baselines.json", import.meta.url), "utf8"));
+  const translations = Object.entries(baselines["zh-CN"] ?? {});
+  assert.equal(translations.length, 26);
+  const failures = [];
+
+  for (const [topic, baseline] of translations) {
+    const source = await readFile(new URL(`../upstream/openspec/docs/${baseline.source}`, import.meta.url), "utf8");
+    const translated = await readFile(new URL(`../src/content/docs/zh-CN/${topic}.md`, import.meta.url), "utf8");
+    const sourceStructure = markdownStructure(source);
+    const translatedStructure = markdownStructure(translated);
+    if (sourceStructure.headingLevels[0] !== 1) failures.push(`${topic}: source title is not an H1`);
+    if (!/^---\ntitle: /u.test(translated)) failures.push(`${topic}: missing Starlight title`);
+    if (JSON.stringify(translatedStructure.headingLevels) !== JSON.stringify(sourceStructure.headingLevels.slice(1))) {
+      failures.push(`${topic}: heading hierarchy differs (${sourceStructure.headingLevels.length - 1} source, ${translatedStructure.headingLevels.length} translated)`);
+    }
+    if (JSON.stringify(translatedStructure.codeBlocks) !== JSON.stringify(sourceStructure.codeBlocks)) {
+      failures.push(`${topic}: fenced technical examples differ (${sourceStructure.codeBlocks.length} source, ${translatedStructure.codeBlocks.length} translated)`);
+    }
+  }
+  assert.deepEqual(failures, []);
 });
 
 test("README and nested topics map to stable routes and resolve internal links", async () => {
@@ -73,6 +131,94 @@ test("generated Markdown and copied assets are deterministic", async () => {
     await writeImportPlan(plan, { outputDir, assetsDir });
     assert.equal(await readFile(path.join(outputDir, "getting-started.md"), "utf8"), firstPage);
     assert.equal(await readFile(path.join(assetsDir, "images/diagram.svg"), "utf8"), firstAsset);
+  });
+});
+
+test("missing topics generate ignored fallbacks without overwriting authored translations", async () => {
+  await withFixture(async ({ root, sourceDir, upstreamRoot }) => {
+    const plan = await createImportPlan({ sourceDir, upstreamRoot, revision: "fixture-revision" });
+    const contentRoot = path.join(root, "site/src/content/docs");
+    const outputDir = path.join(contentRoot, "en-US");
+    const assetsDir = path.join(root, "site/public/en-US/assets");
+    const authored = path.join(contentRoot, "zh-CN/getting-started.md");
+    const authoredMdx = path.join(contentRoot, "zh-CN/nested/user-guide.mdx");
+    await mkdir(path.dirname(authored), { recursive: true });
+    await writeFile(authored, "# 已审核翻译\n");
+    await mkdir(path.dirname(authoredMdx), { recursive: true });
+    await writeFile(authoredMdx, "# 已审核的嵌套翻译\n");
+
+    const options = { outputDir, assetsDir, locales: ["zh-CN", "ja-JP"] };
+    await writeImportPlan(plan, options);
+
+    const fallback = path.join(contentRoot, "ja-JP/getting-started.md");
+    const fallbackContent = await readFile(fallback, "utf8");
+    assert.match(fallbackContent, /^isEnglishFallback: true$/mu);
+    assert.match(fallbackContent, /\[Nested\]\(\/en-US\/nested\/user-guide\/#details\)/u);
+    assert.equal(await readFile(authored, "utf8"), "# 已审核翻译\n");
+    await assert.rejects(readFile(path.join(contentRoot, "zh-CN/nested/user-guide.md")), { code: "ENOENT" });
+    assert.equal(await readFile(authoredMdx, "utf8"), "# 已审核的嵌套翻译\n");
+
+    const manifestPath = path.join(contentRoot, ".generated-english-fallbacks.json");
+    const firstManifest = await readFile(manifestPath, "utf8");
+    const manifest = JSON.parse(firstManifest);
+    assert.ok(manifest.files.some(({ path: generatedPath }) => generatedPath === "ja-JP/getting-started.md"));
+    assert.ok(!manifest.files.some(({ path: generatedPath }) => generatedPath === "zh-CN/getting-started.md"));
+    assert.match(await readFile(path.join(path.dirname(contentRoot), ".gitignore"), "utf8"), /\/docs\/ja-JP\/getting-started\.md/u);
+
+    await writeImportPlan(plan, options);
+    assert.equal(await readFile(fallback, "utf8"), fallbackContent);
+    assert.equal(await readFile(manifestPath, "utf8"), firstManifest);
+
+    const authoredFallback = "---\ntitle: \"入门\"\n---\n\n已审核的中文内容。\n";
+    await writeFile(fallback, authoredFallback);
+    await writeImportPlan(plan, options);
+    assert.equal(await readFile(fallback, "utf8"), authoredFallback);
+    const updatedManifest = JSON.parse(await readFile(manifestPath, "utf8"));
+    assert.ok(!updatedManifest.files.some(({ path: generatedPath }) => generatedPath === "ja-JP/getting-started.md"));
+    assert.doesNotMatch(await readFile(path.join(path.dirname(contentRoot), ".gitignore"), "utf8"), /\/docs\/ja-JP\/getting-started\.md/u);
+  });
+});
+
+test("rebuild removes only generated fallback pages for deleted upstream topics", async () => {
+  await withFixture(async ({ root, sourceDir, upstreamRoot }) => {
+    const contentRoot = path.join(root, "site/src/content/docs");
+    const outputDir = path.join(contentRoot, "en-US");
+    const assetsDir = path.join(root, "site/public/en-US/assets");
+    const options = { outputDir, assetsDir, locales: ["ja-JP"] };
+    const firstPlan = await createImportPlan({ sourceDir, upstreamRoot, revision: "fixture-revision" });
+    await writeImportPlan(firstPlan, options);
+
+    const removedFallback = path.join(contentRoot, "ja-JP/nested/user-guide.md");
+    assert.match(await readFile(removedFallback, "utf8"), /User guide/u);
+    await rm(path.join(sourceDir, "nested/user-guide.md"));
+    await writeFile(path.join(sourceDir, "getting-started.md"), "# Getting started\n\nNo nested link remains.\n");
+
+    const nextPlan = await createImportPlan({ sourceDir, upstreamRoot, revision: "next-revision" });
+    await writeImportPlan(nextPlan, options);
+    await assert.rejects(readFile(removedFallback), { code: "ENOENT" });
+    const manifest = JSON.parse(await readFile(path.join(contentRoot, ".generated-english-fallbacks.json"), "utf8"));
+    assert.ok(!manifest.files.some(({ path: generatedPath }) => generatedPath === "ja-JP/nested/user-guide.md"));
+  });
+});
+
+test("fallback generation failures preserve authored locale pages", async () => {
+  await withFixture(async ({ root, sourceDir, upstreamRoot }) => {
+    const plan = await createImportPlan({ sourceDir, upstreamRoot, revision: "fixture-revision" });
+    const contentRoot = path.join(root, "site/src/content/docs");
+    const authored = path.join(contentRoot, "fr-FR/getting-started.md");
+    await mkdir(path.dirname(authored), { recursive: true });
+    await writeFile(authored, "# Guide traduit\n");
+    await writeFile(path.join(contentRoot, ".generated-english-fallbacks.json"), "{invalid\n");
+
+    await assert.rejects(
+      writeImportPlan(plan, {
+        outputDir: path.join(contentRoot, "en-US"),
+        assetsDir: path.join(root, "site/public/en-US/assets"),
+        locales: ["fr-FR"],
+      }),
+      /Invalid generated fallback manifest/u,
+    );
+    assert.equal(await readFile(authored, "utf8"), "# Guide traduit\n");
   });
 });
 
@@ -135,5 +281,38 @@ test("translation checks identify changed or removed upstream sources", async ()
     await assert.rejects(checkTranslationBaselines(options), /upstream source changed/u);
     await rm(sourcePath);
     await assert.rejects(checkTranslationBaselines(options), /upstream source was removed/u);
+  });
+});
+
+test("baseline checks ignore unchanged generated fallbacks but audit authored edits", async () => {
+  await withFixture(async ({ root, sourceDir, upstreamRoot }) => {
+    const contentRoot = path.join(root, "content/docs");
+    const fallbackPath = path.join(contentRoot, "fr-FR/getting-started.md");
+    const fallback = "---\ntitle: \"Getting started\"\nisEnglishFallback: true\n---\n\nEnglish source.\n";
+    await mkdir(path.dirname(fallbackPath), { recursive: true });
+    await writeFile(fallbackPath, fallback);
+    await writeFile(path.join(contentRoot, ".generated-english-fallbacks.json"), JSON.stringify({
+      version: 1,
+      files: [{
+        path: "fr-FR/getting-started.md",
+        sha256: createHash("sha256").update(fallback).digest("hex"),
+      }],
+    }));
+    const manifestPath = path.join(root, "translation-baselines.json");
+    await writeFile(manifestPath, "{}\n");
+    const options = {
+      sourceDir,
+      contentRoot,
+      manifestPath,
+      upstreamRoot,
+      revision: "fixture-revision",
+    };
+
+    assert.equal((await checkTranslationBaselines(options)).checkedTranslations, 0);
+    await writeFile(fallbackPath, `${fallback}\nAuthored text.\n`);
+    await assert.rejects(
+      checkTranslationBaselines(options),
+      /fr-FR\/getting-started: translation has no reviewed upstream baseline/u,
+    );
   });
 });

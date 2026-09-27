@@ -37,6 +37,12 @@ function setup({ storage = new Map(), blockedStorage = false, footerBounds = { t
   const title = new MockElement();
   const description = new MockElement();
   const link = new MockElement();
+  const image = new MockElement({
+    "data-fallback-src": "/img/hagicode/light-main.png",
+    "data-fallback-alt": "HagiCode product preview",
+  });
+  image.src = "/img/hagicode/light-main.png";
+  image.alt = "HagiCode product preview";
   const dismiss = new MockElement();
   const footer = { getBoundingClientRect: () => footerBounds };
   const root = new MockElement({ "data-promotion-signature": "fallback:hagicode" });
@@ -44,6 +50,7 @@ function setup({ storage = new Map(), blockedStorage = false, footerBounds = { t
   root.children.set("[data-promotion-description]", description);
   root.children.set("[data-promotion-link]", link);
   root.children.set("[data-promotion-dismiss]", dismiss);
+  root.children.set("[data-promotion-image]", image);
   const documentObject = { querySelector: () => footer };
   const windowObject = {
     innerHeight: 800,
@@ -79,6 +86,7 @@ function setup({ storage = new Map(), blockedStorage = false, footerBounds = { t
     title,
     description,
     link,
+    image,
     dismiss,
     storage,
     notifyFooter: (isIntersecting) => observerCallback([{ isIntersecting }]),
@@ -126,6 +134,12 @@ test("persists dismissal per campaign and allows another campaign to appear", as
       description: "Campaign copy",
       ctaLabel: "Learn more",
       href: "https://example.com/launch",
+      image: {
+        src: "https://index.hagicode.com/launch.png",
+        alt: "Launch preview",
+        width: 640,
+        height: 360,
+      },
     }),
   });
   await Promise.resolve();
@@ -133,6 +147,9 @@ test("persists dismissal per campaign and allows another campaign to appear", as
   assert.equal(campaignPage.root.getAttribute("data-promotion-signature"), "campaign:launch");
   assert.equal(campaignPage.title.textContent, "Launch");
   assert.equal(campaignPage.link.href, "https://example.com/launch");
+  assert.equal(campaignPage.image.src, "https://index.hagicode.com/launch.png");
+  assert.equal(campaignPage.image.alt, "Launch preview");
+  assert.equal(campaignPage.image.width, 640);
   complete();
 });
 
@@ -152,5 +169,6 @@ test("keeps the static fallback visible when a remote campaign is unavailable", 
   await Promise.resolve();
   assert.equal(page.root.hidden, false);
   assert.equal(page.root.getAttribute("data-promotion-signature"), "fallback:hagicode");
+  assert.equal(page.image.src, "/img/hagicode/light-main.png");
   cleanup();
 });
