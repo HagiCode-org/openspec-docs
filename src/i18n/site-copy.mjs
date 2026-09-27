@@ -27,6 +27,12 @@ export const SITE_COPY = {
   "zh-CN": localizedCopy("zh-CN", {
     languageControlLabel: "选择语言",
     dialogTitle: "选择语言",
+    translationNotice: {
+      label: "AI 翻译说明",
+      title: "此页面由 AI 辅助从英文原文翻译。",
+      description: "重要信息请对照英文原文核实。",
+      viewOriginal: "查看英文原文",
+    },
     englishFallbackNotice: "该主题尚无简体中文译文，目前显示英文原文。",
     englishFallbackLinkLabel: "阅读英文原文",
     currentLocaleLabel: "当前语言",
@@ -64,6 +70,12 @@ export const SITE_COPY = {
   "en-US": localizedCopy("en-US", {
     languageControlLabel: "Choose a language",
     dialogTitle: "Choose a language",
+    translationNotice: {
+      label: "AI TRANSLATION",
+      title: "AI-assisted translation",
+      description: "This page was translated from the English original with AI assistance. Verify important details against the source.",
+      viewOriginal: "View English original",
+    },
     englishFallbackNotice: "This topic has not been translated yet; the English original is shown.",
     englishFallbackLinkLabel: "Read the English original",
     currentLocaleLabel: "Current language",
@@ -101,6 +113,12 @@ export const SITE_COPY = {
   "zh-Hant": localizedCopy("zh-Hant", {
     languageControlLabel: "選擇語言",
     dialogTitle: "選擇語言",
+    translationNotice: {
+      label: "AI 翻譯說明",
+      title: "此頁面由 AI 輔助從英文原文翻譯。",
+      description: "重要資訊請對照英文原文確認。",
+      viewOriginal: "查看英文原文",
+    },
     englishFallbackNotice: "此主題尚無繁體中文譯文，目前顯示英文原文。",
     englishFallbackLinkLabel: "閱讀英文原文",
     currentLocaleLabel: "目前語言",
@@ -138,6 +156,12 @@ export const SITE_COPY = {
   "ja-JP": localizedCopy("ja-JP", {
     languageControlLabel: "言語を選択",
     dialogTitle: "言語を選択",
+    translationNotice: {
+      label: "AI翻訳について",
+      title: "このページは英語の原文からAIの支援を受けて翻訳されています。",
+      description: "重要な情報は原文と照らし合わせてご確認ください。",
+      viewOriginal: "英語の原文を見る",
+    },
     englishFallbackNotice: "このトピックはまだ日本語に翻訳されていないため、英語の原文を表示しています。",
     englishFallbackLinkLabel: "英語の原文を読む",
     currentLocaleLabel: "現在の言語",
@@ -175,6 +199,12 @@ export const SITE_COPY = {
   "ko-KR": localizedCopy("ko-KR", {
     languageControlLabel: "언어 선택",
     dialogTitle: "언어 선택",
+    translationNotice: {
+      label: "AI 번역 안내",
+      title: "이 페이지는 영어 원문을 AI의 도움으로 번역했습니다.",
+      description: "중요한 내용은 영어 원문과 대조해 확인하세요.",
+      viewOriginal: "영어 원문 보기",
+    },
     englishFallbackNotice: "이 항목은 아직 한국어로 번역되지 않아 영어 원문을 표시합니다.",
     englishFallbackLinkLabel: "영어 원문 읽기",
     currentLocaleLabel: "현재 언어",
@@ -212,6 +242,12 @@ export const SITE_COPY = {
   "de-DE": localizedCopy("de-DE", {
     languageControlLabel: "Sprache auswählen",
     dialogTitle: "Sprache auswählen",
+    translationNotice: {
+      label: "KI-ÜBERSETZUNG",
+      title: "Diese Seite wurde mit KI-Unterstützung aus dem englischen Original übersetzt.",
+      description: "Prüfen Sie wichtige Informationen anhand der englischen Quelle.",
+      viewOriginal: "Englisches Original ansehen",
+    },
     englishFallbackNotice: "Dieses Thema ist noch nicht ins Deutsche übersetzt; angezeigt wird das englische Original.",
     englishFallbackLinkLabel: "Englisches Original lesen",
     currentLocaleLabel: "Aktuelle Sprache",
@@ -249,6 +285,12 @@ export const SITE_COPY = {
   "fr-FR": localizedCopy("fr-FR", {
     languageControlLabel: "Choisir la langue",
     dialogTitle: "Choisir la langue",
+    translationNotice: {
+      label: "TRADUCTION PAR IA",
+      title: "Cette page a été traduite depuis l’original anglais avec l’aide de l’IA.",
+      description: "Vérifiez les informations importantes dans la source anglaise.",
+      viewOriginal: "Voir l’original anglais",
+    },
     englishFallbackNotice: "Ce sujet n’est pas encore traduit en français ; la version anglaise est affichée.",
     englishFallbackLinkLabel: "Lire l’original anglais",
     currentLocaleLabel: "Langue actuelle",
@@ -286,6 +328,12 @@ export const SITE_COPY = {
   "es-ES": localizedCopy("es-ES", {
     languageControlLabel: "Seleccionar idioma",
     dialogTitle: "Seleccionar idioma",
+    translationNotice: {
+      label: "TRADUCCIÓN CON IA",
+      title: "Esta página se tradujo del original en inglés con ayuda de IA.",
+      description: "Verifica la información importante en la fuente en inglés.",
+      viewOriginal: "Ver el original en inglés",
+    },
     englishFallbackNotice: "Este tema aún no está traducido al español; se muestra el original en inglés.",
     englishFallbackLinkLabel: "Leer el original en inglés",
     currentLocaleLabel: "Idioma actual",
@@ -323,6 +371,12 @@ export const SITE_COPY = {
   "pt-BR": localizedCopy("pt-BR", {
     languageControlLabel: "Selecionar idioma",
     dialogTitle: "Selecionar idioma",
+    translationNotice: {
+      label: "TRADUÇÃO COM IA",
+      title: "Esta página foi traduzida do original em inglês com auxílio de IA.",
+      description: "Confira as informações importantes na fonte em inglês.",
+      viewOriginal: "Ver o original em inglês",
+    },
     englishFallbackNotice: "Este tópico ainda não foi traduzido para português; o original em inglês está sendo exibido.",
     englishFallbackLinkLabel: "Ler o original em inglês",
     currentLocaleLabel: "Idioma atual",
@@ -360,6 +414,12 @@ export const SITE_COPY = {
   "ru-RU": localizedCopy("ru-RU", {
     languageControlLabel: "Выбрать язык",
     dialogTitle: "Выберите язык",
+    translationNotice: {
+      label: "ПЕРЕВОД С ПОМОЩЬЮ ИИ",
+      title: "Эта страница переведена с английского оригинала с помощью ИИ.",
+      description: "Сверяйте важную информацию с английским источником.",
+      viewOriginal: "Открыть оригинал на английском",
+    },
     englishFallbackNotice: "Эта тема ещё не переведена на русский; отображается английский оригинал.",
     englishFallbackLinkLabel: "Читать оригинал на английском",
     currentLocaleLabel: "Текущий язык",

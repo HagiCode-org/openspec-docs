@@ -16,7 +16,10 @@ export const collections = {
   docs: defineCollection({
     loader: docsLoader({ generateId: generateDocumentId }),
     schema: docsSchema({
-      extend: z.object({ isEnglishFallback: z.boolean().optional() }),
+      extend: z.object({
+        isEnglishFallback: z.boolean().optional(),
+        isAITranslation: z.boolean().optional(),
+      }),
     }),
   }),
   i18n: defineCollection({

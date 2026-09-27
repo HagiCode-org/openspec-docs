@@ -12,6 +12,7 @@ import {
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { generatedFallbackPaths, writeEnglishFallbacks } from "./english-fallbacks.mjs";
+import { SUPPORTED_LOCALES } from "../src/lib/locale-navigation.mjs";
 
 const REPO_ROOT = fileURLToPath(new URL("../", import.meta.url));
 const UPSTREAM_ROOT = path.join(REPO_ROOT, "upstream/openspec");
@@ -405,7 +406,7 @@ export async function checkTranslationBaselines({
     if (segments[0] === "en-US") continue;
     let locale = "zh-CN";
     let topicPath = relative;
-    if (/^[a-z]{2}(?:-[A-Z]{2})?$/u.test(segments[0]) && segments.length > 1) {
+    if (SUPPORTED_LOCALES.includes(segments[0]) && segments.length > 1) {
       [locale] = segments;
       topicPath = segments.slice(1).join("/");
     }
