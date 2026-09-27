@@ -4,6 +4,14 @@ import SiteTitle from "@astrojs/starlight/components/SiteTitle.astro";
 import SocialIcons from "@astrojs/starlight/components/SocialIcons.astro";
 import ThemeSelect from "@astrojs/starlight/components/ThemeSelect.astro";
 import StarlightLanguageSelect from "./StarlightLanguageSelect.astro";
+import { isSiteLocale, SITE_COPY } from "../i18n/site-copy.mjs";
+
+const requestedLocale = Astro.locals?.starlightRoute?.locale;
+const locale = isSiteLocale(requestedLocale)
+  ? requestedLocale
+  : "en-US";
+const copy = SITE_COPY[locale];
+const productDocsUrl = `https://docs.hagicode.com/${locale === "zh-CN" ? "" : `${locale}/`}`;
 ---
 
 <div class="header">
@@ -11,9 +19,19 @@ import StarlightLanguageSelect from "./StarlightLanguageSelect.astro";
     <SiteTitle />
     <StarlightLanguageSelect />
   </div>
-  <div class="sl-flex print:hidden">
+  <div class="sl-flex print:hidden search">
     <Search />
   </div>
+  <nav class="related-links print:hidden" aria-label={copy.footerLabel}>
+    <a href="https://www.hagicode.com/" aria-label={copy.websiteLabel}>
+      <span class="wide-label">{copy.websiteLabel}</span>
+      <span class="compact-label" aria-hidden="true">{copy.websiteCompactLabel}</span>
+    </a>
+    <a href={productDocsUrl} aria-label={copy.productDocsLabel}>
+      <span class="wide-label">{copy.productDocsLabel}</span>
+      <span class="compact-label" aria-hidden="true">{copy.productDocsCompactLabel}</span>
+    </a>
+  </nav>
   <div class="sl-hidden md:sl-flex print:hidden right-group">
     <div class="sl-flex social-icons">
       <SocialIcons />
@@ -32,12 +50,47 @@ import StarlightLanguageSelect from "./StarlightLanguageSelect.astro";
       height: 100%;
     }
 
+    .search {
+      flex: 0 0 auto;
+    }
+
     .title-wrapper {
       gap: 0.65rem;
       align-items: center;
       min-width: 0;
       padding: 0.25rem;
       margin: -0.25rem;
+    }
+
+    .related-links {
+      display: flex;
+      flex: 0 0 auto;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: var(--sl-text-sm);
+    }
+
+    .related-links a {
+      min-height: 2.5rem;
+      display: inline-flex;
+      align-items: center;
+      color: var(--sl-color-text);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .related-links a:hover {
+      color: var(--sl-color-text-accent);
+      text-decoration: underline;
+    }
+
+    .related-links a:focus-visible {
+      outline: 2px solid var(--sl-color-text-accent);
+      outline-offset: 3px;
+    }
+
+    .compact-label {
+      display: none;
     }
 
     .right-group,
@@ -50,6 +103,53 @@ import StarlightLanguageSelect from "./StarlightLanguageSelect.astro";
       content: "";
       height: 2rem;
       border-inline-end: 1px solid var(--sl-color-gray-5);
+    }
+
+    @media (max-width: 50rem) {
+      :global(html) {
+        --sl-nav-height: 6.5rem;
+        --sl-nav-pad-y: 0.5rem;
+      }
+
+      .header {
+        display: grid;
+        grid-template-areas:
+          "title search"
+          "links links";
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 0.25rem 0.5rem;
+        align-content: center;
+      }
+
+      .title-wrapper {
+        grid-area: title;
+        justify-content: space-between;
+      }
+
+      .search {
+        grid-area: search;
+      }
+
+      .related-links {
+        grid-area: links;
+        gap: 1rem;
+      }
+
+      .wide-label {
+        display: none;
+      }
+
+      .compact-label {
+        display: inline;
+      }
+    }
+
+    @media (max-width: 30rem) {
+      .header {
+        grid-template-areas:
+          "title title"
+          "links search";
+      }
     }
   }
 </style>

@@ -13,6 +13,8 @@ const locale = isSiteLocale(requestedLocale)
   : "en-US";
 const copy = SITE_COPY[locale];
 const sourceUrl = "https://github.com/HagiCode-org/openspec-docs";
+const openSpecSourceUrl = "https://github.com/Fission-AI/OpenSpec";
+const productDocsUrl = `https://docs.hagicode.com/${locale === "zh-CN" ? "" : `${locale}/`}`;
 ---
 
 <HagiCodeEndCard />
@@ -26,6 +28,10 @@ const sourceUrl = "https://github.com/HagiCode-org/openspec-docs";
   <nav aria-label={copy.footerLabel}>
     <a href="/zh-CN/" lang="zh-CN" aria-label={SITE_COPY["zh-CN"].homeLabel}>简体中文</a>
     <a href="/en-US/" lang="en-US" aria-label={SITE_COPY["en-US"].homeLabel}>English</a>
+    <a href="https://www.hagicode.com/">{copy.websiteLabel}</a>
+    <a href={productDocsUrl}>{copy.productDocsLabel}</a>
+    <a href="https://tasks.hagicode.com/">{copy.hagiTaskLabel}</a>
+    <a href={openSpecSourceUrl}>{copy.openSpecSourceLabel}</a>
     <a href={sourceUrl}><Icon name="github" /> {copy.sourceLabel}</a>
     <a href={`${sourceUrl}/issues`}>{copy.issuesLabel}</a>
   </nav>

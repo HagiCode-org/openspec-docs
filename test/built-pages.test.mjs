@@ -82,10 +82,30 @@ test("localized homepages and guides retain both HagiCode surfaces and the exist
     ...SUPPORTED_LOCALES.map(async (locale) => [locale, await readBuiltPage(`${locale}/index.html`), false]),
     ["en-US", await readBuiltPage("en-US/getting-started/index.html"), true],
     ["en-US", await readBuiltPage("en-US/stores-beta/user-guide/index.html"), true],
+    ["zh-CN", await readBuiltPage("zh-CN/overview/index.html"), true],
+    ["ja-JP", await readBuiltPage("ja-JP/getting-started/index.html"), true],
   ]);
 
   for (const [locale, html, hasPagination] of pages) {
     const copy = SITE_COPY[locale];
+    const productDocsUrl = `https://docs.hagicode.com/${locale === "zh-CN" ? "" : `${locale}/`}`;
+    const headerStart = html.indexOf('<header class="header');
+    const headerEnd = html.indexOf("</header>", headerStart);
+    assert.ok(headerStart >= 0 && headerEnd > headerStart);
+    const headerMarkup = html.slice(headerStart, headerEnd);
+    assert.ok(headerMarkup.includes('href="https://www.hagicode.com/"'));
+    assert.ok(headerMarkup.includes(productDocsUrl));
+    assert.ok(headerMarkup.includes(copy.websiteLabel));
+    assert.ok(headerMarkup.includes(copy.productDocsLabel));
+    assert.ok(headerMarkup.includes(copy.websiteCompactLabel));
+    assert.ok(headerMarkup.includes(copy.productDocsCompactLabel));
+    assert.ok(headerMarkup.includes(`aria-label="${copy.websiteLabel}"`));
+    assert.ok(headerMarkup.includes(`aria-label="${copy.productDocsLabel}"`));
+    assert.match(headerMarkup, /<site-search/u);
+    assert.match(headerMarkup, /data-language-chooser/u);
+    assert.match(headerMarkup, /<starlight-theme-select/u);
+    assert.ok(headerMarkup.includes('href="https://github.com/HagiCode-org/openspec-docs"'));
+
     const endCard = html.indexOf("data-hagicode-end-card");
     const promotion = html.indexOf("data-hagicode-promotion");
     const footer = html.indexOf('<footer class="sl-flex site-footer');
@@ -105,6 +125,16 @@ test("localized homepages and guides retain both HagiCode surfaces and the exist
     assert.ok(promotionMarkup.includes(copy.promoteCloseLabel));
 
     const footerMarkup = html.slice(footer, html.indexOf("</footer>", footer));
+    assert.ok(footerMarkup.includes('href="https://www.hagicode.com/"'));
+    assert.ok(footerMarkup.includes(productDocsUrl));
+    assert.ok(footerMarkup.includes('href="https://tasks.hagicode.com/"'));
+    assert.ok(footerMarkup.includes(copy.websiteLabel));
+    assert.ok(footerMarkup.includes(copy.productDocsLabel));
+    assert.ok(footerMarkup.includes(copy.hagiTaskLabel));
+    assert.ok(footerMarkup.includes('href="/zh-CN/"'));
+    assert.ok(footerMarkup.includes('href="/en-US/"'));
+    assert.ok(footerMarkup.includes('href="https://github.com/Fission-AI/OpenSpec"'));
+    assert.ok(footerMarkup.includes(copy.openSpecSourceLabel));
     assert.match(footerMarkup, /href="https:\/\/github\.com\/HagiCode-org\/openspec-docs"/u);
     assert.match(footerMarkup, /href="https:\/\/github\.com\/HagiCode-org\/openspec-docs\/issues"/u);
     assert.ok(footerMarkup.includes(copy.footerLabel));
@@ -271,6 +301,11 @@ test("mobile menu retains one visible chooser and responsive keyboard focus styl
   assert.match(html, /<button popovertarget="starlight__sidebar"[^>]*>[\s\S]*?<\/button>/u);
   assert.equal((html.match(/data-language-chooser/gu) ?? []).length, 2);
   assert.match(header, /StarlightLanguageSelect/u);
+  assert.match(header, /related-links a:focus-visible/u);
+  assert.match(header, /@media \(max-width: 50rem\)[\s\S]*--sl-nav-height: 6\.5rem;[\s\S]*"links links"/u);
+  assert.match(header, /@media \(max-width: 30rem\)[\s\S]*"links search"/u);
+  assert.match(header, /\.wide-label\s*\{\s*display:\s*none/u);
+  assert.match(header, /\.compact-label\s*\{\s*display:\s*inline/u);
   assert.match(html, /language-trigger[^>]*aria-haspopup="dialog"/u);
   assert.match(chooser, /<noscript>/u);
   assert.match(chooser, /case "ArrowDown"[\s\S]*case "ArrowUp"[\s\S]*case "Home"[\s\S]*case "End"/u);
