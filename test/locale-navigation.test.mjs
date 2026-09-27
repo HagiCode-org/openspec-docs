@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import { LANGUAGE_OPTIONS } from "../src/i18n/site-copy.mjs";
 import {
   getEnglishTopicHref,
   getLocaleHref,
@@ -32,9 +33,10 @@ test("Chinese home remains authored while English topics are generated from upst
 
 test("every configured locale keeps its prefixed route and document language", async () => {
   const config = await readFile(new URL("astro.config.mjs", root), "utf8");
-  for (const locale of SUPPORTED_LOCALES) {
-    assert.match(config, new RegExp(`"${locale}":\\s*\\{[\\s\\S]*?lang:\\s*"${locale}"`, "u"));
-  }
+  assert.match(config, /import \{ locales as hagilightLocales \} from "@hagicode\/hagilight-starlight\/locales"/u);
+  assert.match(config, /Object\.values\(hagilightLocales\)\.map\(\(locale\) => \[locale\.lang, locale\]\)/u);
+  assert.deepEqual(LANGUAGE_OPTIONS.map(({ code }) => code), SUPPORTED_LOCALES);
+  for (const { code, lang } of LANGUAGE_OPTIONS) assert.equal(code, lang);
   assert.match(config, /defaultLocale:\s*"en-US"/u);
   assert.doesNotMatch(config, /root:\s*\{/u);
   assert.match(config, /site:\s*"https:\/\/openspec\.hagicode\.com"/u);

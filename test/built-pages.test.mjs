@@ -146,18 +146,15 @@ test("localized pages use the shared shell, Hagilight article promotion, and ban
     ["ja-JP", await readBuiltPage("ja-JP/getting-started/index.html"), true],
   ]);
 
+  const config = await readFile(new URL("../astro.config.mjs", import.meta.url), "utf8");
+  assert.doesNotMatch(config, /\b(?:overrides|extraLinks):/u);
+
   for (const [locale, html, hasPagination] of pages) {
-    const copy = SITE_COPY[locale];
-    const productDocsUrl = `https://docs.hagicode.com/${locale === "zh-CN" ? "" : `${locale}/`}`;
     assert.equal(html.split("data-hagilight-content-width-choice=").length - 1, 2, `${locale} has both width choices`);
     const headerStart = html.indexOf('<header class="header');
     const headerEnd = html.indexOf("</header>", headerStart);
     assert.ok(headerStart >= 0 && headerEnd > headerStart);
     const headerMarkup = html.slice(headerStart, headerEnd);
-    assert.ok(headerMarkup.includes(`href="https://www.hagicode.com/${locale}/"`));
-    assert.ok(headerMarkup.includes(productDocsUrl));
-    assert.ok(headerMarkup.includes(copy.websiteLabel));
-    assert.ok(headerMarkup.includes(copy.productDocsLabel));
     assert.match(headerMarkup, /aria-label="Site navigation"/u);
     assert.match(headerMarkup, /<site-search/u);
     assert.match(headerMarkup, /hagilight-language-chooser/u);
@@ -187,15 +184,7 @@ test("localized pages use the shared shell, Hagilight article promotion, and ban
     assert.doesNotMatch(promotionMarkup, /\/img\/hagicode\/light-main\.png/u);
 
     const footerMarkup = html.slice(footer);
-    assert.ok(footerMarkup.includes(`href="https://www.hagicode.com/${locale}/"`));
-    assert.ok(footerMarkup.includes(productDocsUrl));
-    assert.ok(footerMarkup.includes('href="https://tasks.hagicode.com/"'));
-    assert.ok(footerMarkup.includes(copy.productDocsLabel));
-    assert.ok(footerMarkup.includes(copy.hagiTaskLabel));
-    assert.ok(footerMarkup.includes('href="https://github.com/Fission-AI/OpenSpec"'));
-    assert.ok(footerMarkup.includes(copy.openSpecSourceLabel));
-    assert.match(footerMarkup, /href="https:\/\/github\.com\/HagiCode-org\/openspec-docs"/u);
-    assert.match(footerMarkup, /href="https:\/\/github\.com\/HagiCode-org\/openspec-docs\/issues"/u);
+    assert.match(footerMarkup, /href="https:\/\/newbe\.hagicode\.com\/"/u);
     assert.match(footerMarkup, /©\s+\d{4}\s+HagiCode/u);
   }
 });
