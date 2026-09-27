@@ -14,7 +14,7 @@ npm run preview
 npm test
 ```
 
-`dev`, `check`, and `build` import the pinned upstream `docs/**/*.md` files into the ignored `src/content/docs/en-US/` directory before starting Astro. The importer maps `docs/README.md` to the English home, preserves nested topic paths, resolves internal Markdown links, copies referenced local assets, and fails with an actionable error for missing or unsupported input. Generated content is replaced on every run; it is never used as a fallback when the submodule is unavailable.
+`dev`, `check`, and `build` import the pinned upstream `docs/**/*.md` files into the ignored `src/content/docs/en-US/` directory before starting Astro. The importer maps `docs/README.md` to the English home and preserves the upstream directory tree; Starlight renders directory levels as nested sidebar groups. Relative Markdown links and local assets are resolved, and missing or unsupported input fails with an actionable error. Generated content is replaced on every run; it is never used as a fallback when the submodule is unavailable.
 
 `npm run check` also checks translation baselines. Run `npm test` after a build; the suite checks importer behavior, source contracts, and generated routes.
 
@@ -51,11 +51,17 @@ Publishing the branch does not configure a host or change where `https://openspe
 
 ## Writing and localizing pages
 
-The Chinese locale home is `src/content/docs/index.mdx`. Do not edit generated English pages under `src/content/docs/en-US/`; add or revise upstream English content in the upstream repository and review a new pinned revision here.
+The site offers ten languages: Simplified Chinese (`zh-CN`), English (`en-US`), Traditional Chinese (`zh-Hant`), Japanese (`ja-JP`), Korean (`ko-KR`), German (`de-DE`), French (`fr-FR`), Spanish (`es-ES`), Brazilian Portuguese (`pt-BR`), and Russian (`ru-RU`). Each language has a localized home and interface. Reviewed Simplified Chinese topics use the same paths as their English sources. For any configured non-English locale without an authored topic, the import creates an ignored English fallback at that locale's topic path. The page shows a localized notice and a canonical English-topic link, and marks the article body as `en-US` so it is not presented as translated.
 
-Keep reviewed translations in the corresponding site-owned locale path, using the same topic path as the English source. When reviewing a translation against upstream, add its locale/topic entry to `src/content/translation-baselines.json` with the source path, SHA-256, and reviewed upstream revision. Compute the source hash with `sha256sum upstream/openspec/docs/<source-file>`. `npm run check:translation-baselines` reports changed or removed sources and translations that have no baseline; it never overwrites translation content. The Chinese home is locale shell content, not an upstream translation, and does not need a baseline.
+The Starlight default locale is English at `/en-US/`. The site root `/` defaults to the English home on a first visit. An explicit language choice is stored in Starlight's `starlight-route` preference (`lang` field) and is used on later visits to `/`; a stored `root` value also means English on this site. If storage is blocked, language switching still works for the current visit. Explicit `/en-US/` and `/zh-CN/` URLs remain unchanged. The English home and topics are imported under `src/content/docs/en-US/`; do not edit those generated pages. Add or revise upstream English content in the upstream repository and review a new pinned revision here.
 
-When adding a locale, configure its Starlight route and document language in `astro.config.mjs`, add locale-keyed shell copy in `src/i18n/site-copy.mjs`, and provide reviewed translated pages under the locale's content directory. The language link keeps a topic URL when the target translation is published and otherwise links to that locale's home page.
+Keep reviewed translations in the corresponding site-owned locale path, using the same topic path as the English source. When reviewing a translation against upstream, add its locale/topic entry to `src/content/translation-baselines.json` with the source path, SHA-256, and reviewed upstream revision. Compute the source hash with `sha256sum upstream/openspec/docs/<source-file>`. `npm run check:translation-baselines` reports changed or removed sources and authored translations that have no baseline; generated fallbacks are excluded from this audit. Locale homes are shell content, not upstream topic translations, and do not need a baseline.
+
+Use site-root paths such as `/zh-CN/getting-started/` for links between translated topics so they resolve correctly from the published locale routes.
+
+The importer tracks generated fallbacks in `src/content/docs/.generated-english-fallbacks.json`, refreshes them on each import, and removes only unchanged generated pages when an upstream topic is removed. To turn a generated fallback into an authored translation, remove its `isEnglishFallback` frontmatter flag, edit the content, add a reviewed baseline, and run `npm run import:english`; the importer then stops ignoring that path and preserves it for baseline auditing. The language chooser keeps the current topic when a translation or English source exists; it uses a locale home only for a topic with no source or matching translation.
+
+When adding a locale, configure its Starlight route and document language in `astro.config.mjs`, add its Starlight UI strings under `src/content/i18n/`, add locale-keyed shell and fallback-notice copy in `src/i18n/site-copy.mjs`, and provide a localized home before exposing it in the language chooser. Add reviewed translated pages under the locale's content directory as they become available.
 
 ## HagiCode promotion
 
