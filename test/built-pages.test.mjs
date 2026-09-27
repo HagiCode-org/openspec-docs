@@ -64,6 +64,24 @@ test("built upstream routes expose English, authored Chinese, and reviewed local
   assert.ok(jaGuide.includes('<link rel="canonical" href="https://openspec.hagicode.com/ja-JP/getting-started/"/>'));
 });
 
+test("English fallbacks retain English language semantics and canonical SEO", async () => {
+  const [head, pageTitle, markdownContent] = await Promise.all([
+    readFile(new URL("../src/components/StarlightHead.astro", import.meta.url), "utf8"),
+    readFile(new URL("../src/components/EnglishFallbackPageTitle.astro", import.meta.url), "utf8"),
+    readFile(new URL("../src/components/EnglishFallbackMarkdownContent.astro", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(head, /isEnglishFallback === true/u);
+  assert.match(head, /attrs\?\.rel === "alternate"/u);
+  assert.match(head, /href: englishCanonical/u);
+  assert.match(head, /rel: "canonical", href: englishCanonical/u);
+  assert.match(head, /property="og:locale" content="en_US"/u);
+  assert.match(pageTitle, /isFallback \? <div lang="en-US">/u);
+  assert.match(pageTitle, /<ContentLayoutToggle \/>/u);
+  assert.match(markdownContent, /isFallback && \(/u);
+  assert.match(markdownContent, /isFallback \? <div lang="en-US">/u);
+});
+
 test("localized authored pages show a localized AI translation notice below the title", async () => {
   const homePages = await Promise.all(SUPPORTED_LOCALES.map(async (locale) => [
     locale,
@@ -152,7 +170,7 @@ test("root entry defaults to English, honors saved locales, and has a no-script 
   assert.ok(chineseHome.includes('<link rel="canonical" href="https://openspec.hagicode.com/zh-CN/"/>'));
 });
 
-test("localized homepages and guides retain both HagiCode surfaces and the existing footer", async () => {
+test("localized pages use the shared shell and keep the Docs end card and fallback banner", async () => {
   const pages = await Promise.all([
     ...SUPPORTED_LOCALES.map(async (locale) => [locale, await readBuiltPage(`${locale}/index.html`), false]),
     ["en-US", await readBuiltPage("en-US/getting-started/index.html"), true],
@@ -164,57 +182,58 @@ test("localized homepages and guides retain both HagiCode surfaces and the exist
   for (const [locale, html, hasPagination] of pages) {
     const copy = SITE_COPY[locale];
     const productDocsUrl = `https://docs.hagicode.com/${locale === "zh-CN" ? "" : `${locale}/`}`;
+    assert.equal(html.split("data-hagilight-content-width-choice=").length - 1, 2, `${locale} has both width choices`);
     const headerStart = html.indexOf('<header class="header');
     const headerEnd = html.indexOf("</header>", headerStart);
     assert.ok(headerStart >= 0 && headerEnd > headerStart);
     const headerMarkup = html.slice(headerStart, headerEnd);
-    assert.ok(headerMarkup.includes('href="https://www.hagicode.com/"'));
+    assert.ok(headerMarkup.includes(`href="https://www.hagicode.com/${locale}/"`));
     assert.ok(headerMarkup.includes(productDocsUrl));
     assert.ok(headerMarkup.includes(copy.websiteLabel));
     assert.ok(headerMarkup.includes(copy.productDocsLabel));
-    assert.ok(headerMarkup.includes(copy.websiteCompactLabel));
-    assert.ok(headerMarkup.includes(copy.productDocsCompactLabel));
-    assert.ok(headerMarkup.includes(`aria-label="${copy.websiteLabel}"`));
-    assert.ok(headerMarkup.includes(`aria-label="${copy.productDocsLabel}"`));
+    assert.match(headerMarkup, /aria-label="Site navigation"/u);
     assert.match(headerMarkup, /<site-search/u);
-    assert.match(headerMarkup, /data-language-chooser/u);
+    assert.match(headerMarkup, /hagilight-language-chooser/u);
     assert.match(headerMarkup, /<starlight-theme-select/u);
     assert.ok(headerMarkup.includes('href="https://github.com/HagiCode-org/openspec-docs"'));
 
     const endCard = html.indexOf("data-hagicode-end-card");
-    const promotion = html.indexOf("data-hagicode-promotion");
-    const footer = html.indexOf('<footer class="sl-flex site-footer');
-    assert.ok(endCard >= 0 && endCard < promotion && promotion < footer);
+    const promotion = html.indexOf("<hagilight-promoto-banner");
+    const promotionEnd = html.indexOf("</hagilight-promoto-banner>", promotion);
+    const pagination = html.indexOf("<footer", promotionEnd);
+    const footer = html.indexOf("hagilight-site-links");
+    assert.ok(endCard >= 0 && endCard < promotion && promotion < promotionEnd);
+    assert.ok(promotionEnd < pagination && pagination < footer);
+    assert.equal(html.split("<hagilight-promoto-banner").length - 1, 1);
     const endCardMarkup = html.slice(endCard, promotion);
-    const promotionMarkup = html.slice(promotion, footer);
+    const promotionMarkup = html.slice(promotion, promotionEnd);
     assert.ok(endCardMarkup.includes('href="https://www.hagicode.com"'));
     assert.ok(endCardMarkup.includes(copy.hagicodeLead));
     assert.match(endCardMarkup, /data-hagicode-feature/u);
     assert.match(endCardMarkup, /\/img\/hagicode\/light-main\.png/u);
     assert.ok(endCardMarkup.includes(copy.hagicodeVisitLabel));
-    assert.match(promotionMarkup, /data-promotion-image/u);
+    assert.match(promotionMarkup, /data-promoto-track/u);
+    assert.match(promotionMarkup, /data-promoto-dismiss[^>]*aria-label="Dismiss promotion"/u);
+    assert.match(promotionMarkup, /data-locale="/u);
     assert.match(promotionMarkup, /\/img\/hagicode\/light-main\.png/u);
-    assert.ok(promotionMarkup.includes('href="https://www.hagicode.com"'));
-    assert.match(html, /data-promotion-dismiss[^>]*aria-label=/u);
-    assert.match(html, /type="button"[^>]*data-promotion-dismiss/u);
-    assert.ok(promotionMarkup.includes(copy.promoteCloseLabel));
+    assert.ok(promotionMarkup.includes("https://www.hagicode.com"));
+    assert.ok(promotionMarkup.includes(copy.promoteTitle));
+    assert.ok(promotionMarkup.includes(copy.promoteDescription));
+    assert.ok(promotionMarkup.includes(copy.promoteVisitLabel));
 
-    const footerMarkup = html.slice(footer, html.indexOf("</footer>", footer));
-    assert.ok(footerMarkup.includes('href="https://www.hagicode.com/"'));
+    const footerMarkup = html.slice(footer);
+    assert.ok(footerMarkup.includes(`href="https://www.hagicode.com/${locale}/"`));
     assert.ok(footerMarkup.includes(productDocsUrl));
     assert.ok(footerMarkup.includes('href="https://tasks.hagicode.com/"'));
     assert.ok(footerMarkup.includes(copy.websiteLabel));
     assert.ok(footerMarkup.includes(copy.productDocsLabel));
     assert.ok(footerMarkup.includes(copy.hagiTaskLabel));
-    assert.ok(footerMarkup.includes('href="/zh-CN/"'));
-    assert.ok(footerMarkup.includes('href="/en-US/"'));
     assert.ok(footerMarkup.includes('href="https://github.com/Fission-AI/OpenSpec"'));
     assert.ok(footerMarkup.includes(copy.openSpecSourceLabel));
     assert.match(footerMarkup, /href="https:\/\/github\.com\/HagiCode-org\/openspec-docs"/u);
     assert.match(footerMarkup, /href="https:\/\/github\.com\/HagiCode-org\/openspec-docs\/issues"/u);
-    assert.ok(footerMarkup.includes(copy.footerLabel));
-    assert.ok(footerMarkup.includes(copy.copyright));
-    if (hasPagination) assert.match(footerMarkup, /pagination/u);
+    assert.match(footerMarkup, /©\s+\d{4}\s+HagiCode/u);
+    if (hasPagination) assert.ok(pagination > promotionEnd);
   }
 });
 
@@ -304,7 +323,14 @@ test("all locales have localized homes and the chooser offers valid translated o
   for (const [index, locale] of SUPPORTED_LOCALES.entries()) {
     const html = homePages[index];
     assert.match(html, new RegExp(`<html lang="${locale}"`, "u"));
-    assert.ok(html.includes(SITE_COPY[locale].dialogTitle));
+    const chooserStart = html.indexOf("<hagilight-language-chooser");
+    const dialogStart = html.indexOf("<dialog", chooserStart);
+    const dialogEnd = html.indexOf("</dialog>", dialogStart);
+    const dialog = html.slice(dialogStart, dialogEnd + "</dialog>".length);
+    assert.ok(chooserStart >= 0 && dialogStart > chooserStart && dialogEnd > dialogStart);
+    assert.equal((dialog.match(/role="option"/gu) ?? []).length, 10);
+    assert.equal((dialog.match(/aria-selected="true"/gu) ?? []).length, 1);
+    assert.ok(dialog.includes(`data-locale="${locale}"`));
     assert.ok(html.includes(SITE_COPY[locale].languageLabel));
     if (missingTopicMessages[locale]) {
       assert.ok(html.includes(missingTopicMessages[locale]));
@@ -316,22 +342,18 @@ test("all locales have localized homes and the chooser offers valid translated o
   }
 
   for (const [html, activeLocale] of [[enHome, "en-US"], [zhHome, "zh-CN"], [enGuide, "en-US"]]) {
-    const dialogs = [...html.matchAll(/<dialog class="language-dialog[\s\S]*?<\/dialog>/gu)];
-    assert.equal(dialogs.length, 2);
-    for (const dialogMatch of dialogs) {
-      const dialog = dialogMatch[0];
-      assert.equal((dialog.match(/data-language-option/gu) ?? []).length, 10);
-      assert.equal((dialog.match(/aria-current="page"/gu) ?? []).length, 1);
-      const activeLink = dialog.match(/<a\b(?=[^>]*data-language-option)(?=[^>]*aria-current="page")[^>]*>/u)?.[0];
-      assert.ok(activeLink?.includes(`data-locale="${activeLocale}"`));
-      for (const option of LANGUAGE_OPTIONS) {
-        assert.ok(dialog.includes(`hreflang="${option.lang}" lang="${option.lang}"`));
-      }
-    }
-    const firstDialog = dialogs[0][0];
+    const chooserStart = html.indexOf("<hagilight-language-chooser");
+    const dialogStart = html.indexOf("<dialog", chooserStart);
+    const dialogEnd = html.indexOf("</dialog>", dialogStart);
+    const dialog = html.slice(dialogStart, dialogEnd + "</dialog>".length);
+    const options = [...dialog.matchAll(/<button\b[^>]*role="option"[^>]*>/gu)].map(([option]) => option);
+    assert.equal(options.length, 10);
+    assert.ok(options.some((option) =>
+      option.includes(`data-locale="${activeLocale}"`) && option.includes('aria-selected="true"'),
+    ));
     for (const locale of SUPPORTED_LOCALES) {
-      const target = html === enGuide ? `/${locale}/getting-started/` : `/${locale}/`;
-      assert.ok(firstDialog.includes(`href="${target}"`));
+      const target = html === enGuide ? `data-href="/${locale}/getting-started/"` : `data-href="/${locale}/"`;
+      assert.ok(dialog.includes(target));
     }
   }
 
@@ -345,8 +367,16 @@ test("all locales have localized homes and the chooser offers valid translated o
   assert.match(sidebar, /href="\/en-US\/stores-beta\/user-guide\/"/u);
   assert.match(sidebar, /Getting Started/u);
   assert.match(sidebar, /<span class="large[^>]*>stores-beta<\/span>/u);
-  assert.match(zhHome, /aria-label="选择语言"/u);
-  assert.match(enGuide, /aria-label="Choose a language"/u);
+  assert.match(zhHome, /aria-label="选择语言: 简体中文"/u);
+  assert.match(enGuide, /aria-label="Select language: English"/u);
+
+  for (const pagePath of await listBuiltHtml("")) {
+    if (pagePath.endsWith("404.html")) continue;
+    const html = await readBuiltPage(pagePath);
+    for (const [, href] of html.matchAll(/data-href="([^"]+)"/gu)) {
+      await stat(builtFileForUrl(new URL(href, "https://openspec.hagicode.com")));
+    }
+  }
 });
 
 test("retired placeholder guides are neither published nor linked", async () => {
@@ -375,28 +405,27 @@ test("built production output without identifiers has no analytics bootstraps", 
   assert.doesNotMatch(html, /<(?:script|link)[^>]+(?:googletagmanager\.com|sdk\.51\.la)/u);
 });
 
-test("mobile menu retains one visible chooser and responsive keyboard focus styles", async () => {
-  const [html, header, styles, chooser] = await Promise.all([
+test("mobile menu keeps native locale selection and the shared chooser is keyboard-accessible", async () => {
+  const [html, header, languageChooser, languageRouting] = await Promise.all([
     readBuiltPage("zh-CN/index.html"),
-    readFile(new URL("../src/components/StarlightHeader.astro", import.meta.url), "utf8"),
-    readFile(new URL("../src/styles/site.css", import.meta.url), "utf8"),
-    readFile(new URL("../src/components/StarlightLanguageSelect.astro", import.meta.url), "utf8"),
+    readFile(new URL("../node_modules/@hagicode/hagilight-starlight/Header.astro", import.meta.url), "utf8"),
+    readFile(new URL("../node_modules/@hagicode/hagilight-starlight/LanguageChooser.astro", import.meta.url), "utf8"),
+    readFile(new URL("../node_modules/@hagicode/hagilight-starlight/language-routing.mjs", import.meta.url), "utf8"),
   ]);
 
   assert.match(html, /<button popovertarget="starlight__sidebar"[^>]*>[\s\S]*?<\/button>/u);
-  assert.equal((html.match(/data-language-chooser/gu) ?? []).length, 2);
-  assert.match(header, /StarlightLanguageSelect/u);
-  assert.match(header, /related-links a:focus-visible/u);
-  assert.match(header, /@media \(max-width: 50rem\)[\s\S]*--sl-nav-height: 6\.5rem;[\s\S]*"links links"/u);
-  assert.match(header, /@media \(max-width: 30rem\)[\s\S]*"links search"/u);
-  assert.match(header, /\.wide-label\s*\{\s*display:\s*none/u);
-  assert.match(header, /\.compact-label\s*\{\s*display:\s*inline/u);
+  assert.equal((html.match(/<hagilight-language-chooser\b/gu) ?? []).length, 1);
+  assert.match(html, /<starlight-lang-select>/u);
+  assert.match(header, /sl-hidden md:sl-flex print:hidden right-group/u);
+  assert.match(header, /@media \(max-width: 72rem\)/u);
+  assert.match(header, /header-links\s*\{\s*display:\s*none/u);
   assert.match(html, /language-trigger[^>]*aria-haspopup="dialog"/u);
-  assert.match(chooser, /<noscript>/u);
-  assert.match(chooser, /case "ArrowDown"[\s\S]*case "ArrowUp"[\s\S]*case "Home"[\s\S]*case "End"/u);
-  assert.match(chooser, /dialog\.addEventListener\("close"[\s\S]*trigger\.focus\(\)/u);
-  assert.match(chooser, /writeBrowserLocalePreference\(targetLocale\);[\s\S]*window\.location\.assign\(targetUrl\)/u);
-  assert.match(chooser, /calc\(100vw - 2rem\)/u);
-  assert.match(styles, /@media \(max-width: 30rem\)/u);
-  assert.match(styles, /\.mobile-preferences \.language-control\s*\{\s*display:\s*none/u);
+  assert.match(languageChooser, /aria-modal="true"/u);
+  assert.match(languageChooser, /dialog\.showModal\(\)/u);
+  assert.match(languageRouting, /case 'ArrowDown'[\s\S]*case 'ArrowUp'[\s\S]*case 'Home'[\s\S]*case 'End'/u);
+  assert.match(languageChooser, /dialog\.addEventListener\('close'[\s\S]*trigger\.focus\(\)/u);
+  assert.match(languageChooser, /persistStarlightLocaleSelection\(locale\)/u);
+  assert.match(languageChooser, /target\.search = window\.location\.search/u);
+  assert.match(languageChooser, /target\.hash = window\.location\.hash/u);
+  assert.match(languageChooser, /@media \(max-width: 50rem\)/u);
 });

@@ -1,6 +1,19 @@
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import starlight from "@astrojs/starlight";
+import hagilight from "@hagicode/hagilight-starlight";
+import { SITE_COPY } from "./src/i18n/site-copy.mjs";
+
+const localizedCopy = (key) => Object.fromEntries(
+  Object.entries(SITE_COPY).map(([locale, copy]) => [locale, copy[key]]),
+);
+const productDocsUrls = Object.fromEntries(
+  Object.keys(SITE_COPY).map((locale) => [
+    locale,
+    `https://docs.hagicode.com/${locale === "zh-CN" ? "" : `${locale}/`}`,
+  ]),
+);
+const docsRepo = "https://github.com/HagiCode-org/openspec-docs";
 
 export default defineConfig({
   site: "https://openspec.hagicode.com",
@@ -54,9 +67,6 @@ export default defineConfig({
       },
       components: {
         Head: "./src/components/StarlightHead.astro",
-        Header: "./src/components/StarlightHeader.astro",
-        Footer: "./src/components/StarlightFooter.astro",
-        LanguageSelect: "./src/components/StarlightLanguageSelect.astro",
         MarkdownContent: "./src/components/EnglishFallbackMarkdownContent.astro",
         PageTitle: "./src/components/EnglishFallbackPageTitle.astro",
       },
@@ -67,6 +77,70 @@ export default defineConfig({
           label: "GitHub",
           href: "https://github.com/HagiCode-org/openspec-docs",
         },
+      ],
+      plugins: [
+        hagilight({
+          links: {
+            siteId: "openspec-docs",
+            siteUrl: "https://openspec.hagicode.com/",
+            relatedSites: [{
+              id: "hagicode-main",
+              name: localizedCopy("websiteLabel"),
+              url: "https://www.hagicode.com/",
+              supportsLocalePath: true,
+            }],
+            overrides: {
+              home: { label: localizedCopy("websiteLabel") },
+              productDocs: {
+                label: localizedCopy("productDocsLabel"),
+                href: productDocsUrls,
+              },
+              github: {
+                label: localizedCopy("sourceLabel"),
+                href: docsRepo,
+                external: true,
+              },
+              issueFeedback: {
+                label: localizedCopy("issuesLabel"),
+                href: `${docsRepo}/issues`,
+                external: true,
+              },
+            },
+            extraLinks: {
+              header: [{
+                label: localizedCopy("productDocsLabel"),
+                href: productDocsUrls,
+                external: true,
+              }],
+              quick: [
+                {
+                  label: localizedCopy("hagiTaskLabel"),
+                  href: "https://tasks.hagicode.com/",
+                  external: true,
+                },
+                {
+                  label: localizedCopy("openSpecSourceLabel"),
+                  href: "https://github.com/Fission-AI/OpenSpec",
+                  external: true,
+                },
+              ],
+            },
+          },
+          promoto: { enabled: false },
+          analytics: {
+            googleAnalytics: { enabled: false },
+            fiftyOneLa: { enabled: false },
+          },
+          aiDisclosures: {
+            isAITranslation: false,
+            isAIAuthor: false,
+            sourceLocale: "en-US",
+          },
+          contentComponents: {
+            pageTitle: false,
+            markdownContent: false,
+          },
+        }),
       ],
     }),
     sitemap(),
