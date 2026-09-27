@@ -6,7 +6,7 @@ OpenSpec のスラッシュコマンドのリファレンスです。これら�
 
 ワークフローのパターンと各コマンドを使うタイミングは[ワークフロー](/ja-JP/workflows/)、CLI コマンドは[CLI](/ja-JP/cli/)を参照してください。
 
-このページでは `/opsx:<command>` を標準名として使います。一部のツールでは表記が異なります。Cursor と GitHub Copilot では `/opsx-propose`、Codex では `$openspec-propose` を使います。ツールに応じた形式は[呼び出し方法](/ja-JP/supported-tools/#how-to-invoke)で確認してください。OpenSpec が生成するファイルには、すでに適切な形式が使われています。
+このページでは `/opsx:<command>` を標準名として使います。一部のツールでは表記が異なります。Cursor と GitHub Copilot では `/opsx-propose`、Codex では `$openspec-propose` を使います。ツールに応じた形式は[呼び出し方法](/ja-JP/supported-tools/#呼び出し方法)で確認してください。OpenSpec が生成するファイルには、すでに適切な形式が使われています。
 
 ## クイックリファレンス
 
@@ -382,7 +382,7 @@ AI:  add-dark-mode の成果物を読んでいます...
 
 - ファイルのない成果物の作成は開始しません。その場合は `/opsx:continue` を有効にするか、その任意ワークフローが未インストールなら `openspec status` と `openspec instructions` を使ってください。
 - change がすでに実装済みの場合は、更新後の計画にコードを合わせるため `/opsx:apply` を実行します。
-- 修正によって change の *目的* が変わる場合は、新しい change を作成してください（[更新するか新しく始めるか](/ja-JP/opsx/#when-to-update-vs-start-fresh)を参照）。
+- 修正によって change の *目的* が変わる場合は、新しい change を作成してください（[更新するか新しく始めるか](/ja-JP/opsx/#更新するか新しく始めるか)を参照）。
 
 ---
 
@@ -696,7 +696,7 @@ AI ツールによってコマンド構文が少しずつ異なります。使�
 > 対応しないため、OpenSpec が `.devin/skills/` に作成するスキル（例: `/openspec-propose`）を
 > 使用してください。これらは両方のエージェントで使えます。
 
-意図はどのツールでも同じですが、コマンドの表示方法は統合によって異なる場合があります。[呼び出し方法](/ja-JP/supported-tools/#how-to-invoke)に対応するすべてのツールを記載しています。この表は各形式の例のみを示します。
+意図はどのツールでも同じですが、コマンドの表示方法は統合によって異なる場合があります。[呼び出し方法](/ja-JP/supported-tools/#呼び出し方法)に対応するすべてのツールを記載しています。この表は各形式の例のみを示します。
 
 > **注:** GitHub Copilot のコマンド（`.github/prompts/*.prompt.md`）は IDE 拡張機能（VS Code、JetBrains、Visual Studio）でのみ利用できます。現在 GitHub Copilot CLI はカスタムプロンプトファイルに対応していません。詳細と回避策は[対応ツール](/ja-JP/supported-tools/)を参照してください。
 

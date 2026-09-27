@@ -10,7 +10,7 @@ title: "설치"
 
 직접 설치하고 싶지 않나요? 셸 명령을 실행할 수 있는 Claude Code, Codex, Cursor, Gemini CLI, Copilot 등의 코딩 어시스턴트에 아래 프롬프트를 붙여 넣으세요. CLI를 설치하고 프로젝트를 초기화한 뒤 실제로 수행한 작업을 알려 줍니다. [지원 도구](/ko-KR/supported-tools/)를 참조하세요.
 
-아래의 수동 단계가 기준이며 프롬프트는 해당 단계를 대신 실행할 뿐입니다. 어시스턴트가 중간에 멈추고 작업을 넘기는 것은 의도된 동작입니다. 권한이 필요한 작업은 먼저 확인을 요청하며 셸 시작 파일을 직접 수정하지 않습니다. [패키지 관리자](#package-managers)와 [문제 해결](/ko-KR/troubleshooting/)을 참고해 남은 단계를 직접 완료하세요.
+아래의 수동 단계가 기준이며 프롬프트는 해당 단계를 대신 실행할 뿐입니다. 어시스턴트가 중간에 멈추고 작업을 넘기는 것은 의도된 동작입니다. 권한이 필요한 작업은 먼저 확인을 요청하며 셸 시작 파일을 직접 수정하지 않습니다. [패키지 관리자](#패키지-관리자)와 [문제 해결](/ko-KR/troubleshooting/)을 참고해 남은 단계를 직접 완료하세요.
 
 ```text
 Install OpenSpec in this project and set it up for me. Follow these steps in

@@ -6,7 +6,7 @@ Des changements réels, de bout en bout. Chaque recette montre les commandes à 
 
 Rappel avant de commencer : les commandes slash telles que `/opsx:propose` se saisissent dans la conversation avec votre **assistant IA**, tandis que les commandes `openspec` s'exécutent dans le **terminal**. Si cette distinction est nouvelle pour vous, lisez d'abord [Fonctionnement des commandes](/fr-FR/how-commands-work/). Dans les transcriptions ci-dessous, `Vous :` et `IA :` correspondent à la conversation ; les lignes commençant par `$` correspondent au terminal.
 
-> **Vous ne savez pas encore quoi construire ?** La plupart de ces recettes seront plus pertinentes si vous commencez par `/opsx:explore` pour réfléchir au problème. La [recette 3](#recipe-3-exploring-before-you-commit) le montre en pratique ; le guide [Commencer par explorer](/fr-FR/explore/) explique toute la démarche.
+> **Vous ne savez pas encore quoi construire ?** La plupart de ces recettes seront plus pertinentes si vous commencez par `/opsx:explore` pour réfléchir au problème. La [recette 3](#recette-3--explorer-avant-de-sengager) le montre en pratique ; le guide [Commencer par explorer](/fr-FR/explore/) explique toute la démarche.
 
 ## Recette 1 : une petite fonctionnalité, le parcours rapide
 
@@ -127,7 +127,7 @@ AI:  Resuming add-dark-mode. Picking up at task 2.3: Update Header...
 
 Indiquer le nom du changement avec `/opsx:apply add-dark-mode` permet de cibler un changement particulier lorsque plusieurs sont actifs. Comme l'avancement est enregistré dans `tasks.md`, l'IA sait exactement où vous vous étiez arrêté.
 
-Lorsque plusieurs changements sont terminés en même temps, la commande étendue `/opsx:bulk-archive` les archive ensemble et résout les conflits de spécification en vérifiant ce qui a effectivement été implémenté. Voir [Workflows](/fr-FR/workflows/#parallel-changes).
+Lorsque plusieurs changements sont terminés en même temps, la commande étendue `/opsx:bulk-archive` les archive ensemble et résout les conflits de spécification en vérifiant ce qui a effectivement été implémenté. Voir [Workflows](/fr-FR/workflows/#changements-en-parallèle).
 
 <a id="recipe-5-a-refactor-with-no-behavior-change"></a>
 
@@ -161,7 +161,7 @@ L'archivage d'un changement marqué ne nécessite aucune option supplémentaire 
 $ openspec archive refactor-payment-module --skip-specs
 ```
 
-Cette option est également pratique pour l'outillage, la CI et les changements limités à la documentation. Principe : les spécifications décrivent le comportement ; s'il n'a pas changé, elles ne devraient pas changer non plus. Voir [Concepts](/fr-FR/concepts/#what-a-spec-is-and-is-not).
+Cette option est également pratique pour l'outillage, la CI et les changements limités à la documentation. Principe : les spécifications décrivent le comportement ; s'il n'a pas changé, elles ne devraient pas changer non plus. Voir [Concepts](/fr-FR/concepts/#ce-quest-et-nest-pas-une-spécification).
 
 ## Recette 6 : contrôler chaque étape (commandes étendues)
 
@@ -190,7 +190,7 @@ You: /opsx:continue
 AI:  Created specs/auth/spec.md. Now available: design.
 ```
 
-Examinez chaque artefact au fur et à mesure, modifiez-le librement et continuez lorsque le résultat vous convient. Pour rédiger le reste d'un coup, `/opsx:ff` complète rapidement les artefacts de planification restants. Avant l'archivage, `/opsx:verify` vérifie que l'implémentation correspond bien aux spécifications. Voir [Workflows](/fr-FR/workflows/#opsxff-vs-opsxcontinue).
+Examinez chaque artefact au fur et à mesure, modifiez-le librement et continuez lorsque le résultat vous convient. Pour rédiger le reste d'un coup, `/opsx:ff` complète rapidement les artefacts de planification restants. Avant l'archivage, `/opsx:verify` vérifie que l'implémentation correspond bien aux spécifications. Voir [Workflows](/fr-FR/workflows/#opsxff-ou-opsxcontinue).
 
 ## Recette 7 : apprendre tout le cycle par la pratique
 

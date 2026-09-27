@@ -109,7 +109,7 @@ openspec init [path] [options]
 | `--force` | 確認せずに従来のファイルを自動整理 |
 | `--profile <profile>` | 今回の init に限りグローバルプロファイルを上書き（`core` または `custom`） |
 | `--no-animation` | アニメーションの代わりに静止画のウェルカム画面を表示 |
-| `--copilot-cloud` | 確認せずに GitHub Copilot の[クラウドコーディングエージェント用ファイル](/ja-JP/supported-tools/#github-copilot-cloud-coding-agent)をセットアップ |
+| `--copilot-cloud` | 確認せずに GitHub Copilot の[クラウドコーディングエージェント用ファイル](/ja-JP/supported-tools/#github-copilot-クラウドコーディングエージェント)をセットアップ |
 | `--no-copilot-cloud` | GitHub Copilot のクラウドコーディングエージェント用ファイルを確認せずにスキップ |
 
 `--profile custom` は、グローバル設定で現在選択されているワークフロー（`openspec config profile`）を使います。
@@ -385,7 +385,7 @@ JSON の概要はエージェントから利用できます（利用可能な参
 
 ## 個人用ワークセット
 
-> **ベータ版。** ワークセットは新しいベータ機能です。コマンド、フラグ、ファイル形式はリリース間で変更される可能性があります。手順は[Stores ガイド](/ja-JP/stores-beta/user-guide/#worksets-reopen-the-folders-you-work-on-together)を参照してください。
+> **ベータ版。** ワークセットは新しいベータ機能です。コマンド、フラグ、ファイル形式はリリース間で変更される可能性があります。手順は[Stores ガイド](/ja-JP/stores-beta/user-guide/#ワークセット-一緒に作業するフォルダーを再び開く)を参照してください。
 
 ワークセットは、一緒に作業するフォルダー（計画ルートと必要な他のフォルダー）をまとめた、個人用の名前付きビューです。自分のマシンに保存され、ツールから名前を使って再度開けます。完全にローカルで、コミットも共有も宣言からの生成も行われません。ワークセットを削除してもメンバーフォルダーには触れません。
 
@@ -530,7 +530,7 @@ change と仕様の構造上の問題を検証し、change 内の MODIFIED 要�
 openspec validate [item-name] [options]
 ```
 
-仕様の差分が0件の change は、`.openspec.yaml` に `skip_specs: true` が宣言されていない限り検証に失敗します（動作を変えないリファクタリング、ツール、ドキュメント作業の場合。[レシピ5](/ja-JP/examples/#recipe-5-a-refactor-with-no-behavior-change)を参照）。
+仕様の差分が0件の change は、`.openspec.yaml` に `skip_specs: true` が宣言されていない限り検証に失敗します（動作を変えないリファクタリング、ツール、ドキュメント作業の場合。[レシピ5](/ja-JP/examples/#レシピ5-動作を変えないリファクタリング)を参照）。
 
 **引数:**
 

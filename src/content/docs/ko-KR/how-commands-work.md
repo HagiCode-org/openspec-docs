@@ -86,7 +86,7 @@ CLI는 **엔진**입니다. 변경 사항 폴더의 구조, 산출물 간 의존
 
 두 행에 모두 해당하는 도구는 Devin뿐입니다. Devin Desktop은 `.devin/workflows/`를 읽으므로 여기서는 `/opsx-propose`가 작동합니다. [Devin Local은 워크플로를 지원하지 않으므로](https://docs.devin.ai/desktop/devin-local) 해당 에이전트에서는 `/openspec-propose` 스킬을 사용하세요. OpenSpec이 `.devin/skills/`에 작성하는 스킬은 두 에이전트 모두에서 사용할 수 있습니다. 그래서 서로 스킬 이름으로 참조합니다.
 
-모든 도구는 [호출 방법](/ko-KR/supported-tools/#how-to-invoke)에 나열되어 있으며 해당 표가 기준입니다. 두 행은 슬래시 명령이 아닙니다. Amazon Q는 `@`로 호출하는 프롬프트 라이브러리에 파일을 불러오며, 마지막 세 행은 명령 ID가 아니라 *스킬* 이름을 사용합니다(`/opsx:apply`의 스킬 이름은
+모든 도구는 [호출 방법](/ko-KR/supported-tools/#호출-방법)에 나열되어 있으며 해당 표가 기준입니다. 두 행은 슬래시 명령이 아닙니다. Amazon Q는 `@`로 호출하는 프롬프트 라이브러리에 파일을 불러오며, 마지막 세 행은 명령 ID가 아니라 *스킬* 이름을 사용합니다(`/opsx:apply`의 스킬 이름은
 `openspec-apply-change`입니다).
 
 확실하지 않다면 `openspec init`이 출력한 "시작하기" 줄을 읽어 보세요. 등록한 도구에 맞는 형식이 이미 표시되어 있습니다. 슬래시를 입력하고 자동 완성 목록을 확인하는 방법도 있습니다(슬래시 명령을 표시하는 도구에 한함).

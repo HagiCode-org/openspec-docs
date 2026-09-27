@@ -124,5 +124,5 @@ explore  ──►  propose  ──►  apply  ──►  archive
 
 - [コマンド: `/opsx:explore`](/ja-JP/commands/#opsxexplore): 詳細なリファレンス
 - [ワークフロー](/ja-JP/workflows/): 日常の作業における explore の使い方
-- [例とレシピ](/ja-JP/examples/#recipe-3-exploring-before-you-commit): 一連の手順を通した explore の例
+- [例とレシピ](/ja-JP/examples/#レシピ3-着手前に-explore-する): 一連の手順を通した explore の例
 - [はじめに](/ja-JP/getting-started/): explore を含む最初の変更ガイド

@@ -109,7 +109,7 @@ de la configuration afin qu’OpenSpec n’écrase jamais les consignes propres 
 | `--force` | Nettoyer automatiquement les anciens fichiers sans demander confirmation |
 | `--profile <profile>` | Remplacer le profil global pour cette initialisation (`core` ou `custom`) |
 | `--no-animation` | Afficher un écran d’accueil statique au lieu de l’animation |
-| `--copilot-cloud` | Configurer sans invite les [fichiers de l’agent de codage cloud](/fr-FR/supported-tools/#github-copilot-cloud-coding-agent) GitHub Copilot |
+| `--copilot-cloud` | Configurer sans invite les [fichiers de l’agent de codage cloud](/fr-FR/supported-tools/#agent-de-codage-cloud-github-copilot) GitHub Copilot |
 | `--no-copilot-cloud` | Ignorer sans invite les fichiers de l’agent de codage cloud GitHub Copilot |
 
 `--profile custom` utilise les workflows actuellement sélectionnés dans la configuration globale (`openspec config profile`).
@@ -400,7 +400,7 @@ Le « contexte de travail » désigne l’ensemble assemblé ; le champ `context
 
 ## Ensembles de travail personnels
 
-> **Bêta.** Les ensembles de travail font partie de la nouvelle surface bêta ; les commandes, options et formats de fichiers peuvent évoluer entre les versions. Pour un guide pratique, consultez le [guide des stores](/fr-FR/stores-beta/user-guide/#worksets-reopen-the-folders-you-work-on-together).
+> **Bêta.** Les ensembles de travail font partie de la nouvelle surface bêta ; les commandes, options et formats de fichiers peuvent évoluer entre les versions. Pour un guide pratique, consultez le [guide des stores](/fr-FR/stores-beta/user-guide/#ensembles-de-travail--rouvrir-les-dossiers-associés).
 
 Un ensemble de travail est une vue personnelle, nommée, des dossiers que vous utilisez ensemble — une racine de planification et tout autre dossier de votre choix — enregistrée sur votre machine et rouverte par son nom dans votre outil. Elle est entièrement locale : jamais validée, jamais partagée, jamais dérivée de déclarations ; sa suppression ne touche jamais aux dossiers membres.
 
@@ -545,7 +545,7 @@ Valider la structure des changements et spécifications, et comparer les exigenc
 openspec validate [item-name] [options]
 ```
 
-Un changement sans delta de spécification échoue à la validation, sauf si son `.openspec.yaml` déclare `skip_specs: true` (pour une refactorisation pure, de l’outillage ou de la documentation ; voir [Recette 5](/fr-FR/examples/#recipe-5-a-refactor-with-no-behavior-change)).
+Un changement sans delta de spécification échoue à la validation, sauf si son `.openspec.yaml` déclare `skip_specs: true` (pour une refactorisation pure, de l’outillage ou de la documentation ; voir [Recette 5](/fr-FR/examples/#recette-5--refactorisation-sans-changement-de-comportement)).
 
 **Arguments :**
 

@@ -8,7 +8,7 @@ Les termes sont regroupés par thème, puis classés par ordre alphabétique dan
 
 ## Les notions fondamentales
 
-**Spécification (spec).** Document qui décrit le comportement d'une partie de votre système. Les spécifications se trouvent dans `openspec/specs/`, sont organisées par domaine et comprennent des exigences et des scénarios. Une spécification est la réponse convenue à la question « que fait ce logiciel ? ». Voir [Concepts](/fr-FR/concepts/#specs).
+**Spécification (spec).** Document qui décrit le comportement d'une partie de votre système. Les spécifications se trouvent dans `openspec/specs/`, sont organisées par domaine et comprennent des exigences et des scénarios. Une spécification est la réponse convenue à la question « que fait ce logiciel ? ». Voir [Concepts](/fr-FR/concepts/#spécifications).
 
 **Source de vérité.** L'ensemble du répertoire `openspec/specs/`. Il contient le comportement actuel et convenu de votre système. Les changements proposent de le modifier ; l'archivage applique ces modifications.
 
@@ -16,7 +16,7 @@ Les termes sont regroupés par thème, puis classés par ordre alphabétique dan
 
 **Artefact.** Document faisant partie d'un changement. Les artefacts habituels sont la proposition, les spécifications différentielles, la conception et les tâches. Ils sont créés dans l'ordre de leurs dépendances et s'alimentent les uns les autres.
 
-**Spécification différentielle (delta spec).** Spécification au sein d'un changement qui décrit uniquement ce qui change, à l'aide des sections `ADDED`, `MODIFIED` et `REMOVED`, au lieu de répéter la spécification entière. C'est ce qui permet à OpenSpec de modifier proprement des systèmes existants. Voir [Concepts](/fr-FR/concepts/#delta-specs).
+**Spécification différentielle (delta spec).** Spécification au sein d'un changement qui décrit uniquement ce qui change, à l'aide des sections `ADDED`, `MODIFIED` et `REMOVED`, au lieu de répéter la spécification entière. C'est ce qui permet à OpenSpec de modifier proprement des systèmes existants. Voir [Concepts](/fr-FR/concepts/#spécifications-différentielles).
 
 **Domaine.** Regroupement logique de spécifications, comme `auth/`, `payments/` ou `ui/`. Choisissez des domaines qui correspondent à votre façon de concevoir le système.
 
@@ -38,7 +38,7 @@ Les termes sont regroupés par thème, puis classés par ordre alphabétique dan
 
 ## Cycle de vie
 
-**Archivage (archive).** Opération qui termine un changement. Ses spécifications différentielles sont fusionnées dans les spécifications principales, puis le dossier est déplacé vers `openspec/changes/archive/YYYY-MM-DD-<name>/`. Après archivage, vos spécifications décrivent la nouvelle réalité. Voir [Concepts](/fr-FR/concepts/#archive).
+**Archivage (archive).** Opération qui termine un changement. Ses spécifications différentielles sont fusionnées dans les spécifications principales, puis le dossier est déplacé vers `openspec/changes/archive/YYYY-MM-DD-<name>/`. Après archivage, vos spécifications décrivent la nouvelle réalité. Voir [Concepts](/fr-FR/concepts/#archivage).
 
 **Synchronisation (sync).** Fusion des spécifications différentielles d'un changement dans les spécifications principales *sans* archiver le changement. Elle est généralement proposée automatiquement pendant l'archivage, mais peut être déclenchée seule avec `/opsx:sync` pour les changements de longue durée. Voir [Commandes](/fr-FR/commands/#opsxsync).
 
@@ -62,17 +62,17 @@ Les termes sont regroupés par thème, puis classés par ordre alphabétique dan
 
 ## Personnalisation
 
-**Schéma.** Définition des artefacts d'un workflow et de leurs dépendances. Le schéma intégré par défaut est `spec-driven` (proposal → specs → design → tasks). Vous pouvez le copier pour le modifier ou en créer un. Voir [Personnalisation](/fr-FR/customization/#custom-schemas).
+**Schéma.** Définition des artefacts d'un workflow et de leurs dépendances. Le schéma intégré par défaut est `spec-driven` (proposal → specs → design → tasks). Vous pouvez le copier pour le modifier ou en créer un. Voir [Personnalisation](/fr-FR/customization/#schémas-personnalisés).
 
 **Modèle (template).** Fichier Markdown d'un schéma qui détermine ce que l'IA génère pour un artefact donné. Modifier un modèle change immédiatement la sortie de l'IA, sans reconstruction.
 
-**Configuration du projet (`openspec/config.yaml`).** Paramètres propres à un projet : schéma par défaut, `context:` injecté dans chaque requête de planification et `rules:` par artefact. C'est la façon la plus simple de renseigner OpenSpec sur votre pile technique et vos conventions. Voir [Personnalisation](/fr-FR/customization/#project-configuration).
+**Configuration du projet (`openspec/config.yaml`).** Paramètres propres à un projet : schéma par défaut, `context:` injecté dans chaque requête de planification et `rules:` par artefact. C'est la façon la plus simple de renseigner OpenSpec sur votre pile technique et vos conventions. Voir [Personnalisation](/fr-FR/customization/#configuration-du-projet).
 
 **Injection du contexte.** Ajout d'informations sur le projet dans le champ `context:` de `config.yaml`, pour qu'elles soient automatiquement incluses dans chaque artefact généré par l'IA. Plus fiable que de compter sur l'IA pour lire un fichier séparé.
 
 **Graphe de dépendances.** Graphe orienté formé par les relations `requires:` entre les artefacts. C'est un DAG (graphe orienté acyclique : les flèches vont toujours de l'avant et ne forment jamais de boucle) qu'OpenSpec utilise pour déterminer ce qui peut être créé ensuite.
 
-**Des facilitateurs, pas des barrières (enablers, not gates).** Principe selon lequel les dépendances entre artefacts indiquent ce qui devient *possible* ensuite, pas ce qui est *obligatoire*. Vous pouvez revenir à n'importe quel artefact et le modifier à tout moment. Voir [Les concepts fondamentaux en bref](/fr-FR/overview/#enablers-not-gates).
+**Des facilitateurs, pas des barrières (enablers, not gates).** Principe selon lequel les dépendances entre artefacts indiquent ce qui devient *possible* ensuite, pas ce qui est *obligatoire*. Vous pouvez revenir à n'importe quel artefact et le modifier à tout moment. Voir [Les concepts fondamentaux en bref](/fr-FR/overview/#-des-facilitateurs-pas-des-barrières-).
 
 ## Coordination entre dépôts (bêta)
 

@@ -17,7 +17,7 @@ openspec --version
 
 インストール後も見つからない場合、npm のグローバル bin ディレクトリが `PATH` に含まれていない可能性があります。`npm prefix -g` を実行すると、グローバルパッケージの場所が分かります。macOS と Linux では、そのディレクトリ内の `bin/` にバイナリがあり、Windows ではディレクトリ直下にあります。そのパスが `PATH` に含まれていることを確認してください（`npm bin -g` は npm 9 で削除されました）。
 
-[AI を使ったインストール](/ja-JP/installation/#install-with-your-ai-assistant)を利用した場合、ここで引き継ぐのが想定された動作です。その指示では、アシスタント自身がシェルの起動ファイルを編集するのではなく、`PATH` の変更方法を表示するよう求めます。
+[AI を使ったインストール](/ja-JP/installation/#ai-アシスタントを使ってインストールする)を利用した場合、ここで引き継ぐのが想定された動作です。その指示では、アシスタント自身がシェルの起動ファイルを編集するのではなく、`PATH` の変更方法を表示するよう求めます。
 
 ### "Requires Node.js 20.19.0 or higher"
 
@@ -61,7 +61,7 @@ openspec init --tools claude,cursor
 
 5. **このプロジェクトを初期化したか確認する。** スキルはプロジェクトごとに作成されます。リポジトリを clone した場合や、別のフォルダーに切り替えた場合は、その場所で `openspec init`（または `openspec update`）を実行してください。
 
-6. **ツールがコマンドファイルに対応しているか確認する。** Codex、CodeArts、ForgeCode、Hermes、Kimi Code、Mistral Vibe、Zed Agent、共有 `.agents` ターゲットには `opsx-*` コマンドファイルは生成されません。代わりにスキルを使うため、`/opsx` は補完候補に表示されません。Codex では `$openspec-propose`、Kimi Code では `/skill:openspec-propose`、その他では `/openspec-propose` と入力してください。共有 `.agents` ターゲットはベンダー中立なので、`/openspec-propose` は一般的な形式であり、必ず機能するとは限りません。アシスタントが応答しない場合は、スキルの呼び出し方法をそのツールのドキュメントで確認してください。Amazon Q にはコマンドファイルが生成されますが、スラッシュメニューではなくプロンプトライブラリに読み込まれるため、`/opsx` ではなく `@opsx-propose` と入力します。各ツールの形式は[呼び出し方法](/ja-JP/supported-tools/#how-to-invoke)に記載されています。
+6. **ツールがコマンドファイルに対応しているか確認する。** Codex、CodeArts、ForgeCode、Hermes、Kimi Code、Mistral Vibe、Zed Agent、共有 `.agents` ターゲットには `opsx-*` コマンドファイルは生成されません。代わりにスキルを使うため、`/opsx` は補完候補に表示されません。Codex では `$openspec-propose`、Kimi Code では `/skill:openspec-propose`、その他では `/openspec-propose` と入力してください。共有 `.agents` ターゲットはベンダー中立なので、`/openspec-propose` は一般的な形式であり、必ず機能するとは限りません。アシスタントが応答しない場合は、スキルの呼び出し方法をそのツールのドキュメントで確認してください。Amazon Q にはコマンドファイルが生成されますが、スラッシュメニューではなくプロンプトライブラリに読み込まれるため、`/opsx` ではなく `@opsx-propose` と入力します。各ツールの形式は[呼び出し方法](/ja-JP/supported-tools/#呼び出し方法)に記載されています。
 
 ## change の操作
 
@@ -111,7 +111,7 @@ MODIFIED "<requirement>" omits scenario(s) the current spec still has: "<scenari
 
 AI に十分なコンテキストがありません。次の方法で改善できます。
 
-- `openspec/config.yaml` にプロジェクトのコンテキストを追加し、技術スタックや規約をすべての依頼に反映します。[カスタマイズ](/ja-JP/customization/#project-configuration)を参照してください。
+- `openspec/config.yaml` にプロジェクトのコンテキストを追加し、技術スタックや規約をすべての依頼に反映します。[カスタマイズ](/ja-JP/customization/#プロジェクト設定)を参照してください。
 - 仕様だけに適用するガイダンスなど、成果物ごとの `rules:` を追加します。
 - 提案時に、より詳しい説明を入力します。
 - 拡張コマンド `/opsx:continue` を使って成果物を1つずつ作成・レビューします。`/opsx:ff` のように一度にすべてを作成する必要はありません。
@@ -166,7 +166,7 @@ openspec schema which <name>        # see where a schema resolves from
 openspec schema init <name>         # create a custom one
 ```
 
-[カスタマイズ](/ja-JP/customization/#custom-schemas)を参照してください。
+[カスタマイズ](/ja-JP/customization/#カスタムスキーマ)を参照してください。
 
 ## 以前のワークフローからの移行
 
@@ -186,7 +186,7 @@ IDE を再起動してください。スキルは起動時に検出されます�
 
 ### My old `project.md` wasn't migrated
 
-意図された動作です。OpenSpec は、あなたが書いたコンテキストが含まれている可能性があるため、`project.md` を自動で削除しません。有用な内容を `config.yaml` の `context:` 節に移してから、自分で削除してください。[移行ガイド](/ja-JP/migration-guide/#migrating-projectmd-to-configyaml)では、この手順と、AI に要約を依頼するためのプロンプトを紹介しています。
+意図された動作です。OpenSpec は、あなたが書いたコンテキストが含まれている可能性があるため、`project.md` を自動で削除しません。有用な内容を `config.yaml` の `context:` 節に移してから、自分で削除してください。[移行ガイド](/ja-JP/migration-guide/#projectmd-を-configyaml-に移行する)では、この手順と、AI に要約を依頼するためのプロンプトを紹介しています。
 
 ## まだ解決しませんか？
 

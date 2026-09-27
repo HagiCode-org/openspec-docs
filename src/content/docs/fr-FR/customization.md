@@ -22,7 +22,7 @@ Le fichier `openspec/config.yaml` est le moyen le plus simple d'adapter OpenSpec
 - **Injecter le contexte du projet** — l'IA connaît votre pile technique, vos conventions, etc.
 - **Ajouter des règles par artefact** — définir des règles personnalisées pour certains artefacts.
 - **Ajouter des consignes par opération** — fournir des préférences consultatives pour les opérations apply et archive.
-- **Mémoriser les choix d'intégration** — par exemple l'activation de l'[agent de codage cloud GitHub Copilot](/fr-FR/supported-tools/#github-copilot-cloud-coding-agent).
+- **Mémoriser les choix d'intégration** — par exemple l'activation de l'[agent de codage cloud GitHub Copilot](/fr-FR/supported-tools/#agent-de-codage-cloud-github-copilot).
 
 ### Configuration rapide
 
@@ -443,4 +443,4 @@ Les schémas communautaires ne sont pas inclus dans OpenSpec Core : ils résiden
 
 ## Voir aussi
 
-- [Référence CLI : commandes de schéma](/fr-FR/cli/#schema-commands) — documentation complète des commandes
+- [Référence CLI : commandes de schéma](/fr-FR/cli/#commandes-de-schéma) — documentation complète des commandes

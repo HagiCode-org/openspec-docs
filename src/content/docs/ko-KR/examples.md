@@ -6,7 +6,7 @@ title: "예제 및 레시피"
 
 시작하기 전에 다시 한번 확인하세요. `/opsx:propose`와 같은 슬래시 명령은 **AI 어시스턴트 채팅**에, `openspec` 명령은 **터미널**에 입력합니다. 익숙하지 않다면 먼저 [명령 작동 방식](/ko-KR/how-commands-work/)을 읽어 보세요. 아래 대화에서 `You:`와 `AI:`는 채팅을 나타내며 `$`로 시작하는 줄은 터미널입니다.
 
-> **무엇을 만들지 아직 확신이 없나요?** 먼저 `/opsx:explore`로 생각을 정리하면 대부분의 레시피를 더 효과적으로 활용할 수 있습니다. [레시피 3](#recipe-3-exploring-before-you-commit)에서 사용 예를 볼 수 있으며, [먼저 탐색하기](/ko-KR/explore/)에서 자세히 설명합니다.
+> **무엇을 만들지 아직 확신이 없나요?** 먼저 `/opsx:explore`로 생각을 정리하면 대부분의 레시피를 더 효과적으로 활용할 수 있습니다. [레시피 3](#레시피-3-확정-전에-탐색하기)에서 사용 예를 볼 수 있으며, [먼저 탐색하기](/ko-KR/explore/)에서 자세히 설명합니다.
 
 ## 레시피 1: 작은 기능을 빠르게 구현하기
 
@@ -125,7 +125,7 @@ AI:  Resuming add-dark-mode. Picking up at task 2.3: Update Header...
 
 진행 중인 변경 사항이 여러 개라면 `/opsx:apply add-dark-mode`와 같이 이름을 지정해 AI가 작업할 대상을 선택합니다. `tasks.md`에서 완료 상태를 관리하므로 AI는 정확히 어디까지 진행했는지 알 수 있습니다.
 
-여러 변경 사항을 함께 완료한 경우 확장 명령 `/opsx:bulk-archive`로 함께 보관하고 실제 구현 내용을 확인해 사양 충돌을 해결할 수 있습니다. [워크플로](/ko-KR/workflows/#parallel-changes)를 참조하세요.
+여러 변경 사항을 함께 완료한 경우 확장 명령 `/opsx:bulk-archive`로 함께 보관하고 실제 구현 내용을 확인해 사양 충돌을 해결할 수 있습니다. [워크플로](/ko-KR/workflows/#변경-사항-병렬-처리)를 참조하세요.
 
 ## 레시피 5: 동작 변경 없는 리팩터링
 
@@ -157,7 +157,7 @@ skip_specs: true
 $ openspec archive refactor-payment-module --skip-specs
 ```
 
-같은 플래그는 도구, CI, 문서만 변경하는 작업에도 유용합니다. 원칙은 사양이 동작을 설명하므로 동작이 바뀌지 않았다면 사양도 바뀌지 않아야 한다는 것입니다. [개념](/ko-KR/concepts/#what-a-spec-is-and-is-not)을 참조하세요.
+같은 플래그는 도구, CI, 문서만 변경하는 작업에도 유용합니다. 원칙은 사양이 동작을 설명하므로 동작이 바뀌지 않았다면 사양도 바뀌지 않아야 한다는 것입니다. [개념](/ko-KR/concepts/#사양의-의미와-범위)을 참조하세요.
 
 ## 레시피 6: 단계별 제어(확장 명령)
 
@@ -186,7 +186,7 @@ You: /opsx:continue
 AI:  Created specs/auth/spec.md. Now available: design.
 ```
 
-각 산출물이 작성될 때 검토하고 자유롭게 편집한 다음 만족스러우면 계속 진행하세요. 나머지 산출물을 한꺼번에 작성하고 싶다면 `/opsx:ff`로 남은 계획 산출물을 빠르게 생성할 수 있습니다. 보관 전에 `/opsx:verify`를 실행해 구현이 사양과 실제로 일치하는지 확인하세요. [워크플로](/ko-KR/workflows/#opsxff-vs-opsxcontinue)를 참조하세요.
+각 산출물이 작성될 때 검토하고 자유롭게 편집한 다음 만족스러우면 계속 진행하세요. 나머지 산출물을 한꺼번에 작성하고 싶다면 `/opsx:ff`로 남은 계획 산출물을 빠르게 생성할 수 있습니다. 보관 전에 `/opsx:verify`를 실행해 구현이 사양과 실제로 일치하는지 확인하세요. [워크플로](/ko-KR/workflows/#opsxff와-opsxcontinue-비교)를 참조하세요.
 
 ## 레시피 7: 전체 작업 흐름 직접 익히기
 

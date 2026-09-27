@@ -125,5 +125,5 @@ explore  ──►  propose  ──►  apply  ──►  archive
 
 - [명령: `/opsx:explore`](/ko-KR/commands/#opsxexplore): 상세 참조
 - [워크플로](/ko-KR/workflows/): 일상적인 흐름에서 탐색 활용하기
-- [예제 및 레시피](/ko-KR/examples/#recipe-3-exploring-before-you-commit): 전체 과정에서 탐색하기
+- [예제 및 레시피](/ko-KR/examples/#레시피-3-확정-전에-탐색하기): 전체 과정에서 탐색하기
 - [시작하기](/ko-KR/getting-started/): 탐색을 포함한 첫 변경 사항 안내

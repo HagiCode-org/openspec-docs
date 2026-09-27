@@ -8,7 +8,7 @@ Pour les modèles de workflow et savoir quand utiliser chaque commande, consulte
 
 La forme canonique utilisée ici est `/opsx:<command>`. Certains outils l’écrivent
 différemment — Cursor et GitHub Copilot enregistrent `/opsx-propose`, Codex utilise
-`$openspec-propose` — consultez donc [Forme à utiliser](/fr-FR/supported-tools/#how-to-invoke)
+`$openspec-propose` — consultez donc [Forme à utiliser](/fr-FR/supported-tools/#forme-à-utiliser)
 pour votre outil. Les fichiers générés par OpenSpec utilisent déjà la forme correcte.
 
 ## Référence rapide
@@ -383,7 +383,7 @@ AI:  Reading add-dark-mode artifacts...
 
 - La commande ne démarre pas un artefact sans fichier existant. Activez `/opsx:continue` pour cela, ou utilisez `openspec status` et `openspec instructions` si ce workflow facultatif n’est pas installé.
 - Si le changement a déjà été implémenté, poursuivez avec `/opsx:apply` pour aligner le code sur le plan révisé.
-- Si votre révision change l’*intention* du changement, créez-en un nouveau (voir [Mettre à jour ou repartir de zéro](/fr-FR/opsx/#when-to-update-vs-start-fresh)).
+- Si votre révision change l’*intention* du changement, créez-en un nouveau (voir [Mettre à jour ou repartir de zéro](/fr-FR/opsx/#mettre-à-jour-ou-repartir-de-zéro)).
 
 ---
 
@@ -697,7 +697,7 @@ Les outils IA utilisent des syntaxes de commande légèrement différentes. Choi
  > qu’OpenSpec écrit dans `.devin/skills/`, par ex. `/openspec-propose`, qui fonctionnent avec
  > les deux agents.
 
-L’intention est identique dans tous les outils, mais la façon de présenter les commandes dépend de l’intégration. [Forme à utiliser](/fr-FR/supported-tools/#how-to-invoke) répertorie tous les outils pris en charge ; ce tableau donne uniquement des exemples de chaque forme.
+L’intention est identique dans tous les outils, mais la façon de présenter les commandes dépend de l’intégration. [Forme à utiliser](/fr-FR/supported-tools/#forme-à-utiliser) répertorie tous les outils pris en charge ; ce tableau donne uniquement des exemples de chaque forme.
 
 > **Remarque :** les commandes GitHub Copilot (`.github/prompts/*.prompt.md`) ne sont disponibles que dans les extensions IDE (VS Code, JetBrains, Visual Studio). GitHub Copilot CLI ne prend actuellement pas en charge les fichiers de prompt personnalisés ; consultez [Outils pris en charge](/fr-FR/supported-tools/) pour plus de détails et des solutions de rechange.
 

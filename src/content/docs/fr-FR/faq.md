@@ -38,11 +38,11 @@ Il n'y a aucun mode distinct à démarrer. Ouvrez votre assistant IA comme d'hab
 
 ### J'ai saisi une commande slash, mais rien ne s'est passé. Pourquoi ?
 
-Vous l'avez probablement saisie dans le terminal plutôt que dans la conversation avec votre IA, la forme utilisée n'est pas prise en charge par votre outil, ou les commandes ne sont pas encore installées. Si les fichiers sont absents — ou si l'outil n'a jamais été configuré — exécutez `openspec init` ; `openspec update` actualise uniquement les fichiers existants. Redémarrez ensuite votre assistant et utilisez la forme indiquée sous « Getting started » — voir [Forme à utiliser](/fr-FR/supported-tools/#how-to-invoke). [Dépannage](/fr-FR/troubleshooting/#commands-dont-show-up) propose une liste complète de vérifications.
+Vous l'avez probablement saisie dans le terminal plutôt que dans la conversation avec votre IA, la forme utilisée n'est pas prise en charge par votre outil, ou les commandes ne sont pas encore installées. Si les fichiers sont absents — ou si l'outil n'a jamais été configuré — exécutez `openspec init` ; `openspec update` actualise uniquement les fichiers existants. Redémarrez ensuite votre assistant et utilisez la forme indiquée sous « Getting started » — voir [Forme à utiliser](/fr-FR/supported-tools/#forme-à-utiliser). [Dépannage](/fr-FR/troubleshooting/#les-commandes-napparaissent-pas) propose une liste complète de vérifications.
 
 ### Pourquoi la syntaxe est-elle `/opsx:propose` dans un outil et `/opsx-propose` dans un autre ?
 
-Chaque outil d'IA présente les commandes personnalisées à sa façon ; OpenSpec les nomme comme l'outil charge le fichier correspondant. Un fichier nommé `opsx-propose.md` s'appelle `/opsx-propose` ; un fichier rangé dans `commands/opsx/` s'appelle `/opsx:propose`. Les outils qui utilisent des skills plutôt que des commandes reprennent le nom du skill : Codex demande `$openspec-propose`, Kimi Code `/skill:openspec-propose`. La ligne « Getting started » affichée par `openspec init` indique la bonne forme pour vos outils ; le tableau complet se trouve dans [Forme à utiliser](/fr-FR/supported-tools/#how-to-invoke).
+Chaque outil d'IA présente les commandes personnalisées à sa façon ; OpenSpec les nomme comme l'outil charge le fichier correspondant. Un fichier nommé `opsx-propose.md` s'appelle `/opsx-propose` ; un fichier rangé dans `commands/opsx/` s'appelle `/opsx:propose`. Les outils qui utilisent des skills plutôt que des commandes reprennent le nom du skill : Codex demande `$openspec-propose`, Kimi Code `/skill:openspec-propose`. La ligne « Getting started » affichée par `openspec init` indique la bonne forme pour vos outils ; le tableau complet se trouve dans [Forme à utiliser](/fr-FR/supported-tools/#forme-à-utiliser).
 
 ### Quelle est la différence entre un skill et une commande ?
 
@@ -80,15 +80,15 @@ Modifiez simplement le fichier. Chaque artefact est du Markdown ordinaire dans `
 
 ### Puis-je revenir au plan pour le modifier après avoir commencé l'implémentation ?
 
-Oui, à tout moment. Le workflow est fluide : la revue et l'édition ne sont pas des phases dont vous pourriez être exclu. Modifiez l'artefact, puis continuez. Pour vérifier méthodiquement que le code correspond toujours au plan, lancez `/opsx:verify`. Voir [Modifier et faire évoluer un changement](/fr-FR/editing-changes/#how-do-i-go-back-to-review-after-implementing).
+Oui, à tout moment. Le workflow est fluide : la revue et l'édition ne sont pas des phases dont vous pourriez être exclu. Modifiez l'artefact, puis continuez. Pour vérifier méthodiquement que le code correspond toujours au plan, lancez `/opsx:verify`. Voir [Modifier et faire évoluer un changement](/fr-FR/editing-changes/#-comment-revenir-à-la-revue-après-limplémentation--).
 
 ### J'ai modifié le code à la main. Comment le réconcilier avec la spécification ?
 
-Rétablissez leur cohérence avant l'archivage, car vos spécifications deviennent alors la référence officielle. Si le code est correct, adaptez le delta à ce que vous avez réellement livré ; si la spécification est correcte, continuez jusqu'à ce que le code lui corresponde. `/opsx:verify` signale les écarts. Voir [Modifier et faire évoluer un changement](/fr-FR/editing-changes/#i-edited-the-code-by-hand-how-do-i-reconcile-that-with-openspec).
+Rétablissez leur cohérence avant l'archivage, car vos spécifications deviennent alors la référence officielle. Si le code est correct, adaptez le delta à ce que vous avez réellement livré ; si la spécification est correcte, continuez jusqu'à ce que le code lui corresponde. `/opsx:verify` signale les écarts. Voir [Modifier et faire évoluer un changement](/fr-FR/editing-changes/#-jai-modifié-le-code-à-la-main-comment-le-réconcilier-avec-openspec--).
 
 ### Quand mettre à jour un changement existant et quand en créer un nouveau ?
 
-Mettez-le à jour si le travail reste le même et que vous l'affinez. Recommencez avec un nouveau changement si l'intention a fondamentalement évolué ou si le périmètre s'est étendu à un travail distinct. [Workflows](/fr-FR/workflows/#when-to-update-vs-start-fresh) fournit un organigramme et des exemples.
+Mettez-le à jour si le travail reste le même et que vous l'affinez. Recommencez avec un nouveau changement si l'intention a fondamentalement évolué ou si le périmètre s'est étendu à un travail distinct. [Workflows](/fr-FR/workflows/#mettre-à-jour-ou-repartir-de-zéro) fournit un organigramme et des exemples.
 
 ### Que faire si ma session manque de contexte ou si les exigences changent en cours d'implémentation ?
 
@@ -104,11 +104,11 @@ Oui. Vos spécifications, changements actifs et archives font partie de l'histor
 
 ### Que faut-il mettre dans une spécification plutôt que dans une conception ?
 
-Une spécification décrit le comportement observable : ce que fait le système, ses entrées, ses sorties et ses conditions d'erreur. Une conception décrit comment le construire : approche technique, décisions d'architecture et modifications de fichiers. Si l'implémentation peut changer sans modifier le comportement visible, l'information relève de la conception, pas de la spécification. [Concepts](/fr-FR/concepts/#what-a-spec-is-and-is-not) approfondit cette distinction.
+Une spécification décrit le comportement observable : ce que fait le système, ses entrées, ses sorties et ses conditions d'erreur. Une conception décrit comment le construire : approche technique, décisions d'architecture et modifications de fichiers. Si l'implémentation peut changer sans modifier le comportement visible, l'information relève de la conception, pas de la spécification. [Concepts](/fr-FR/concepts/#ce-quest-et-nest-pas-une-spécification) approfondit cette distinction.
 
 ### Qu'est-ce qu'une spécification différentielle ?
 
-Une spécification qui décrit uniquement les changements, à l'aide des sections `ADDED`, `MODIFIED` et `REMOVED`, sans répéter toute la spécification. OpenSpec peut ainsi modifier proprement des systèmes existants. Voir [Concepts](/fr-FR/concepts/#delta-specs).
+Une spécification qui décrit uniquement les changements, à l'aide des sections `ADDED`, `MODIFIED` et `REMOVED`, sans répéter toute la spécification. OpenSpec peut ainsi modifier proprement des systèmes existants. Voir [Concepts](/fr-FR/concepts/#spécifications-différentielles).
 
 ### Où vont les changements archivés ?
 
@@ -118,7 +118,7 @@ Dans `openspec/changes/archive/YYYY-MM-DD-<name>/`, où tous les artefacts du ch
 
 ### Comment renseigner l'IA sur ma pile technique ?
 
-Ajoutez ces informations sous `context:` dans `openspec/config.yaml`. Elles sont injectées dans chaque requête de planification afin que l'IA connaisse toujours votre pile et vos conventions. Voir [Personnalisation](/fr-FR/customization/#project-configuration).
+Ajoutez ces informations sous `context:` dans `openspec/config.yaml`. Elles sont injectées dans chaque requête de planification afin que l'IA connaisse toujours votre pile et vos conventions. Voir [Personnalisation](/fr-FR/customization/#configuration-du-projet).
 
 ### Puis-je générer des spécifications dans une autre langue que l'anglais ?
 
@@ -126,7 +126,7 @@ Oui. Ajoutez une instruction de langue sous `context:` dans votre configuration.
 
 ### Puis-je modifier le workflow lui-même ?
 
-Oui, à l'aide de schémas personnalisés. Un schéma définit les artefacts et leurs dépendances. Dupliquez le schéma par défaut avec `openspec schema fork spec-driven my-workflow`, puis modifiez-le. Voir [Personnalisation](/fr-FR/customization/#custom-schemas).
+Oui, à l'aide de schémas personnalisés. Un schéma définit les artefacts et leurs dépendances. Dupliquez le schéma par défaut avec `openspec schema fork spec-driven my-workflow`, puis modifiez-le. Voir [Personnalisation](/fr-FR/customization/#schémas-personnalisés).
 
 ## Modèles, confidentialité et mises à niveau
 
@@ -144,7 +144,7 @@ En deux étapes : mettez à niveau le paquet (`npm install -g @fission-ai/opensp
 
 ### Comment désinstaller OpenSpec ?
 
-Il n'y a pas de commande de désinstallation : OpenSpec se compose d'un paquet global et de fichiers dans votre projet. Supprimez le paquet (`npm uninstall -g @fission-ai/openspec`), puis, si vous le souhaitez, le répertoire `openspec/` et les fichiers générés pour vos outils. Le guide [Installation : désinstallation](/fr-FR/installation/#uninstalling) explique la procédure et indique ce qu'il est prudent de conserver.
+Il n'y a pas de commande de désinstallation : OpenSpec se compose d'un paquet global et de fichiers dans votre projet. Supprimez le paquet (`npm uninstall -g @fission-ai/openspec`), puis, si vous le souhaitez, le répertoire `openspec/` et les fichiers générés pour vos outils. Le guide [Installation : désinstallation](/fr-FR/installation/#désinstallation) explique la procédure et indique ce qu'il est prudent de conserver.
 
 ## Obtenir de l'aide
 

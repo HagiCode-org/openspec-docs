@@ -6,7 +6,7 @@ title: "명령"
 
 워크플로 패턴과 명령별 사용 시점은 [워크플로](/ko-KR/workflows/)를, CLI 명령은 [CLI](/ko-KR/cli/)를 참조하세요.
 
-이 문서에서는 표준 이름으로 `/opsx:<command>`를 사용합니다. 일부 도구에서는 다르게 표기합니다. Cursor와 GitHub Copilot은 `/opsx-propose`, Codex는 `$openspec-propose`를 사용하므로 도구에 맞는 형식은 [호출 방법](/ko-KR/supported-tools/#how-to-invoke)을 확인하세요. OpenSpec이 생성하는 파일에는 올바른 형식이 이미 사용됩니다.
+이 문서에서는 표준 이름으로 `/opsx:<command>`를 사용합니다. 일부 도구에서는 다르게 표기합니다. Cursor와 GitHub Copilot은 `/opsx-propose`, Codex는 `$openspec-propose`를 사용하므로 도구에 맞는 형식은 [호출 방법](/ko-KR/supported-tools/#호출-방법)을 확인하세요. OpenSpec이 생성하는 파일에는 올바른 형식이 이미 사용됩니다.
 
 ## 빠른 참조
 
@@ -380,7 +380,7 @@ AI:  Reading add-dark-mode artifacts...
 
 - 기존 파일이 없는 산출물은 시작하지 않습니다. 이 경우 `/opsx:continue`를 활성화하거나 선택적 워크플로를 설치하지 않았다면 `openspec status`와 `openspec instructions`를 사용하세요.
 - 변경 사항을 이미 구현했다면 `/opsx:apply`를 실행해 코드가 수정된 계획과 일치하도록 하세요.
-- 수정으로 변경 사항의 *의도*가 달라지면 새 변경 사항을 시작하세요([업데이트와 새로 시작하기](/ko-KR/opsx/#when-to-update-vs-start-fresh) 참조).
+- 수정으로 변경 사항의 *의도*가 달라지면 새 변경 사항을 시작하세요([업데이트와 새로 시작하기](/ko-KR/opsx/#업데이트와-새로-시작하기의-기준) 참조).
 
 ---
 
@@ -694,7 +694,7 @@ AI 도구마다 명령 구문이 약간씩 다릅니다. 해당 도구에 맞는
 > OpenSpec이 `.devin/skills/`에 작성하는 스킬(예: `/openspec-propose`)을 사용하세요.
 > 이 스킬은 두 에이전트에서 모두 작동합니다.
 
-모든 도구에서 명령의 의도는 같지만 통합 방식에 따라 명령을 표시하는 방법이 다를 수 있습니다. [호출 방법](/ko-KR/supported-tools/#how-to-invoke)에 지원 도구가 모두 나와 있으며 이 표는 각 형식의 예만 보여 줍니다.
+모든 도구에서 명령의 의도는 같지만 통합 방식에 따라 명령을 표시하는 방법이 다를 수 있습니다. [호출 방법](/ko-KR/supported-tools/#호출-방법)에 지원 도구가 모두 나와 있으며 이 표는 각 형식의 예만 보여 줍니다.
 
 > **참고:** GitHub Copilot 명령(`.github/prompts/*.prompt.md`)은 IDE 확장(VS Code, JetBrains, Visual Studio)에서만 사용할 수 있습니다. 현재 GitHub Copilot CLI는 사용자 지정 프롬프트 파일을 지원하지 않습니다. 자세한 내용과 대안은 [지원 도구](/ko-KR/supported-tools/)를 참조하세요.
 

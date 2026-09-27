@@ -26,7 +26,7 @@ AI CHAT      /opsx:archive                    (specs updated, change filed away)
 
 Deux étapes dans le terminal pour la configuration, puis le travail se déroule dans la conversation. Le reste de ce guide explique le rôle de chaque étape et ce que vous verrez.
 
-**Vous ne voulez pas effectuer vous-même les étapes dans le terminal ?** Collez la [consigne de configuration](/fr-FR/installation/#install-with-your-ai-assistant) dans votre assistant : il effectuera les deux commandes, puis indiquera ce qui a été créé.
+**Vous ne voulez pas effectuer vous-même les étapes dans le terminal ?** Collez la [consigne de configuration](/fr-FR/installation/#installer-avec-votre-assistant-ia) dans votre assistant : il effectuera les deux commandes, puis indiquera ce qui a été créé.
 
 > **Vous ne savez pas encore quoi construire ? Commencez par `/opsx:explore`.** C'est un partenaire de réflexion sans engagement : il lit votre base de code, examine les options et transforme une idée vague en plan concret avant toute écriture de code. Une fois le besoin clarifié, il passe le relais à `/opsx:propose`. C'est la meilleure habitude à prendre lorsqu'on travaille avec une IA qui risquerait sinon de construire avec assurance la mauvaise chose. Voir le [Guide Explore](/fr-FR/explore/).
 

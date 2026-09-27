@@ -603,4 +603,4 @@ project/
 
 - **Discord**: [discord.gg/YctCnvvshC](https://discord.gg/YctCnvvshC)
 - **GitHub Issues**: [github.com/Fission-AI/OpenSpec/issues](https://github.com/Fission-AI/OpenSpec/issues)
-- **Документация**: [Руководство по OPSX](opsx.md) — полный справочник по OPSX
+- **Документация**: [Руководство по OPSX](/ru-RU/opsx/) — полный справочник по OPSX

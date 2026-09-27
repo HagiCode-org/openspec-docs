@@ -34,7 +34,7 @@ C'est exactement ce qu'exige un projet existant. On construit rarement à partir
 
 Ainsi, votre répertoire `openspec/specs/` ne commence pas complet. Il est presque vide et se remplit peu à peu. Chaque changement archivé y fusionne son delta. La spécification `auth/` ne devient détaillée qu'après plusieurs changements liés à l'authentification — précisément au moment où cela devient utile.
 
-Pour comprendre le fonctionnement en détail, consultez [Concepts : spécifications différentielles](/fr-FR/concepts/#delta-specs).
+Pour comprendre le fonctionnement en détail, consultez [Concepts : spécifications différentielles](/fr-FR/concepts/#spécifications-différentielles).
 
 ## Votre premier changement dans une vraie base de code
 
@@ -112,7 +112,7 @@ Exemples courants de domaines :
 - **Par composant :** `api/`, `frontend/`, `workers/`
 - **Par contexte délimité :** `ordering/`, `fulfillment/`, `inventory/`
 
-Choisissez une organisation qui semble évidente aux nouvelles personnes. Vous pourrez l'affiner ensuite. Voir [Concepts : spécifications](/fr-FR/concepts/#specs).
+Choisissez une organisation qui semble évidente aux nouvelles personnes. Vous pourrez l'affiner ensuite. Voir [Concepts : spécifications](/fr-FR/concepts/#spécifications).
 
 ## Monorepos et travail entre dépôts
 
@@ -125,12 +125,12 @@ Si le travail touche véritablement **plusieurs dépôts** (ou plusieurs paquets
 - **Résistez à la tentation de tout documenter rétrospectivement.** Rédiger des spécifications pour du code que vous ne modifiez pas semble productif, mais ne l'est généralement pas. Elles deviennent obsolètes, car rien ne les oblige à rester conformes à la réalité. Laissez les changements réels guider vos spécifications.
 - **Gardez les premiers changements modestes.** Les premiers changements vous apprennent le rythme autant qu'ils permettent de livrer du travail. Un périmètre restreint rend le cycle rapide et les leçons peu coûteuses.
 - **Validez `openspec/` dans git.** Vos spécifications et vos archives doivent être versionnées avec le code qu'elles décrivent.
-- **Donnez du contexte à l'IA.** Dans une grande base de code aux conventions bien établies, renseignez `context:` dans `openspec/config.yaml` afin que chaque proposition respecte votre pile technique et vos pratiques. Voir [Personnalisation](/fr-FR/customization/#project-configuration).
+- **Donnez du contexte à l'IA.** Dans une grande base de code aux conventions bien établies, renseignez `context:` dans `openspec/config.yaml` afin que chaque proposition respecte votre pile technique et vos pratiques. Voir [Personnalisation](/fr-FR/customization/#configuration-du-projet).
 
 ## Pour continuer
 
 - [Commencer par explorer](/fr-FR/explore/) — comprendre le code avant de le modifier
 - [Bien démarrer](/fr-FR/getting-started/) — guide complet du premier changement
 - [Modifier et faire évoluer un changement](/fr-FR/editing-changes/) — l'ajuster à mesure que vous apprenez
-- [Concepts : spécifications différentielles](/fr-FR/concepts/#delta-specs) — pourquoi les deltas facilitent le travail sur un projet existant
+- [Concepts : spécifications différentielles](/fr-FR/concepts/#spécifications-différentielles) — pourquoi les deltas facilitent le travail sur un projet existant
 - [Personnalisation](/fr-FR/customization/) — expliquer à OpenSpec les conventions de votre projet

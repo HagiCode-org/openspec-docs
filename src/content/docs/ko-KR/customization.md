@@ -20,7 +20,7 @@ OpenSpec은 세 가지 수준으로 사용자 지정할 수 있습니다.
 - **프로젝트 컨텍스트 주입** — AI가 기술 스택, 관례 등을 파악
 - **산출물별 규칙 추가** — 특정 산출물에 적용할 사용자 지정 규칙
 - **작업별 지침 추가** — apply 및 archive 작업에 권고할 선호 설정
-- **통합 선택 사항 기억** — 예: [GitHub Copilot 클라우드 코딩 에이전트](/ko-KR/supported-tools/#github-copilot-cloud-coding-agent) 사용 여부
+- **통합 선택 사항 기억** — 예: [GitHub Copilot 클라우드 코딩 에이전트](/ko-KR/supported-tools/#github-copilot-클라우드-코딩-에이전트) 사용 여부
 
 ### 빠른 설정
 
@@ -404,4 +404,4 @@ OpenSpec은 독립 저장소를 통해 배포되는 커뮤니티 관리 스키�
 
 ## 관련 문서
 
-- [CLI 참조: 스키마 명령](/ko-KR/cli/#schema-commands) — 전체 명령 설명
+- [CLI 참조: 스키마 명령](/ko-KR/cli/#스키마-명령) — 전체 명령 설명

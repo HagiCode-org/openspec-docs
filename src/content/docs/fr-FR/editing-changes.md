@@ -47,7 +47,7 @@ Après avoir réalisé une partie du travail avec `/opsx:apply` :
 
 - Vous voulez réexaminer le plan ? Ouvrez et lisez les artefacts ou exécutez `openspec show <change>` dans le terminal pour obtenir une vue d'ensemble.
 - Vous avez repéré quelque chose à changer ? Modifiez l'artefact (ou demandez à l'IA de le faire), puis continuez.
-- Vous souhaitez vérifier méthodiquement que le code correspond au plan ? Exécutez `/opsx:verify` (commande étendue). Elle indique le niveau d'exhaustivité, de justesse et de cohérence sans rien bloquer. Voir [Workflows : vérifier votre travail](/fr-FR/workflows/#verify-check-your-work).
+- Vous souhaitez vérifier méthodiquement que le code correspond au plan ? Exécutez `/opsx:verify` (commande étendue). Elle indique le niveau d'exhaustivité, de justesse et de cohérence sans rien bloquer. Voir [Workflows : vérifier votre travail](/fr-FR/workflows/#verify--vérifier-le-travail).
 
 Il n'existe pas de « phase de revue » à reprendre, puisque vous pouvez examiner le travail à tout moment, y compris après son implémentation.
 
@@ -82,7 +82,7 @@ En bref : **mettez à jour le changement si c'est le même travail affiné ; cr�
 - Périmètre réduit (livrer le produit minimum viable maintenant, le reste plus tard) ? Mettez-le à jour, archivez-le, puis créez un nouveau changement pour la deuxième phase.
 - Le problème lui-même a changé (« ajouter le mode sombre » est devenu « créer un système complet de thèmes ») ? Créez un nouveau changement.
 
-Vous trouverez un organigramme complet et des exemples dans [Workflows : quand mettre à jour ou repartir de zéro](/fr-FR/workflows/#when-to-update-vs-start-fresh) et une analyse plus approfondie dans [OPSX : quand mettre à jour ou repartir de zéro](/fr-FR/opsx/#when-to-update-vs-start-fresh).
+Vous trouverez un organigramme complet et des exemples dans [Workflows : quand mettre à jour ou repartir de zéro](/fr-FR/workflows/#mettre-à-jour-ou-repartir-de-zéro) et une analyse plus approfondie dans [OPSX : quand mettre à jour ou repartir de zéro](/fr-FR/opsx/#mettre-à-jour-ou-repartir-de-zéro).
 
 ## À propos des tâches
 
@@ -94,4 +94,4 @@ Vous trouverez un organigramme complet et des exemples dans [Workflows : quand m
 - [Revoir un changement](/fr-FR/reviewing-changes/) — examiner un plan pendant deux minutes avant de le réaliser
 - [Commencer par explorer](/fr-FR/explore/) — prendre du recul lorsqu'une idée mérite d'être repensée
 - [Commandes](/fr-FR/commands/) — `/opsx:continue`, `/opsx:apply` et `/opsx:verify` en détail
-- [Concepts : artefacts](/fr-FR/concepts/#artifacts) — rôle de chaque artefact
+- [Concepts : artefacts](/fr-FR/concepts/#artefacts) — rôle de chaque artefact

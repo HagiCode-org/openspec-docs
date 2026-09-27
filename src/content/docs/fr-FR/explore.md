@@ -125,5 +125,5 @@ Règle générale : plus la tâche est floue, plus Explore est utile. Plus elle 
 
 - [Commandes : `/opsx:explore`](/fr-FR/commands/#opsxexplore) : référence détaillée
 - [Workflows](/fr-FR/workflows/) : Explore dans le cycle quotidien
-- [Exemples et recettes : explorer avant de s'engager](/fr-FR/examples/#recipe-3-exploring-before-you-commit) : exploration guidée de bout en bout
+- [Exemples et recettes : explorer avant de s'engager](/fr-FR/examples/#recette-3--explorer-avant-de-sengager) : exploration guidée de bout en bout
 - [Bien démarrer](/fr-FR/getting-started/) : guide du premier changement, avec l'exploration

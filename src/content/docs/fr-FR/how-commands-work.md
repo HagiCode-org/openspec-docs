@@ -86,7 +86,7 @@ L'intention est partout identique. L'orthographe dépend du fichier chargé par 
 
 Devin est le seul outil présent sur deux lignes. Devin Desktop lit `.devin/workflows/` : `/opsx-propose` y fonctionne. [Devin Local ne le fait pas](https://docs.devin.ai/desktop/devin-local) ; utilisez plutôt le skill `/openspec-propose`. Les skills qu'OpenSpec écrit dans `.devin/skills/` fonctionnent avec les deux agents, d'où leurs renvois réciproques par nom de skill.
 
-Chaque outil figure dans le tableau [Forme à utiliser](/fr-FR/supported-tools/#how-to-invoke), qui fait autorité. Deux lignes ne correspondent pas à des commandes slash : Amazon Q charge ses fichiers dans une bibliothèque de prompts appelée avec `@`, et les trois dernières lignes utilisent le nom du *skill*, qui n'est pas l'identifiant de commande (`/opsx:apply` correspond au skill `openspec-apply-change`).
+Chaque outil figure dans le tableau [Forme à utiliser](/fr-FR/supported-tools/#forme-à-utiliser), qui fait autorité. Deux lignes ne correspondent pas à des commandes slash : Amazon Q charge ses fichiers dans une bibliothèque de prompts appelée avec `@`, et les trois dernières lignes utilisent le nom du *skill*, qui n'est pas l'identifiant de commande (`/opsx:apply` correspond au skill `openspec-apply-change`).
 
 En cas de doute, lisez la ligne « Getting started » affichée par `openspec init` : elle utilise déjà la forme enregistrée par votre outil. Vous pouvez également commencer à saisir une barre oblique et observer la complétion automatique, pour les outils qui proposent des commandes slash.
 

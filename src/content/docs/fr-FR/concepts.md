@@ -272,7 +272,7 @@ allow manual override.
 
 #### Spécifications (delta specs in `specs/`)
 
-Les spécifications différentielles décrivent **les changements** par rapport aux spécifications actuelles. Voir [Spécifications différentielles](/fr-FR/concepts/#delta-specs) ci-dessous.
+Les spécifications différentielles décrivent **les changements** par rapport aux spécifications actuelles. Voir [Spécifications différentielles](/fr-FR/concepts/#spécifications-différentielles) ci-dessous.
 
 #### Conception (`design.md`)
 

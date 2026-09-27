@@ -46,7 +46,7 @@ Commencez par ouvrir `proposal.md`. Elle décrit le « pourquoi » et le « quoi
 - Le périmètre s'est étendu : vous avez demandé un sélecteur de thème, mais la proposition touche aussi à l'authentification « tant qu'on y est ».
 - Elle est vague. « Améliorer la page des paramètres » ne définit pas un périmètre ; « ajouter un sélecteur de mode sombre qui respecte les préférences du système » en définit un.
 
-**Question à se poser :** *Cela correspond-il réellement à ma demande, et quelque chose s'y est-il glissé en plus ?* Si ce n'est pas le cas, arrêtez-vous là ; ne lisez pas la suite, corrigez la proposition (voir [Il est facile de demander une correction](#pushing-back-is-cheap)).
+**Question à se poser :** *Cela correspond-il réellement à ma demande, et quelque chose s'y est-il glissé en plus ?* Si ce n'est pas le cas, arrêtez-vous là ; ne lisez pas la suite, corrigez la proposition (voir [Il est facile de demander une correction](#il-est-facile-de-demander-une-correction)).
 
 ## Les deltas de spécification : « terminé » est-il bien défini ?
 

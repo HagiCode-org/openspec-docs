@@ -34,7 +34,7 @@ OpenSpec 변경 사항은 `ADDED`, `MODIFIED`, `REMOVED`와 같은 **델타**로
 
 따라서 `openspec/specs/` 디렉터리는 처음부터 완전한 상태가 아닙니다. 거의 비어 있는 상태에서 시작해 점차 내용이 쌓입니다. 보관하는 각 변경 사항의 델타가 여기에 병합됩니다. `auth/` 사양은 인증 관련 변경을 여러 번 진행한 뒤에야 상세해지며, 바로 그때 상세한 사양이 필요해집니다.
 
-자세한 작동 방식은 [개념: 델타 사양](/ko-KR/concepts/#delta-specs)을 참조하세요.
+자세한 작동 방식은 [개념: 델타 사양](/ko-KR/concepts/#델타-사양)을 참조하세요.
 
 ## 실제 코드베이스에서 첫 변경 사항 만들기
 
@@ -112,7 +112,7 @@ You: /opsx:propose add-guest-checkout
 - **By component:** `api/`, `frontend/`, `workers/`
 - **By bounded context:** `ordering/`, `fulfillment/`, `inventory/`
 
-새로 온 팀원도 쉽게 이해할 수 있는 방식을 고르세요. 나중에 다듬어도 됩니다. [개념: 사양](/ko-KR/concepts/#specs)을 참조하세요.
+새로 온 팀원도 쉽게 이해할 수 있는 방식을 고르세요. 나중에 다듬어도 됩니다. [개념: 사양](/ko-KR/concepts/#사양)을 참조하세요.
 
 ## 모노레포와 여러 저장소에 걸친 작업
 
@@ -125,12 +125,12 @@ You: /opsx:propose add-guest-checkout
 - **모든 사양을 미리 채우려는 충동을 참으세요.** 변경하지 않을 코드의 사양을 작성하면 생산적인 것처럼 느껴지지만 대개 그렇지 않습니다. 현실을 반영하도록 강제하는 요소가 없으므로 사양이 오래될 수 있습니다. 실제 변경 사항을 바탕으로 사양을 작성하세요.
 - **초기 변경 사항은 작게 유지하세요.** 처음 몇 번의 변경은 배포만큼이나 흐름을 익히는 과정이기도 합니다. 범위를 좁히면 빠르게 진행하고 부담 없이 배울 수 있습니다.
 - **`openspec/`를 git에 커밋하세요.** 사양과 보관 기록은 설명하는 코드와 함께 버전 관리되어야 합니다.
-- **AI에 맥락을 제공하세요.** 규칙이 명확한 대규모 코드베이스라면 `openspec/config.yaml`의 `context:`를 채워 모든 제안이 기술 스택과 패턴을 따르도록 하세요. [사용자 지정](/ko-KR/customization/#project-configuration)을 참조하세요.
+- **AI에 맥락을 제공하세요.** 규칙이 명확한 대규모 코드베이스라면 `openspec/config.yaml`의 `context:`를 채워 모든 제안이 기술 스택과 패턴을 따르도록 하세요. [사용자 지정](/ko-KR/customization/#프로젝트-구성)을 참조하세요.
 
 ## 다음 단계
 
 - [먼저 탐색하기](/ko-KR/explore/) — 변경 전에 코드를 이해하는 핵심 습관
 - [시작하기](/ko-KR/getting-started/) — 첫 변경 사항을 처음부터 끝까지 안내
 - [변경 사항 편집 및 반복 개선](/ko-KR/editing-changes/) — 작업을 진행하며 변경 사항 조정하기
-- [개념: 델타 사양](/ko-KR/concepts/#delta-specs) — 델타가 기존 시스템 작업을 명확하게 만드는 이유
+- [개념: 델타 사양](/ko-KR/concepts/#델타-사양) — 델타가 기존 시스템 작업을 명확하게 만드는 이유
 - [사용자 지정](/ko-KR/customization/) — OpenSpec에 프로젝트 관례를 적용하기

@@ -28,7 +28,7 @@ Vous pouvez activer les workflows étendus (`new`, `continue`, `ff`, `verify`, `
 
 ## Forme à utiliser
 
-Cette documentation utilise `/opsx:propose` comme forme canonique, mais chaque outil l'écrit comme il charge le fichier créé par OpenSpec. Repérez le chemin de commande de votre outil dans la [Référence des répertoires d'outils](#tool-directory-reference) ci-dessous, puis associez sa forme à cette liste.
+Cette documentation utilise `/opsx:propose` comme forme canonique, mais chaque outil l'écrit comme il charge le fichier créé par OpenSpec. Repérez le chemin de commande de votre outil dans la [Référence des répertoires d'outils](#référence-des-répertoires-doutils) ci-dessous, puis associez sa forme à cette liste.
 
 | Fichier de commande généré par OpenSpec | Forme à saisir | Outils |
 |-----------------------------------------|----------------|--------|
@@ -45,7 +45,7 @@ Ainsi, `/opsx:propose` s'écrit `/opsx-propose` dans Cursor, `@opsx-propose` dan
 Deux aspects varient indépendamment, d'où les lignes distinctes :
 
 - **Le nom.** Les deux premières lignes ne diffèrent que par le nommage du fichier. Le préfixe `opsx-<id>` / `opsx:<id>` est le même pour tous les outils qui génèrent des fichiers de commande.
-- **Le mode d'appel.** Amazon Q charge les fichiers dans une bibliothèque de prompts qu'on appelle avec `@`. Les outils n'utilisant que des skills ne génèrent aucun fichier de commande ; les trois dernières lignes utilisent donc les noms de *skills* indiqués à [Noms des skills générés](#generated-skill-names), qui ne correspondent pas un à un aux identifiants de commande (`/opsx:apply` correspond au skill `openspec-apply-change`).
+- **Le mode d'appel.** Amazon Q charge les fichiers dans une bibliothèque de prompts qu'on appelle avec `@`. Les outils n'utilisant que des skills ne génèrent aucun fichier de commande ; les trois dernières lignes utilisent donc les noms de *skills* indiqués à [Noms des skills générés](#noms-des-skills-générés), qui ne correspondent pas un à un aux identifiants de commande (`/opsx:apply` correspond au skill `openspec-apply-change`).
 
 Les motifs de chemins de commande ci-dessus ne précisent volontairement pas d'extension (`.*`) : l'extension dépend de l'outil (`.toml` pour Gemini CLI, `.prompt` pour Continue, `.prompt.md` pour Kiro et GitHub Copilot) et certains outils affichent le nom et son extension dans le sélecteur. Choisissez la forme du répertoire, pas celle de l'extension.
 
@@ -98,7 +98,7 @@ Les fichiers générés par OpenSpec ainsi que l'indication « Getting started �
 | ZCode (`zcode`) | `.zcode/skills/openspec-*/SKILL.md` | `.zcode/commands/opsx/<id>.md` |
 | Skills `.agents` partagés (`agents`) | `.agents/skills/openspec-*/SKILL.md` | Non générées (pas d'adaptateur de commandes ; utiliser les appels de skills `/openspec-*`) |
 
-\*\* Les fichiers de prompt de GitHub Copilot sont reconnus comme commandes slash personnalisées dans les extensions IDE (VS Code, JetBrains, Visual Studio). Copilot CLI ne lit actuellement pas directement `.github/prompts/*.prompt.md`. La sélection de `github-copilot` peut aussi configurer l'**agent de codage cloud** hébergé par GitHub ; voir [Agent de codage cloud GitHub Copilot](#github-copilot-cloud-coding-agent) ci-dessous.
+\*\* Les fichiers de prompt de GitHub Copilot sont reconnus comme commandes slash personnalisées dans les extensions IDE (VS Code, JetBrains, Visual Studio). Copilot CLI ne lit actuellement pas directement `.github/prompts/*.prompt.md`. La sélection de `github-copilot` peut aussi configurer l'**agent de codage cloud** hébergé par GitHub ; voir [Agent de codage cloud GitHub Copilot](#agent-de-codage-cloud-github-copilot) ci-dessous.
 
 \*\*\* Hermes charge les skills depuis `~/.hermes/skills/` par défaut. Pour utiliser les skills OpenSpec du projet, ajoutez le répertoire `.hermes/skills/` du projet à `skills.external_dirs` dans `~/.hermes/config.yaml`. Hermes expose alors les skills par des commandes slash telles que `/openspec-propose`.
 

@@ -107,7 +107,7 @@ openspec init [path] [options]
 | `--force` | 확인 없이 기존 파일을 자동 정리합니다. |
 | `--profile <profile>` | 이 초기화 실행에서 전역 프로필 재정의(`core` 또는 `custom`) |
 | `--no-animation` | 애니메이션 대신 정적인 시작 화면을 표시합니다. |
-| `--copilot-cloud` | 확인 없이 GitHub Copilot [클라우드 코딩 에이전트 파일](/ko-KR/supported-tools/#github-copilot-cloud-coding-agent)을 설정합니다. |
+| `--copilot-cloud` | 확인 없이 GitHub Copilot [클라우드 코딩 에이전트 파일](/ko-KR/supported-tools/#github-copilot-클라우드-코딩-에이전트)을 설정합니다. |
 | `--no-copilot-cloud` | 확인 없이 GitHub Copilot 클라우드 코딩 에이전트 파일 설정을 건너뜁니다. |
 
 `--profile custom`은 전역 구성에서 현재 선택된 워크플로를 사용합니다(`openspec config profile`).
@@ -386,7 +386,7 @@ JSON 요약은 에이전트에서 사용할 수 있습니다(사용 가능한 �
 
 ## 개인 작업 세트
 
-> **베타.** 작업 세트는 새 베타 기능입니다. 릴리스에 따라 명령, 플래그, 파일 형식이 바뀔 수 있습니다. 전체 안내는 [stores 안내서](/ko-KR/stores-beta/user-guide/#worksets-reopen-the-folders-you-work-on-together)를 참조하세요.
+> **베타.** 작업 세트는 새 베타 기능입니다. 릴리스에 따라 명령, 플래그, 파일 형식이 바뀔 수 있습니다. 전체 안내는 [stores 안내서](/ko-KR/stores-beta/user-guide/#작업-세트-함께-작업하는-폴더-다시-열기)를 참조하세요.
 
 작업 세트는 계획 루트와 원하는 다른 폴더 등 함께 작업하는 폴더를 이름으로 저장해 도구에서 다시 여는 개인용 보기입니다. 컴퓨터 로컬에만 저장되며 커밋하거나 공유하지 않고 선언을 바탕으로 생성하지도 않습니다. 작업 세트를 삭제해도 구성 폴더에는 영향을 주지 않습니다.
 
@@ -531,7 +531,7 @@ openspec show add-dark-mode --json
 openspec validate [item-name] [options]
 ```
 
-사양 델타가 없는 변경 사항은 `.openspec.yaml`에 `skip_specs: true`를 선언하지 않으면 검증에 실패합니다(순수 리팩터링, 도구 또는 문서 작업. [레시피 5](/ko-KR/examples/#recipe-5-a-refactor-with-no-behavior-change) 참조).
+사양 델타가 없는 변경 사항은 `.openspec.yaml`에 `skip_specs: true`를 선언하지 않으면 검증에 실패합니다(순수 리팩터링, 도구 또는 문서 작업. [레시피 5](/ko-KR/examples/#레시피-5-동작-변경-없는-리팩터링) 참조).
 
 **인수:**
 

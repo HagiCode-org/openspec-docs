@@ -17,7 +17,7 @@ openspec --version
 
 Si l'installation a réussi mais que la commande reste introuvable, le répertoire global `bin` de npm n'est probablement pas dans votre `PATH`. Exécutez `npm prefix -g` pour connaître l'emplacement des paquets globaux : sous macOS et Linux, les exécutables sont dans le sous-répertoire `bin/` ; sous Windows, ils se trouvent directement dans ce répertoire. Vérifiez que le chemin correspondant figure dans votre `PATH`. (`npm bin -g` a été supprimé dans npm 9.)
 
-Si vous avez utilisé l'[installation assistée par IA](/fr-FR/installation/#install-with-your-ai-assistant), cet arrêt est prévu : l'instruction demande à l'assistant de vous montrer comment modifier le `PATH` sans toucher lui-même aux fichiers de démarrage du shell.
+Si vous avez utilisé l'[installation assistée par IA](/fr-FR/installation/#installer-avec-votre-assistant-ia), cet arrêt est prévu : l'instruction demande à l'assistant de vous montrer comment modifier le `PATH` sans toucher lui-même aux fichiers de démarrage du shell.
 
 ### « Requires Node.js 20.19.0 or higher »
 
@@ -63,7 +63,7 @@ Si `/opsx:propose` (ou son équivalent dans votre outil) n'apparaît pas ou ne f
 
 5. **Vérifiez que vous avez initialisé ce projet.** Les skills sont créés pour chaque projet. Si vous avez cloné un dépôt ou changé de dossier, exécutez `openspec init` (ou `openspec update`) à cet emplacement.
 
-6. **Vérifiez que votre outil prend en charge les fichiers de commande.** Codex, CodeArts, ForgeCode, Hermes, Kimi Code, Mistral Vibe, Zed Agent et la cible `.agents` partagée ne reçoivent pas de fichiers de commande `opsx-*` générés ; ils utilisent des skills, donc `/opsx` ne sera jamais complété automatiquement. Saisissez `$openspec-propose` dans Codex, `/skill:openspec-propose` dans Kimi Code et `/openspec-propose` dans les autres. La cible `.agents` partagée est indépendante du fournisseur ; `/openspec-propose` est la forme courante, pas une garantie. Si votre assistant n'y répond pas, consultez sa documentation sur l'appel des skills. Amazon Q reçoit des fichiers de commande, mais les charge dans sa bibliothèque de prompts au lieu du menu slash : saisissez-y `@opsx-propose`, pas `/opsx`. La forme de chaque outil figure dans [Forme à utiliser](/fr-FR/supported-tools/#how-to-invoke).
+6. **Vérifiez que votre outil prend en charge les fichiers de commande.** Codex, CodeArts, ForgeCode, Hermes, Kimi Code, Mistral Vibe, Zed Agent et la cible `.agents` partagée ne reçoivent pas de fichiers de commande `opsx-*` générés ; ils utilisent des skills, donc `/opsx` ne sera jamais complété automatiquement. Saisissez `$openspec-propose` dans Codex, `/skill:openspec-propose` dans Kimi Code et `/openspec-propose` dans les autres. La cible `.agents` partagée est indépendante du fournisseur ; `/openspec-propose` est la forme courante, pas une garantie. Si votre assistant n'y répond pas, consultez sa documentation sur l'appel des skills. Amazon Q reçoit des fichiers de commande, mais les charge dans sa bibliothèque de prompts au lieu du menu slash : saisissez-y `@opsx-propose`, pas `/opsx`. La forme de chaque outil figure dans [Forme à utiliser](/fr-FR/supported-tools/#forme-à-utiliser).
 
 ## Travailler sur les changements
 
@@ -113,7 +113,7 @@ Une exigence `MODIFIED` remplace tout le bloc correspondant ; elle doit donc con
 
 L'IA ne disposait pas d'assez de contexte. Quelques options peuvent aider :
 
-- Ajoutez du contexte de projet dans `openspec/config.yaml`, afin que votre pile technique et vos conventions soient incluses dans chaque requête. Voir [Personnalisation](/fr-FR/customization/#project-configuration).
+- Ajoutez du contexte de projet dans `openspec/config.yaml`, afin que votre pile technique et vos conventions soient incluses dans chaque requête. Voir [Personnalisation](/fr-FR/customization/#configuration-du-projet).
 - Ajoutez des `rules:` par artefact pour les consignes qui s'appliquent uniquement, par exemple, aux spécifications.
 - Fournissez une description plus détaillée lorsque vous proposez le changement.
 - Utilisez `/opsx:continue` du profil étendu pour créer un artefact à la fois et relire chaque résultat plutôt que de laisser `/opsx:ff` tout créer d'un coup.
@@ -168,7 +168,7 @@ openspec schema which <name>        # see where a schema resolves from
 openspec schema init <name>         # create a custom one
 ```
 
-Voir [Personnalisation](/fr-FR/customization/#custom-schemas).
+Voir [Personnalisation](/fr-FR/customization/#schémas-personnalisés).
 
 ## Migration depuis l'ancien workflow
 
@@ -188,7 +188,7 @@ Redémarrez votre IDE : les skills sont détectés au démarrage. S'ils n'appara
 
 ### Mon ancien fichier `project.md` n'a pas été migré
 
-C'est voulu. OpenSpec ne supprime jamais automatiquement `project.md`, car il peut contenir du contexte que vous avez écrit. Déplacez les informations utiles dans le champ `context:` de `config.yaml`, puis supprimez vous-même l'ancien fichier. Le [Guide de migration](/fr-FR/migration-guide/#migrating-projectmd-to-configyaml) explique la marche à suivre et propose une consigne à transmettre à l'IA pour en extraire les informations utiles.
+C'est voulu. OpenSpec ne supprime jamais automatiquement `project.md`, car il peut contenir du contexte que vous avez écrit. Déplacez les informations utiles dans le champ `context:` de `config.yaml`, puis supprimez vous-même l'ancien fichier. Le [Guide de migration](/fr-FR/migration-guide/#migrer-projectmd-vers-configyaml) explique la marche à suivre et propose une consigne à transmettre à l'IA pour en extraire les informations utiles.
 
 ## Toujours bloqué ?
 

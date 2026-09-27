@@ -25,7 +25,7 @@ Codex는 스킬만 사용합니다. 전달 방식이 `commands`로 설정되어 
 
 ## 호출 방법
 
-이 문서에서는 표준 이름으로 `/opsx:propose`를 사용하지만 도구마다 OpenSpec이 작성한 파일을 불러오는 형식에 맞춰 명령을 표기합니다. 아래 [도구 디렉터리 참조](#tool-directory-reference)에서 도구의 명령 경로를 확인한 다음 해당 형식을 사용하세요.
+이 문서에서는 표준 이름으로 `/opsx:propose`를 사용하지만 도구마다 OpenSpec이 작성한 파일을 불러오는 형식에 맞춰 명령을 표기합니다. 아래 [도구 디렉터리 참조](#도구-디렉터리-참조)에서 도구의 명령 경로를 확인한 다음 해당 형식을 사용하세요.
 
 | OpenSpec이 작성하는 명령 파일 | 입력할 명령 | 도구 |
 |------------------------------|----------|-------|
@@ -42,7 +42,7 @@ Codex는 스킬만 사용합니다. 전달 방식이 `commands`로 설정되어 
 행을 하나로 합칠 수 없는 이유는 두 가지 요소가 서로 독립적으로 달라지기 때문입니다.
 
 - **이름.** 1~2행은 파일에서 명령 이름을 표현하는 방식만 다릅니다. 명령 파일을 생성하는 모든 도구에서 `opsx-<id>` / `opsx:<id>`의 기본 형태는 동일합니다.
-- **호출 방식.** Amazon Q는 파일을 `@`로 호출하는 프롬프트 라이브러리에 불러옵니다. 스킬만 사용하는 도구는 명령 파일을 생성하지 않으므로 마지막 세 행은 명령 ID와 일대일로 대응하지 않는 *스킬* 이름을 사용합니다(`/opsx:apply`는 `openspec-apply-change` 스킬입니다). [생성된 스킬 이름](#generated-skill-names)을 참조하세요.
+- **호출 방식.** Amazon Q는 파일을 `@`로 호출하는 프롬프트 라이브러리에 불러옵니다. 스킬만 사용하는 도구는 명령 파일을 생성하지 않으므로 마지막 세 행은 명령 ID와 일대일로 대응하지 않는 *스킬* 이름을 사용합니다(`/opsx:apply`는 `openspec-apply-change` 스킬입니다). [생성된 스킬 이름](#생성되는-스킬-이름)을 참조하세요.
 
 위의 명령 경로 패턴은 의도적으로 확장자와 무관한 형식(`.*`)을 사용합니다. 확장자는 도구마다 다릅니다(Gemini CLI는 `.toml`, Continue는 `.prompt`, Kiro와 GitHub Copilot은 `.prompt.md`). 일부 도구는 선택 목록에 확장자가 포함된 이름을 표시합니다. 확장자가 아니라 디렉터리 구조를 기준으로 확인하세요.
 
@@ -93,7 +93,7 @@ OpenSpec이 생성하는 파일과 설정 후 출력되는 "시작하기" 안내
 | ZCode (`zcode`) | `.zcode/skills/openspec-*/SKILL.md` | `.zcode/commands/opsx/<id>.md` |
 | 공유 `.agents` 스킬(`agents`) | `.agents/skills/openspec-*/SKILL.md` | 생성되지 않음(명령 어댑터 없음, 스킬 기반 `/openspec-*` 호출 사용) |
 
-\*\* GitHub Copilot 프롬프트 파일은 IDE 확장(VS Code, JetBrains, Visual Studio)에서 사용자 지정 슬래시 명령으로 인식됩니다. 현재 Copilot CLI는 `.github/prompts/*.prompt.md`를 직접 사용하지 않습니다. `github-copilot`을 선택하면 GitHub 호스팅 **클라우드 코딩 에이전트**도 설정할 수 있습니다. 아래 [GitHub Copilot 클라우드 코딩 에이전트](#github-copilot-cloud-coding-agent)를 참조하세요.
+\*\* GitHub Copilot 프롬프트 파일은 IDE 확장(VS Code, JetBrains, Visual Studio)에서 사용자 지정 슬래시 명령으로 인식됩니다. 현재 Copilot CLI는 `.github/prompts/*.prompt.md`를 직접 사용하지 않습니다. `github-copilot`을 선택하면 GitHub 호스팅 **클라우드 코딩 에이전트**도 설정할 수 있습니다. 아래 [GitHub Copilot 클라우드 코딩 에이전트](#github-copilot-클라우드-코딩-에이전트)를 참조하세요.
 
 \*\*\* Hermes는 기본적으로 `~/.hermes/skills/`에서 스킬을 불러옵니다. 프로젝트 로컬 OpenSpec 스킬을 사용하려면 프로젝트의 `.hermes/skills/` 디렉터리를 `~/.hermes/config.yaml`의 `skills.external_dirs`에 추가하세요. 그러면 Hermes에서 `/openspec-propose`와 같은 사용자용 슬래시 호출로 스킬을 사용할 수 있습니다.
 

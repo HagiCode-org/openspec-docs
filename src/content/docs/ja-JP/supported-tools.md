@@ -25,7 +25,7 @@ Codex はスキルのみを使用します。配布モードが `commands` に�
 
 ## 呼び出し方法
 
-このドキュメントでは `/opsx:propose` を標準名として使いますが、各ツールでは OpenSpec が作成したファイルの読み込み方法に応じて表記が異なります。以下の[ツールディレクトリリファレンス](#tool-directory-reference)でツールのコマンドパスを確認し、対応する形式を見つけてください。
+このドキュメントでは `/opsx:propose` を標準名として使いますが、各ツールでは OpenSpec が作成したファイルの読み込み方法に応じて表記が異なります。以下の[ツールディレクトリリファレンス](#ツールディレクトリリファレンス)でツールのコマンドパスを確認し、対応する形式を見つけてください。
 
 | OpenSpec が作成するコマンドファイル | 入力する形式 | ツール |
 |------------------------------|----------|-------|
@@ -42,7 +42,7 @@ Codex はスキルのみを使用します。配布モードが `commands` に�
 互いに独立して変化する点が2つあるため、表の行は統合できません。
 
 - **名前。** 1〜2行目の違いは、ファイル内でのコマンド名の表記だけです。生成されたコマンドファイルを使うすべてのツールで、`opsx-<id>` / `opsx:<id>` の部分は共通です。
-- **呼び出し方法。** Amazon Q はファイルを `@` で呼び出すプロンプトライブラリに読み込みます。スキルのみのツールはコマンドファイルを一切生成しないため、最後の3行では[生成されるスキル名](#generated-skill-names)を使います。スキル名はコマンド ID と1対1で対応しません（`/opsx:apply` は `openspec-apply-change` スキルです）。
+- **呼び出し方法。** Amazon Q はファイルを `@` で呼び出すプロンプトライブラリに読み込みます。スキルのみのツールはコマンドファイルを一切生成しないため、最後の3行では[生成されるスキル名](#生成されるスキル名)を使います。スキル名はコマンド ID と1対1で対応しません（`/opsx:apply` は `openspec-apply-change` スキルです）。
 
 上記のコマンドパスパターンでは、意図的に拡張子を `.*` としてあります。拡張子はツールによって異なります（Gemini CLI は `.toml`、Continue は `.prompt`、Kiro と GitHub Copilot は `.prompt.md`）。ピッカーに拡張子付きの名前が表示されるツールもあります。拡張子ではなくディレクトリ構成を確認してください。
 
@@ -93,7 +93,7 @@ OpenSpec が生成するファイルと、セットアップ後に表示され�
 | ZCode (`zcode`) | `.zcode/skills/openspec-*/SKILL.md` | `.zcode/commands/opsx/<id>.md` |
 | 共有 `.agents` スキル (`agents`) | `.agents/skills/openspec-*/SKILL.md` | 未生成（コマンドアダプターなし。スキルによる `/openspec-*` 呼び出しを使用） |
 
-\*\* GitHub Copilot のプロンプトファイルは、IDE 拡張機能（VS Code、JetBrains、Visual Studio）でカスタムスラッシュコマンドとして認識されます。現在 Copilot CLI は `.github/prompts/*.prompt.md` を直接読み込みません。`github-copilot` を選択すると、GitHub 上の **クラウドコーディングエージェント** も設定できます。下記の[GitHub Copilot クラウドコーディングエージェント](#github-copilot-cloud-coding-agent)を参照してください。
+\*\* GitHub Copilot のプロンプトファイルは、IDE 拡張機能（VS Code、JetBrains、Visual Studio）でカスタムスラッシュコマンドとして認識されます。現在 Copilot CLI は `.github/prompts/*.prompt.md` を直接読み込みません。`github-copilot` を選択すると、GitHub 上の **クラウドコーディングエージェント** も設定できます。下記の[GitHub Copilot クラウドコーディングエージェント](#github-copilot-クラウドコーディングエージェント)を参照してください。
 
 \*\*\* Hermes は既定で `~/.hermes/skills/` からスキルを読み込みます。プロジェクトローカルの OpenSpec スキルを使うには、プロジェクトの `.hermes/skills/` ディレクトリを `~/.hermes/config.yaml` の `skills.external_dirs` に追加します。Hermes で `/openspec-propose` のようなスラッシュコマンドからスキルを呼び出せるようになります。
 

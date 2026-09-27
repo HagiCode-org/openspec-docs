@@ -12,7 +12,7 @@ title: "Installation"
 
 Vous préférez ne pas effectuer ces opérations à la main ? Collez l'instruction ci-dessous dans un assistant de programmation capable d'exécuter des commandes shell — Claude Code, Codex, Cursor, Gemini CLI, Copilot ou tout autre [outil pris en charge](/fr-FR/supported-tools/). Il installe la CLI, initialise ce projet et vous indique ce qui s'est réellement passé.
 
-Les étapes manuelles ci-dessous font autorité ; l'instruction les exécute simplement à votre place. Si l'assistant s'arrête et vous laisse terminer certaines étapes, c'est voulu : il demande votre accord avant toute opération privilégiée et ne modifie jamais les fichiers de démarrage du shell. Terminez vous-même ces étapes en consultant [Gestionnaires de paquets](/fr-FR/installation/#package-managers) et [Dépannage](/fr-FR/troubleshooting/).
+Les étapes manuelles ci-dessous font autorité ; l'instruction les exécute simplement à votre place. Si l'assistant s'arrête et vous laisse terminer certaines étapes, c'est voulu : il demande votre accord avant toute opération privilégiée et ne modifie jamais les fichiers de démarrage du shell. Terminez vous-même ces étapes en consultant [Gestionnaires de paquets](/fr-FR/installation/#gestionnaires-de-paquets) et [Dépannage](/fr-FR/troubleshooting/).
 
 ```text
 Install OpenSpec in this project and set it up for me. Follow these steps in

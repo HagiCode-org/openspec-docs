@@ -17,7 +17,7 @@ openspec --version
 
 설치했는데도 찾을 수 없다면 npm 전역 바이너리 디렉터리가 `PATH`에 없을 수 있습니다. 전역 패키지가 설치된 위치를 확인하려면 `npm prefix -g`를 실행하세요. macOS와 Linux에서는 해당 디렉터리의 `bin/`에 실행 파일이 있고, Windows에서는 디렉터리 바로 아래에 있습니다. 해당 경로가 `PATH`에 포함되어 있는지 확인하세요. (`npm bin -g`는 npm 9에서 제거되었습니다.)
 
- [AI 지원 설치](/ko-KR/installation/#install-with-your-ai-assistant)를 사용했다면 여기서 다음 단계로 넘어가면 됩니다. 해당 안내는 어시스턴트가 셸 시작 파일을 직접 수정하는 대신 `PATH` 변경 내용을 표시하도록 합니다.
+ [AI 지원 설치](/ko-KR/installation/#ai-어시스턴트를-사용해-설치하기)를 사용했다면 여기서 다음 단계로 넘어가면 됩니다. 해당 안내는 어시스턴트가 셸 시작 파일을 직접 수정하는 대신 `PATH` 변경 내용을 표시하도록 합니다.
 
 ### "Requires Node.js 20.19.0 or higher"(Node.js 20.19.0 이상 필요)
 
@@ -61,7 +61,7 @@ openspec init --tools claude,cursor
 
 5. **현재 프로젝트를 초기화했는지 확인합니다.** 스킬은 프로젝트별로 작성됩니다. 저장소를 복제했거나 다른 폴더로 이동했다면 해당 위치에서 `openspec init`(또는 `openspec update`)을 실행하세요.
 
-6. **도구가 명령 파일을 지원하는지 확인합니다.** Codex, CodeArts, ForgeCode, Hermes, Kimi Code, Mistral Vibe, Zed Agent 및 공유 `.agents` 대상에는 `opsx-*` 명령 파일이 생성되지 않습니다. 대신 스킬을 사용하므로 `/opsx`가 자동 완성되지 않습니다. Codex에서는 `$openspec-propose`, Kimi Code에서는 `/skill:openspec-propose`, 나머지 도구에서는 `/openspec-propose`를 입력하세요. 공유 `.agents` 대상은 특정 공급업체에 종속되지 않으므로 `/openspec-propose`는 공통 형식일 뿐 항상 작동한다고 보장할 수 없습니다. 어시스턴트가 응답하지 않으면 스킬 호출 방법을 해당 도구의 문서에서 확인하세요. Amazon Q에는 명령 파일이 생성되지만 슬래시 메뉴가 아니라 프롬프트 라이브러리에 로드됩니다. `/opsx`가 아니라 `@opsx-propose`를 입력하세요. 각 도구의 호출 형식은 [호출 방법](/ko-KR/supported-tools/#how-to-invoke)에 나와 있습니다.
+6. **도구가 명령 파일을 지원하는지 확인합니다.** Codex, CodeArts, ForgeCode, Hermes, Kimi Code, Mistral Vibe, Zed Agent 및 공유 `.agents` 대상에는 `opsx-*` 명령 파일이 생성되지 않습니다. 대신 스킬을 사용하므로 `/opsx`가 자동 완성되지 않습니다. Codex에서는 `$openspec-propose`, Kimi Code에서는 `/skill:openspec-propose`, 나머지 도구에서는 `/openspec-propose`를 입력하세요. 공유 `.agents` 대상은 특정 공급업체에 종속되지 않으므로 `/openspec-propose`는 공통 형식일 뿐 항상 작동한다고 보장할 수 없습니다. 어시스턴트가 응답하지 않으면 스킬 호출 방법을 해당 도구의 문서에서 확인하세요. Amazon Q에는 명령 파일이 생성되지만 슬래시 메뉴가 아니라 프롬프트 라이브러리에 로드됩니다. `/opsx`가 아니라 `@opsx-propose`를 입력하세요. 각 도구의 호출 형식은 [호출 방법](/ko-KR/supported-tools/#호출-방법)에 나와 있습니다.
 
 ## 변경 사항 작업
 
@@ -111,7 +111,7 @@ MODIFIED "<requirement>" omits scenario(s) the current spec still has: "<scenari
 
 AI에 맥락이 충분하지 않았습니다. 다음 방법을 사용해 보세요.
 
-- `openspec/config.yaml`에 프로젝트 컨텍스트를 추가해 기술 스택과 관례가 모든 요청에 포함되도록 하세요. [사용자 지정](/ko-KR/customization/#project-configuration)을 참조하세요.
+- `openspec/config.yaml`에 프로젝트 컨텍스트를 추가해 기술 스택과 관례가 모든 요청에 포함되도록 하세요. [사용자 지정](/ko-KR/customization/#프로젝트-구성)을 참조하세요.
 - 사양에만 적용되는 지침처럼 산출물별 `rules:`를 추가하세요.
 - 제안할 때 더 자세히 설명하세요.
 - `/opsx:ff`로 한꺼번에 모두 작성하는 대신 확장 명령 `/opsx:continue`를 사용해 산출물을 하나씩 만들고 검토하세요.
@@ -166,7 +166,7 @@ openspec schema which <name>        # see where a schema resolves from
 openspec schema init <name>         # create a custom one
 ```
 
- [사용자 지정](/ko-KR/customization/#custom-schemas)을 참조하세요.
+ [사용자 지정](/ko-KR/customization/#사용자-지정-스키마)을 참조하세요.
 
 ## 기존 워크플로에서 마이그레이션
 
@@ -186,7 +186,7 @@ IDE를 다시 시작하세요. 스킬은 시작할 때 검색됩니다. 그래�
 
 ### 이전 `project.md`가 마이그레이션되지 않음
 
-의도된 동작입니다. 직접 작성한 컨텍스트가 들어 있을 수 있으므로 OpenSpec은 `project.md`를 자동으로 삭제하지 않습니다. 유용한 부분을 `config.yaml`의 `context:` 섹션으로 옮긴 다음 직접 삭제하세요. [마이그레이션 안내서](/ko-KR/migration-guide/#migrating-projectmd-to-configyaml)에서 AI에 전달해 내용을 추려 내도록 하는 프롬프트를 포함해 전체 과정을 설명합니다.
+의도된 동작입니다. 직접 작성한 컨텍스트가 들어 있을 수 있으므로 OpenSpec은 `project.md`를 자동으로 삭제하지 않습니다. 유용한 부분을 `config.yaml`의 `context:` 섹션으로 옮긴 다음 직접 삭제하세요. [마이그레이션 안내서](/ko-KR/migration-guide/#projectmd를-configyaml로-마이그레이션)에서 AI에 전달해 내용을 추려 내도록 하는 프롬프트를 포함해 전체 과정을 설명합니다.
 
 ## 여전히 해결되지 않나요?
 

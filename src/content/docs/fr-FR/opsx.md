@@ -217,7 +217,7 @@ Parcourt les tâches et les coche au fur et à mesure. Si plusieurs changements 
 ```
 Révise les artefacts de planification existants du changement et les garde cohérents entre eux (une modification de conception peut se répercuter sur la proposition). La commande ne modifie jamais le code et vous demande confirmation avant chaque modification. Voir la [référence de update](/fr-FR/commands/#opsxupdate) pour savoir comment elle traite les fichiers manquants sans commencer un nouvel artefact.
 
-Si le changement a déjà été implémenté, la commande recommande `/opsx:apply` afin d’aligner le code sur le plan révisé. Si la révision modifie l’*intention* du changement, repartez plutôt de zéro. Voir [Mettre à jour ou repartir de zéro](/fr-FR/opsx/#when-to-update-vs-start-fresh).
+Si le changement a déjà été implémenté, la commande recommande `/opsx:apply` afin d’aligner le code sur le plan révisé. Si la révision modifie l’*intention* du changement, repartez plutôt de zéro. Voir [Mettre à jour ou repartir de zéro](/fr-FR/opsx/#mettre-à-jour-ou-repartir-de-zéro).
 
 ### Synchroniser les spécifications différentielles
 ```text
