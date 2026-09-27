@@ -76,11 +76,11 @@ When adding a locale, configure its Starlight route and document language in `as
 
 ## Shared Hagilight shell and HagiCode promotion
 
-The shared Starlight shell and promotion use `@hagicode/hagilight` and `@hagicode/hagilight-starlight`, pinned to published version `0.2.0`. Treat that version as the compatibility boundary: review the published exports and rerun the Docs checks before upgrading. Hagilight owns the header, locale chooser, footer, and content-width control; localized site links are configured in `astro.config.mjs`. The shared footer copyright is `HagiCode`.
+The shared Starlight shell and promotion use `@hagicode/hagilight` and `@hagicode/hagilight-starlight`, pinned to published version `0.2.1`. Hagilight owns the header, locale chooser, footer, content-width control, and article-end HagiCode promotion; localized site links are configured in `astro.config.mjs`. The shared footer copyright is `HagiCode`.
 
-Docs retains fallback-aware title/content wrappers, localized translation and English-fallback notices, and the script-independent article-end HagiCode introduction. Starlight generates all page Head metadata, including the canonical and alternate links for English-fallback routes; Docs does not override it. The Hagilight width toggle, analytics providers, and promotion banner are enabled through the plugin.
+Docs retains fallback-aware title/content wrappers and localized translation and English-fallback notices. Starlight generates all page Head metadata, including the canonical and alternate links for English-fallback routes; Docs does not override it. The Hagilight width toggle, analytics providers, article-end HagiCode promotion, and campaign banner are enabled through the plugin. The article promotion is enabled by default and can be disabled per page with `hagicodePromotion: false` frontmatter.
 
-The shared viewport-bottom banner is shown when Hagilight finds an eligible remote campaign. Docs does not provide local fallback text; if no campaign is available, the banner stays hidden. Hagilight handles campaign discovery, localized campaign selection, dismissal, keyboard controls, reduced motion, and footer-aware visibility. Campaign data is fetched only in the browser. In published version `0.2.0`, the banner's dismiss, navigation, and rotation control labels are English.
+The shared viewport-bottom banner is shown when Hagilight finds an eligible remote campaign. Docs does not provide local fallback text; if no campaign is available, the banner stays hidden. Hagilight handles campaign discovery, localized campaign selection, dismissal, keyboard controls, reduced motion, and footer-aware visibility. Campaign data is fetched only in the browser. The banner's dismiss, navigation, and rotation control labels are English.
 
 ## Analytics and privacy
 
