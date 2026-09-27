@@ -130,5 +130,1061 @@
       "sha256": "bd9c88e81ad7d2aa86403e7e62c635f2b39d1fb4d21c0cea97d665e174808e22",
       "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
     }
+  },
+  "zh-Hant": {
+    "agent-contract": {
+      "source": "agent-contract.md",
+      "sha256": "dd3fcee7199a785d7f666e4c88ee005e9f09e20e28ea0b3d7ed656bdc2b3928a",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "cli": {
+      "source": "cli.md",
+      "sha256": "44b0302315f5aff23f3bcfb9d9390d81627e3842ca2f5c0ab0f9022d9b0a0c1e",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "commands": {
+      "source": "commands.md",
+      "sha256": "cae2992ccc2d2d6dad450e4f6f194bfd36581de40fff13abc09ade7c47ea8046",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "community": {
+      "source": "community.md",
+      "sha256": "407019a51d75af992b6505220644e2b1ef77b193d57654ea0ed5d5fd2eba597c",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "concepts": {
+      "source": "concepts.md",
+      "sha256": "633cd98c457b59f4a14dc4e92e2ded89eccf5cbf858237e4e8bf0a801b468dcd",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "customization": {
+      "source": "customization.md",
+      "sha256": "ceb466834cc558f06fb04cf8e3f77a3070c221a38e6ae5e8c80447fa24e9795f",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "editing-changes": {
+      "source": "editing-changes.md",
+      "sha256": "1630544975e75ebfba1d0b39862af5ff116d10891e2fa5ee66da556013d2bad2",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "examples": {
+      "source": "examples.md",
+      "sha256": "0edc3d4ac3120eb5d583f42c33b673f9736e6bb8d9be733fab9b8345230cb5e3",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "existing-projects": {
+      "source": "existing-projects.md",
+      "sha256": "a07255134b8fe84a72c5b09468457e05a548d5785239c6fb009f0847d2b851ae",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "explore": {
+      "source": "explore.md",
+      "sha256": "eada867f48036e9241dabf78e2514e8a1edcdb3819b3902ccd2cdce766703cb9",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "faq": {
+      "source": "faq.md",
+      "sha256": "fcf1082f310d4af776e81cd3eafc8712a4d23ff2f24fdbb05af80a6ef67c944c",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "getting-started": {
+      "source": "getting-started.md",
+      "sha256": "bc702cb87a6233d8df84dd397d6856f0d40dd2542d39def9f988852f05eaedc2",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "glossary": {
+      "source": "glossary.md",
+      "sha256": "8652de304188d6eacca5ee000cfa722488b41456c12e07dcf0efe327b053dbd6",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "how-commands-work": {
+      "source": "how-commands-work.md",
+      "sha256": "6337792e67f865a0537bc0becddf34cf09ed721dea4517117f2adf507f6a488a",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "installation": {
+      "source": "installation.md",
+      "sha256": "be278dc98a533975104dfbd87a5b4bd38cd73d297f9751de8e7ac9f8fdcf9e3a",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "migration-guide": {
+      "source": "migration-guide.md",
+      "sha256": "1f521f54dbb14126696057049f5a5f697791a578fe4e3e534d31cb87a475bdfa",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "multi-language": {
+      "source": "multi-language.md",
+      "sha256": "04f41a72e82b7408109cd35db95e8b5cf0a53556d4e21e6770169044c3ae3b66",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "opsx": {
+      "source": "opsx.md",
+      "sha256": "bd9c88e81ad7d2aa86403e7e62c635f2b39d1fb4d21c0cea97d665e174808e22",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "overview": {
+      "source": "overview.md",
+      "sha256": "b7495c8447810f5a6f1fc2000e7592e927b586dc89863766e7b45eb58215c688",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "reviewing-changes": {
+      "source": "reviewing-changes.md",
+      "sha256": "91b2b1b2ba4b31ff8f21b093d866178456cb17f7b6fe9ab0ba5ff3e32c7fda99",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "stores-beta/user-guide": {
+      "source": "stores-beta/user-guide.md",
+      "sha256": "6c737a40c252ad9d849a7a6e88d04d686e6f7cc9cb9c1a9fc0a6a7572c82f0ab",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "supported-tools": {
+      "source": "supported-tools.md",
+      "sha256": "f8c7a2d30976ba1e925ebe6546d7df50081eaea7455c93a0e7829371c4350faf",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "team-workflow": {
+      "source": "team-workflow.md",
+      "sha256": "33bc93d4f08fc34c9c0684fa37546e18138c6d292981292e8916f30a7e13b409",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "troubleshooting": {
+      "source": "troubleshooting.md",
+      "sha256": "8b27a62419733308589cb6ff14cb8a7d0b75ee47e68605db7321f63d4c6ce9da",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "workflows": {
+      "source": "workflows.md",
+      "sha256": "c5947da5d67e0dcd86e9881acee15966008e0f92dc598952d69d57afee64fc14",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "writing-specs": {
+      "source": "writing-specs.md",
+      "sha256": "526718e8ed257366b397da56c510ffcafa54fc40d0777374e9c44aaa43494792",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    }
+  },
+  "ja-JP": {
+    "agent-contract": {
+      "source": "agent-contract.md",
+      "sha256": "dd3fcee7199a785d7f666e4c88ee005e9f09e20e28ea0b3d7ed656bdc2b3928a",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "cli": {
+      "source": "cli.md",
+      "sha256": "44b0302315f5aff23f3bcfb9d9390d81627e3842ca2f5c0ab0f9022d9b0a0c1e",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "commands": {
+      "source": "commands.md",
+      "sha256": "cae2992ccc2d2d6dad450e4f6f194bfd36581de40fff13abc09ade7c47ea8046",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "community": {
+      "source": "community.md",
+      "sha256": "407019a51d75af992b6505220644e2b1ef77b193d57654ea0ed5d5fd2eba597c",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "concepts": {
+      "source": "concepts.md",
+      "sha256": "633cd98c457b59f4a14dc4e92e2ded89eccf5cbf858237e4e8bf0a801b468dcd",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "customization": {
+      "source": "customization.md",
+      "sha256": "ceb466834cc558f06fb04cf8e3f77a3070c221a38e6ae5e8c80447fa24e9795f",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "editing-changes": {
+      "source": "editing-changes.md",
+      "sha256": "1630544975e75ebfba1d0b39862af5ff116d10891e2fa5ee66da556013d2bad2",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "examples": {
+      "source": "examples.md",
+      "sha256": "0edc3d4ac3120eb5d583f42c33b673f9736e6bb8d9be733fab9b8345230cb5e3",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "existing-projects": {
+      "source": "existing-projects.md",
+      "sha256": "a07255134b8fe84a72c5b09468457e05a548d5785239c6fb009f0847d2b851ae",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "explore": {
+      "source": "explore.md",
+      "sha256": "eada867f48036e9241dabf78e2514e8a1edcdb3819b3902ccd2cdce766703cb9",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "faq": {
+      "source": "faq.md",
+      "sha256": "fcf1082f310d4af776e81cd3eafc8712a4d23ff2f24fdbb05af80a6ef67c944c",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "getting-started": {
+      "source": "getting-started.md",
+      "sha256": "bc702cb87a6233d8df84dd397d6856f0d40dd2542d39def9f988852f05eaedc2",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "glossary": {
+      "source": "glossary.md",
+      "sha256": "8652de304188d6eacca5ee000cfa722488b41456c12e07dcf0efe327b053dbd6",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "how-commands-work": {
+      "source": "how-commands-work.md",
+      "sha256": "6337792e67f865a0537bc0becddf34cf09ed721dea4517117f2adf507f6a488a",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "installation": {
+      "source": "installation.md",
+      "sha256": "be278dc98a533975104dfbd87a5b4bd38cd73d297f9751de8e7ac9f8fdcf9e3a",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "migration-guide": {
+      "source": "migration-guide.md",
+      "sha256": "1f521f54dbb14126696057049f5a5f697791a578fe4e3e534d31cb87a475bdfa",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "multi-language": {
+      "source": "multi-language.md",
+      "sha256": "04f41a72e82b7408109cd35db95e8b5cf0a53556d4e21e6770169044c3ae3b66",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "opsx": {
+      "source": "opsx.md",
+      "sha256": "bd9c88e81ad7d2aa86403e7e62c635f2b39d1fb4d21c0cea97d665e174808e22",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "overview": {
+      "source": "overview.md",
+      "sha256": "b7495c8447810f5a6f1fc2000e7592e927b586dc89863766e7b45eb58215c688",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "reviewing-changes": {
+      "source": "reviewing-changes.md",
+      "sha256": "91b2b1b2ba4b31ff8f21b093d866178456cb17f7b6fe9ab0ba5ff3e32c7fda99",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "stores-beta/user-guide": {
+      "source": "stores-beta/user-guide.md",
+      "sha256": "6c737a40c252ad9d849a7a6e88d04d686e6f7cc9cb9c1a9fc0a6a7572c82f0ab",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "supported-tools": {
+      "source": "supported-tools.md",
+      "sha256": "f8c7a2d30976ba1e925ebe6546d7df50081eaea7455c93a0e7829371c4350faf",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "team-workflow": {
+      "source": "team-workflow.md",
+      "sha256": "33bc93d4f08fc34c9c0684fa37546e18138c6d292981292e8916f30a7e13b409",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "troubleshooting": {
+      "source": "troubleshooting.md",
+      "sha256": "8b27a62419733308589cb6ff14cb8a7d0b75ee47e68605db7321f63d4c6ce9da",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "workflows": {
+      "source": "workflows.md",
+      "sha256": "c5947da5d67e0dcd86e9881acee15966008e0f92dc598952d69d57afee64fc14",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "writing-specs": {
+      "source": "writing-specs.md",
+      "sha256": "526718e8ed257366b397da56c510ffcafa54fc40d0777374e9c44aaa43494792",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    }
+  },
+  "ko-KR": {
+    "agent-contract": {
+      "source": "agent-contract.md",
+      "sha256": "dd3fcee7199a785d7f666e4c88ee005e9f09e20e28ea0b3d7ed656bdc2b3928a",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "cli": {
+      "source": "cli.md",
+      "sha256": "44b0302315f5aff23f3bcfb9d9390d81627e3842ca2f5c0ab0f9022d9b0a0c1e",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "commands": {
+      "source": "commands.md",
+      "sha256": "cae2992ccc2d2d6dad450e4f6f194bfd36581de40fff13abc09ade7c47ea8046",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "community": {
+      "source": "community.md",
+      "sha256": "407019a51d75af992b6505220644e2b1ef77b193d57654ea0ed5d5fd2eba597c",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "concepts": {
+      "source": "concepts.md",
+      "sha256": "633cd98c457b59f4a14dc4e92e2ded89eccf5cbf858237e4e8bf0a801b468dcd",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "customization": {
+      "source": "customization.md",
+      "sha256": "ceb466834cc558f06fb04cf8e3f77a3070c221a38e6ae5e8c80447fa24e9795f",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "editing-changes": {
+      "source": "editing-changes.md",
+      "sha256": "1630544975e75ebfba1d0b39862af5ff116d10891e2fa5ee66da556013d2bad2",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "examples": {
+      "source": "examples.md",
+      "sha256": "0edc3d4ac3120eb5d583f42c33b673f9736e6bb8d9be733fab9b8345230cb5e3",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "existing-projects": {
+      "source": "existing-projects.md",
+      "sha256": "a07255134b8fe84a72c5b09468457e05a548d5785239c6fb009f0847d2b851ae",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "explore": {
+      "source": "explore.md",
+      "sha256": "eada867f48036e9241dabf78e2514e8a1edcdb3819b3902ccd2cdce766703cb9",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "faq": {
+      "source": "faq.md",
+      "sha256": "fcf1082f310d4af776e81cd3eafc8712a4d23ff2f24fdbb05af80a6ef67c944c",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "getting-started": {
+      "source": "getting-started.md",
+      "sha256": "bc702cb87a6233d8df84dd397d6856f0d40dd2542d39def9f988852f05eaedc2",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "glossary": {
+      "source": "glossary.md",
+      "sha256": "8652de304188d6eacca5ee000cfa722488b41456c12e07dcf0efe327b053dbd6",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "how-commands-work": {
+      "source": "how-commands-work.md",
+      "sha256": "6337792e67f865a0537bc0becddf34cf09ed721dea4517117f2adf507f6a488a",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "installation": {
+      "source": "installation.md",
+      "sha256": "be278dc98a533975104dfbd87a5b4bd38cd73d297f9751de8e7ac9f8fdcf9e3a",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "migration-guide": {
+      "source": "migration-guide.md",
+      "sha256": "1f521f54dbb14126696057049f5a5f697791a578fe4e3e534d31cb87a475bdfa",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "multi-language": {
+      "source": "multi-language.md",
+      "sha256": "04f41a72e82b7408109cd35db95e8b5cf0a53556d4e21e6770169044c3ae3b66",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "opsx": {
+      "source": "opsx.md",
+      "sha256": "bd9c88e81ad7d2aa86403e7e62c635f2b39d1fb4d21c0cea97d665e174808e22",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "overview": {
+      "source": "overview.md",
+      "sha256": "b7495c8447810f5a6f1fc2000e7592e927b586dc89863766e7b45eb58215c688",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "reviewing-changes": {
+      "source": "reviewing-changes.md",
+      "sha256": "91b2b1b2ba4b31ff8f21b093d866178456cb17f7b6fe9ab0ba5ff3e32c7fda99",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "stores-beta/user-guide": {
+      "source": "stores-beta/user-guide.md",
+      "sha256": "6c737a40c252ad9d849a7a6e88d04d686e6f7cc9cb9c1a9fc0a6a7572c82f0ab",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "supported-tools": {
+      "source": "supported-tools.md",
+      "sha256": "f8c7a2d30976ba1e925ebe6546d7df50081eaea7455c93a0e7829371c4350faf",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "team-workflow": {
+      "source": "team-workflow.md",
+      "sha256": "33bc93d4f08fc34c9c0684fa37546e18138c6d292981292e8916f30a7e13b409",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "troubleshooting": {
+      "source": "troubleshooting.md",
+      "sha256": "8b27a62419733308589cb6ff14cb8a7d0b75ee47e68605db7321f63d4c6ce9da",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "workflows": {
+      "source": "workflows.md",
+      "sha256": "c5947da5d67e0dcd86e9881acee15966008e0f92dc598952d69d57afee64fc14",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "writing-specs": {
+      "source": "writing-specs.md",
+      "sha256": "526718e8ed257366b397da56c510ffcafa54fc40d0777374e9c44aaa43494792",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    }
+  },
+  "de-DE": {
+    "agent-contract": {
+      "source": "agent-contract.md",
+      "sha256": "dd3fcee7199a785d7f666e4c88ee005e9f09e20e28ea0b3d7ed656bdc2b3928a",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "cli": {
+      "source": "cli.md",
+      "sha256": "44b0302315f5aff23f3bcfb9d9390d81627e3842ca2f5c0ab0f9022d9b0a0c1e",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "commands": {
+      "source": "commands.md",
+      "sha256": "cae2992ccc2d2d6dad450e4f6f194bfd36581de40fff13abc09ade7c47ea8046",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "community": {
+      "source": "community.md",
+      "sha256": "407019a51d75af992b6505220644e2b1ef77b193d57654ea0ed5d5fd2eba597c",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "concepts": {
+      "source": "concepts.md",
+      "sha256": "633cd98c457b59f4a14dc4e92e2ded89eccf5cbf858237e4e8bf0a801b468dcd",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "customization": {
+      "source": "customization.md",
+      "sha256": "ceb466834cc558f06fb04cf8e3f77a3070c221a38e6ae5e8c80447fa24e9795f",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "editing-changes": {
+      "source": "editing-changes.md",
+      "sha256": "1630544975e75ebfba1d0b39862af5ff116d10891e2fa5ee66da556013d2bad2",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "examples": {
+      "source": "examples.md",
+      "sha256": "0edc3d4ac3120eb5d583f42c33b673f9736e6bb8d9be733fab9b8345230cb5e3",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "existing-projects": {
+      "source": "existing-projects.md",
+      "sha256": "a07255134b8fe84a72c5b09468457e05a548d5785239c6fb009f0847d2b851ae",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "explore": {
+      "source": "explore.md",
+      "sha256": "eada867f48036e9241dabf78e2514e8a1edcdb3819b3902ccd2cdce766703cb9",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "faq": {
+      "source": "faq.md",
+      "sha256": "fcf1082f310d4af776e81cd3eafc8712a4d23ff2f24fdbb05af80a6ef67c944c",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "getting-started": {
+      "source": "getting-started.md",
+      "sha256": "bc702cb87a6233d8df84dd397d6856f0d40dd2542d39def9f988852f05eaedc2",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "glossary": {
+      "source": "glossary.md",
+      "sha256": "8652de304188d6eacca5ee000cfa722488b41456c12e07dcf0efe327b053dbd6",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "how-commands-work": {
+      "source": "how-commands-work.md",
+      "sha256": "6337792e67f865a0537bc0becddf34cf09ed721dea4517117f2adf507f6a488a",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "installation": {
+      "source": "installation.md",
+      "sha256": "be278dc98a533975104dfbd87a5b4bd38cd73d297f9751de8e7ac9f8fdcf9e3a",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "migration-guide": {
+      "source": "migration-guide.md",
+      "sha256": "1f521f54dbb14126696057049f5a5f697791a578fe4e3e534d31cb87a475bdfa",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "multi-language": {
+      "source": "multi-language.md",
+      "sha256": "04f41a72e82b7408109cd35db95e8b5cf0a53556d4e21e6770169044c3ae3b66",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "opsx": {
+      "source": "opsx.md",
+      "sha256": "bd9c88e81ad7d2aa86403e7e62c635f2b39d1fb4d21c0cea97d665e174808e22",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "overview": {
+      "source": "overview.md",
+      "sha256": "b7495c8447810f5a6f1fc2000e7592e927b586dc89863766e7b45eb58215c688",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "reviewing-changes": {
+      "source": "reviewing-changes.md",
+      "sha256": "91b2b1b2ba4b31ff8f21b093d866178456cb17f7b6fe9ab0ba5ff3e32c7fda99",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "stores-beta/user-guide": {
+      "source": "stores-beta/user-guide.md",
+      "sha256": "6c737a40c252ad9d849a7a6e88d04d686e6f7cc9cb9c1a9fc0a6a7572c82f0ab",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "supported-tools": {
+      "source": "supported-tools.md",
+      "sha256": "f8c7a2d30976ba1e925ebe6546d7df50081eaea7455c93a0e7829371c4350faf",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "team-workflow": {
+      "source": "team-workflow.md",
+      "sha256": "33bc93d4f08fc34c9c0684fa37546e18138c6d292981292e8916f30a7e13b409",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "troubleshooting": {
+      "source": "troubleshooting.md",
+      "sha256": "8b27a62419733308589cb6ff14cb8a7d0b75ee47e68605db7321f63d4c6ce9da",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "workflows": {
+      "source": "workflows.md",
+      "sha256": "c5947da5d67e0dcd86e9881acee15966008e0f92dc598952d69d57afee64fc14",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "writing-specs": {
+      "source": "writing-specs.md",
+      "sha256": "526718e8ed257366b397da56c510ffcafa54fc40d0777374e9c44aaa43494792",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    }
+  },
+  "fr-FR": {
+    "agent-contract": {
+      "source": "agent-contract.md",
+      "sha256": "dd3fcee7199a785d7f666e4c88ee005e9f09e20e28ea0b3d7ed656bdc2b3928a",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "cli": {
+      "source": "cli.md",
+      "sha256": "44b0302315f5aff23f3bcfb9d9390d81627e3842ca2f5c0ab0f9022d9b0a0c1e",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "commands": {
+      "source": "commands.md",
+      "sha256": "cae2992ccc2d2d6dad450e4f6f194bfd36581de40fff13abc09ade7c47ea8046",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "community": {
+      "source": "community.md",
+      "sha256": "407019a51d75af992b6505220644e2b1ef77b193d57654ea0ed5d5fd2eba597c",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "concepts": {
+      "source": "concepts.md",
+      "sha256": "633cd98c457b59f4a14dc4e92e2ded89eccf5cbf858237e4e8bf0a801b468dcd",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "customization": {
+      "source": "customization.md",
+      "sha256": "ceb466834cc558f06fb04cf8e3f77a3070c221a38e6ae5e8c80447fa24e9795f",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "editing-changes": {
+      "source": "editing-changes.md",
+      "sha256": "1630544975e75ebfba1d0b39862af5ff116d10891e2fa5ee66da556013d2bad2",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "examples": {
+      "source": "examples.md",
+      "sha256": "0edc3d4ac3120eb5d583f42c33b673f9736e6bb8d9be733fab9b8345230cb5e3",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "existing-projects": {
+      "source": "existing-projects.md",
+      "sha256": "a07255134b8fe84a72c5b09468457e05a548d5785239c6fb009f0847d2b851ae",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "explore": {
+      "source": "explore.md",
+      "sha256": "eada867f48036e9241dabf78e2514e8a1edcdb3819b3902ccd2cdce766703cb9",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "faq": {
+      "source": "faq.md",
+      "sha256": "fcf1082f310d4af776e81cd3eafc8712a4d23ff2f24fdbb05af80a6ef67c944c",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "getting-started": {
+      "source": "getting-started.md",
+      "sha256": "bc702cb87a6233d8df84dd397d6856f0d40dd2542d39def9f988852f05eaedc2",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "glossary": {
+      "source": "glossary.md",
+      "sha256": "8652de304188d6eacca5ee000cfa722488b41456c12e07dcf0efe327b053dbd6",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "how-commands-work": {
+      "source": "how-commands-work.md",
+      "sha256": "6337792e67f865a0537bc0becddf34cf09ed721dea4517117f2adf507f6a488a",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "installation": {
+      "source": "installation.md",
+      "sha256": "be278dc98a533975104dfbd87a5b4bd38cd73d297f9751de8e7ac9f8fdcf9e3a",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "migration-guide": {
+      "source": "migration-guide.md",
+      "sha256": "1f521f54dbb14126696057049f5a5f697791a578fe4e3e534d31cb87a475bdfa",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "multi-language": {
+      "source": "multi-language.md",
+      "sha256": "04f41a72e82b7408109cd35db95e8b5cf0a53556d4e21e6770169044c3ae3b66",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "opsx": {
+      "source": "opsx.md",
+      "sha256": "bd9c88e81ad7d2aa86403e7e62c635f2b39d1fb4d21c0cea97d665e174808e22",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "overview": {
+      "source": "overview.md",
+      "sha256": "b7495c8447810f5a6f1fc2000e7592e927b586dc89863766e7b45eb58215c688",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "reviewing-changes": {
+      "source": "reviewing-changes.md",
+      "sha256": "91b2b1b2ba4b31ff8f21b093d866178456cb17f7b6fe9ab0ba5ff3e32c7fda99",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "stores-beta/user-guide": {
+      "source": "stores-beta/user-guide.md",
+      "sha256": "6c737a40c252ad9d849a7a6e88d04d686e6f7cc9cb9c1a9fc0a6a7572c82f0ab",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "supported-tools": {
+      "source": "supported-tools.md",
+      "sha256": "f8c7a2d30976ba1e925ebe6546d7df50081eaea7455c93a0e7829371c4350faf",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "team-workflow": {
+      "source": "team-workflow.md",
+      "sha256": "33bc93d4f08fc34c9c0684fa37546e18138c6d292981292e8916f30a7e13b409",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "troubleshooting": {
+      "source": "troubleshooting.md",
+      "sha256": "8b27a62419733308589cb6ff14cb8a7d0b75ee47e68605db7321f63d4c6ce9da",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "workflows": {
+      "source": "workflows.md",
+      "sha256": "c5947da5d67e0dcd86e9881acee15966008e0f92dc598952d69d57afee64fc14",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "writing-specs": {
+      "source": "writing-specs.md",
+      "sha256": "526718e8ed257366b397da56c510ffcafa54fc40d0777374e9c44aaa43494792",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    }
+  },
+  "ru-RU": {
+    "agent-contract": {
+      "source": "agent-contract.md",
+      "sha256": "dd3fcee7199a785d7f666e4c88ee005e9f09e20e28ea0b3d7ed656bdc2b3928a",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "cli": {
+      "source": "cli.md",
+      "sha256": "44b0302315f5aff23f3bcfb9d9390d81627e3842ca2f5c0ab0f9022d9b0a0c1e",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "commands": {
+      "source": "commands.md",
+      "sha256": "cae2992ccc2d2d6dad450e4f6f194bfd36581de40fff13abc09ade7c47ea8046",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "community": {
+      "source": "community.md",
+      "sha256": "407019a51d75af992b6505220644e2b1ef77b193d57654ea0ed5d5fd2eba597c",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "concepts": {
+      "source": "concepts.md",
+      "sha256": "633cd98c457b59f4a14dc4e92e2ded89eccf5cbf858237e4e8bf0a801b468dcd",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "customization": {
+      "source": "customization.md",
+      "sha256": "ceb466834cc558f06fb04cf8e3f77a3070c221a38e6ae5e8c80447fa24e9795f",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "editing-changes": {
+      "source": "editing-changes.md",
+      "sha256": "1630544975e75ebfba1d0b39862af5ff116d10891e2fa5ee66da556013d2bad2",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "examples": {
+      "source": "examples.md",
+      "sha256": "0edc3d4ac3120eb5d583f42c33b673f9736e6bb8d9be733fab9b8345230cb5e3",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "existing-projects": {
+      "source": "existing-projects.md",
+      "sha256": "a07255134b8fe84a72c5b09468457e05a548d5785239c6fb009f0847d2b851ae",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "explore": {
+      "source": "explore.md",
+      "sha256": "eada867f48036e9241dabf78e2514e8a1edcdb3819b3902ccd2cdce766703cb9",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "faq": {
+      "source": "faq.md",
+      "sha256": "fcf1082f310d4af776e81cd3eafc8712a4d23ff2f24fdbb05af80a6ef67c944c",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "getting-started": {
+      "source": "getting-started.md",
+      "sha256": "bc702cb87a6233d8df84dd397d6856f0d40dd2542d39def9f988852f05eaedc2",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "glossary": {
+      "source": "glossary.md",
+      "sha256": "8652de304188d6eacca5ee000cfa722488b41456c12e07dcf0efe327b053dbd6",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "how-commands-work": {
+      "source": "how-commands-work.md",
+      "sha256": "6337792e67f865a0537bc0becddf34cf09ed721dea4517117f2adf507f6a488a",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "installation": {
+      "source": "installation.md",
+      "sha256": "be278dc98a533975104dfbd87a5b4bd38cd73d297f9751de8e7ac9f8fdcf9e3a",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "migration-guide": {
+      "source": "migration-guide.md",
+      "sha256": "1f521f54dbb14126696057049f5a5f697791a578fe4e3e534d31cb87a475bdfa",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "multi-language": {
+      "source": "multi-language.md",
+      "sha256": "04f41a72e82b7408109cd35db95e8b5cf0a53556d4e21e6770169044c3ae3b66",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "opsx": {
+      "source": "opsx.md",
+      "sha256": "bd9c88e81ad7d2aa86403e7e62c635f2b39d1fb4d21c0cea97d665e174808e22",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "overview": {
+      "source": "overview.md",
+      "sha256": "b7495c8447810f5a6f1fc2000e7592e927b586dc89863766e7b45eb58215c688",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "reviewing-changes": {
+      "source": "reviewing-changes.md",
+      "sha256": "91b2b1b2ba4b31ff8f21b093d866178456cb17f7b6fe9ab0ba5ff3e32c7fda99",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "stores-beta/user-guide": {
+      "source": "stores-beta/user-guide.md",
+      "sha256": "6c737a40c252ad9d849a7a6e88d04d686e6f7cc9cb9c1a9fc0a6a7572c82f0ab",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "supported-tools": {
+      "source": "supported-tools.md",
+      "sha256": "f8c7a2d30976ba1e925ebe6546d7df50081eaea7455c93a0e7829371c4350faf",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "team-workflow": {
+      "source": "team-workflow.md",
+      "sha256": "33bc93d4f08fc34c9c0684fa37546e18138c6d292981292e8916f30a7e13b409",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "troubleshooting": {
+      "source": "troubleshooting.md",
+      "sha256": "8b27a62419733308589cb6ff14cb8a7d0b75ee47e68605db7321f63d4c6ce9da",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "workflows": {
+      "source": "workflows.md",
+      "sha256": "c5947da5d67e0dcd86e9881acee15966008e0f92dc598952d69d57afee64fc14",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "writing-specs": {
+      "source": "writing-specs.md",
+      "sha256": "526718e8ed257366b397da56c510ffcafa54fc40d0777374e9c44aaa43494792",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    }
+  },
+  "es-ES": {
+    "agent-contract": {
+      "source": "agent-contract.md",
+      "sha256": "dd3fcee7199a785d7f666e4c88ee005e9f09e20e28ea0b3d7ed656bdc2b3928a",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "cli": {
+      "source": "cli.md",
+      "sha256": "44b0302315f5aff23f3bcfb9d9390d81627e3842ca2f5c0ab0f9022d9b0a0c1e",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "commands": {
+      "source": "commands.md",
+      "sha256": "cae2992ccc2d2d6dad450e4f6f194bfd36581de40fff13abc09ade7c47ea8046",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "community": {
+      "source": "community.md",
+      "sha256": "407019a51d75af992b6505220644e2b1ef77b193d57654ea0ed5d5fd2eba597c",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "concepts": {
+      "source": "concepts.md",
+      "sha256": "633cd98c457b59f4a14dc4e92e2ded89eccf5cbf858237e4e8bf0a801b468dcd",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "customization": {
+      "source": "customization.md",
+      "sha256": "ceb466834cc558f06fb04cf8e3f77a3070c221a38e6ae5e8c80447fa24e9795f",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "editing-changes": {
+      "source": "editing-changes.md",
+      "sha256": "1630544975e75ebfba1d0b39862af5ff116d10891e2fa5ee66da556013d2bad2",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "examples": {
+      "source": "examples.md",
+      "sha256": "0edc3d4ac3120eb5d583f42c33b673f9736e6bb8d9be733fab9b8345230cb5e3",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "existing-projects": {
+      "source": "existing-projects.md",
+      "sha256": "a07255134b8fe84a72c5b09468457e05a548d5785239c6fb009f0847d2b851ae",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "explore": {
+      "source": "explore.md",
+      "sha256": "eada867f48036e9241dabf78e2514e8a1edcdb3819b3902ccd2cdce766703cb9",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "faq": {
+      "source": "faq.md",
+      "sha256": "fcf1082f310d4af776e81cd3eafc8712a4d23ff2f24fdbb05af80a6ef67c944c",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "getting-started": {
+      "source": "getting-started.md",
+      "sha256": "bc702cb87a6233d8df84dd397d6856f0d40dd2542d39def9f988852f05eaedc2",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "glossary": {
+      "source": "glossary.md",
+      "sha256": "8652de304188d6eacca5ee000cfa722488b41456c12e07dcf0efe327b053dbd6",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "how-commands-work": {
+      "source": "how-commands-work.md",
+      "sha256": "6337792e67f865a0537bc0becddf34cf09ed721dea4517117f2adf507f6a488a",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "installation": {
+      "source": "installation.md",
+      "sha256": "be278dc98a533975104dfbd87a5b4bd38cd73d297f9751de8e7ac9f8fdcf9e3a",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "migration-guide": {
+      "source": "migration-guide.md",
+      "sha256": "1f521f54dbb14126696057049f5a5f697791a578fe4e3e534d31cb87a475bdfa",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "multi-language": {
+      "source": "multi-language.md",
+      "sha256": "04f41a72e82b7408109cd35db95e8b5cf0a53556d4e21e6770169044c3ae3b66",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "opsx": {
+      "source": "opsx.md",
+      "sha256": "bd9c88e81ad7d2aa86403e7e62c635f2b39d1fb4d21c0cea97d665e174808e22",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "overview": {
+      "source": "overview.md",
+      "sha256": "b7495c8447810f5a6f1fc2000e7592e927b586dc89863766e7b45eb58215c688",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "reviewing-changes": {
+      "source": "reviewing-changes.md",
+      "sha256": "91b2b1b2ba4b31ff8f21b093d866178456cb17f7b6fe9ab0ba5ff3e32c7fda99",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "stores-beta/user-guide": {
+      "source": "stores-beta/user-guide.md",
+      "sha256": "6c737a40c252ad9d849a7a6e88d04d686e6f7cc9cb9c1a9fc0a6a7572c82f0ab",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "supported-tools": {
+      "source": "supported-tools.md",
+      "sha256": "f8c7a2d30976ba1e925ebe6546d7df50081eaea7455c93a0e7829371c4350faf",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "team-workflow": {
+      "source": "team-workflow.md",
+      "sha256": "33bc93d4f08fc34c9c0684fa37546e18138c6d292981292e8916f30a7e13b409",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "troubleshooting": {
+      "source": "troubleshooting.md",
+      "sha256": "8b27a62419733308589cb6ff14cb8a7d0b75ee47e68605db7321f63d4c6ce9da",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "workflows": {
+      "source": "workflows.md",
+      "sha256": "c5947da5d67e0dcd86e9881acee15966008e0f92dc598952d69d57afee64fc14",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "writing-specs": {
+      "source": "writing-specs.md",
+      "sha256": "526718e8ed257366b397da56c510ffcafa54fc40d0777374e9c44aaa43494792",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    }
+  },
+  "pt-BR": {
+    "agent-contract": {
+      "source": "agent-contract.md",
+      "sha256": "dd3fcee7199a785d7f666e4c88ee005e9f09e20e28ea0b3d7ed656bdc2b3928a",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "cli": {
+      "source": "cli.md",
+      "sha256": "44b0302315f5aff23f3bcfb9d9390d81627e3842ca2f5c0ab0f9022d9b0a0c1e",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "commands": {
+      "source": "commands.md",
+      "sha256": "cae2992ccc2d2d6dad450e4f6f194bfd36581de40fff13abc09ade7c47ea8046",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "community": {
+      "source": "community.md",
+      "sha256": "407019a51d75af992b6505220644e2b1ef77b193d57654ea0ed5d5fd2eba597c",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "concepts": {
+      "source": "concepts.md",
+      "sha256": "633cd98c457b59f4a14dc4e92e2ded89eccf5cbf858237e4e8bf0a801b468dcd",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "customization": {
+      "source": "customization.md",
+      "sha256": "ceb466834cc558f06fb04cf8e3f77a3070c221a38e6ae5e8c80447fa24e9795f",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "editing-changes": {
+      "source": "editing-changes.md",
+      "sha256": "1630544975e75ebfba1d0b39862af5ff116d10891e2fa5ee66da556013d2bad2",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "examples": {
+      "source": "examples.md",
+      "sha256": "0edc3d4ac3120eb5d583f42c33b673f9736e6bb8d9be733fab9b8345230cb5e3",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "existing-projects": {
+      "source": "existing-projects.md",
+      "sha256": "a07255134b8fe84a72c5b09468457e05a548d5785239c6fb009f0847d2b851ae",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "explore": {
+      "source": "explore.md",
+      "sha256": "eada867f48036e9241dabf78e2514e8a1edcdb3819b3902ccd2cdce766703cb9",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "faq": {
+      "source": "faq.md",
+      "sha256": "fcf1082f310d4af776e81cd3eafc8712a4d23ff2f24fdbb05af80a6ef67c944c",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "getting-started": {
+      "source": "getting-started.md",
+      "sha256": "bc702cb87a6233d8df84dd397d6856f0d40dd2542d39def9f988852f05eaedc2",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "glossary": {
+      "source": "glossary.md",
+      "sha256": "8652de304188d6eacca5ee000cfa722488b41456c12e07dcf0efe327b053dbd6",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "how-commands-work": {
+      "source": "how-commands-work.md",
+      "sha256": "6337792e67f865a0537bc0becddf34cf09ed721dea4517117f2adf507f6a488a",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "installation": {
+      "source": "installation.md",
+      "sha256": "be278dc98a533975104dfbd87a5b4bd38cd73d297f9751de8e7ac9f8fdcf9e3a",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "migration-guide": {
+      "source": "migration-guide.md",
+      "sha256": "1f521f54dbb14126696057049f5a5f697791a578fe4e3e534d31cb87a475bdfa",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "multi-language": {
+      "source": "multi-language.md",
+      "sha256": "04f41a72e82b7408109cd35db95e8b5cf0a53556d4e21e6770169044c3ae3b66",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "opsx": {
+      "source": "opsx.md",
+      "sha256": "bd9c88e81ad7d2aa86403e7e62c635f2b39d1fb4d21c0cea97d665e174808e22",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "overview": {
+      "source": "overview.md",
+      "sha256": "b7495c8447810f5a6f1fc2000e7592e927b586dc89863766e7b45eb58215c688",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "reviewing-changes": {
+      "source": "reviewing-changes.md",
+      "sha256": "91b2b1b2ba4b31ff8f21b093d866178456cb17f7b6fe9ab0ba5ff3e32c7fda99",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "stores-beta/user-guide": {
+      "source": "stores-beta/user-guide.md",
+      "sha256": "6c737a40c252ad9d849a7a6e88d04d686e6f7cc9cb9c1a9fc0a6a7572c82f0ab",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "supported-tools": {
+      "source": "supported-tools.md",
+      "sha256": "f8c7a2d30976ba1e925ebe6546d7df50081eaea7455c93a0e7829371c4350faf",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "team-workflow": {
+      "source": "team-workflow.md",
+      "sha256": "33bc93d4f08fc34c9c0684fa37546e18138c6d292981292e8916f30a7e13b409",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "troubleshooting": {
+      "source": "troubleshooting.md",
+      "sha256": "8b27a62419733308589cb6ff14cb8a7d0b75ee47e68605db7321f63d4c6ce9da",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "workflows": {
+      "source": "workflows.md",
+      "sha256": "c5947da5d67e0dcd86e9881acee15966008e0f92dc598952d69d57afee64fc14",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    },
+    "writing-specs": {
+      "source": "writing-specs.md",
+      "sha256": "526718e8ed257366b397da56c510ffcafa54fc40d0777374e9c44aaa43494792",
+      "revision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777"
+    }
   }
 }
