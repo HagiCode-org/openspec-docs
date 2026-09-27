@@ -91,6 +91,38 @@ function safeDestination(value) {
   }
 }
 
+function campaignImage(value, title, fallbackAlt) {
+  const srcValue = nonEmptyString(value)
+    ? value
+    : isRecord(value)
+      ? value.src ?? value.url ?? value.imageUrl
+      : null;
+  if (!nonEmptyString(srcValue)) return null;
+  let src;
+  try {
+    const url = new URL(srcValue.trim(), INDEX_ORIGIN);
+    if (url.protocol !== "https:") return null;
+    src = url.href;
+  } catch {
+    return null;
+  }
+
+  const dimension = (candidate) =>
+    typeof candidate === "number" && Number.isFinite(candidate) && candidate > 0
+      ? Math.round(candidate)
+      : undefined;
+  return {
+    src,
+    alt: isRecord(value) && nonEmptyString(value.alt)
+      ? value.alt.trim()
+      : nonEmptyString(fallbackAlt)
+        ? fallbackAlt.trim()
+        : title,
+    width: isRecord(value) ? dimension(value.width) : undefined,
+    height: isRecord(value) ? dimension(value.height) : undefined,
+  };
+}
+
 function parseCampaigns(flagsPayload, contentPayload, locale, now) {
   if (!isRecord(flagsPayload) || !Array.isArray(flagsPayload.promotes)) return [];
   if (!isRecord(contentPayload) || !Array.isArray(contentPayload.contents)) return [];
@@ -119,6 +151,7 @@ function parseCampaigns(flagsPayload, contentPayload, locale, now) {
       description,
       ctaLabel: localizedText(content.cta, locale) ?? ctaFallback,
       href,
+      image: campaignImage(content.image ?? content.imageUrl ?? content.imageURL, title, content.imageAlt),
     });
   }
   return selected;

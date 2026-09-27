@@ -1,7 +1,9 @@
 ---
-import { SITE_COPY } from "../i18n/site-copy.mjs";
+import { isSiteLocale, SITE_COPY } from "../i18n/site-copy.mjs";
 
-const locale = Astro.locals?.starlightRoute?.locale === "en-US" ? "en-US" : "root";
+const locale = isSiteLocale(Astro.locals?.starlightRoute?.locale)
+  ? Astro.locals.starlightRoute.locale
+  : "en-US";
 const copy = SITE_COPY[locale];
 ---
 
@@ -17,6 +19,19 @@ const copy = SITE_COPY[locale];
       <strong data-promotion-title>{copy.promoteTitle}</strong>
       <p data-promotion-description>{copy.promoteDescription}</p>
     </div>
+    <span class="hagicode-floating-promotion__media">
+      <img
+        data-promotion-image
+        data-fallback-src="/img/hagicode/light-main.png"
+        data-fallback-alt={copy.promoteImageAlt}
+        src="/img/hagicode/light-main.png"
+        alt={copy.promoteImageAlt}
+        width="3137"
+        height="1235"
+        loading="eager"
+        decoding="async"
+      />
+    </span>
     <a data-promotion-link href="https://www.hagicode.com">{copy.promoteVisitLabel}</a>
     <button type="button" data-promotion-dismiss aria-label={copy.promoteCloseLabel}>
       <span aria-hidden="true">×</span>

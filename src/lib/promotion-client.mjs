@@ -7,7 +7,7 @@ function storageKey(signature) {
 /**
  * @param {HTMLElement | null | undefined} root
  * @param {{
- *   loadPromotion?: () => Promise<{ id: string, title: string, description: string, ctaLabel: string, href: string } | null>,
+ *   loadPromotion?: () => Promise<{ id: string, title: string, description: string, ctaLabel: string, href: string, image?: { src: string, alt: string, width?: number, height?: number } | null } | null>,
  *   windowObject?: Window,
  *   documentObject?: Document,
  *   Observer?: typeof IntersectionObserver
@@ -26,7 +26,8 @@ export function enhancePromotionCard(
   const description = /** @type {HTMLElement | null | undefined} */ (root?.querySelector("[data-promotion-description]"));
   const visitLink = /** @type {HTMLAnchorElement | null | undefined} */ (root?.querySelector("[data-promotion-link]"));
   const dismissButton = /** @type {HTMLButtonElement | null | undefined} */ (root?.querySelector("[data-promotion-dismiss]"));
-  if (!root || !title || !description || !visitLink || !dismissButton) return () => {};
+  const image = /** @type {HTMLImageElement | null | undefined} */ (root?.querySelector("[data-promotion-image]"));
+  if (!root || !title || !description || !visitLink || !dismissButton || !image) return () => {};
 
   const dismissedThisPage = new Set();
   let footerIntersects = false;
@@ -37,6 +38,11 @@ export function enhancePromotionCard(
   function currentSignature() {
     return root.getAttribute("data-promotion-signature") ?? "fallback:hagicode";
   }
+
+  image.addEventListener("error", () => {
+    image.src = image.dataset.fallbackSrc ?? "/img/hagicode/light-main.png";
+    image.alt = image.dataset.fallbackAlt ?? title.textContent ?? "";
+  }, { once: true });
 
   function isDismissed(signature) {
     if (dismissedThisPage.has(signature)) return true;
@@ -95,6 +101,12 @@ export function enhancePromotionCard(
       description.textContent = campaign.description;
       visitLink.textContent = campaign.ctaLabel;
       visitLink.href = campaign.href;
+      image.alt = campaign.image?.alt || campaign.title;
+      if (campaign.image?.src) {
+        image.src = campaign.image.src;
+        if (campaign.image.width) image.width = campaign.image.width;
+        if (campaign.image.height) image.height = campaign.image.height;
+      }
       root.setAttribute("data-promotion-signature", `campaign:${campaign.id}`);
       renderVisibility();
     });
