@@ -137,7 +137,7 @@ test("root entry defaults to English, honors saved locales, and has a no-script 
   assert.ok(chineseHome.includes('<link rel="canonical" href="https://openspec.hagicode.com/zh-CN/"/>'));
 });
 
-test("localized pages use the shared shell, Docs end card, and Hagilight banner", async () => {
+test("localized pages use the shared shell, Hagilight article promotion, and banner", async () => {
   const pages = await Promise.all([
     ...SUPPORTED_LOCALES.map(async (locale) => [locale, await readBuiltPage(`${locale}/index.html`), false]),
     ["en-US", await readBuiltPage("en-US/getting-started/index.html"), true],
@@ -164,22 +164,22 @@ test("localized pages use the shared shell, Docs end card, and Hagilight banner"
     assert.match(headerMarkup, /<starlight-theme-select/u);
     assert.ok(headerMarkup.includes('href="https://github.com/HagiCode-org/openspec-docs"'));
 
-    const endCard = html.indexOf("data-hagicode-end-card");
+    const articlePromotion = html.indexOf('class="hagilight-article-promotion ');
     const promotion = html.indexOf("<hagilight-promoto-banner");
     const promotionEnd = html.indexOf("</hagilight-promoto-banner>", promotion);
     const pagination = html.indexOf("pagination-links");
     const footer = html.indexOf("hagilight-site-links");
-    assert.ok(endCard >= 0 && endCard < promotion && promotion < promotionEnd);
+    assert.ok(articlePromotion > html.indexOf('class="sl-markdown-content'));
+    assert.ok(articlePromotion < promotion && promotion < promotionEnd);
     assert.ok(footer >= 0 && footer < promotion);
-    if (hasPagination) assert.ok(endCard < pagination && pagination < footer);
+    if (hasPagination) assert.ok(articlePromotion < pagination && pagination < footer);
     assert.equal(html.split("<hagilight-promoto-banner").length - 1, 1);
-    const endCardMarkup = html.slice(endCard, promotion);
+    assert.equal(html.split('class="hagilight-article-promotion ').length - 1, 1);
+    const articlePromotionMarkup = html.slice(articlePromotion, promotion);
     const promotionMarkup = html.slice(promotion, promotionEnd);
-    assert.ok(endCardMarkup.includes('href="https://www.hagicode.com"'));
-    assert.ok(endCardMarkup.includes(copy.hagicodeLead));
-    assert.match(endCardMarkup, /data-hagicode-feature/u);
-    assert.match(endCardMarkup, /\/img\/hagicode\/light-main\.png/u);
-    assert.ok(endCardMarkup.includes(copy.hagicodeVisitLabel));
+    assert.ok(articlePromotionMarkup.includes('href="https://www.hagicode.com/"'));
+    assert.match(articlePromotionMarkup, /<img/u);
+    assert.match(articlePromotionMarkup, /<li\b/u);
     assert.match(promotionMarkup, /data-promoto-track/u);
     assert.match(promotionMarkup, /data-promoto-dismiss[^>]*aria-label="Dismiss promotion"/u);
     assert.match(promotionMarkup, /data-locale="/u);
@@ -198,11 +198,6 @@ test("localized pages use the shared shell, Docs end card, and Hagilight banner"
     assert.match(footerMarkup, /href="https:\/\/github\.com\/HagiCode-org\/openspec-docs\/issues"/u);
     assert.match(footerMarkup, /©\s+\d{4}\s+HagiCode/u);
   }
-});
-
-test("built site includes the local HagiCode preview image", async () => {
-  const image = await readFile(new URL("../dist/img/hagicode/light-main.png", import.meta.url));
-  assert.ok(image.byteLength > 0);
 });
 
 test("translated documentation routes and in-page references resolve in the built site", async () => {

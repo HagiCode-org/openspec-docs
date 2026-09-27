@@ -1,6 +1,5 @@
 ---
 import HagilightMarkdownContent from "@hagicode/hagilight-starlight/MarkdownContent";
-import HagiCodeEndCard from "./HagiCodeEndCard.astro";
 import { isSiteLocale, SITE_COPY } from "../i18n/site-copy.mjs";
 import { getEnglishTopicHref } from "../lib/locale-navigation.mjs";
 
@@ -26,7 +25,6 @@ const aiDisclosures = {
   )}
   {isFallback ? <div lang="en-US"><slot /></div> : <slot />}
 </HagilightMarkdownContent>
-<HagiCodeEndCard />
 
 <style>
   .english-fallback-notice {
