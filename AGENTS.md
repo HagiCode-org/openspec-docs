@@ -4,7 +4,7 @@ Independently buildable Astro/Starlight site for OpenSpec documentation. English
 
 ## Scope and ownership
 
-- Package `@hagicode/openspec-docs` (private). Built with Astro + Starlight; shared shell from `@hagicode/hagilight` / `@hagicode/hagilight-starlight` pinned to `0.2.2` (the compatibility boundary — do not bump casually).
+- Package `@hagicode/openspec-docs` (private). Built with Astro + Starlight; shared shell from `@hagicode/hagilight` / `@hagicode/hagilight-starlight` pinned to `0.2.3` (the compatibility boundary — do not bump casually).
 - This repository is **documentation-maintenance scope only** for agent edits: modify `AGENTS.md` as instructed. Treat source, generated, and cache files as read-only unless the user expands scope.
 
 ## Commands
@@ -36,7 +36,7 @@ Before a pull request: `npm run check`, `npm run build`, `npm test`.
 - `src/content/translation-baselines.json` records each reviewed translation: source path, SHA-256, and reviewed upstream revision. Compute the source hash with `sha256sum upstream/openspec/docs/<source-file>`. `npm run check:translation-baselines` reports changed/removed sources and authored translations without a baseline (generated fallbacks are excluded). Locale homes are shell content, not topic translations, and need no baseline.
 - AI-disclosure frontmatter: omit `isAITranslation` to keep the notice enabled; set `isAITranslation: false` for human-authored pages. English pages are not labeled as translations.
 - To convert a generated English fallback into an authored translation: remove its `isEnglishFallback` flag, edit, add a reviewed baseline, then re-run `npm run import:english`.
-- Canonical URL `https://openspec.hagicode.com` (publishing the branch does not configure a host or DNS). All-language feed at `/rss.xml`; per-language at `/rss.<locale>.xml`.
+- Canonical URL `https://openspec.hagicode.com` (publishing the branch does not configure a host or DNS). English feed at `/rss.xml`, all-language feed at `/rss.all.xml`, and per-language feeds at `/rss.<locale>.xml`.
 - Hagilight owns header, locale chooser, footer, content-width control, site links, article-end promotion, analytics (GA `G-EN03FMT2Q4`, 51LA `L6b88a5yK4h2Xnci` with screen recording), and the campaign banner. Review privacy/consent before publishing.
 
 ## Testing
