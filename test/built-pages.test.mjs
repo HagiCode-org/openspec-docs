@@ -9,13 +9,19 @@ async function readBuiltPage(path) {
   return readFile(new URL(`../dist/${path}`, import.meta.url), "utf8");
 }
 
-test("all-language and locale-specific RSS feeds are published and advertised", async () => {
-  const [home, feed] = await Promise.all([
+test("localized RSS feeds and the all-language feed are published", async () => {
+  const [home, englishFeed, allLanguagesFeed] = await Promise.all([
     readBuiltPage("en-US/index.html"),
     readFile(new URL("../dist/rss.xml", import.meta.url), "utf8"),
+    readFile(new URL("../dist/rss.all.xml", import.meta.url), "utf8"),
   ]);
-  assert.match(home, /rel="alternate"[^>]*type="application\/rss\+xml"[^>]*href="\/rss\.xml"/u);
-  const items = [...feed.matchAll(/<item>([\s\S]*?)<\/item>/gu)].map(([, item]) => item);
+  assert.match(home, /rel="alternate"[^>]*type="application\/rss\+xml"[^>]*href="https:\/\/openspec\.hagicode\.com\/rss\.xml"/u);
+  assert.match(englishFeed, /<language>en-US<\/language>/u);
+  const englishItems = [...englishFeed.matchAll(/<item>([\s\S]*?)<\/item>/gu)].map(([, item]) => item);
+  assert.ok(englishItems.length > 0);
+  assert.ok(englishItems.every((item) => item.includes("https://openspec.hagicode.com/en-US/")));
+
+  const items = [...allLanguagesFeed.matchAll(/<item>([\s\S]*?)<\/item>/gu)].map(([, item]) => item);
   assert.ok(items.length > 0);
   assert.ok(items.every((item) => {
     const locale = item.match(/<language>([^<]+)<\/language>/u)?.[1];
@@ -24,9 +30,12 @@ test("all-language and locale-specific RSS feeds are published and advertised", 
       && !item.includes(`https://openspec.hagicode.com/${locale}/</link>`);
   }));
   for (const { code } of LANGUAGE_OPTIONS) {
-    const localeFeed = await readFile(new URL(`../dist/rss.${code}.xml`, import.meta.url), "utf8");
-    assert.ok([...localeFeed.matchAll(/<item>([\s\S]*?)<\/item>/gu)].every(([, item]) =>
-      item.includes(`<language>${code}</language>`) && item.includes(`https://openspec.hagicode.com/${code}/`)));
+    const filename = code === "en-US" ? "en" : code;
+    const localeFeed = await readFile(new URL(`../dist/rss.${filename}.xml`, import.meta.url), "utf8");
+    assert.match(localeFeed, new RegExp(`<language>${code}</language>`, "u"));
+    const localeItems = [...localeFeed.matchAll(/<item>([\s\S]*?)<\/item>/gu)].map(([, item]) => item);
+    assert.ok(localeItems.length > 0);
+    assert.ok(localeItems.every((item) => item.includes(`https://openspec.hagicode.com/${code}/`)));
   }
 });
 
@@ -68,8 +77,11 @@ test("built upstream routes expose English, authored Chinese, and reviewed local
   assert.doesNotMatch(zhOverview, /This page is the whole mental model on one screen/u);
   assert.match(enHome, /<html lang="en-US"/u);
   assert.ok(enHome.includes('<link rel="canonical" href="https://openspec.hagicode.com/en-US/"/>'));
+  assert.match(enHome, /"@type":"Organization","name":"HagiCode"/u);
   assert.match(enGuide, /<html lang="en-US"/u);
   assert.ok(enGuide.includes('<link rel="canonical" href="https://openspec.hagicode.com/en-US/getting-started/"/>'));
+  assert.match(enGuide, /"@type":"BreadcrumbList"/u);
+  assert.match(enGuide, /<meta property="og:description"/u);
   assert.ok(enNested.includes('<link rel="canonical" href="https://openspec.hagicode.com/en-US/stores-beta/user-guide/"/>'));
   assert.match(enGuide, /This guide explains how OpenSpec works/u);
   assert.match(enNested, /store<\/strong> is the answer/u);
@@ -172,6 +184,9 @@ test("localized pages use the shared shell, Hagilight article promotion, and ban
 
   for (const [locale, html, hasPagination] of pages) {
     assert.equal(html.split("data-hagilight-content-width-choice=").length - 1, 2, `${locale} has both width choices`);
+    if (locale !== "en-US") {
+      assert.ok(html.includes(`/rss.${locale}.xml`), `${locale} links its current-language feed`);
+    }
     const headerStart = html.indexOf('<header class="header');
     const headerEnd = html.indexOf("</header>", headerStart);
     assert.ok(headerStart >= 0 && headerEnd > headerStart);

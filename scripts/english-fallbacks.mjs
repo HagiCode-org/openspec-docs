@@ -90,7 +90,7 @@ function fallbackRenderedContent(rendered) {
   if (!rendered.startsWith("---\n") || separator < 0) {
     throw new Error("Imported English document has invalid frontmatter");
   }
-  return `${rendered.slice(0, separator)}\nisEnglishFallback: true${rendered.slice(separator)}`;
+  return `${rendered.slice(0, separator)}\nisEnglishFallback: true\nrss: false${rendered.slice(separator)}`;
 }
 
 async function updateIgnoreFile(ignoreFile, contentRoot, generatedPaths) {
