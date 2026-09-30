@@ -8,6 +8,7 @@ import {
   getPreferredLocale,
   LANGUAGE_PREFERENCE_KEY,
   preserveUrlContext,
+  readBrowserLocalePreference,
   readLocalePreference,
   serializeLocalePreference,
   SUPPORTED_LOCALES,
@@ -135,4 +136,20 @@ test("blocked storage does not prevent locale navigation", () => {
   };
   assert.equal(readLocalePreference(blockedStorage), null);
   assert.equal(writeLocalePreference(blockedStorage, "de-DE"), false);
+});
+
+test("root redirect defaults to English when browser storage is blocked", () => {
+  const previous = Object.getOwnPropertyDescriptor(globalThis, "localStorage");
+  try {
+    Object.defineProperty(globalThis, "localStorage", {
+      configurable: true,
+      get() {
+        throw new Error("storage blocked");
+      },
+    });
+    assert.equal(readBrowserLocalePreference(), null);
+  } finally {
+    if (previous) Object.defineProperty(globalThis, "localStorage", previous);
+    else delete globalThis.localStorage;
+  }
 });
