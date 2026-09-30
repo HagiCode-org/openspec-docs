@@ -4,7 +4,7 @@ import test from "node:test";
 import ts from "typescript";
 
 async function loadPublishedModule(filename, imports = []) {
-  const packageDir = new URL("../node_modules/@hagicode/hagilight/", import.meta.url);
+  const packageDir = new URL("../node_modules/@hagicode/hagilight-core/", import.meta.url);
   let source = await readFile(new URL(filename, packageDir), "utf8");
   for (const [specifier, replacement] of imports) {
     source = source.replaceAll(specifier, replacement);
@@ -19,10 +19,10 @@ async function loadPublishedModule(filename, imports = []) {
   return { exports: await import(url), url };
 }
 
-const promotionsModule = await loadPublishedModule("promotions.ts");
+const promotionsModule = await loadPublishedModule("dist/promotions.js");
 const promotions = promotionsModule.exports;
-const banner = (await loadPublishedModule("promoto-banner.ts", [
-  ["'./promotions.ts'", JSON.stringify(promotionsModule.url)],
+const banner = (await loadPublishedModule("dist/promoto-banner.js", [
+  ["'./promotions.js'", JSON.stringify(promotionsModule.url)],
 ])).exports;
 
 const now = Date.parse("2026-09-26T12:00:00Z");
@@ -166,8 +166,8 @@ test("selects one card at a time and handles fallback, set dismissal, footer vis
 
 test("published banner exposes keyboard controls, persisted dismissal, and responsive reduced-motion styles", async () => {
   const [component, client] = await Promise.all([
-    readFile(new URL("../node_modules/@hagicode/hagilight/PromotoBanner.astro", import.meta.url), "utf8"),
-    readFile(new URL("../node_modules/@hagicode/hagilight/promoto-banner.ts", import.meta.url), "utf8"),
+    readFile(new URL("../node_modules/@hagicode/hagilight-core/PromotoBanner.astro", import.meta.url), "utf8"),
+    readFile(new URL("../node_modules/@hagicode/hagilight-core/dist/promoto-banner.js", import.meta.url), "utf8"),
   ]);
 
   assert.match(component, /fallback\?: PromotionCard/u);

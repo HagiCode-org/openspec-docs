@@ -9,11 +9,10 @@ async function readBuiltPage(path) {
   return readFile(new URL(`../dist/${path}`, import.meta.url), "utf8");
 }
 
-test("localized RSS feeds and the all-language feed are published", async () => {
-  const [home, englishFeed, allLanguagesFeed] = await Promise.all([
+test("Starlight's standard localized feeds are published without a custom all-language route", async () => {
+  const [home, englishFeed] = await Promise.all([
     readBuiltPage("en-US/index.html"),
     readFile(new URL("../dist/rss.xml", import.meta.url), "utf8"),
-    readFile(new URL("../dist/rss.all.xml", import.meta.url), "utf8"),
   ]);
   assert.match(home, /rel="alternate"[^>]*type="application\/rss\+xml"[^>]*href="https:\/\/openspec\.hagicode\.com\/rss\.xml"/u);
   assert.match(englishFeed, /<language>en-US<\/language>/u);
@@ -21,16 +20,6 @@ test("localized RSS feeds and the all-language feed are published", async () => 
   assert.ok(englishItems.length > 0);
   assert.ok(englishItems.every((item) => item.includes("https://openspec.hagicode.com/en-US/")));
 
-  const items = [...allLanguagesFeed.matchAll(/<item>([\s\S]*?)<\/item>/gu)].map(([, item]) => item);
-  assert.match(allLanguagesFeed, /<language>und<\/language>/u);
-  assert.ok(items.length > 0);
-  assert.ok(items.every((item) => {
-    const link = item.match(/<link>([^<]+)<\/link>/u)?.[1] ?? '';
-    const locale = new URL(link).pathname.split('/')[1];
-    return LANGUAGE_OPTIONS.some(({ code }) => code === locale)
-      && link.startsWith(`https://openspec.hagicode.com/${locale}/`)
-      && !item.includes('<language>');
-  }));
   for (const { code } of LANGUAGE_OPTIONS) {
     const filename = code === "en-US" ? "en" : code;
     const localeFeed = await readFile(new URL(`../dist/rss.${filename}.xml`, import.meta.url), "utf8");
@@ -39,6 +28,7 @@ test("localized RSS feeds and the all-language feed are published", async () => 
     assert.ok(localeItems.length > 0);
     assert.ok(localeItems.every((item) => item.includes(`https://openspec.hagicode.com/${code}/`)));
   }
+  await assert.rejects(stat(new URL("../dist/rss.all.xml", import.meta.url)), { code: "ENOENT" });
 });
 
 async function listBuiltHtml(directory) {
@@ -419,7 +409,7 @@ test("mobile menu keeps native locale selection and the shared chooser is keyboa
     readBuiltPage("zh-CN/index.html"),
     readFile(new URL("../node_modules/@hagicode/hagilight-starlight/Header.astro", import.meta.url), "utf8"),
     readFile(new URL("../node_modules/@hagicode/hagilight-starlight/LanguageChooser.astro", import.meta.url), "utf8"),
-    readFile(new URL("../node_modules/@hagicode/hagilight-starlight/language-routing.mjs", import.meta.url), "utf8"),
+    readFile(new URL("../node_modules/@hagicode/hagilight-starlight/dist/language-routing.js", import.meta.url), "utf8"),
   ]);
 
   assert.match(html, /<button popovertarget="starlight__sidebar"[^>]*>[\s\S]*?<\/button>/u);

@@ -2,6 +2,7 @@ import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import starlight from "@astrojs/starlight";
 import hagilight from "@hagicode/hagilight-starlight";
+import { hagilight as hagilightDiscovery } from "@hagicode/hagilight/integration";
 import { locales as hagilightLocales } from "@hagicode/hagilight-starlight/locales";
 
 export default defineConfig({
@@ -33,7 +34,6 @@ export default defineConfig({
             siteId: "openspec-docs",
             siteUrl: "https://openspec.hagicode.com/",
           },
-          rss: { includeDocs: true, includeBlog: true },
           seo: {
             title: "OpenSpec Docs",
             description: "OpenSpec documentation",
@@ -51,5 +51,6 @@ export default defineConfig({
       ],
     }),
     sitemap(),
+    hagilightDiscovery(),
   ],
 });
