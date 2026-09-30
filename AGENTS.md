@@ -4,7 +4,7 @@ Independently buildable Astro/Starlight site for OpenSpec documentation. English
 
 ## Scope and ownership
 
-- Package `@hagicode/openspec-docs` (private). Built with Astro + Starlight; shared shell from `@hagicode/hagilight` / `@hagicode/hagilight-starlight` pinned to `0.2.3` (the compatibility boundary — do not bump casually).
+- Package `@hagicode/openspec-docs` (private). Built with Astro + Starlight; shared shell from `@hagicode/hagilight` / `@hagicode/hagilight-starlight` pinned to `0.3.1` (the compatibility boundary — do not bump casually).
 - This repository is **documentation-maintenance scope only** for agent edits: modify `AGENTS.md` as instructed. Treat source, generated, and cache files as read-only unless the user expands scope.
 
 ## Commands
