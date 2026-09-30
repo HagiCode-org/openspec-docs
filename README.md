@@ -2,7 +2,7 @@
 
 An independently buildable Astro/Starlight site for OpenSpec documentation. English documentation is imported at build time from the pinned `Fission-AI/openspec` submodule; the Chinese home and reviewed translations remain site-owned.
 
-The Starlight plugin publishes `/rss.xml` for English and `/rss.<locale>.xml` for configured languages. `/rss.all.xml` remains the all-documents subscription and uses the shared RSS renderer; channel language is `und` and item-level language extensions are not emitted. Generated English fallback entries are excluded from localized feeds.
+Hagilight Starlight publishes `/rss.xml` and localized `/rss.<locale>.xml` feeds using its default configuration. The site does not define a custom all-language RSS route.
 
 ## Local development
 
@@ -78,9 +78,9 @@ When adding a locale, configure its Starlight route and document language in `as
 
 ## Shared Hagilight shell and HagiCode promotion
 
-The shared Starlight shell and promotion use `@hagicode/hagilight` and `@hagicode/hagilight-starlight`, pinned to published version `0.3.1`. Hagilight owns the header, locale chooser, footer, content-width control, site links, and article-end HagiCode promotion. The shared footer copyright is `HagiCode`.
+The shared Starlight shell and promotion use `@hagicode/hagilight` and `@hagicode/hagilight-starlight`, pinned to published version `0.4.0`. Hagilight owns the header, locale chooser, footer, content-width control, site links, and article-end HagiCode promotion. The shared footer copyright is `HagiCode`.
 
-The English documentation feed is available at `https://openspec.hagicode.com/rss.xml`; localized feeds use `https://openspec.hagicode.com/rss.<locale>.xml` (for example, `rss.zh-CN.xml`). The complete all-languages feed is available at `https://openspec.hagicode.com/rss.all.xml`.
+The English documentation feed is available at `https://openspec.hagicode.com/rss.xml`; localized feeds use `https://openspec.hagicode.com/rss.<locale>.xml` (for example, `rss.zh-CN.xml`).
 
 Docs retains fallback-aware title/content wrappers and localized translation and English-fallback notices. Hagilight generates per-locale RSS feeds, filters English fallback pages from them, and composes SEO metadata and structured data with Starlight's canonical metadata. The optional `rss` and `seo` frontmatter fields are validated through Hagilight's schemas. The Hagilight width toggle, analytics providers, article-end HagiCode promotion, and campaign banner use the plugin defaults. The article promotion and campaign banner are enabled by default; the article promotion can be disabled per page with `hagicodePromotion: false` frontmatter.
 
