@@ -9,6 +9,7 @@
     "build": "npm run import:english && astro build",
     "preview": "astro preview",
     "check": "npm run import:english && npm run check:translation-baselines && astro check",
+    "test:fast": "npm run check",
     "check:translation-baselines": "node scripts/check-translation-baselines.mjs",
     "test": "node --test test/*.test.mjs"
   },
