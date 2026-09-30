@@ -1,4 +1,4 @@
-import rss from "@astrojs/rss";
+import { generateRssFeed } from "@hagicode/hagilight/rss";
 import { getCollection } from "astro:content";
 import type { APIContext } from "astro";
 import { LANGUAGE_OPTIONS } from "../i18n/site-copy.mjs";
@@ -17,10 +17,11 @@ export async function getDocsRssResponse(context: APIContext, scope: FeedLocale 
       && (scope === "all" || locale === scope);
   });
 
-  return rss({
+  return generateRssFeed({
     title: scope === "all" ? "OpenSpec Docs" : `OpenSpec Docs (${scope})`,
     description: "OpenSpec documentation updates",
     site: context.site,
+    language: scope === "all" ? "und" : scope,
     items: docs.sort((a, b) => a.id.localeCompare(b.id)).map((doc) => {
       const [locale] = doc.id.split("/");
       const path = doc.id.replace(/\/index$/u, "");
@@ -28,9 +29,7 @@ export async function getDocsRssResponse(context: APIContext, scope: FeedLocale 
         title: doc.data.title,
         description: doc.data.description ?? doc.data.title,
         link: `/${path}/`,
-        customData: `<language>${locale}</language>`,
       };
     }),
-    ...(scope === "all" ? {} : { customData: `<language>${scope}</language>` }),
   });
 }

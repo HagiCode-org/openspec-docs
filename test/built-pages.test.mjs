@@ -22,12 +22,14 @@ test("localized RSS feeds and the all-language feed are published", async () => 
   assert.ok(englishItems.every((item) => item.includes("https://openspec.hagicode.com/en-US/")));
 
   const items = [...allLanguagesFeed.matchAll(/<item>([\s\S]*?)<\/item>/gu)].map(([, item]) => item);
+  assert.match(allLanguagesFeed, /<language>und<\/language>/u);
   assert.ok(items.length > 0);
   assert.ok(items.every((item) => {
-    const locale = item.match(/<language>([^<]+)<\/language>/u)?.[1];
+    const link = item.match(/<link>([^<]+)<\/link>/u)?.[1] ?? '';
+    const locale = new URL(link).pathname.split('/')[1];
     return LANGUAGE_OPTIONS.some(({ code }) => code === locale)
-      && item.includes(`https://openspec.hagicode.com/${locale}/`)
-      && !item.includes(`https://openspec.hagicode.com/${locale}/</link>`);
+      && link.startsWith(`https://openspec.hagicode.com/${locale}/`)
+      && !item.includes('<language>');
   }));
   for (const { code } of LANGUAGE_OPTIONS) {
     const filename = code === "en-US" ? "en" : code;
@@ -168,6 +170,29 @@ test("root entry defaults to English, honors saved locales, and has a no-script 
   assert.match(entrySource, /window\.location\.replace\(target\)/u);
   assert.match(chineseHome, /<html lang="zh-CN"/u);
   assert.ok(chineseHome.includes('<link rel="canonical" href="https://openspec.hagicode.com/zh-CN/"/>'));
+});
+
+test("localized homes receive scoped styling and retain their existing documentation links", async () => {
+  const [css, topic] = await Promise.all([
+    readFile(new URL("../src/styles/site.css", import.meta.url), "utf8"),
+    readBuiltPage("en-US/getting-started/index.html"),
+  ]);
+
+  for (const locale of SUPPORTED_LOCALES) {
+    const home = await readBuiltPage(`${locale}/index.html`);
+    assert.match(home, /class="[^"]*\bdocumentation-home-marker\b[^"]*"/u, `${locale} home has the style marker`);
+  }
+
+  const [chineseHome, englishHome] = await Promise.all([
+    readBuiltPage("zh-CN/index.html"),
+    readBuiltPage("en-US/index.html"),
+  ]);
+  assert.ok(chineseHome.includes('href="/zh-CN/getting-started/"'));
+  assert.ok(englishHome.includes('href="/en-US/getting-started/"'));
+  assert.doesNotMatch(topic, /documentation-home-marker/u);
+  assert.match(css, /\.sl-markdown-content:has\(> \.documentation-home-marker\)/u);
+  assert.match(css, /:focus-visible/u);
+  assert.match(css, /@media \(max-width: 30rem\)/u);
 });
 
 test("localized pages use the shared shell, Hagilight article promotion, and banner", async () => {

@@ -229,6 +229,7 @@ test("missing topics generate ignored fallbacks without overwriting authored tra
     const fallback = path.join(contentRoot, "ja-JP/getting-started.md");
     const fallbackContent = await readFile(fallback, "utf8");
     assert.match(fallbackContent, /^isEnglishFallback: true$/mu);
+    assert.match(fallbackContent, /^rss: false$/mu);
     assert.match(fallbackContent, /\[Nested\]\(\/en-US\/nested\/user-guide\/#details\)/u);
     assert.equal(await readFile(authored, "utf8"), "# 已审核翻译\n");
     await assert.rejects(readFile(path.join(contentRoot, "zh-CN/nested/user-guide.md")), { code: "ENOENT" });
