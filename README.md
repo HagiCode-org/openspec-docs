@@ -78,7 +78,7 @@ When adding a locale, configure its Starlight route and document language in `as
 
 ## Shared Hagilight shell and HagiCode promotion
 
-The shared Starlight shell and promotion use `@hagicode/hagilight` and `@hagicode/hagilight-starlight`, pinned to published version `0.4.0`. Hagilight owns the header, locale chooser, footer, content-width control, site links, and article-end HagiCode promotion. The shared footer copyright is `HagiCode`.
+The shared Starlight shell and promotion use `@hagicode/hagilight` and `@hagicode/hagilight-starlight`, pinned to published version `0.5.0`. Hagilight owns the header, locale chooser, footer, content-width control, site links, and article-end HagiCode promotion. The shared footer copyright is `HagiCode`.
 
 The English documentation feed is available at `https://openspec.hagicode.com/rss.xml`; localized feeds use `https://openspec.hagicode.com/rss.<locale>.xml` (for example, `rss.zh-CN.xml`).
 
