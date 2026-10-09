@@ -230,7 +230,8 @@ test("localized pages use the shared shell, Hagilight article promotion, and ban
     assert.match(headerMarkup, /aria-label="Site navigation"/u);
     assert.match(headerMarkup, /<site-search/u);
     assert.match(headerMarkup, /hagilight-language-chooser/u);
-    assert.match(headerMarkup, /<starlight-theme-select/u);
+    assert.match(headerMarkup, /<hagilight-theme-select/u);
+    assert.doesNotMatch(headerMarkup, /<starlight-theme-select/u);
     assert.ok(headerMarkup.includes('href="https://github.com/HagiCode-org/openspec-docs"'));
 
     const articlePromotion = html.indexOf('class="hagilight-article-promotion ');
@@ -246,7 +247,7 @@ test("localized pages use the shared shell, Hagilight article promotion, and ban
     assert.equal(html.split('class="hagilight-article-promotion ').length - 1, 1);
     const articlePromotionMarkup = html.slice(articlePromotion, promotion);
     const promotionMarkup = html.slice(promotion, promotionEnd);
-    assert.ok(articlePromotionMarkup.includes('href="https://www.hagicode.com/"'));
+    assert.ok(articlePromotionMarkup.includes(`href="https://www.hagicode.com/${locale}/"`), `${locale} promotion links to its localized home page`);
     assert.match(articlePromotionMarkup, /<img/u);
     assert.match(articlePromotionMarkup, /<li\b/u);
     assert.match(promotionMarkup, /data-promoto-track/u);
