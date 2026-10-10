@@ -49,6 +49,8 @@ npm test
 
 The publication workflow runs on pushes to `main` and can be started manually for `main`. It publishes the verified build with `esa.jsonc`, `wrangler.jsonc`, and `dist/` at the root of the `gh-pages` branch; manual runs selected for other branches are skipped. The deployment configs live in `.github/gh-pages/`. The build job is read-only, and only the publisher needs `contents: write`. In repository settings, allow Actions' `GITHUB_TOKEN` to write repository contents (`Settings > Actions > General > Workflow permissions`); organization policy must also permit this access.
 
+Each publication overwrites `gh-pages` with a single, latest commit (`force_orphan: true`), so the branch holds only the newest snapshot and is not a rollback source. To roll back a bad release, revert the offending source commit on `main` so the publication workflow runs again; do not revert or reset `gh-pages` history. Treat `gh-pages` as write-only for CI, because local clones will see non-fast-forward updates.
+
 Publishing the branch does not configure a host or change where `https://openspec.hagicode.com` is served from. Any hosting source, domain, and routing setup remains separate.
 
 ## Writing and localizing pages
