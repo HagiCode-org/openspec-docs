@@ -28,7 +28,7 @@ Before a pull request: `npm run check`, `npm run build`, `npm test`.
 - `upstream/openspec/` — git submodule (Fission-AI/openspec) pinned to an exact source revision; builds never fetch the latest branch.
 - `scripts/import-upstream-docs.mjs` → `upstream-docs.mjs` (import `docs/**/*.md`, map `docs/README.md` to English home, preserve tree, resolve links/assets, fail on missing/unsupported input), `english-fallbacks.mjs` (tracks generated fallbacks in `src/content/docs/.generated-english-fallbacks.json`), `check-translation-baselines.mjs`.
 - `src/` — site-owned Starlight config (`content.config.ts`, `hagilight.d.ts`), `components/`, `content/` (generated `docs/en-US/` + `translation-baselines.json`), `i18n/`, `lib/`, `pages/`, `styles/`. Generated content under `src/content/docs/en-US/` is Git-ignored and replaced every run.
-- `test/` — `built-pages.test.mjs`, `upstream-docs.test.mjs`, `locale-navigation.test.mjs`, `hagilight-promotion.test.mjs`, `workflows.test.mjs`.
+- `test/` — `built-pages.test.mjs`, `upstream-docs.test.mjs`, `locale-navigation.test.mjs`, `workflows.test.mjs`.
 
 ## Conventions
 
@@ -42,7 +42,7 @@ Before a pull request: `npm run check`, `npm run build`, `npm test`.
 
 ## Testing
 
-- `npm test` runs `node --test test/*.test.mjs`, covering importer behavior, source contracts, generated routes, locale navigation, Hagilight promotion, and CI workflows.
+- `npm test` runs `node --test test/*.test.mjs`, covering importer behavior, source contracts, generated routes, locale navigation, and CI workflows.
 - Use `npm run test:fast` as a no-build first pass for imported source and Astro checks; it does not validate built pages or production output.
 - Run tests after a build (`npm run build` first) since suites assert on built output. Keep the full build and test sequence for pre-PR verification.
 
