@@ -68,6 +68,8 @@ test("publication passes a verified artifact to an isolated, serialized writer",
   assert.ok(publish.indexOf("actions/download-artifact@v4") < publish.indexOf("peaceiris/actions-gh-pages@v4"));
   assert.match(publish, /publish_dir: \.\/\.deploy\/gh-pages/u);
   assert.match(publish, /publish_branch: gh-pages/u);
+  assert.match(publish, /force_orphan: true/u);
+  assert.match(publish, /enable_jekyll: false/u);
   assert.match(build, /permissions:\n\s+contents: read/u);
   assert.match(publish, /permissions:\n\s+contents: write/u);
   assert.doesNotMatch(build, /contents: write/u);
