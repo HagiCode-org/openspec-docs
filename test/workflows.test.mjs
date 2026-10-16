@@ -33,7 +33,7 @@ test("CI covers pull requests, main pushes, and weekly verification with read-on
   assert.match(workflow, /^  schedule:\n    - cron: "0 6 \* \* 1"/mu);
   assert.match(workflow, /^permissions:\n  contents: read$/mu);
   assert.match(workflow, /uses: actions\/checkout@v4\n\s+with:\n\s+submodules: recursive/u);
-  assert.match(workflow, /node-version: 22/u);
+  assert.match(workflow, /node-version: 24/u);
   assert.match(workflow, /cache: npm\n\s+cache-dependency-path: package-lock\.json/u);
   assertVerificationOrder(workflow);
 });
