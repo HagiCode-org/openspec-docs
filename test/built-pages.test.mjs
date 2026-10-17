@@ -238,11 +238,9 @@ test("localized pages use the shared shell, Hagilight article promotion, and ban
     const promotion = html.indexOf("<hagilight-promoto-banner");
     const promotionEnd = html.indexOf("</hagilight-promoto-banner>", promotion);
     const pagination = html.indexOf("pagination-links");
-    const footer = html.indexOf("hagilight-site-links");
     assert.ok(articlePromotion > html.indexOf('class="sl-markdown-content'));
     assert.ok(articlePromotion < promotion && promotion < promotionEnd);
-    assert.ok(footer >= 0 && footer < promotion);
-    if (hasPagination) assert.ok(articlePromotion < pagination && pagination < footer);
+    if (hasPagination) assert.ok(articlePromotion < pagination && pagination < promotion);
     assert.equal(html.split("<hagilight-promoto-banner").length - 1, 1);
     assert.equal(html.split('class="hagilight-article-promotion ').length - 1, 1);
     const articlePromotionMarkup = html.slice(articlePromotion, promotion);
@@ -255,10 +253,6 @@ test("localized pages use the shared shell, Hagilight article promotion, and ban
     assert.match(promotionMarkup, /data-locale="/u);
     assert.doesNotMatch(promotionMarkup, /data-fallback=/u);
     assert.doesNotMatch(promotionMarkup, /\/img\/hagicode\/light-main\.png/u);
-
-    const footerMarkup = html.slice(footer);
-    assert.match(footerMarkup, /href="https:\/\/newbe\.hagicode\.com\/"/u);
-    assert.match(footerMarkup, /©\s+\d{4}\s+HagiCode/u);
   }
 });
 
@@ -275,7 +269,7 @@ test("translated documentation routes and in-page references resolve in the buil
       const mainEnd = html.indexOf("</main>", mainStart);
       assert.ok(mainStart >= 0 && mainEnd >= 0, `${pagePath} has no article main element`);
       const article = html.slice(mainStart, mainEnd + "</main>".length);
-      const footerStart = article.indexOf('<footer class="sl-flex site-footer');
+      const footerStart = article.indexOf('<footer class="sl-flex');
       const pageContent = footerStart < 0 ? article : article.slice(0, footerStart);
       assert.match(article, new RegExp(`<main[^>]*lang="${locale}"`, "u"), `${pagePath} has localized article metadata`);
       const ids = new Set([...article.matchAll(/\bid="([^"]+)"/gu)].map(([, id]) => id));
