@@ -1,5 +1,8 @@
 # OpenSpec Docs
 
+[![last commit](https://img.shields.io/github/last-commit/HagiCode-org/openspec-docs)](https://github.com/HagiCode-org/openspec-docs/commits/main)
+[![website](https://img.shields.io/website?url=https%3A%2F%2Fopenspec.hagicode.com&label=website)](https://openspec.hagicode.com)
+
 An independently buildable Astro/Starlight site for OpenSpec documentation. English documentation is imported at build time from the pinned `Fission-AI/openspec` submodule; the Chinese home and reviewed translations remain site-owned.
 
 Hagilight Starlight publishes `/rss.xml` and localized `/rss.<locale>.xml` feeds using its default configuration. The site does not define a custom all-language RSS route.
