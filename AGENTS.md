@@ -4,7 +4,7 @@ Independently buildable Astro/Starlight site for OpenSpec documentation. English
 
 ## Scope and ownership
 
-- Package `@hagicode/openspec-docs` (private). Built with Astro + Starlight; shared shell from `@hagicode/hagilight` / `@hagicode/hagilight-starlight` pinned to published `0.8.0` (the current compatibility boundary).
+- Package `@hagicode/openspec-docs` (private). Built with Astro + Starlight; shared shell from `@hagicode/hagilight` / `@hagicode/hagilight-starlight` pinned to an exact published version in `package.json` (the current compatibility boundary).
 - This repository is **documentation-maintenance scope only** for agent edits: modify `AGENTS.md` as instructed. Treat source, generated, and cache files as read-only unless the user expands scope.
 
 ## Commands
@@ -28,7 +28,7 @@ Before a pull request: `npm run check`, `npm run build`, `npm test`.
 - `upstream/openspec/` — git submodule (Fission-AI/openspec) pinned to an exact source revision; builds never fetch the latest branch.
 - `scripts/import-upstream-docs.mjs` → `upstream-docs.mjs` (import `docs/**/*.md`, map `docs/README.md` to English home, preserve tree, resolve links/assets, fail on missing/unsupported input), `english-fallbacks.mjs` (tracks generated fallbacks in `src/content/docs/.generated-english-fallbacks.json`), `check-translation-baselines.mjs`.
 - `src/` — site-owned Starlight config (`content.config.ts`, `hagilight.d.ts`), `components/`, `content/` (generated `docs/en-US/` + `translation-baselines.json`), `i18n/`, `lib/`, `pages/`, `styles/`. Generated content under `src/content/docs/en-US/` is Git-ignored and replaced every run.
-- `test/` — `built-pages.test.mjs`, `upstream-docs.test.mjs`, `locale-navigation.test.mjs`, `workflows.test.mjs`.
+- `test/` — `built-pages.test.mjs`, `upstream-docs.test.mjs`, `hagilight-discovery.test.mjs` (robots, sitemap and RSS in `dist/`), `locale-navigation.test.mjs`, `workflows.test.mjs`.
 
 ## Conventions
 
@@ -48,6 +48,6 @@ Before a pull request: `npm run check`, `npm run build`, `npm test`.
 
 ## Deployment / Publishing
 
-- CI (`.github/workflows/docs-ci.yml`) runs for PRs targeting `main`, pushes to `main`, and a weekly schedule, using `npm ci` + check/build/test.
+- CI (`.github/workflows/docs-ci.yml`) runs for PRs targeting `main`, pushes to `main`, and a weekly schedule, using `npm ci` + check/build/test on Node.js 24 (the deploy workflow also uses 24).
 - `docs-deploy-gh-pages.yml` runs on pushes to `main` (and manually for `main` only) and publishes the verified build: `esa.jsonc`, `wrangler.jsonc`, and `dist/` at the `gh-pages` branch root. The build job is read-only; only the publisher needs `contents: write`. Deploy configs live in `.github/gh-pages/`. Enable Actions `GITHUB_TOKEN` write in repo settings.
 - Commit a new submodule pointer only after reviewing source changes and the generated site; publication remains gated on successful verification.
