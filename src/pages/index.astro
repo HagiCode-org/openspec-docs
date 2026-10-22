@@ -1,22 +1,12 @@
-<!doctype html>
-<html lang="en-US">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="canonical" href="https://openspec.hagicode.com/en-US/" />
-    <meta name="robots" content="noindex" />
-    <title>OpenSpec Documentation</title>
-  </head>
-  <body>
-    <p><a href="/en-US/">Continue to the OpenSpec documentation</a></p>
-    <script>
-      import {
-        preserveUrlContext,
-        readBrowserLocalePreference,
-      } from "../lib/locale-navigation.mjs";
+---
+import RootTransit from "@hagicode/hagilight-core/RootTransit";
+import { LANGUAGE_OPTIONS } from "../i18n/site-copy.mjs";
 
-      const locale = readBrowserLocalePreference() ?? "en-US";
-      const target = preserveUrlContext(`/${locale}/`, new URL(window.location.href));
-      window.location.replace(target);
-    </script>
-  </body>
-</html>
+const links = LANGUAGE_OPTIONS.filter(({ code }) => code !== "en-US").map(({ code, label, lang }) => ({
+  destination: `/${code}/`,
+  label,
+  lang,
+}));
+---
+
+<RootTransit destination="/en-US/" siteName="OpenSpec Documentation" locale="en-US" links={links} />

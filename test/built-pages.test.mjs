@@ -169,16 +169,14 @@ test("AI translation notice styling comes from Hagilight", async () => {
   assert.match(hagilightStyles, /\.hagilight-ai-disclosure\s*\{/u);
 });
 
-test("root entry defaults to English, honors saved locales, and has a no-script link", async () => {
+test("root entry is the Hagilight root transit to English with a link per locale", async () => {
   const root = await readBuiltPage("index.html");
   const chineseHome = await readBuiltPage("zh-CN/index.html");
-  const entrySource = await readFile(new URL("../src/pages/index.astro", import.meta.url), "utf8");
 
   assert.doesNotMatch(root, /http-equiv="refresh"/u);
-  assert.match(root, /href="\/en-US\/">Continue to the OpenSpec documentation/u);
-  assert.match(entrySource, /readBrowserLocalePreference\(\)\s*\?\?\s*"en-US"/u);
-  assert.match(entrySource, /preserveUrlContext/u);
-  assert.match(entrySource, /window\.location\.replace\(target\)/u);
+  assert.match(root, /data-hagilight-transit/u);
+  assert.match(root, /href="\/en-US\/"[^>]*data-transit-continue/u);
+  assert.ok(root.includes('href="/zh-CN/"'));
   assert.match(chineseHome, /<html lang="zh-CN"/u);
   assert.ok(chineseHome.includes('<link rel="canonical" href="https://openspec.hagicode.com/zh-CN/"/>'));
 });
