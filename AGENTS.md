@@ -1,6 +1,6 @@
 # OpenSpec Docs — Agent Guide
 
-Independently buildable Astro/Starlight site for OpenSpec documentation. English docs are imported at build time from a pinned upstream submodule; the Chinese home and reviewed translations are site-owned. Read this before editing or building.
+Independently buildable Astro/Starlight site for OpenSpec documentation. English docs are imported at build time from a pinned upstream submodule; the locale homes and reviewed translations (nine non-English locales under `src/content/docs/<locale>/`) are site-owned. Read this before editing or building.
 
 ## Scope and ownership
 
@@ -32,7 +32,7 @@ Before a pull request: `npm run check`, `npm run build`, `npm test`.
 ## Conventions
 
 - Do **not** edit generated `src/content/docs/en-US/` pages; change upstream and review a new pinned revision. Generated pages are never used as a fallback when the submodule is unavailable.
-- Reviewed Simplified Chinese topics use the same paths as their English sources; keep them under the site-owned locale path.
+- Reviewed translation topics use the same paths as their English sources; keep them under the site-owned locale path.
 - `src/content/translation-baselines.json` records each reviewed translation: source path, SHA-256, and reviewed upstream revision. Compute the source hash with `sha256sum upstream/openspec/docs/<source-file>`. `npm run check:translation-baselines` reports changed/removed sources and authored translations without a baseline (generated fallbacks are excluded). Locale homes are shell content, not topic translations, and need no baseline.
 - AI-disclosure frontmatter: omit `isAITranslation` to keep the notice enabled; set `isAITranslation: false` for human-authored pages. English pages are not labeled as translations.
 - To convert a generated English fallback into an authored translation: remove its `isEnglishFallback` flag, edit, add a reviewed baseline, then re-run `npm run import:english`.
@@ -41,8 +41,7 @@ Before a pull request: `npm run check`, `npm run build`, `npm test`.
 
 ## Testing
 
-- Use `npm run test:fast` as a no-build first pass for imported source and Astro checks; it does not validate built pages or production output.
-- Run tests after a build (`npm run build` first) since suites assert on built output. Keep the full build and test sequence for pre-PR verification.
+- `npm run test:fast` does not validate built pages or production output; run `npm test` after a build (`npm run build` first) since suites assert on built output.
 
 ## Deployment / Publishing
 
