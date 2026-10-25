@@ -6,9 +6,9 @@
   "scripts": {
     "import:english": "node scripts/import-upstream-docs.mjs",
     "dev": "npm run import:english && astro dev",
-    "build": "npm run import:english && astro build",
+    "build": "export NODE_OPTIONS=\"${NODE_OPTIONS:-} --max-old-space-size=8192\"; npm run import:english && astro build",
     "preview": "astro preview",
-    "check": "npm run import:english && npm run check:translation-baselines && astro check",
+    "check": "export NODE_OPTIONS=\"${NODE_OPTIONS:-} --max-old-space-size=8192\"; npm run import:english && npm run check:translation-baselines && astro check",
     "test:fast": "npm run check",
     "check:translation-baselines": "node scripts/check-translation-baselines.mjs",
     "test": "node --test test/*.test.mjs"
