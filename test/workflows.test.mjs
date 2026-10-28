@@ -18,7 +18,7 @@ function getJob(workflow, name) {
 }
 
 function assertVerificationOrder(workflow) {
-  const commands = ["run: npm ci", "run: npm run check", "run: npm run build", "run: npm test"];
+  const commands = ["run: pnpm install --frozen-lockfile", "run: pnpm run check", "run: pnpm run build", "run: pnpm test"];
   const positions = commands.map((command) => workflow.indexOf(command));
 
   assert.ok(positions.every((position) => position !== -1), "workflow includes each verification command");
@@ -34,7 +34,7 @@ test("CI covers pull requests, main pushes, and weekly verification with read-on
   assert.match(workflow, /^permissions:\n  contents: read$/mu);
   assert.match(workflow, /uses: actions\/checkout@v4\n\s+with:\n\s+submodules: recursive/u);
   assert.match(workflow, /node-version: 24/u);
-  assert.match(workflow, /cache: npm\n\s+cache-dependency-path: package-lock\.json/u);
+  assert.match(workflow, /cache: pnpm\n\s+cache-dependency-path: pnpm-lock\.yaml/u);
   assertVerificationOrder(workflow);
 });
 
@@ -49,7 +49,7 @@ test("publication is main-only and gates the artifact on the full verification s
   assert.match(publish, /if: \$\{\{ github\.ref == 'refs\/heads\/main' \}\}/u);
   assert.match(build, /uses: actions\/checkout@v4\n\s+with:\n\s+submodules: recursive/u);
   assertVerificationOrder(build);
-  assert.ok(build.indexOf("run: npm test") < build.indexOf("actions/upload-artifact@v4"));
+  assert.ok(build.indexOf("run: pnpm test") < build.indexOf("actions/upload-artifact@v4"));
   assert.match(build, /cp \.github\/gh-pages\/esa\.jsonc/u);
   assert.match(build, /cp \.github\/gh-pages\/wrangler\.jsonc/u);
   assert.match(build, /cp -R dist\/\. "\$PUBLICATION_DIR\/dist\/"/u);
