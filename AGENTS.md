@@ -10,17 +10,17 @@ Independently buildable Astro/Starlight site for OpenSpec documentation. English
 
 ```sh
 git submodule update --init --recursive   # required before first build (upstream/openspec)
-npm install
-npm run dev                  # import:english + astro dev
-npm run build                # import:english + astro build
-npm run preview              # serve the production build
-npm run check                # import:english + check:translation-baselines + astro check
-npm run test:fast             # no-build first pass; delegates to npm run check
-npm run check:translation-baselines     # audit reviewed translations
-npm test                    # node --test test/*.test.mjs
+pnpm install
+pnpm run dev                  # import:english + astro dev
+pnpm run build                # import:english + astro build
+pnpm run preview              # serve the production build
+pnpm run check                # import:english + check:translation-baselines + astro check
+pnpm run test:fast             # no-build first pass; delegates to pnpm run check
+pnpm run check:translation-baselines     # audit reviewed translations
+pnpm test                    # node --test test/*.test.mjs
 ```
 
-Before a pull request: `npm run check`, `npm run build`, `npm test`.
+Before a pull request: `pnpm run check`, `pnpm run build`, `pnpm test`.
 
 ## Architecture
 
@@ -33,18 +33,25 @@ Before a pull request: `npm run check`, `npm run build`, `npm test`.
 
 - Do **not** edit generated `src/content/docs/en-US/` pages; change upstream and review a new pinned revision. Generated pages are never used as a fallback when the submodule is unavailable.
 - Reviewed translation topics use the same paths as their English sources; keep them under the site-owned locale path.
-- `src/content/translation-baselines.json` records each reviewed translation: source path, SHA-256, and reviewed upstream revision. Compute the source hash with `sha256sum upstream/openspec/docs/<source-file>`. `npm run check:translation-baselines` reports changed/removed sources and authored translations without a baseline (generated fallbacks are excluded). Locale homes are shell content, not topic translations, and need no baseline.
+- `src/content/translation-baselines.json` records each reviewed translation: source path, SHA-256, and reviewed upstream revision. Compute the source hash with `sha256sum upstream/openspec/docs/<source-file>`. `pnpm run check:translation-baselines` reports changed/removed sources and authored translations without a baseline (generated fallbacks are excluded). Locale homes are shell content, not topic translations, and need no baseline.
 - AI-disclosure frontmatter: omit `isAITranslation` to keep the notice enabled; set `isAITranslation: false` for human-authored pages. English pages are not labeled as translations.
-- To convert a generated English fallback into an authored translation: remove its `isEnglishFallback` flag, edit, add a reviewed baseline, then re-run `npm run import:english`.
+- To convert a generated English fallback into an authored translation: remove its `isEnglishFallback` flag, edit, add a reviewed baseline, then re-run `pnpm run import:english`.
 - Canonical URL `https://openspec.hagicode.com` (publishing the branch does not configure a host or DNS). Hagilight Starlight provides `/rss.xml` and per-language feeds at `/rss.<locale>.xml` using package defaults; there is no site-owned all-language feed.
 - Hagilight owns header, locale chooser, footer, content-width control, site links, article-end promotion, analytics (GA `G-EN03FMT2Q4`, 51LA `L6b88a5yK4h2Xnci` with screen recording), and the campaign banner. Review privacy/consent before publishing.
 
 ## Testing
 
-- `npm run test:fast` does not validate built pages or production output; run `npm test` after a build (`npm run build` first) since suites assert on built output.
+- `pnpm run test:fast` does not validate built pages or production output; run `pnpm test` after a build (`pnpm run build` first) since suites assert on built output.
 
 ## Deployment / Publishing
 
-- CI (`.github/workflows/docs-ci.yml`) runs for PRs targeting `main`, pushes to `main`, and a weekly schedule, using `npm ci` + check/build/test on Node.js 24 (the deploy workflow also uses 24).
+- CI (`.github/workflows/docs-ci.yml`) runs for PRs targeting `main`, pushes to `main`, and a weekly schedule, using `pnpm install` + check/build/test on Node.js 24 (the deploy workflow also uses 24).
 - `docs-deploy-gh-pages.yml` runs on pushes to `main` (and manually for `main` only) and publishes the verified build: `esa.jsonc`, `wrangler.jsonc`, and `dist/` at the `gh-pages` branch root. The build job is read-only; only the publisher needs `contents: write`. Deploy configs live in `.github/gh-pages/`. Enable Actions `GITHUB_TOKEN` write in repo settings.
 - Commit a new submodule pointer only after reviewing source changes and the generated site; publication remains gated on successful verification.
+
+## Package management
+
+- The repository uses pnpm, pinned in `package.json` `packageManager`. Run `corepack enable` once, then `pnpm install`. `pnpm-lock.yaml` is the only lockfile; do not commit `package-lock.json`.
+- Settings live in `pnpm-workspace.yaml`. `allowBuilds` lists the dependencies whose install scripts may run (reviewed individually, `false` means reviewed and denied); review any new dependency that has an install script and add it there.
+- A local registry mirror belongs in `~/.npmrc` only. Never commit a `registry=` line or a mirror URL; `pnpm run check:registry` (also run in CI) fails on any non-`registry.npmjs.org` `tarball` in the lockfile and on mirror hosts in tracked files.
+- Undeclared imports fail under pnpm's strict layout: declare the package instead of hoisting it.
