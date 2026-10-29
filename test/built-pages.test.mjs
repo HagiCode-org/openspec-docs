@@ -411,10 +411,14 @@ test("retired placeholder guides are neither published nor linked", async () => 
   assert.ok(pages.every((html) => !html.includes("/guides/getting-started/")));
 });
 
-test("built production pages load each Hagilight analytics provider once", async () => {
+test("built production pages declare each Hagilight analytics provider once, behind consent", async () => {
   const html = await readBuiltPage("zh-CN/index.html");
-  assert.equal((html.match(/googletagmanager\.com\/gtag\/js\?id=G-EN03FMT2Q4/gu) ?? []).length, 1);
-  assert.equal((html.match(/sdk\.51\.la\/js-sdk-pro\.min\.js/gu) ?? []).length, 1);
+  // Hagilight renders an inert descriptor per provider; its consent gate loads the provider after a grant.
+  for (const provider of ["googleAnalytics", "fiftyOneLa"]) {
+    assert.equal((html.match(new RegExp(`data-hagilight-analytics="${provider}"`, "gu")) ?? []).length, 1, provider);
+  }
+  assert.match(html, /"measurementId":"G-EN03FMT2Q4"/u);
+  assert.doesNotMatch(html, /googletagmanager\.com\/gtag\/js|sdk\.51\.la\/js-sdk/u);
   assert.doesNotMatch(html, /data-openspec-analytics/u);
 });
 
