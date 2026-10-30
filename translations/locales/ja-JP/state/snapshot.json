@@ -1,40 +1,42 @@
 {
   "schema": 1,
   "locale": "ja-JP",
-  "updatedAt": "2026-10-30T19:50:55.592Z",
-  "lastRun": "adopt-20261030-1950",
-  "sourceRevision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777",
+  "updatedAt": "2026-10-30T21:13:38.602Z",
+  "lastRun": "20261030-os1",
+  "sourceRevision": "dc37609827c8c3aba49e49347745f47aaa65cb1b",
   "glossaryVersion": null,
   "glossarySha256": null,
   "docs": {
     "agent-contract.md": {
-      "status": "done",
-      "adopted": true,
-      "sourceSha256": "dd3fcee7199a785d7f666e4c88ee005e9f09e20e28ea0b3d7ed656bdc2b3928a",
-      "sourceRevision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777",
+      "status": "done_flagged",
+      "sourceSha256": "50aecbbf6e26972c36e47589d53cec7dcb4bfe5fbdf1c8b6851e5b9a32856d05",
+      "sourceRevision": "dc37609827c8c3aba49e49347745f47aaa65cb1b",
       "translationPath": "src/content/docs/ja-JP/agent-contract.md",
-      "translationSha256": "57fa8c267492b8a7ba0ceaeb65ce59068728a8a460462c136ffaf071527d1cca",
+      "translationSha256": "04a4eab9e4acad993a9bc155886d9717efe3b189dda1980698e660afc829f1bb",
       "glossaryVersion": null,
-      "attempts": 0,
-      "runId": "adopt-20261030-1950",
-      "doneAt": "2026-10-30T19:50:55.592Z",
+      "attempts": 1,
+      "runId": "20261030-os1",
+      "doneAt": "2026-10-30T21:13:37.830Z",
       "reviewedAt": null,
-      "flags": [],
+      "flags": [
+        "numbers"
+      ],
       "note": "adopted: existing translation assumed current for this source"
     },
     "cli.md": {
-      "status": "done",
-      "adopted": true,
-      "sourceSha256": "44b0302315f5aff23f3bcfb9d9390d81627e3842ca2f5c0ab0f9022d9b0a0c1e",
-      "sourceRevision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777",
+      "status": "done_flagged",
+      "sourceSha256": "7d5572f4a30e68309ba1fe62840085804669b2a83abd391a40cb517d30a9b5dd",
+      "sourceRevision": "dc37609827c8c3aba49e49347745f47aaa65cb1b",
       "translationPath": "src/content/docs/ja-JP/cli.md",
-      "translationSha256": "eb0df089cca8f8f82ad7688771c3ed8a32e9ad18f75b13758dce6077f492e070",
+      "translationSha256": "e7f8f91914aee3619fd7427b8a63f90f9c50fd4bf3e16da7cab18101358b89c2",
       "glossaryVersion": null,
-      "attempts": 0,
-      "runId": "adopt-20261030-1950",
-      "doneAt": "2026-10-30T19:50:55.592Z",
+      "attempts": 1,
+      "runId": "20261030-os1",
+      "doneAt": "2026-10-30T21:13:37.942Z",
       "reviewedAt": null,
-      "flags": [],
+      "flags": [
+        "numbers"
+      ],
       "note": "adopted: existing translation assumed current for this source"
     },
     "commands.md": {
@@ -53,48 +55,51 @@
       "note": "adopted: existing translation assumed current for this source"
     },
     "community.md": {
-      "status": "done",
-      "adopted": true,
-      "sourceSha256": "407019a51d75af992b6505220644e2b1ef77b193d57654ea0ed5d5fd2eba597c",
-      "sourceRevision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777",
+      "status": "done_flagged",
+      "sourceSha256": "95fc588ef8f3974a02a01b95c08f12b3e4595b8fdc149e89235b21f06935ac29",
+      "sourceRevision": "dc37609827c8c3aba49e49347745f47aaa65cb1b",
       "translationPath": "src/content/docs/ja-JP/community.md",
-      "translationSha256": "24d8a530198459e7e66c2a11ee0e5f078b6f72120b0cac15317f7d4bba71a25a",
+      "translationSha256": "71df5fb86a3b1c4eab85bc56d9c8f3cbb0e18671002569c4bb7a8c322a64551b",
       "glossaryVersion": null,
-      "attempts": 0,
-      "runId": "adopt-20261030-1950",
-      "doneAt": "2026-10-30T19:50:55.592Z",
+      "attempts": 1,
+      "runId": "20261030-os1",
+      "doneAt": "2026-10-30T21:13:38.056Z",
       "reviewedAt": null,
-      "flags": [],
+      "flags": [
+        "numbers"
+      ],
       "note": "adopted: existing translation assumed current for this source"
     },
     "concepts.md": {
-      "status": "done",
-      "adopted": true,
-      "sourceSha256": "633cd98c457b59f4a14dc4e92e2ded89eccf5cbf858237e4e8bf0a801b468dcd",
-      "sourceRevision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777",
+      "status": "done_flagged",
+      "sourceSha256": "40b9b3c9ceb8c86fa3b6ea22fddb618be9bcc063fc5774567e7788193087742a",
+      "sourceRevision": "dc37609827c8c3aba49e49347745f47aaa65cb1b",
       "translationPath": "src/content/docs/ja-JP/concepts.md",
-      "translationSha256": "3c58c3925a011be8d1e1021c8b967a821a4a149243cd737d41d798b52fc75bad",
+      "translationSha256": "89de3ac8a1a5819435d358d276e6567b6068b36b4d1052b2190663165047adca",
       "glossaryVersion": null,
-      "attempts": 0,
-      "runId": "adopt-20261030-1950",
-      "doneAt": "2026-10-30T19:50:55.592Z",
+      "attempts": 1,
+      "runId": "20261030-os1",
+      "doneAt": "2026-10-30T21:13:38.160Z",
       "reviewedAt": null,
-      "flags": [],
+      "flags": [
+        "numbers"
+      ],
       "note": "adopted: existing translation assumed current for this source"
     },
     "customization.md": {
-      "status": "done",
-      "adopted": true,
-      "sourceSha256": "ceb466834cc558f06fb04cf8e3f77a3070c221a38e6ae5e8c80447fa24e9795f",
-      "sourceRevision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777",
+      "status": "done_flagged",
+      "sourceSha256": "adfc1277bab095289812bd3224010f362855c633796a7a928a155623916a8386",
+      "sourceRevision": "dc37609827c8c3aba49e49347745f47aaa65cb1b",
       "translationPath": "src/content/docs/ja-JP/customization.md",
-      "translationSha256": "1bd35fe334fc6d0ba128c9dafada60f2e24f99e71c520e08f0e7c73ed6e4766f",
+      "translationSha256": "719d96d71adf0a0aa2a58ffa4474ef49bed1a07f41ea029071a9e968341939a7",
       "glossaryVersion": null,
-      "attempts": 0,
-      "runId": "adopt-20261030-1950",
-      "doneAt": "2026-10-30T19:50:55.592Z",
+      "attempts": 1,
+      "runId": "20261030-os1",
+      "doneAt": "2026-10-30T21:13:38.287Z",
       "reviewedAt": null,
-      "flags": [],
+      "flags": [
+        "numbers"
+      ],
       "note": "adopted: existing translation assumed current for this source"
     },
     "editing-changes.md": {
@@ -158,33 +163,35 @@
       "note": "adopted: existing translation assumed current for this source"
     },
     "faq.md": {
-      "status": "done",
-      "adopted": true,
-      "sourceSha256": "fcf1082f310d4af776e81cd3eafc8712a4d23ff2f24fdbb05af80a6ef67c944c",
-      "sourceRevision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777",
+      "status": "done_flagged",
+      "sourceSha256": "01b5e81577224c5088a9a7045686ee288ce73692deabb7510fb343473c74b147",
+      "sourceRevision": "dc37609827c8c3aba49e49347745f47aaa65cb1b",
       "translationPath": "src/content/docs/ja-JP/faq.md",
-      "translationSha256": "d38907fa785a6087a48982d0c18e5fedb5e978408a65dad0f588b66abdb0e60a",
+      "translationSha256": "a0ca797104d210ef99587c44501833fd5017c84fd9746697e8fa5669fc02b288",
       "glossaryVersion": null,
-      "attempts": 0,
-      "runId": "adopt-20261030-1950",
-      "doneAt": "2026-10-30T19:50:55.592Z",
+      "attempts": 1,
+      "runId": "20261030-os1",
+      "doneAt": "2026-10-30T21:13:38.391Z",
       "reviewedAt": null,
-      "flags": [],
+      "flags": [
+        "numbers"
+      ],
       "note": "adopted: existing translation assumed current for this source"
     },
     "getting-started.md": {
-      "status": "done",
-      "adopted": true,
-      "sourceSha256": "bc702cb87a6233d8df84dd397d6856f0d40dd2542d39def9f988852f05eaedc2",
-      "sourceRevision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777",
+      "status": "done_flagged",
+      "sourceSha256": "b497e6db6ef06495d23d61f30868618f1ccba485c05bd7545377d8826a1cf849",
+      "sourceRevision": "dc37609827c8c3aba49e49347745f47aaa65cb1b",
       "translationPath": "src/content/docs/ja-JP/getting-started.md",
-      "translationSha256": "aa81d1b4dafc77f12a6a581aab895bff9c352ea2c51a669d3283e6173433ebf6",
+      "translationSha256": "00811c68456efad45a47ff863c9bcb03018a5ba6bfe75f00a263bce2ed47811c",
       "glossaryVersion": null,
-      "attempts": 0,
-      "runId": "adopt-20261030-1950",
-      "doneAt": "2026-10-30T19:50:55.592Z",
+      "attempts": 1,
+      "runId": "20261030-os1",
+      "doneAt": "2026-10-30T21:13:38.497Z",
       "reviewedAt": null,
-      "flags": [],
+      "flags": [
+        "numbers"
+      ],
       "note": "adopted: existing translation assumed current for this source"
     },
     "glossary.md": {
@@ -218,18 +225,19 @@
       "note": "adopted: existing translation assumed current for this source"
     },
     "installation.md": {
-      "status": "done",
-      "adopted": true,
-      "sourceSha256": "be278dc98a533975104dfbd87a5b4bd38cd73d297f9751de8e7ac9f8fdcf9e3a",
-      "sourceRevision": "79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777",
+      "status": "done_flagged",
+      "sourceSha256": "629e87751584890206a9cfa32fa3fa6cb5969eedef3139a69e55ea2c8f303d4f",
+      "sourceRevision": "dc37609827c8c3aba49e49347745f47aaa65cb1b",
       "translationPath": "src/content/docs/ja-JP/installation.md",
-      "translationSha256": "0cf0c436353fe60a7f27d4e3cc2d7cb08bc1bf6542d89710f2bdd6ef54994b3c",
+      "translationSha256": "4c946e7120131781ec0859f3d0b6b6ea418d893c3c4eee8e15ce53d0bfb7f3d5",
       "glossaryVersion": null,
-      "attempts": 0,
-      "runId": "adopt-20261030-1950",
-      "doneAt": "2026-10-30T19:50:55.592Z",
+      "attempts": 1,
+      "runId": "20261030-os1",
+      "doneAt": "2026-10-30T21:13:38.602Z",
       "reviewedAt": null,
-      "flags": [],
+      "flags": [
+        "numbers"
+      ],
       "note": "adopted: existing translation assumed current for this source"
     },
     "migration-guide.md": {
