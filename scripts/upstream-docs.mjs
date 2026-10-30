@@ -287,6 +287,14 @@ export async function createImportPlan({
       throw new Error(`Broken or unsupported Markdown link ${target} in ${sourceRelative}`);
     }
 
+    if (resolved === upstreamRoot || resolved.startsWith(`${upstreamRoot}${path.sep}`)) {
+      const isDirectory = await stat(resolved).then((entry) => entry.isDirectory(), () => false);
+      if (isDirectory) {
+        const relative = posixPath(path.relative(upstreamRoot, resolved));
+        return `https://github.com/Fission-AI/openspec/tree/${revision}${relative ? `/${encodePath(relative)}` : ""}${suffix}`;
+      }
+    }
+
     if (!insideDocs) {
       throw new Error(`Referenced asset is outside upstream docs: ${target} in ${sourceRelative}`);
     }

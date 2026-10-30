@@ -1,6 +1,5 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { execFileSync } from "node:child_process";
 import { mkdir, mkdtemp, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
@@ -131,9 +130,6 @@ test("all reviewed locales cover every pinned topic with source-aligned structur
   const sourceFiles = (await listMarkdownFiles(sourceDirectory))
     .filter((file) => file !== "README.md");
   const topics = sourceFiles.map((file) => file.replace(/\.md$/u, ""));
-  const revision = execFileSync("git", ["-C", fileURLToPath(new URL("../upstream/openspec/", import.meta.url)), "rev-parse", "HEAD"], {
-    encoding: "utf8",
-  }).trim();
   const baselines = JSON.parse(await readFile(new URL("../src/content/translation-baselines.json", import.meta.url), "utf8"));
   const failures = [];
 
@@ -163,7 +159,10 @@ test("all reviewed locales cover every pinned topic with source-aligned structur
       if (baseline?.sha256 !== createHash("sha256").update(source).digest("hex")) {
         failures.push(`${locale}/${topic}: incorrect source hash in baseline`);
       }
-      if (baseline?.revision !== revision) failures.push(`${locale}/${topic}: incorrect source revision in baseline`);
+      // Unchanged source hashes retain the commit where the translation was reviewed.
+      if (!/^[a-f\d]{40}$/u.test(baseline?.revision ?? "")) {
+        failures.push(`${locale}/${topic}: missing or invalid reviewed source revision in baseline`);
+      }
 
       const sourceStructure = markdownStructure(source);
       const translatedStructure = markdownStructure(translated);
@@ -193,6 +192,49 @@ test("README and nested topics map to stable routes and resolve internal links",
     assert.match(guide, /\]\(\/en-US\/nested\/user-guide\/#details\)/u);
     assert.match(guide, /!\[Diagram\]\(\/en-US\/assets\/images\/diagram\.svg\)/u);
     assert.equal(plan.assets.size, 1);
+  });
+});
+
+test("upstream directory links stay pinned on GitHub without importing their contents", async () => {
+  await withFixture(async ({ sourceDir, upstreamRoot }) => {
+    await mkdir(path.join(upstreamRoot, "docs-lab/with spaces"), { recursive: true });
+    await writeFile(path.join(upstreamRoot, "docs-lab/index.mdx"), "<LabPage />\n");
+    await writeFile(path.join(sourceDir, "README.md"), [
+      "# Documentation",
+      "",
+      "[Lab](../docs-lab/)",
+      "[Lab without slash](../docs-lab?plain=1#overview)",
+      "[Encoded directory](../docs-lab/with%20spaces/#topic)",
+      "[Docs directory](nested/)",
+      "[Repository](../)",
+      "[README](../README.md)",
+      "",
+    ].join("\n"));
+    const plan = await createImportPlan({ sourceDir, upstreamRoot, revision: "fixture-revision" });
+    const home = plan.documents.get("README.md").rendered;
+    const tree = "https://github.com/Fission-AI/openspec/tree/fixture-revision";
+    assert.ok(home.includes(`[Lab](${tree}/docs-lab)`));
+    assert.ok(home.includes(`[Lab without slash](${tree}/docs-lab?plain=1#overview)`));
+    assert.ok(home.includes(`[Encoded directory](${tree}/docs-lab/with%20spaces#topic)`));
+    assert.ok(home.includes(`[Docs directory](${tree}/docs/nested)`));
+    assert.ok(home.includes(`[Repository](${tree})`));
+    assert.ok(home.includes("[README](https://github.com/Fission-AI/openspec/blob/fixture-revision/README.md)"));
+    assert.equal(plan.documents.size, 3);
+    assert.equal(plan.assets.size, 1);
+  });
+});
+
+test("missing directories, paths outside the checkout and outside assets still fail", async () => {
+  await withFixture(async ({ root, sourceDir, upstreamRoot }) => {
+    await mkdir(path.join(root, "outside"));
+    await writeFile(path.join(upstreamRoot, "outside.svg"), "<svg/>\n");
+    for (const target of ["../missing/", "../../outside/", "../outside.svg"]) {
+      await writeFile(path.join(sourceDir, "README.md"), `# Documentation\n\n[Invalid](${target})\n`);
+      await assert.rejects(
+        createImportPlan({ sourceDir, upstreamRoot, revision: "fixture-revision" }),
+        /Referenced asset is outside upstream docs/u,
+      );
+    }
   });
 });
 
