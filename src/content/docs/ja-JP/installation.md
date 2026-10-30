@@ -2,80 +2,125 @@
 title: "インストール"
 ---
 
-## 前提条件
+## インストール
 
-- **Node.js 20.19.0 以降** — `node --version` でバージョンを確認してください。
+OpenSpec は単一のファイルです。Node.js などの追加のソフトウェアは必要ありません（Alpine Linux では、先に `apk add libstdc++ libgcc` を実行してください）。
+
+macOS と Linux：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Fission-AI/OpenSpec/main/scripts/binary/install.sh | sh
+```
+
+Windows（PowerShell）：
+
+```powershell
+irm https://raw.githubusercontent.com/Fission-AI/OpenSpec/main/scripts/binary/install.ps1 | iex
+```
+
+インストーラーは、必要なファイルがすべて添付された最新のリリースを選び、お使いのマシンに合ったファイルを選択して、リリースの `SHA256SUMS` と照合したうえで `~/.local/bin` にインストールします（Windows では `%LOCALAPPDATA%\Programs\openspec` にインストールされ、ユーザーの `PATH` に追加されます）。別のフォルダーを指定するには `OPENSPEC_INSTALL_DIR` を、リリースを固定するには `OPENSPEC_VERSION=v1.15.0` を設定してください。npm や他のパッケージマネージャーを使いたい場合は、[パッケージマネージャー](#パッケージマネージャー)を参照してください。
+
+手動でインストールするには、[最新のリリース](https://github.com/Fission-AI/OpenSpec/releases/latest)からお使いのプラットフォームのファイルをダウンロードし、`openspec`（Windows では `openspec.exe`）に名前を変更して、macOS と Linux では実行権限を付与（`chmod +x openspec`）したうえで、`PATH` 上に配置してください。
+
+| プラットフォーム | ファイル |
+|---|---|
+| macOS 13+（Apple Silicon / Intel） | `openspec-darwin-arm64` / `openspec-darwin-x64` |
+| Linux（glibc 2.17+） | `openspec-linux-x64` / `openspec-linux-arm64` |
+| Alpine 3.17+（`apk add libstdc++ libgcc` が必要） | `openspec-linux-x64-musl` / `openspec-linux-arm64-musl` |
+| Windows 10+ | `openspec-windows-x64.exe` / `openspec-windows-arm64.exe` |
+
+macOS では、ブラウザでダウンロードしたファイルは `xattr -d com.apple.quarantine openspec` を実行するまでブロックされます。インストールスクリプトを使えば、この操作は不要です。Windows では、エクスプローラーから初めて実行するときに SmartScreen の警告が表示されることがあります。
 
 ## AI アシスタントを使ってインストールする
 
 手動で操作したくない場合は、以下のプロンプトをシェルコマンドを実行できるコーディングアシスタント（Claude Code、Codex、Cursor、Gemini CLI、Copilot などの[対応ツール](/ja-JP/supported-tools/)）に貼り付けてください。CLI をインストールし、このプロジェクトを初期化して、実際に行った内容を報告します。
 
-以下の手動手順が正式な情報源であり、プロンプトはその手順を代わりに実行するだけです。アシスタントが途中で停止し、作業を引き継いでも、それは意図された動作です。権限が必要な操作の前に確認し、シェルの起動ファイルを編集することはありません。[パッケージマネージャー](#パッケージマネージャー)と[トラブルシューティング](/ja-JP/troubleshooting/)を参照して、残りの作業を自分で完了してください。
+以下の手動手順が正式な情報源であり、プロンプトはその手順を代わりに実行するだけです。アシスタントが途中で停止し、作業を引き継いでも、それは意図された動作です。権限が必要な操作の前に確認し、シェルの起動ファイルを編集することはありません。[インストール](#インストール)と[トラブルシューティング](/ja-JP/troubleshooting/)を参照して、残りの作業を自分で完了してください。
 
 ```text
-このプロジェクトに OpenSpec をインストールしてセットアップしてください。以下の手順を順番に実行し、停止するよう指示された箇所で停止してください。
+Install OpenSpec in this project and set it up for me. Follow these steps in
+order, and stop where a step tells you to stop.
 
-1. ランタイム。`node --version` を実行してください。OpenSpec には Node.js 20.19.0 以降が必要です。
-   Node がインストールされていないか、バージョンが古い場合は、その旨を伝えて停止してください。
-   Node のインストール、バージョン切り替え、バージョンマネージャーの再設定は行わないでください。
+1. INSTALL. Run `openspec --version` first. If it prints a version, OpenSpec is
+   already installed: run `openspec version --check`, which prints the update
+   command for how it was installed when it can tell (otherwise update it the
+   way it was installed, e.g. `brew upgrade openspec`), offer to run that, and
+   skip to step 3. If I installed it with a package manager, mention once that
+   `openspec install` switches to the standalone install, but only switch if I
+   ask; never switch it to a different install method on your own. Otherwise install
+   the standalone OpenSpec binary, which needs no Node.js. Show me the command
+   for my OS and run it only once I confirm, then skip to step 3:
+     macOS / Linux:        curl -fsSL https://raw.githubusercontent.com/Fission-AI/OpenSpec/main/scripts/binary/install.sh | sh
+     Windows (PowerShell): irm https://raw.githubusercontent.com/Fission-AI/OpenSpec/main/scripts/binary/install.ps1 | iex
+   If I'd rather use a package manager, or the installer fails, go to step 2.
 
-2. インストール。すでに PATH 上にあるパッケージマネージャーを使い、npm を優先してください。
+2. PACKAGE MANAGER (only if step 1 did not install it). Run `node --version`:
+   this needs Node.js 20.19.0 or higher. If Node is missing or older, say so and
+   stop — don't install Node, switch versions, or reconfigure my version
+   manager for me. Otherwise use whichever package manager is already on my
+   PATH, preferring npm:
      npm install -g @fission-ai/openspec@latest
      pnpm add -g @fission-ai/openspec@latest
      bun add -g @fission-ai/openspec@latest
      yarn global add @fission-ai/openspec@latest   (Yarn 1.x only)
-   このプロジェクトの lockfile を基準に選ばないでください。グローバルインストールは、
-   このリポジトリ自体の依存関係のインストール方法とは無関係です。上記4つのどれも
-   利用できない場合は停止して伝えてください。別の方法を勝手に試さないでください。
-   （Nix を使っている場合は、OpenSpec のインストールガイドにある Nix の節を案内してください。）
-   正確なコマンドを表示し、実行前に私の確認を得てください。プロジェクト外に
-   ソフトウェアをインストールするため、別のパッケージマネージャーを使いたい場合があります。
-   インストールに sudo または管理者権限が必要な場合、権限エラーが発生した場合、
-   グローバル bin ディレクトリが見つからない、または未設定と報告された場合は、
-   もう一度停止して確認してください。シェルの起動ファイル（.bashrc、.zshrc、.profile、
-   fish、PowerShell profile）を編集したり、それらを編集するセットアップコマンドを
-   実行したりしないでください。変更内容を表示し、私自身が反映できるようにしてください。
+   Don't pick based on this project's lockfile — a global install has nothing to
+   do with how this repo's own dependencies are installed. If none of those four
+   is available, stop and tell me — don't improvise an install. (If I'm on Nix,
+   point me at the Nix section of the OpenSpec installation docs instead.)
+   Show me the exact command and let me confirm before you run it; this installs
+   software outside the project, and I may want a different package manager to
+   own it.
+   Stop and ask me again if the install needs sudo or admin rights, fails with a
+   permissions error, or reports that its global bin directory is missing or
+   unconfigured. Never edit my shell startup files (.bashrc, .zshrc, .profile,
+   fish, PowerShell profile), and never run a setup command that edits them for
+   me — show me the change and let me make it.
 
-3. PATH。`openspec --version` を実行してください。コマンドが見つからない場合は、
-   このシェルの PATH にないだけかもしれません。パッケージマネージャーのインストール先と、
-   使用中のシェルおよび OS でそのディレクトリを PATH に追加する方法を伝え、私の確認が
-   得られるまで停止してください。インストール時に報告されたバージョンより古いものが
-   表示された場合、PATH 上の以前のコピーが優先されています。続行せず、両方のバージョンを
-   伝えてください。バージョンマネージャーを使っている場合は、PATH を直接変更せず、
-   その旨を伝えてください。nvm または fnm では CLI がインストール時に有効だった Node の
-   バージョンに紐付き、asdf または volta では shim の再生成が必要になることがあります。
+3. PATH. Run `openspec --version`. If the command isn't found, it may just be
+   missing from this shell: tell me where it was installed (the standalone
+   installer prints the folder, ~/.local/bin by default; a package manager has
+   its own global bin folder) and how to add that folder to PATH for my shell
+   and OS, then stop until I confirm. On Windows the standalone installer adds
+   it for me; a new terminal picks it up. If it prints an older version than the one the install just
+   reported, an earlier copy is shadowing it on PATH — tell me both versions
+   instead of continuing. If I use a version manager, say so rather than editing
+   PATH around it: with nvm or fnm the CLI is tied to the Node version that was
+   active when you installed it, and with asdf or volta a shim may need
+   regenerating.
 
-4. 初期化。使用している AI コーディングツールを尋ね、それぞれを
-   `openspec init --help` に記載された ID に対応付けてください（Copilot は
-   `github-copilot`、Zoo Code は `roocode`）。`--tools` はカンマ区切りのリストを
-   受け取るため、使用するものをすべて指定してください。
-   `openspec init --tools <ids>` は、ホームディレクトリ内の `opsx-*.md` プロンプト
-   ファイル（Codex の場合は ~/.codex/prompts にあります）を含め、以前の OpenSpec
-   バージョンの残存ファイルを確認なしに自動削除します。実行前に、これらを探してください。
-   `.../commands/openspec/` フォルダー、CLAUDE.md や AGENTS.md などのファイルにある
-   OpenSpec マーカーブロック、ホームディレクトリにある `opsx-*.md` プロンプトが対象です。
-   見つけたものを一覧表示して、私の許可を待ってください。何も見つからなければ、その旨を
-   伝えて、確認を求めずに続行してください。既存の `openspec/` フォルダーは問題ありません。
-   init はそこを更新し、仕様や change はそのまま保持します。
-   正しいフォルダーにいることも確認してください。モノレポのパッケージ内を含め、
-   init は実行された場所に `openspec/` を作成します。
-   その後、次を実行してください: openspec init --tools <ids>
+4. INITIALIZE. Ask me which AI coding tool or tools I use and map each to an id
+   from `openspec init --help` (Copilot is `github-copilot`, Zoo Code is
+   `roocode`). `--tools` takes a comma-separated list, so name all of them.
+   `openspec init --tools <ids>` deletes leftovers from older OpenSpec versions
+   automatically, without asking — including `opsx-*.md` prompt files in my home
+   directory (Codex keeps them in ~/.codex/prompts). Before you run it, look for
+   those: `.../commands/openspec/` folders, OpenSpec marker blocks in files like
+   CLAUDE.md or AGENTS.md, and home-directory `opsx-*.md` prompts. List whatever
+   you find and wait for my go-ahead; if you find nothing, say so and carry on
+   without asking. An existing `openspec/` folder is not a problem — init
+   refreshes it and leaves my specs and changes alone.
+   Confirm I'm in the right folder too: init creates `openspec/` wherever it
+   runs, including inside a monorepo package.
+   Then run: openspec init --tools <ids>
 
-5. 報告。何が作られるはずかを推測せず、init が実際に表示した内容を伝えてください。
-   作成したスキルやコマンドの数と場所、設定ファイルに関する行、"Setup required" の
-   注記、再起動または再読み込みが必要なものを報告します。スキルのみを使うツールでは、
-   コマンドファイルが0個でも正常です。init が何も生成しなかった場合は、再試行せず、
-   提示された修正方法を伝えてください。最後に、OpenSpec の呼び出し方法を説明します。
-   要約行ではなく、init が作成したファイルから正確な表記を使ってください。句読点は
-   ツールごとに異なります（/opsx:propose の場合、/opsx-propose の場合、Amazon Q の
-   @opsx-propose など）。コマンドではなくスキルを使うツールではスキル名で呼び出します
-   （/openspec-propose、Codex では $openspec-propose、Kimi Code では
-   /skill:openspec-propose）。
+5. REPORT. Don't assume what should exist — tell me what init actually printed:
+   how many skills and/or commands it created and where, the config file line,
+   any "Setup required" note, and what to restart or reload. Some tools are
+   skills-only and correctly create zero command files, so missing commands is
+   not a failure on its own. If init said nothing was generated, relay the fix
+   it suggested instead of retrying. Finish by telling me how to invoke OpenSpec
+   in my tool, and take the exact spelling from the files init created rather
+   than from its summary line: the punctuation differs per tool (/opsx:propose
+   in some, /opsx-propose in others, @opsx-propose in Amazon Q), and tools that
+   get skills instead of commands are invoked by skill name (/openspec-propose,
+   or $openspec-propose in Codex, or /skill:openspec-propose in Kimi Code).
 ```
 
 このプロンプトにベンダー固有の要素はありません。このページで説明するコマンドと通常の指示だけです。macOS、Linux、Windows で動作し、許可が必要な手順では勝手に進めずに停止します。ただし、アシスタントはシェルコマンドを実行できる必要があります。一部の IDE 統合では実行できません。
 
 ## パッケージマネージャー
+
+パッケージマネージャーでインストールするには、**Node.js 20.19.0 以降**が必要です（`node --version` で確認できます）。
 
 ### npm
 
@@ -99,8 +144,8 @@ Yarn 2 以降（Berry）では `global` コマンドが削除されました。�
 
 ### deno
 
-Deno では `@latest` タグの解析に問題が生じることがあります。その場合、最初のインストール時にはバージョンを指定できます。
-問題が発生したときは `@latest` を `@^1.3.1` のようなバージョン指定に置き換えてみてください。
+Deno では @latest タグの解析に問題が生じることがあります。その場合、最初のインストール時にはバージョンを指定できます。
+問題が発生したときは @latest を `@^1.3.1` のようなバージョン指定に置き換えてみてください。
 
 ```bash
 deno install --global \
@@ -112,7 +157,7 @@ deno install --global \
   npm:@fission-ai/openspec@^1.3.1
 ```
 
-注: config edit、feedback、workspace open などのサブコマンドが外部ツールを起動する場合、対象を指定した `--allow-run=<program>` が必要になることがあります。
+注： config edit、feedback、workspace open などのサブコマンドが外部ツールを起動する場合、対象を指定した --allow-run=<program> が必要になることがあります。
 
 ### bun
 
@@ -160,26 +205,35 @@ nix profile install github:Fission-AI/OpenSpec
 openspec --version
 ```
 
+## npm から単体版へ切り替える
+
+設定とプロジェクトはそのまま引き継がれ、変わるのはプログラムだけです。
+
+1. `openspec install` を実行します。単体版をインストールし、古いコピーを削除するためのコマンドが表示されます。
+2. そのコマンドを実行します。例：`npm uninstall -g @fission-ai/openspec`（Homebrew の場合：`brew uninstall openspec`）。それまでは、古いコピーが PATH 上で先に実行されます。
+3. 新しいターミナルで `openspec version` を実行します。`OpenSpec <version> (standalone)` と表示されるはずです。パッケージマネージャーの名前が表示される場合は、別のコピーがまだ PATH 上にあります。`which -a openspec`（Windows: `where.exe openspec`）で一覧を確認できます。
+
 ## 更新
 
-パッケージをアップグレードし、各プロジェクトの生成ファイルを更新します。
+[インストールコマンド](#インストール)をもう一度実行して CLI をアップグレードします（パッケージマネージャーを使う場合は、`npm install -g @fission-ai/openspec@latest`、または pnpm、yarn、bun の同等コマンドを実行します）。その後、各プロジェクトの生成ファイルを更新します：
 
 ```bash
-npm install -g @fission-ai/openspec@latest   # または pnpm/yarn/bun の同等コマンド
-openspec update                              # 各プロジェクト内で実行
+openspec update   # run inside each project
 ```
 
 `openspec update` は設定済みツールのスキルとコマンドファイルを再生成し、インストール済みのバージョンに合わせてスラッシュコマンドを最新に保ちます。また、新しい CLI が公開されていないか確認してアップグレードを提示します。新しいワークフローを利用するには、まずアップグレードが必要です。[CLI リファレンス](/ja-JP/cli/#openspec-update)を参照してください。
 
 ## アンインストール
 
-OpenSpec はグローバルパッケージとプロジェクト内のファイルだけで構成されるため、`openspec uninstall` コマンドはありません。いくつかの手順を手動で行いますが、ソースコードに触れることはありません。
+OpenSpec は1つのプログラムとプロジェクト内のいくつかのファイルだけで構成されるため、`openspec uninstall` コマンドはありません。いくつかの手順を手動で行いますが、ソースコードに触れることはありません。
 
-**1. グローバルパッケージを削除する:**
+**1. CLI を削除する。** インストーラーが配置したファイルを削除します。`~/.local/bin/openspec`、または Windows では `%LOCALAPPDATA%\Programs\openspec\openspec.exe`（そのフォルダーをユーザーの `PATH` からも削除します）。パッケージマネージャーでインストールした場合は、次のコマンドを実行します：
 
 ```bash
 npm uninstall -g @fission-ai/openspec   # or: pnpm rm -g / yarn global remove / bun rm -g
 ```
+
+単体版のバイナリは、そのディレクトリに書き込めるときに限り、組み込みスキーマのコピーを OpenSpec のデータディレクトリ（macOS と Linux では `~/.local/share/openspec/binary-schemas`、Windows では `%LOCALAPPDATA%\openspec\binary-schemas`）に保持します。これも削除して構いません。
 
 **2. プロジェクトから OpenSpec を削除する（任意）。** 仕様や change が不要であれば `openspec/` ディレクトリを削除します。
 

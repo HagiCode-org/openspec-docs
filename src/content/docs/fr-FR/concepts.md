@@ -51,8 +51,6 @@ Les **changements** sont des modifications proposées ; ils restent dans des dos
 
 Cette séparation est essentielle. Vous pouvez travailler en parallèle sur plusieurs changements sans conflit, en examiner un avant qu’il ne touche aux spécifications principales et, à son archivage, fusionner proprement ses deltas dans la source de vérité.
 
-<a id="specs"></a>
-
 ## Spécifications
 
 Les spécifications décrivent le comportement du système à l’aide d’exigences structurées et de scénarios.
@@ -137,8 +135,6 @@ Les **mots-clés RFC 2119** (SHALL, MUST, SHOULD, MAY) indiquent l’intention :
 - **SHOULD** — recommandé, mais des exceptions sont possibles
 - **MAY** — facultatif
 
-<a id="what-a-spec-is-and-is-not"></a>
-
 ### Ce qu’est (et n’est pas) une spécification
 
 Une spécification est un **contrat de comportement**, pas un plan d’implémentation.
@@ -196,7 +192,7 @@ openspec/changes/add-dark-mode/
 ├── proposal.md           # Why and what
 ├── design.md             # How (technical approach)
 ├── tasks.md              # Implementation checklist
-├── .openspec.yaml        # Change metadata (optional): schema, created, skip_specs, retire_capabilities
+├── .openspec.yaml        # Change metadata (optional): schema, created, skip_specs, retire_capabilities, plus your own x-* keys
 └── specs/                # Delta specs
     └── ui/
         └── spec.md       # What's changing in ui/spec.md
@@ -218,8 +214,6 @@ Regrouper un changement dans un dossier présente plusieurs avantages :
 3. **Historique clair.** Lorsqu’ils sont archivés, les changements passent dans `changes/archive/` avec tout leur contexte. Vous pourrez comprendre ce qui a changé, mais aussi pourquoi.
 
 4. **Faciles à examiner.** Ouvrez le dossier d’un changement pour lire sa proposition, consulter sa conception et vérifier ses deltas.
-
-<a id="artifacts"></a>
 
 ## Artefacts
 
@@ -272,7 +266,7 @@ allow manual override.
 
 #### Spécifications (delta specs in `specs/`)
 
-Les spécifications différentielles décrivent **les changements** par rapport aux spécifications actuelles. Voir [Spécifications différentielles](/fr-FR/concepts/#spécifications-différentielles) ci-dessous.
+Les spécifications différentielles décrivent **les changements** par rapport aux spécifications actuelles. Voir [Spécifications différentielles](#spécifications-différentielles) ci-dessous.
 
 #### Conception (`design.md`)
 
@@ -352,8 +346,6 @@ Les tâches forment la **liste de contrôle de l’implémentation** : des étap
 - préciser comment vérifier chaque tâche (test, commande ou résultat observable)
 - intégrer dans chaque groupe les tests et la documentation requis par son travail, plutôt que dans un groupe final de rattrapage
 - cocher les tâches au fur et à mesure
-
-<a id="delta-specs"></a>
 
 ## Spécifications différentielles
 
@@ -511,8 +503,6 @@ artifacts:
 ```
 
 Consultez [Personnalisation](/fr-FR/customization/) pour apprendre à créer et utiliser des schémas personnalisés.
-
-<a id="archive"></a>
 
 ## Archivage
 

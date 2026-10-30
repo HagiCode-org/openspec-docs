@@ -123,25 +123,25 @@ openspec init [path] [options]
 **Примеры:**
 
 ```bash
-# Интерактивная инициализация
+# Interactive initialization
 openspec init
 
-# Инициализировать в указанном каталоге
+# Initialize in a specific directory
 openspec init ./my-project
 
-# Неинтерактивно: настроить Claude и Cursor
+# Non-interactive: configure for Claude and Cursor
 openspec init --tools claude,cursor
 
-# Неинтерактивно: настроить глобальные навыки MiniMax Code
+# Non-interactive: configure global MiniMax Code skills
 openspec init --tools minimax-code
 
-# Настроить все поддерживаемые инструменты
+# Configure for all supported tools
 openspec init --tools all
 
-# Переопределить профиль для этого запуска
+# Override profile for this run
 openspec init --profile core
 
-# Пропустить запросы и автоматически очистить устаревшие файлы
+# Skip prompts and auto-cleanup legacy files
 openspec init --force
 ```
 
@@ -149,15 +149,15 @@ openspec init --force
 
 ```
 openspec/
-├── specs/              # Спецификации (источник истины)
-├── changes/            # Предлагаемые изменения
-└── config.yaml         # Конфигурация проекта
+├── specs/              # Your specifications (source of truth)
+├── changes/            # Proposed changes
+└── config.yaml         # Project configuration
 
-.claude/skills/         # навыки Claude Code (если выбран claude)
-.cursor/skills/         # навыки Cursor (если выбран cursor)
-.cursor/commands/       # команды OPSX Cursor (если способ установки включает команды)
-.agents/skills/         # общие навыки для инструментов, совместимых с AGENTS.md (если выбран agents)
-... (конфигурации других инструментов)
+.claude/skills/         # Claude Code skills (if claude selected)
+.cursor/skills/         # Cursor skills (if cursor selected)
+.cursor/commands/       # Cursor OPSX commands (if delivery includes commands)
+.agents/skills/         # Shared skills for AGENTS.md-compatible tools (if agents selected)
+... (other tool configs)
 ```
 
 ---
@@ -181,23 +181,48 @@ openspec update [path] [options]
 | Параметр | Описание |
 |--------|-------------|
 | `--force` | Выполнить обновление, даже если файлы актуальны |
+| `--dry-run` | Показать, что изменило бы обновление, и ничего не записывать |
+| `--json` | С `--dry-run` вывести запланированные изменения в формате JSON |
 
 **Пример:**
 
 ```bash
-# Обновить файлы инструкций после обновления npm-пакета
+# Update instruction files after npm upgrade
 npm install -g @fission-ai/openspec@latest
 openspec update
 ```
+
+**Предварительный просмотр обновления:**
+
+`--dry-run` показывает, какие файлы обновление добавило бы, изменило или удалило, и ничего не записывает. Пути указаны относительно проекта; файлы за его пределами (навыки в домашнем каталоге) показаны с префиксом `~/`.
+
+```bash
+openspec update --dry-run --json
+```
+
+```json
+{
+  "changes": [
+    { "path": ".claude/skills/openspec-explore/SKILL.md", "action": "update", "tool": "claude" },
+    { "path": "~/.minimax/skills/openspec-propose/SKILL.md", "action": "add", "tool": "minimax-code" }
+  ],
+  "notes": [],
+  "failures": []
+}
+```
+
+План соответствует тому, что делает неинтерактивный запуск, и перечисляет каждый файл, который будет затронут: перемещения из прежнего каталога инструмента, сохранение глобальной конфигурации для установки, выполненной до появления профилей, файлы облачного агента Copilot и, с `--force`, очистку устаревших артефактов. Файлы, которые принадлежат самому OpenSpec, а не одному инструменту, имеют `tool: "openspec"`. `notes` отмечает шаги, о которых спросили бы пользователя в терминале, каждый с устойчивым `code`: `legacy-tool-directories` (перемещение, отмеченное как выполненное) и `legacy-artifacts` (файлы старой структуры, которые обновление не трогает без `--force`). `failures` перечисляет инструменты, на которых завершилось бы реальное обновление, включая записи, которые оно не может выполнить (каталог на месте файла, нет права на запись); для такого инструмента план останавливается там, где остановилось бы обновление, и один неисправный инструмент не лишает вас остального плана. В обычном обновлении оба списка пусты. Полный справочник: [openspec.dev/docs/cli](https://openspec.dev/docs/cli).
+
+Неудачный вызов `--dry-run --json` по-прежнему выводит ровно один JSON-документ: пустой план и массив `status`, при этом код завершения ненулевой.
 
 Сначала обновите пакет. Файлы инструкций создаются установленной версией CLI, поэтому запуск `openspec update` на устаревшей версии сообщит, что всё актуально, но не добавит новые рабочие процессы из более поздних выпусков.
 
 Чтобы выявить такую ситуацию, `openspec update` проверяет в реестре npm, не опубликована ли более новая версия CLI. Если у вас установлена устаревшая версия, команда предложит обновление:
 
 ```text
-Доступна более новая версия OpenSpec CLI (v1.6.0 → v1.7.0).
-  Запущена из: /usr/local/lib/node_modules/@fission-ai/openspec
-? Обновить до v1.7.0 сейчас? (Y/n)
+A newer OpenSpec CLI is available (v1.6.0 → v1.7.0).
+  Running from: /usr/local/lib/node_modules/@fission-ai/openspec
+? Upgrade to v1.7.0 now? (Y/n)
 ```
 
 Если ответить «да», команда выполнит `npm install -g @fission-ai/openspec@latest`, а затем повторит обновление уже новым CLI, чтобы новые процессы установились за один запуск. Она подтверждает обновление, запрашивая версию установленного двоичного файла, а не полагаясь на код завершения npm. Если в `PATH` раньше находится другая установка, команда сообщит об этом, а не заявит об успехе. Если ответить «нет», она напечатает команду обновления и продолжит с установленной версией CLI. Ctrl-C останавливает команду.
@@ -355,7 +380,7 @@ openspec store setup team-context --path ~/openspec/team-context \
   --remote git@github.com:acme/team-context.git
 ```
 
-Удалённый URL записывается в `.openspec-store/store.yaml` первым коммитом, поэтому каждый клон сразу знает источник. Для существующего хранилища измените `store.yaml` вручную и создайте коммит. Команда `store doctor` показывает записанный URL и наблюдаемый Git origin рабочей копии; инструкции по совместному использованию в `setup`/`register` указывают этот адрес, а register также записывает origin рабочей копии в локальный реестр компьютера.
+Удалённый URL записывается в `.openspec-store/store.yaml` первым коммитом, поэтому каждый клон сразу знает источник. Для существующего хранилища измените `store.yaml` вручную и создайте коммит. Команда `store doctor` показывает записанный URL и наблюдаемый Git origin рабочей копии; инструкции по совместному использованию в setup/register указывают этот адрес, а register также записывает origin рабочей копии в локальный реестр компьютера.
 
 В объявлении ссылки также можно указать источник клонирования, чтобы коллега без хранилища получил полную команду исправления, готовую к копированию (`git clone <remote> <path> && openspec store register <path> --id <id>`):
 
@@ -371,7 +396,7 @@ references:
 В репозитории, где планирование полностью вынесено наружу (нет локальных `openspec/specs/` или `openspec/changes/`), можно один раз объявить хранилище вместо передачи `--store` в каждой команде:
 
 ```yaml
-# openspec/config.yaml (единственный файл в openspec/)
+# openspec/config.yaml (the only file under openspec/)
 store: team-context
 ```
 
@@ -453,21 +478,21 @@ openspec list [options]
 **Примеры:**
 
 ```bash
-# Вывести список всех активных изменений
+# List all active changes
 openspec list
 
-# Вывести список всех спецификаций
+# List all specs
 openspec list --specs
 
-# Вывод JSON для сценариев
+# JSON output for scripts
 openspec list --json
 ```
 
 **Вывод (текст):**
 
 ```
-Изменения:
-  add-dark-mode     Нет задач     только что
+Changes:
+  add-dark-mode     No tasks      just now
 ```
 
 ---
@@ -523,16 +548,16 @@ openspec show [item-name] [options]
 **Примеры:**
 
 ```bash
-# Интерактивный выбор
+# Interactive selection
 openspec show
 
-# Показать конкретное изменение
+# Show a specific change
 openspec show add-dark-mode
 
-# Показать конкретную спецификацию
+# Show a specific spec
 openspec show auth --type spec
 
-# Вывод JSON для разбора
+# JSON output for parsing
 openspec show add-dark-mode --json
 ```
 
@@ -575,34 +600,34 @@ openspec validate [item-name] [options]
 **Примеры:**
 
 ```bash
-# Интерактивная проверка
+# Interactive validation
 openspec validate
 
-# Проверить конкретное изменение
+# Validate a specific change
 openspec validate add-dark-mode
 
-# Проверить все изменения
+# Validate all changes
 openspec validate --changes
 
-# Проверить всё и вывести JSON (для CI и сценариев)
+# Validate everything with JSON output (for CI/scripts)
 openspec validate --all --json
 
-# Строгая проверка с увеличенным числом параллельных задач
+# Strict validation with increased parallelism
 openspec validate --all --strict --concurrency 12
 
-# Завершиться с ошибкой, если в архивных изменениях остались невыполненные задачи
+# Fail if any archived change still has unchecked tasks
 openspec validate --archived
 ```
 
 **Вывод (текст):**
 
 ```
-Проверяю add-dark-mode...
-  ✓ proposal.md корректен
-  ✓ specs/ui/spec.md корректен
-  ⚠ design.md: отсутствует раздел «Технический подход»
+Validating add-dark-mode...
+  ✓ proposal.md valid
+  ✓ specs/ui/spec.md valid
+  ⚠ design.md: missing "Technical Approach" section
 
-Обнаружено 1 предупреждение
+1 warning found
 ```
 
 **Вывод (JSON):**
@@ -656,16 +681,16 @@ openspec archive [change-name] [options]
 **Примеры:**
 
 ```bash
-# Интерактивная архивация (запрашивает изменение, затем подтверждение)
+# Interactive archive (asks which change, then confirms)
 openspec archive
 
-# Архивировать указанное изменение
+# Archive specific change
 openspec archive add-dark-mode
 
-# Архивировать без запросов (агенты, CI, сценарии)
+# Archive without prompts (agents, CI, scripts)
 openspec archive add-dark-mode --yes
 
-# Архивировать изменение инструментов, не затрагивающее спецификации
+# Archive a tooling change that doesn't affect specs
 openspec archive update-ci-config --skip-specs
 ```
 
@@ -683,6 +708,18 @@ retire_capabilities: true
 openspec archive retire-legacy --yes
 ```
 
+**Храните собственные метаданные:** ключ верхнего уровня, который начинается со строчной `x-`, принадлежит вам. OpenSpec никогда не читает, не записывает и не сообщает о нём, поэтому `openspec validate
+--strict` остаётся успешным для изменения, в котором есть данные конкретного инструмента:
+
+```yaml
+# openspec/changes/add-dark-mode/.openspec.yaml
+schema: spec-driven
+x-tracker: SB-5497
+x-jiraKey: ABC-1
+```
+
+Имя после префикса вы выбираете сами, в любом регистре и написании, при условии что оно не пустое и не содержит пробелов. Есть два ограничения: сам префикс должен быть в нижнем регистре, поэтому `X-Tracker` по-прежнему будет отмечен, а расширения допускаются только на верхнем уровне: ключ внутри `initiative:` отклоняется независимо от имени. Любой другой неизвестный ключ верхнего уровня по-прежнему отмечается как не имеющий эффекта.
+
 Если изменение удаляет последнее требование возможности, OpenSpec удаляет её
 текущий `spec.md`. Дельты остальных возможностей в том же изменении по-прежнему
 обновляют их основные спецификации. Без маркера архивация останавливается до
@@ -699,7 +736,7 @@ openspec archive retire-legacy --yes
 7. Если резервная копия успешно проверена, но не удалось удалить промежуточный исходный каталог, полный архив и зафиксированное состояние спецификаций сохраняются для восстановления.
 
 **Если терминал недоступен:** ИИ-агент, задание CI или любой процесс с закрытым
-stdin не сможет ответить на запрос подтверждения, поэтому archive остановится,
+stdin не сможет ответить на шаг 2, поэтому archive остановится,
 не изменив ничего, завершится с кодом 1 и укажет команду для повторного запуска —
 `openspec archive <name> --yes` со всеми остальными переданными флагами.
 Заранее укажите `--yes` и имя изменения, чтобы пропустить повторный запуск.
@@ -760,30 +797,30 @@ openspec status [options]
 **Примеры:**
 
 ```bash
-# Интерактивная проверка состояния
+# Interactive status check
 openspec status
 
-# Состояние конкретного изменения
+# Status for specific change
 openspec status --change add-dark-mode
 
-# JSON для агента
+# JSON for agent use
 openspec status --change add-dark-mode --json
 ```
 
 **Вывод (текст):**
 
 ```
-Изменение: add-dark-mode
-Схема: spec-driven
-Выполнено артефактов: 2/4
+Change: add-dark-mode
+Schema: spec-driven
+Progress: 2/4 artifacts complete
 
 [x] proposal
 [x] specs
 [ ] design
-[-] tasks (заблокировано: design)
+[-] tasks (blocked by: design)
 ```
 
-У изменения с `skip_specs: true` этап спецификаций отображается как `[~] specs (пропущено: в изменении задан skip_specs)` и не учитывается в прогрессе.
+У изменения с `skip_specs: true` этап спецификаций отображается как `[~] specs (skipped: change declares skip_specs)` и не учитывается в прогрессе.
 
 **Вывод (JSON):**
 
@@ -810,7 +847,7 @@ openspec status --change add-dark-mode --json
 
 Артефакты перечислены в порядке зависимостей: зависимость никогда не следует
 после требующего её артефакта. Артефакты, одновременно становящиеся готовыми
-(в `spec-driven` для `specs` и `design` требуется только `proposal`), сохраняют
+(в spec-driven для `specs` и `design` требуется только `proposal`), сохраняют
 порядок объявления в схеме, а не сортируются по алфавиту. Поэтому первым нужно
 создать артефакт со статусом `ready`.
 
@@ -846,19 +883,19 @@ openspec instructions [artifact] [options]
 **Примеры:**
 
 ```bash
-# Получить инструкции для следующего артефакта
+# Get instructions for next artifact
 openspec instructions --change add-dark-mode
 
-# Получить инструкции для указанного артефакта
+# Get specific artifact instructions
 openspec instructions design --change add-dark-mode
 
-# Получить инструкции для apply/реализации
+# Get apply/implementation instructions
 openspec instructions apply --change add-dark-mode
 
-# Получить текущие входные данные архивации, не архивируя изменение
+# Get current archive operation inputs without archiving
 openspec instructions archive --change add-dark-mode --json
 
-# JSON для агента
+# JSON for agent consumption
 openspec instructions design --change add-dark-mode --json
 ```
 
@@ -878,8 +915,7 @@ openspec instructions design --change add-dark-mode --json
 Оба поля отделены от явного выбора пользователя, состояния CLI, встроенных
 инструкций и правил артефактов. О конфликте контекста сообщается; конфликтующие
 или неприменимые рекомендации не выполняются, а причина объясняется. Это контракты
-поведения сгенерированных агентов, а не проверяемые ограничения CLI. `instructions
-archive` возвращает только выбранное изменение, необязательные входные поля и
+поведения сгенерированных агентов, а не проверяемые ограничения CLI. `instructions archive` возвращает только выбранное изменение, необязательные входные поля и
 метаданные корня; статический процесс архивации не включается.
 
 Если артефакт пропущен из-за `skip_specs: true`, вывод содержит только предупреждение (в JSON добавляются поля `skipped`/`warning`); создавать артефакт нельзя.
@@ -904,22 +940,22 @@ openspec templates [options]
 **Примеры:**
 
 ```bash
-# Показать пути шаблонов схемы по умолчанию
+# Show template paths for default schema
 openspec templates
 
-# Показать шаблоны пользовательской схемы
+# Show templates for custom schema
 openspec templates --schema my-workflow
 
-# JSON для программного использования
+# JSON for programmatic use
 openspec templates --json
 ```
 
 **Вывод (текст):**
 
 ```
-Схема: spec-driven
+Schema: spec-driven
 
-Шаблоны:
+Templates:
   proposal  → ~/.openspec/schemas/spec-driven/templates/proposal.md
   specs     → ~/.openspec/schemas/spec-driven/templates/specs.md
   design    → ~/.openspec/schemas/spec-driven/templates/design.md
@@ -952,15 +988,15 @@ openspec schemas
 **Вывод:**
 
 ```
-Доступные схемы:
+Available schemas:
 
   spec-driven (package)
-    Стандартный рабочий процесс разработки на основе спецификаций
-    Последовательность: proposal → specs → design → tasks
+    The default spec-driven development workflow
+    Flow: proposal → specs → design → tasks
 
   my-custom (project)
-    Пользовательский рабочий процесс этого проекта
-    Последовательность: research → proposal → tasks
+    Custom workflow for this project
+    Flow: research → proposal → tasks
 ```
 
 ---
@@ -997,12 +1033,12 @@ openspec schema init <name> [options]
 **Примеры:**
 
 ```bash
-# Интерактивное создание схемы
+# Interactive schema creation
 openspec schema init research-first
 
-# Неинтерактивный режим с указанными артефактами
+# Non-interactive with specific artifacts
 openspec schema init rapid \
-  --description "Рабочий процесс быстрой итерации" \
+  --description "Rapid iteration workflow" \
   --artifacts "proposal,tasks" \
   --default
 ```
@@ -1011,9 +1047,9 @@ openspec schema init rapid \
 
 ```
 openspec/schemas/<name>/
-├── schema.yaml           # Определение схемы
+├── schema.yaml           # Schema definition
 └── templates/
-    ├── proposal.md       # Шаблон артефакта
+    ├── proposal.md       # Template for each artifact
     ├── specs.md
     ├── design.md
     └── tasks.md
@@ -1046,7 +1082,7 @@ openspec schema fork <source> [name] [options]
 **Пример:**
 
 ```bash
-# Создать копию встроенной схемы spec-driven
+# Fork the built-in spec-driven schema
 openspec schema fork spec-driven my-workflow
 ```
 
@@ -1076,10 +1112,10 @@ openspec schema validate [name] [options]
 **Пример:**
 
 ```bash
-# Проверить конкретную схему
+# Validate a specific schema
 openspec schema validate my-workflow
 
-# Проверить все схемы
+# Validate all schemas
 openspec schema validate
 ```
 
@@ -1109,15 +1145,15 @@ openspec schema which [name] [options]
 **Пример:**
 
 ```bash
-# Проверить источник схемы
+# Check where a schema comes from
 openspec schema which spec-driven
 ```
 
 **Вывод:**
 
 ```
-spec-driven загружена из: package
-  Источник: /usr/local/lib/node_modules/@fission-ai/openspec/schemas/spec-driven
+spec-driven resolves from: package
+  Source: /usr/local/lib/node_modules/@fission-ai/openspec/schemas/spec-driven
 ```
 
 **Приоритет источников схемы:**
@@ -1154,38 +1190,38 @@ openspec config <subcommand> [options]
 **Примеры:**
 
 ```bash
-# Показать путь к файлу конфигурации
+# Show config file path
 openspec config path
 
-# Вывести список всех настроек
+# List all settings
 openspec config list
 
-# Получить указанное значение
+# Get a specific value
 openspec config get telemetry.enabled
 
-# Задать значение (отключить анонимную телеметрию использования)
+# Set a value (disable anonymous usage telemetry)
 openspec config set telemetry.enabled false
 
-# Явно указать строковое значение
+# Set a string value explicitly
 openspec config set user.name "My Name" --string
 
-# Удалить пользовательскую настройку
+# Remove a custom setting
 openspec config unset user.name
 
-# Задать хранилище по умолчанию на уровне компьютера (резервный корень,
-# если не определены --store, локальный корень или указатель store: в проекте)
+# Set a machine-level default store (fallback root when no --store,
+# local root, or project store: pointer resolves)
 openspec config set defaultStore team-plans
 
-# Сбросить всю конфигурацию
+# Reset all configuration
 openspec config reset --all --yes
 
-# Изменить конфигурацию в редакторе
+# Edit config in your editor
 openspec config edit
 
-# Настроить профиль с помощью мастера выбора действий
+# Configure profile with action-based wizard
 openspec config profile
 
-# Быстрая настройка: выбрать рабочие процессы core (способ установки сохраняется)
+# Fast preset: switch workflows to core (keeps delivery mode)
 openspec config profile core
 ```
 
@@ -1215,15 +1251,15 @@ openspec config profile core
 **Интерактивные примеры:**
 
 ```bash
-# Обновление только способа установки
+# Delivery-only update
 openspec config profile
-# выберите: изменить только способ установки
-# выберите способ: только навыки
+# choose: Change delivery only
+# choose delivery: Skills only
 
-# Обновление только рабочих процессов
+# Workflows-only update
 openspec config profile
-# выберите: изменить только рабочие процессы
-# отметьте нужные процессы и подтвердите выбор
+# choose: Change workflows only
+# toggle workflows in the checklist, then confirm
 ```
 
 ---
@@ -1282,16 +1318,16 @@ openspec completion <subcommand> [shell]
 **Примеры:**
 
 ```bash
-# Установить автодополнение (оболочка определяется автоматически)
+# Install completions (auto-detects shell)
 openspec completion install
 
-# Установить для указанной оболочки
+# Install for specific shell
 openspec completion install zsh
 
-# Создать сценарий для ручной установки (bash)
+# Generate script for manual installation (bash)
 openspec completion generate bash > ~/.bash_completion.d/openspec
 
-# Удалить автодополнение
+# Uninstall
 openspec completion uninstall
 ```
 

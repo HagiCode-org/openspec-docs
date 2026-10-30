@@ -9,10 +9,10 @@ title: "Основные понятия"
 В основе OpenSpec лежат четыре принципа:
 
 ```
-гибкость, а не жёсткость       — нет обязательных этапов, работайте над тем, что нужно
-итерации, а не каскадная модель — узнавайте новое в ходе работы и уточняйте решения
-простота, а не сложность       — лёгкая настройка, минимум формальностей
-приоритет существующим системам — работает с готовыми кодовыми базами, а не только с новыми
+fluid not rigid         — no phase gates, work on what makes sense
+iterative not waterfall — learn as you build, refine as you go
+easy not complex        — lightweight setup, minimal ceremony
+brownfield-first        — works with existing codebases, not just greenfield
 ```
 
 ### Почему эти принципы важны
@@ -36,9 +36,9 @@ OpenSpec разделяет работу на две основные облас
 │   ┌─────────────────────┐      ┌───────────────────────────────┐   │
 │   │       specs/        │      │         changes/              │   │
 │   │                     │      │                               │   │
-│   │ Источник истины     │◄─────│ Предлагаемые изменения        │   │
-│   │ Текущее поведение   │ слияние│ Одно изменение = одна папка  │   │
-│   │ вашей системы       │      │ Артефакты и дельты            │   │
+│   │  Source of truth    │◄─────│  Proposed modifications       │   │
+│   │  How your system    │ merge│  Each change = one folder     │   │
+│   │  currently works    │      │  Contains artifacts + deltas  │   │
 │   │                     │      │                               │   │
 │   └─────────────────────┘      └───────────────────────────────┘   │
 │                                                                    │
@@ -60,13 +60,13 @@ OpenSpec разделяет работу на две основные облас
 ```
 openspec/specs/
 ├── auth/
-│   └── spec.md           # Поведение аутентификации
+│   └── spec.md           # Authentication behavior
 ├── payments/
-│   └── spec.md           # Обработка платежей
+│   └── spec.md           # Payment processing
 ├── notifications/
-│   └── spec.md           # Система уведомлений
+│   └── spec.md           # Notification system
 └── ui/
-    └── spec.md           # Поведение интерфейса и темы
+    └── spec.md           # UI behavior and themes
 ```
 
 Группируйте спецификации по областям — логическим частям системы. Распространённые варианты:
@@ -80,36 +80,36 @@ openspec/specs/
 Спецификация содержит требования, а каждое требование — сценарии:
 
 ```markdown
-# Спецификация аутентификации
+# Auth Specification
 
 ## Purpose
-Аутентификация и управление сеансами приложения.
+Authentication and session management for the application.
 
 ## Requirements
 
-### Требование: аутентификация пользователя
-После успешного входа система SHALL выдавать токен JWT.
+### Requirement: User Authentication
+The system SHALL issue a JWT token upon successful login.
 
-#### Сценарий: действительные учётные данные
-- GIVEN: пользователь вводит действительные учётные данные
-- WHEN: пользователь отправляет форму входа
-- THEN: возвращается токен JWT
-- AND: пользователь перенаправляется на панель управления
+#### Scenario: Valid credentials
+- GIVEN a user with valid credentials
+- WHEN the user submits login form
+- THEN a JWT token is returned
+- AND the user is redirected to dashboard
 
-#### Сценарий: недействительные учётные данные
-- GIVEN: введены недействительные учётные данные
-- WHEN: пользователь отправляет форму входа
-- THEN: отображается сообщение об ошибке
-- AND: токен не выдаётся
+#### Scenario: Invalid credentials
+- GIVEN invalid credentials
+- WHEN the user submits login form
+- THEN an error message is displayed
+- AND no token is issued
 
-### Требование: завершение сеанса
-Система MUST завершать сеансы после 30 минут бездействия.
+### Requirement: Session Expiration
+The system MUST expire sessions after 30 minutes of inactivity.
 
-#### Сценарий: завершение неактивного сеанса
-- GIVEN: сеанс пользователя аутентифицирован
-- WHEN: проходит 30 минут бездействия
-- THEN: сеанс аннулируется
-- AND: пользователь должен пройти аутентификацию повторно
+#### Scenario: Idle timeout
+- GIVEN an authenticated session
+- WHEN 30 minutes pass without activity
+- THEN the session is invalidated
+- AND the user must re-authenticate
 ```
 
 **Основные элементы:**
@@ -189,13 +189,13 @@ OpenSpec помогает избежать бюрократии. Использ�
 
 ```
 openspec/changes/add-dark-mode/
-├── proposal.md           # Зачем и что
-├── design.md             # Как (технический подход)
-├── tasks.md              # Контрольный список реализации
-├── .openspec.yaml        # Метаданные изменения (необязательно): schema, created, skip_specs, retire_capabilities
-└── specs/                # Дельта-спецификации
+├── proposal.md           # Why and what
+├── design.md             # How (technical approach)
+├── tasks.md              # Implementation checklist
+├── .openspec.yaml        # Change metadata (optional): schema, created, skip_specs, retire_capabilities, plus your own x-* keys
+└── specs/                # Delta specs
     └── ui/
-        └── spec.md       # Что меняется в ui/spec.md
+        └── spec.md       # What's changing in ui/spec.md
 ```
 
 Каждое изменение самодостаточно. Оно включает:
@@ -224,8 +224,8 @@ openspec/changes/add-dark-mode/
 ```
 proposal ──────► specs ──────► design ──────► tasks ──────► implement
     │               │             │              │
-   зачем         что            как          шаги
- + область     меняется       подход       работы
+   why            what           how          steps
+ + scope        changes       approach      to take
 ```
 
 Артефакты создаются один на основе другого. Каждый предоставляет контекст для следующего.
@@ -237,26 +237,26 @@ proposal ──────► specs ──────► design ────�
 В предложении в общих чертах описываются **цель**, **область работ** и **подход**.
 
 ```markdown
-# Предложение: добавить тёмную тему
+# Proposal: Add Dark Mode
 
 ## Intent
-Пользователи попросили добавить тёмную тему, чтобы уменьшить нагрузку
-на глаза при использовании приложения ночью и учитывать системные настройки.
+Users have requested a dark mode option to reduce eye strain
+during nighttime usage and match system preferences.
 
-## Область работ
-Входит в область:
-- переключатель темы в настройках;
-- определение системных предпочтений;
-- сохранение предпочтения в localStorage.
+## Scope
+In scope:
+- Theme toggle in settings
+- System preference detection
+- Persist preference in localStorage
 
-Не входит в область:
-- пользовательские цветовые темы (будущая работа);
-- переопределение темы для отдельных страниц.
+Out of scope:
+- Custom color themes (future work)
+- Per-page theme overrides
 
-## Подход
-Использовать пользовательские свойства CSS для тем и контекст React
-для управления состоянием. При первой загрузке определять системные
-предпочтения и разрешать ручное переопределение.
+## Approach
+Use CSS custom properties for theming with a React context
+for state management. Detect system preference on first load,
+allow manual override.
 ```
 
 **Когда следует обновить предложение:**
@@ -273,42 +273,41 @@ proposal ──────► specs ──────► design ────�
 Проектное решение описывает **технический подход** и **архитектурные решения**.
 
 ````markdown
-# Проектное решение: добавить тёмную тему
+# Design: Add Dark Mode
 
-## Технический подход
-Состояние темы управляется через React Context, чтобы избежать передачи
-свойств через промежуточные компоненты. Пользовательские свойства CSS
-позволяют переключать тему во время выполнения без переключения классов.
+## Technical Approach
+Theme state managed via React Context to avoid prop drilling.
+CSS custom properties enable runtime switching without class toggling.
 
-## Архитектурные решения
+## Architecture Decisions
 
-### Решение: Context вместо Redux
-Для состояния темы используется React Context, поскольку:
-- состояние простое и двоичное (светлая/тёмная тема);
-- сложных переходов между состояниями нет;
-- не нужно добавлять зависимость Redux.
+### Decision: Context over Redux
+Using React Context for theme state because:
+- Simple binary state (light/dark)
+- No complex state transitions
+- Avoids adding Redux dependency
 
-### Решение: пользовательские свойства CSS
-Используются переменные CSS вместо CSS-in-JS, потому что:
-- они работают с существующими таблицами стилей;
-- не добавляют накладных расходов во время выполнения;
-- это встроенный в браузер механизм.
+### Decision: CSS Custom Properties
+Using CSS variables instead of CSS-in-JS because:
+- Works with existing stylesheet
+- No runtime overhead
+- Browser-native solution
 
-## Поток данных
+## Data Flow
 ```
-ThemeProvider (контекст)
+ThemeProvider (context)
        │
        ▼
 ThemeToggle ◄──► localStorage
        │
        ▼
-Переменные CSS (применяются к :root)
+CSS Variables (applied to :root)
 ```
 
-## Изменения файлов
-- `src/contexts/ThemeContext.tsx` (новый файл)
-- `src/components/ThemeToggle.tsx` (новый файл)
-- `src/styles/globals.css` (изменён)
+## File Changes
+- `src/contexts/ThemeContext.tsx` (new)
+- `src/components/ThemeToggle.tsx` (new)
+- `src/styles/globals.css` (modified)
 ````
 
 **Когда следует обновить проектное решение:**
@@ -321,23 +320,23 @@ ThemeToggle ◄──► localStorage
 Задачи — это **контрольный список реализации** с конкретными шагами и флажками.
 
 ```markdown
-# Задачи
+# Tasks
 
-## 1. Инфраструктура тем
-- [ ] 1.1 Создать ThemeContext с состояниями светлой и тёмной темы
-- [ ] 1.2 Добавить пользовательские свойства CSS для цветов
-- [ ] 1.3 Реализовать сохранение в localStorage
-- [ ] 1.4 Добавить определение системных предпочтений
+## 1. Theme Infrastructure
+- [ ] 1.1 Create ThemeContext with light/dark state
+- [ ] 1.2 Add CSS custom properties for colors
+- [ ] 1.3 Implement localStorage persistence
+- [ ] 1.4 Add system preference detection
 
-## 2. Компоненты интерфейса
-- [ ] 2.1 Создать компонент ThemeToggle
-- [ ] 2.2 Добавить переключатель на страницу настроек
-- [ ] 2.3 Обновить Header, добавив быстрый переключатель
+## 2. UI Components
+- [ ] 2.1 Create ThemeToggle component
+- [ ] 2.2 Add toggle to settings page
+- [ ] 2.3 Update Header to include quick toggle
 
-## 3. Стилизация
-- [ ] 3.1 Определить цветовую палитру тёмной темы
-- [ ] 3.2 Обновить компоненты для использования переменных CSS
-- [ ] 3.3 Проверить контрастность для обеспечения доступности
+## 3. Styling
+- [ ] 3.1 Define dark theme color palette
+- [ ] 3.2 Update components to use CSS variables
+- [ ] 3.3 Test contrast ratios for accessibility
 ```
 
 **Рекомендации по задачам:**
@@ -355,40 +354,40 @@ ThemeToggle ◄──► localStorage
 ### Формат
 
 ```markdown
-# Дельта для аутентификации
+# Delta for Auth
 
 ## ADDED Requirements
 
-### Требование: двухфакторная аутентификация
-Система MUST поддерживать двухфакторную аутентификацию на основе TOTP.
+### Requirement: Two-Factor Authentication
+The system MUST support TOTP-based two-factor authentication.
 
-#### Сценарий: подключение двухфакторной аутентификации
-- GIVEN: пользователь ещё не включил двухфакторную аутентификацию
-- WHEN: пользователь включает её в настройках
-- THEN: отображается QR-код для настройки приложения-аутентификатора
-- AND: перед активацией пользователь должен подтвердить действие кодом
+#### Scenario: 2FA enrollment
+- GIVEN a user without 2FA enabled
+- WHEN the user enables 2FA in settings
+- THEN a QR code is displayed for authenticator app setup
+- AND the user must verify with a code before activation
 
-#### Сценарий: вход с двухфакторной аутентификацией
-- GIVEN: у пользователя включена двухфакторная аутентификация
-- WHEN: пользователь отправляет действительные учётные данные
-- THEN: отображается запрос одноразового пароля
-- AND: вход завершается только после ввода правильного одноразового пароля
+#### Scenario: 2FA login
+- GIVEN a user with 2FA enabled
+- WHEN the user submits valid credentials
+- THEN an OTP challenge is presented
+- AND login completes only after valid OTP
 
 ## MODIFIED Requirements
 
-### Требование: завершение сеанса
-Система MUST завершать сеансы после 15 минут бездействия.
-(Ранее: 30 минут.)
+### Requirement: Session Expiration
+The system MUST expire sessions after 15 minutes of inactivity.
+(Previously: 30 minutes)
 
-#### Сценарий: завершение неактивного сеанса
-- GIVEN: сеанс пользователя аутентифицирован
-- WHEN: проходит 15 минут бездействия
-- THEN: сеанс аннулируется
+#### Scenario: Idle timeout
+- GIVEN an authenticated session
+- WHEN 15 minutes pass without activity
+- THEN the session is invalidated
 
 ## REMOVED Requirements
 
-### Требование: запоминание входа
-(Устарело и заменено двухфакторной аутентификацией. Пользователи должны проходить аутентификацию при каждом сеансе.)
+### Requirement: Remember Me
+(Deprecated in favor of 2FA. Users should re-authenticate each session.)
 ```
 
 ### Разделы дельты
@@ -422,39 +421,39 @@ name: spec-driven
 artifacts:
   - id: proposal
     generates: proposal.md
-    requires: []              # Нет зависимостей, создаётся первым
+    requires: []              # No dependencies, can create first
 
   - id: specs
     generates: specs/**/*.md
-    requires: [proposal]      # Перед созданием требуется proposal
+    requires: [proposal]      # Needs proposal before creating
 
   - id: design
     generates: design.md
-    requires: [proposal]      # Можно создать параллельно со specs
+    requires: [proposal]      # Can create in parallel with specs
 
   - id: tasks
     generates: tasks.md
-    requires: [specs, design] # Сначала нужны и specs, и design
+    requires: [specs, design] # Needs both specs and design first
 ```
 
 **Артефакты образуют граф зависимостей:**
 
 ```
                     proposal
-                   (корневой узел)
+                   (root node)
                        │
          ┌─────────────┴─────────────┐
          │                           │
          ▼                           ▼
       specs                       design
-   (требуется:                  (требуется:
+   (requires:                  (requires:
     proposal)                   proposal)
          │                           │
          └─────────────┬─────────────┘
                        │
                        ▼
                     tasks
-                (требуется:
+                (requires:
                 specs, design)
 ```
 
@@ -477,10 +476,10 @@ proposal → specs → design → tasks → implement
 Создавайте пользовательские схемы для рабочего процесса своей команды:
 
 ```bash
-# Создать с нуля
+# Create from scratch
 openspec schema init research-first
 
-# Или скопировать существующую
+# Or fork an existing one
 openspec schema fork spec-driven research-first
 ```
 
@@ -492,15 +491,15 @@ name: research-first
 artifacts:
   - id: research
     generates: research.md
-    requires: []           # Сначала исследование
+    requires: []           # Do research first
 
   - id: proposal
     generates: proposal.md
-    requires: [research]   # Предложение учитывает результаты исследования
+    requires: [research]   # Proposal informed by research
 
   - id: tasks
     generates: tasks.md
-    requires: [proposal]   # Пропустить specs/design и сразу перейти к задачам
+    requires: [proposal]   # Skip specs/design, go straight to tasks
 ```
 
 Подробные сведения о создании и использовании пользовательских схем см. в разделе [Настройка](/ru-RU/customization/).
@@ -512,7 +511,7 @@ artifacts:
 ### Что происходит при архивации
 
 ```
-До архивации:
+Before archive:
 
 openspec/
 ├── specs/
@@ -521,22 +520,22 @@ openspec/
 └── changes/                         │
     └── add-2fa/                     │
         ├── proposal.md              │
-        ├── design.md                │ объединение
+        ├── design.md                │ merge
         ├── tasks.md                 │
         └── specs/                   │
             └── auth/                │
                 └── spec.md ─────────┘
 
 
-После архивации:
+After archive:
 
 openspec/
 ├── specs/
 │   └── auth/
-│       └── spec.md        # Теперь включает требования для двухфакторной аутентификации
+│       └── spec.md        # Now includes 2FA requirements
 └── changes/
     └── archive/
-        └── 2025-01-24-add-2fa/    # Сохранено в истории
+        └── 2025-01-24-add-2fa/    # Preserved for history
             ├── proposal.md
             ├── design.md
             ├── tasks.md
@@ -565,38 +564,38 @@ openspec/
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────┐
-│                         РАБОЧИЙ ПРОЦЕСС OPENSPEC                              │
+│                              OPENSPEC FLOW                                   │
 │                                                                              │
 │   ┌────────────────┐                                                         │
-│   │  1. НАЧНИТЕ    │  /opsx:propose (core) или /opsx:new (expanded)          │
-│   │     ИЗМЕНЕНИЕ  │                                                         │
+│   │  1. START      │  /opsx:propose (core) or /opsx:new (expanded)           │
+│   │     CHANGE     │                                                         │
 │   └───────┬────────┘                                                         │
 │           │                                                                  │
 │           ▼                                                                  │
 │   ┌────────────────┐                                                         │
-│   │  2. СОЗДАЙТЕ   │  /opsx:ff или /opsx:continue (расширенный процесс)      │
-│   │     АРТЕФАКТЫ  │  Создаёт proposal → specs → design → tasks              │
-│   │                │  (с учётом зависимостей схемы)                          │
+│   │  2. CREATE     │  /opsx:ff or /opsx:continue (expanded workflow)         │
+│   │     ARTIFACTS  │  Creates proposal → specs → design → tasks              │
+│   │                │  (based on schema dependencies)                         │
 │   └───────┬────────┘                                                         │
 │           │                                                                  │
 │           ▼                                                                  │
 │   ┌────────────────┐                                                         │
-│   │  3. ВЫПОЛНИТЕ  │  /opsx:apply                                            │
-│   │     ЗАДАЧИ     │  Выполняйте задачи и отмечайте их                       │
-│   │                │◄──── Уточняйте артефакты по мере работы                 │
+│   │  3. IMPLEMENT  │  /opsx:apply                                            │
+│   │     TASKS      │  Work through tasks, checking them off                  │
+│   │                │◄──── Update artifacts as you learn                      │
 │   └───────┬────────┘                                                         │
 │           │                                                                  │
 │           ▼                                                                  │
 │   ┌────────────────┐                                                         │
-│   │  4. ПРОВЕРЬТЕ  │  /opsx:verify (необязательно)                           │
-│   │     РЕЗУЛЬТАТ  │  Проверьте соответствие реализации спецификациям        │
+│   │  4. VERIFY     │  /opsx:verify (optional)                                │
+│   │     WORK       │  Check implementation matches specs                     │
 │   └───────┬────────┘                                                         │
 │           │                                                                  │
 │           ▼                                                                  │
 │   ┌────────────────┐     ┌──────────────────────────────────────────────┐    │
-│   │  5. АРХИВИРУЙТЕ│────►│  Дельты объединяются с основными спецификациями│  │
-│   │     ИЗМЕНЕНИЕ  │     │  Папка изменения перемещается в archive/      │    │
-│   └────────────────┘     │  Спецификации обновляются                    │    │
+│   │  5. ARCHIVE    │────►│  Delta specs merge into main specs           │    │
+│   │     CHANGE     │     │  Change folder moves to archive/             │    │
+│   └────────────────┘     │  Specs are now the updated source of truth   │    │
 │                          └──────────────────────────────────────────────┘    │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘

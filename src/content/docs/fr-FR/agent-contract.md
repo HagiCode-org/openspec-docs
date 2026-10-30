@@ -6,10 +6,10 @@ Surfaces lisibles par machine de la CLI `openspec`, vérifiées à partir de `sr
 
 ## 1. Conventions générales
 
-- **Un document JSON par exécution.** En mode `--json`, stdout contient exactement un document JSON (indentation de deux espaces). Le texte destiné aux personnes, les spinners et la bannière du store sont envoyés à stderr.
+- **Un document JSON par exécution.** En mode `--json`, stdout contient exactement un document JSON (indentation à 2 espaces). Le texte destiné aux personnes, les spinners et la bannière du store sont envoyés à stderr.
 - **Bannière du store.** En mode humain, une racine sélectionnée depuis un store affiche `Using OpenSpec root: <id> (<path>)` sur stderr. Elle n'est jamais affichée en mode JSON.
 - **La casse des clés dépend de la surface** (voir « Incohérences connues ») : les charges utiles store/doctor/context utilisent `snake_case` ; celles des workflows (`status`, `instructions`, `new change`, `validate`, `list`) utilisent `camelCase`, sauf l'objet `root` intégré, qui utilise toujours `store_id`.
-- **Les clés facultatives sont omises, pas définies à `null**, dans la plupart des charges utiles (par ex. `root.store_id`, `member.path`). Les exceptions qui utilisent explicitement `null` sont indiquées pour chaque forme (`git.*` de store doctor et charges utiles d'échec).
+- **Les clés facultatives sont omises, et non définies à null**, dans la plupart des charges utiles (par ex. `root.store_id`, `member.path`). Les exceptions qui utilisent explicitement `null` sont indiquées pour chaque forme (`git.*` de store doctor et charges utiles d'échec).
 
 ## 2. Enveloppe de diagnostic
 
@@ -35,7 +35,7 @@ Toutes les commandes qui résolvent une racine (`list`, `show`, `validate`, `sta
 2. Sinon, ancêtre le plus proche contenant `openspec/` : structure de planification → `source: "nearest"` (un pointeur `store:` est ignoré, avec avertissement sur stderr) ; répertoire contenant uniquement une configuration et un pointeur `store:` valide → store correspondant, `source: "declared"`.
 3. Aucune racine proche, mais `defaultStore` global défini (`openspec config set defaultStore <id>`) → ce store, `source: "global_default"`. Un identifiant obsolète échoue avec l'erreur du store sous-jacent et un `fix` indiquant `openspec config unset defaultStore`.
 4. Aucune racine, aucune valeur par défaut, mais des stores enregistrés → erreur `no_root_with_registered_stores`.
-5. Aucune racine, aucune valeur par défaut, aucun store : les commandes peuvent considérer le répertoire de travail courant comme `source: "implicit"`. `doctor`, `context`, `list` et la validation groupée échouent plutôt avec `no_openspec_root`. `list` conserve le repli implicite pour les anciens projets contenant `openspec/project.md`.
+5. Aucune racine, aucune valeur par défaut, aucun store : les commandes peuvent considérer le répertoire de travail courant comme `source: "implicit"`. `doctor`, `context`, `list` et `validate` en mode groupé échouent plutôt avec `no_openspec_root`. `list` conserve le repli implicite pour les anciens projets contenant `openspec/project.md`.
 
 Les charges utiles JSON réussies incluent généralement la racine. En revanche, `schemas --json` conserve délibérément le tableau brut documenté à la section 4.13, par souci de compatibilité :
 
@@ -55,7 +55,7 @@ La clé `warnings` (omise si vide) signale les répertoires sous `changes/` qui 
 
 ### 4.2 `show <item> --json`
 
-Changement : `{ "id", "title", "deltaCount", "deltas": [...], "root" }`. Spécification : `{ "id", "title", "overview", "requirementCount", "requirements": [...], "metadata": { "version", "format", "sourcePath"? }, "root" }`.
+Changement : `{ "id", "title", "deltaCount", "deltas": [...], "root" }`. Spécification : `{ "id", "title", "overview", "requirementCount", "requirements": [...], "metadata": { "version", "format", "sourcePath"? }, "root" }`. Une exigence, qu'elle figure dans une spécification ou dans le champ `requirement`/`requirements` d'un delta de changement, est `{ "name", "text", "scenarios": [ { "name", "rawText" } ] }`. Le `name` d'une exigence correspond à son en-tête sans `Requirement:` ni la suite finale de `#` : c'est le nom exact auquel l'archivage associe les entrées MODIFIED/REMOVED/RENAMED. Le `name` d'un scénario correspond à son en-tête de niveau 4 sans `Scenario:` ni la suite finale de `#` : c'est le nom que compare la vérification de perte de scénario MODIFIED.
 
 ### 4.3 `validate --json`
 
@@ -63,23 +63,23 @@ Changement : `{ "id", "title", "deltaCount", "deltas": [...], "root" }`. Spécif
 
 ### 4.4 `status --json`
 
-`{ "changeName", "schemaName", "planningHome"?: { "kind", "root", "changesDir", "defaultSchema" }, "changeRoot", "artifactPaths": { "<id>": {outputPath, resolvedOutputPath, existingOutputPaths} }, "nextSteps": ["..."], "actionContext": { "mode": "repo-local", "sourceOfTruth": "repo", "planningArtifacts", "linkedContext", "allowedEditRoots", "requiresAffectedAreaSelection", "constraints" }, "isPlanningComplete", "isComplete", "applyRequires", "artifacts": [ {id, outputPath, status: "done"|"skipped"|"ready"|"blocked", requires, missingDeps?} ], "root" }`. `isPlanningComplete` signifie que chaque artefact de planification non ignoré existe ; un artefact ignoré est considéré comme satisfait sans avoir été créé. Cela ne signifie pas que les tâches d'implémentation sont terminées. `isComplete` est conservé comme alias de compatibilité ayant la même valeur. `requires` de chaque artefact indique ses dépendances directes (présentes quel que soit son statut ; l'ensemble transitif des dépendances nécessaires peut donc être calculé même si l'artefact est `done`) ; `missingDeps` n'est présent que lorsque l'état est `blocked`. Le tableau `artifacts` suit l'ordre des dépendances ; en cas d'égalité entre artefacts prêts en même temps, l'ordre de déclaration `artifacts:` du schéma prime (jamais l'ordre alphabétique). Le premier élément `ready` est donc celui à rédiger ensuite ; `missingDeps` suit le même ordre. `"skipped"` désigne un artefact dont le chemin `generates` se trouve sous `specs/` dans un changement dont `.openspec.yaml` déclare `skip_specs: true` : ses dépendances sont satisfaites, mais il ne faut pas le créer. Lorsqu'il n'y a aucun changement actif : `{ "changes": [], "message", "root" }`, code de sortie 0.
+`{ "changeName", "schemaName", "planningHome"?: { "kind", "root", "changesDir", "defaultSchema" }, "changeRoot", "artifactPaths": { "<id>": {outputPath, resolvedOutputPath, existingOutputPaths} }, "nextSteps": ["..."], "actionContext": { "mode": "repo-local", "sourceOfTruth": "repo", "planningArtifacts", "linkedContext", "allowedEditRoots", "requiresAffectedAreaSelection", "constraints" }, "isPlanningComplete", "isComplete", "applyRequires", "artifacts": [ {id, outputPath, status: "done"|"skipped"|"ready"|"blocked", requires, missingDeps?} ], "root" }`. Pour une racine sélectionnée depuis un store, `allowedEditRoots` vaut `[<declaring project>, <store>]` lorsque le projet le plus proche sur le chemin courant est une racine ne contenant que la configuration dont le pointeur `store:` désigne ce store, et `[<store>]` dans le cas contraire (y compris avec un `defaultStore` global), avec une contrainte demandant à l'agent de demander dans quel dépôt effectuer la modification. OpenSpec n'achemine pas les tâches d'un store vers des dépôts : le projet déclarant est donc le projet courant, et non chaque dépôt touché par le changement. `isPlanningComplete` signifie que chaque artefact de planification non ignoré existe ; un artefact ignoré est considéré comme satisfait sans avoir été créé. Cela ne signifie pas que les tâches d'implémentation sont terminées. `isComplete` est conservé comme alias de compatibilité ayant la même valeur. `requires` de chaque artefact indique ses dépendances directes (présentes quel que soit son statut ; l'ensemble transitif des dépendances nécessaires peut donc être calculé même si l'artefact est `done`) ; `missingDeps` n'est présent que lorsque l'état est `blocked`. Le tableau `artifacts` suit l'ordre des dépendances ; en cas d'égalité entre artefacts prêts en même temps, l'ordre de déclaration `artifacts:` du schéma prime (jamais l'ordre alphabétique). Le premier élément `ready` est donc celui à rédiger ensuite ; `missingDeps` suit le même ordre. `"skipped"` désigne un artefact dont le chemin `generates` se trouve sous `specs/` dans un changement dont `.openspec.yaml` déclare `skip_specs: true` : ses dépendances sont satisfaites, mais il ne faut pas le créer. Lorsqu'il n'y a aucun changement actif : `{ "changes": [], "message", "root" }`, code de sortie 0.
 
-`--all` (traitement groupé, incompatible avec `--change` : les combiner est une erreur avec la forme nulle `{ "changes": [], "root": null, "status": [d] }`) : `{ "changes": [ <objet status du changement, sans root par changement>, ... ], "root" }`, triés par nom de changement. Si le chargement d'un changement échoue, l'entrée `{ "changeName", "status": [d] }` est ajoutée à sa place ; le traitement continue, conserve l'enveloppe complète et quitte avec le code 1 en mode texte comme en mode JSON. Un `--schema` invalide fait échouer toute l'exécution avec la forme nulle, même s'il n'y a aucun changement.
+`--all` (traitement groupé, incompatible avec `--change` : les combiner est une erreur avec la forme nulle `{ "changes": [], "root": null, "status": [d] }`) : `{ "changes": [ <per-change status object, no per-change root>, ... ], "root" }`, triés par nom de changement. Si le chargement d'un changement échoue, l'entrée `{ "changeName", "status": [d] }` est ajoutée à sa place ; le traitement continue, conserve l'enveloppe complète et quitte avec le code 1 en mode texte comme en mode JSON. Un `--schema` invalide fait échouer toute l'exécution avec la forme nulle, même s'il n'y a aucun changement.
 
 ### 4.5 `instructions <artifact> --json`
 
 `{ "changeName", "artifactId", "schemaName", "changeDir", "planningHome"?, "outputPath", "resolvedOutputPath", "existingOutputPaths", "description", "instruction"?, "context"?, "rules"?, "references"?: ReferenceIndexEntry[], "skipped"?, "warning"?, "template", "dependencies": [{id,done,path,description,skipped?}], "unlocks", "root" }`. `unlocks` énumère, dans l'ordre déclaré par le schéma (identique à celui recommandé par `status`), les artefacts que celui-ci rend prêts. `"skipped": true` (avec `"warning"`) apparaît quand le changement déclare `skip_specs: true` et que cet artefact est ignoré : ne créez pas ses fichiers. Une dépendance indiquant `skipped: true` est satisfaite sans fichiers ; n'essayez pas de lire les chemins correspondants.
 
-`ReferenceIndexEntry` : `{ "store_id", "root"?, "specs"?: [{id,summary}], "fetch"?, "status": [] }` — les entrées résolues contiennent `root`/`specs`/`fetch` ; les entrées non résolues contiennent `store_id` et le statut d'avertissement. L'index est limité à 50 Ko (`reference_index_truncated`).
+`ReferenceIndexEntry` : `{ "store_id", "root"?, "specs"?: [{id,summary}], "fetch"?, "status": [] }` — les entrées résolues contiennent root/specs/fetch ; les entrées non résolues contiennent store_id et le statut d'avertissement. L'index est limité à 50 Ko (`reference_index_truncated`).
 
 ### 4.6 `instructions apply --json`
 
-`{ "changeName", "changeDir", "schemaName", "contextFiles": { "<artifactId>": ["/abs", ...] }, "progress": {total,complete,remaining}, "tasks": [{id,description,done}], "state": "blocked"|"all_done"|"ready", "missingArtifacts"?, "missingPrerequisites"?, "warnings"?, "instruction", "references"?, "context"?, "operationGuidance"?, "root" }`. `missingArtifacts` liste les artefacts qui bloquent `apply` (ceux de `apply.requires` du schéma) ; `missingPrerequisites` énumère tous les éléments restant à créer avant l'exécution de `apply`, dans l'ordre de construction : il s'agit de la fermeture transitive des dépendances et la liste peut donc être plus longue. `warnings` signale les problèmes non bloquants du changement lui-même — actuellement, un changement prêt à être implémenté sans spécification différentielle ni `skip_specs: true`, état que `openspec validate` rejette. Les deux champs facultatifs `context` et `operationGuidance` sont relus à chaque invocation depuis la racine sélectionnée. `context` est une entrée obligatoire au niveau du prompt ; les informations, conventions et contraintes pertinentes du projet doivent être respectées. `operationGuidance` est une entrée consultative dont les éléments ne sont suivis que s'ils sont applicables et compatibles avec le workflow intégré. Ces deux champs restent distincts de l'état, des tâches, de la progression, des fichiers de contexte et des instructions intégrées.
+`{ "changeName", "changeDir", "schemaName", "contextFiles": { "<artifactId>": ["/abs", ...] }, "progress": {total,complete,remaining}, "tasks": [{id,description,done}], "state": "blocked"|"all_done"|"ready", "missingArtifacts"?, "missingPrerequisites"?, "warnings"?, "instruction", "references"?, "context"?, "operationGuidance"?, "root" }`. `missingArtifacts` liste les artefacts qui bloquent apply (ceux de `apply.requires` du schéma) ; `missingPrerequisites` énumère tous les éléments restant à créer avant l'exécution de apply, dans l'ordre de construction : il s'agit de la fermeture transitive des dépendances et la liste peut donc être plus longue. `warnings` signale les problèmes non bloquants du changement lui-même — actuellement, un changement prêt à être implémenté sans spécification différentielle ni `skip_specs: true`, état que `openspec validate` rejette. Les deux champs facultatifs `context` et `operationGuidance` sont relus à chaque invocation depuis la racine sélectionnée. `context` est une entrée obligatoire au niveau du prompt ; les informations, conventions et contraintes pertinentes du projet doivent être respectées. `operationGuidance` est une entrée consultative dont les éléments ne sont suivis que s'ils sont applicables et compatibles avec le workflow intégré. Ces deux champs restent distincts de l'état, des tâches, de la progression, des fichiers de contexte et des instructions intégrées.
 
 ### 4.7 `instructions archive --json`
 
-`{ "changeName", "context"?, "operationGuidance"?, "root" }`. Nécessite un `--change` valide dans la racine du dépôt/store résolue et utilise la même sémantique de contexte obligatoire et de consignes consultatives que `apply`. Il s'agit d'une surface d'entrée d'exécution en lecture seule : elle ne renvoie pas le workflow d'archivage statique, n'examine ni ne fusionne les spécifications différentielles, n'écrit pas dans les spécifications principales et ne déplace pas le changement.
+`{ "changeName", "context"?, "operationGuidance"?, "root" }`. Nécessite un `--change` valide dans la racine du dépôt/store résolue et utilise la même sémantique de contexte obligatoire et de consignes consultatives que apply. Il s'agit d'une surface d'entrée d'exécution en lecture seule : elle ne renvoie pas le workflow d'archivage statique, n'examine ni ne fusionne les spécifications différentielles, n'écrit pas dans les spécifications principales et ne déplace pas le changement.
 
 ### 4.8 `new change <name> --json`
 
@@ -88,6 +88,10 @@ Réussite : `{ "change": { "id", "path", "metadataPath", "schema" }, "root" }`. 
 ### 4.9 `archive <name> --json`
 
 Réussite : `{ "archive": { "change", "archivedAs": "YYYY-MM-DD-name", "path", "specsUpdated", "totals"?, "warnings"? }, "root" }`. Échec : `{ "archive": null, "root"?, "status": [d] }`, code de sortie 1. `specsUpdated` n'est vrai que si au moins un fichier de spécification a été écrit ou retiré (si le changement supprime la dernière exigence d'une fonctionnalité, sa spécification est supprimée ; `retire_capabilities: true` doit alors figurer dans le `.openspec.yaml` du changement. Chaque retrait est signalé dans `warnings`, avec une commande Git de restauration prête à coller uniquement si la spécification se trouvait dans le checkout appelant). Un changement déjà synchronisé est archivé avec des totaux nuls et les éléments ignorés indiqués dans `warnings`. Le mode JSON est strictement non interactif : chaque demande de confirmation produit un code `archive_*`.
+
+- **`archive: null`** : la commande a échoué. Cela ne garantit pas que les fichiers sont restés inchangés.
+- **`archive_retirement_cleanup_failed`** : le changement a été archivé, mais la vérification de la sauvegarde du retrait ou son nettoyage a échoué. Un chemin de sauvegarde listé peut avoir changé ou disparu. Le message peut aussi signaler une source préparée, laissée par l'échec du nettoyage d'une copie de secours. Inspectez l'archive actuelle et tous les chemins de récupération signalés avant tout nettoyage. Conservez le contenu nécessaire. Relancer l'archivage ne nettoie pas ces chemins.
+- **`archive_error`** : le diagnostic de secours ne permet pas de savoir si des fichiers ont changé. Inspectez le changement, l'archive et les spécifications concernées avant de relancer la commande.
 
 ### 4.10 `doctor --json`
 
@@ -103,13 +107,13 @@ configuration/enregistrement : `{ "store": {id, root, metadata_path?}, "registry
 
 ### 4.13 `schemas --json` / `templates --json`
 
-`schemas` : en cas de réussite, conserve un tableau brut `[ {name, description, artifacts, source} ]`. La commande respecte l'ordre canonique de sélection de racine et accepte `--store <id>`. Échec de sélection de racine : `{ "schemas": [], "root": null, "status": [d] }`, code de sortie 1. `templates` : objet indexé `{ "<artifactId>": {path, source} }`, toujours basé sur le répertoire courant et sans clé `root` ni `status`.
+`schemas` : en cas de réussite, conserve un tableau brut `[ {name, description, artifacts, source} ]`. La commande respecte l'ordre canonique de sélection de racine et accepte `--store <id>`. Échec de sélection de racine : `{ "schemas": [], "root": null, "status": [d] }`, code de sortie 1. `templates` : objet indexé `{ "<artifactId>": {path, source} }`, toujours basé sur le répertoire courant et sans clés root/status.
 
 ## 5. Contrat des codes de sortie
 
 | Situation | Code de sortie | Stdout |
 |-----------|----------------|--------|
-| Réussite, y compris les problèmes de santé (`doctor`/`context`/`store doctor`) | 0 | la charge utile |
+| Réussite, y compris les problèmes de santé (doctor/context/store doctor) | 0 | la charge utile |
 | Échec d'une commande en mode `--json` | 1 | un document JSON avec `status: [d]` et la forme nulle de la commande |
 | Éléments en échec avec `validate` | 1 | rapport complet |
 | Annulation d'une invite (groupe `store`, mode humain) | 130 | stderr uniquement |
@@ -146,7 +150,7 @@ configuration/enregistrement : `{ "store": {id, root, metadata_path?}, "registry
 
 ### Archive (mode JSON)
 
-`archive_change_name_required`, `archive_change_not_found`, `archive_change_symlink`, `archive_validation_failed`, `archive_confirmation_required`, `archive_tasks_incomplete`, `archive_spec_update_failed`, `archive_spec_validation_failed`, `archive_target_exists`, `archive_error`.
+`archive_change_name_required`, `archive_change_not_found`, `archive_change_symlink`, `archive_validation_failed`, `archive_confirmation_required`, `archive_tasks_incomplete`, `archive_spec_update_failed`, `archive_spec_validation_failed`, `archive_target_exists`, `archive_retirement_cleanup_failed`, `archive_error`.
 
 ### Écriture du contexte
 
@@ -162,7 +166,7 @@ Recensées lors de l'audit final ; les renommages de clés publiées, qui relèv
 
 1. ~~En mode `--json`, certains chemins d'échec n'affichaient que stderr, sans document JSON.~~ Corrigé lors de la campagne de tests finale : `show`/`validate` pour les éléments inconnus ou ambigus émettent `{status:[{code: unknown_item | ambiguous_item, ...}]}` ; les erreurs levées dans `status`/`instructions`/`list`/`show`/`validate` utilisent l'aide à l'échec compatible JSON (forme nulle de la commande + `status`) ; `store <unknown subcommand> --json` émet `{status:[{code: unknown_store_subcommand}]}` ; `list` conserve sa forme nulle `{changes|specs: [], root: null}` en cas d'échec de résolution.
 2. `store_root_missing` est émis avec deux niveaux de gravité (avertissement lors de la suppression, erreur dans store doctor) — le sens dépend du contexte, comme indiqué plus haut.
-3. Les clés utilisent `snake_case` dans la famille store et `camelCase` dans la famille workflow ; `root.store_id` reste en `snake_case` partout.
+3. Les clés utilisent snake_case dans la famille store et camelCase dans la famille workflow ; `root.store_id` reste en snake_case partout.
 4. Le code source contient quatre déclarations parallèles du type d'enveloppe ; les diagnostics d'archive ne contiennent jamais `target`.
 5. `list --json` réutilise la clé `status` comme valeur d'énumération sous forme de chaîne pour chaque changement.
 6. Seule la sortie de `validate` contient un champ `version`.

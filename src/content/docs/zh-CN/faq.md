@@ -38,11 +38,11 @@ OpenSpec 是一个轻量级约定层，让你和 AI 编程助手在编写任何�
 
 ### 我输入了斜杠命令，却什么也没发生。为什么？
 
-最可能的原因是你在终端而非 AI 聊天中输入了命令、使用了工具无法识别的拼写，或尚未安装这些命令。如果文件缺失，或你从未设置该工具，请运行 `openspec init`；`openspec update` 只会刷新已有文件。然后重新启动助手，并使用“Getting started”中显示的命令格式——参见[如何调用](/zh-CN/supported-tools/)。完整检查清单见[故障排除](/zh-CN/troubleshooting/)。
+最可能的原因是你在终端而非 AI 聊天中输入了命令、使用了工具无法识别的拼写，或尚未安装这些命令。如果文件缺失，或你从未设置该工具，请运行 `openspec init`；`openspec update` 只会刷新已有文件。然后重新启动助手，并使用“Getting started”中显示的命令格式——参见[如何调用](/zh-CN/supported-tools/#如何调用)。完整检查清单见[故障排除](/zh-CN/troubleshooting/#命令没有显示)。
 
 ### 为什么有些工具使用 `/opsx:propose`，另一些却用 `/opsx-propose`？
 
-不同 AI 工具呈现自定义命令的方式不同，OpenSpec 会根据工具加载的文件形式选择命令拼写。名为 `opsx-propose.md` 的命令文件对应 `/opsx-propose`；放在 `commands/opsx/` 下的文件则对应 `/opsx:propose`。使用技能而非命令的工具会使用技能名称——Codex 使用 `$openspec-propose`，Kimi Code 使用 `/skill:openspec-propose`。`openspec init` 中的“Getting started”提示会显示你所选工具对应的格式；完整表格见[如何调用](/zh-CN/supported-tools/)。
+不同 AI 工具呈现自定义命令的方式不同，OpenSpec 会根据工具加载的文件形式选择命令拼写。名为 `opsx-propose.md` 的命令文件对应 `/opsx-propose`；放在 `commands/opsx/` 下的文件则对应 `/opsx:propose`。使用技能而非命令的工具会使用技能名称——Codex 使用 `$openspec-propose`，Kimi Code 使用 `/skill:openspec-propose`。`openspec init` 中的“Getting started”提示会显示你所选工具对应的格式；完整表格见[如何调用](/zh-CN/supported-tools/#如何调用)。
 
 ### 技能和命令有什么区别？
 
@@ -72,7 +72,7 @@ OpenSpec 是一个轻量级约定层，让你和 AI 编程助手在编写任何�
 
 ### 我需要运行 `/opsx:sync` 吗？
 
-通常不需要。Sync 会把变更的差异规格说明合并到主规格说明中，而 `/opsx:archive` 会主动为你执行同步。只有当你希望在归档之前先合并规格说明时，才手动运行 sync，例如处理耗时较长的变更。参阅[命令](/zh-CN/commands/)。
+通常不需要。Sync 会把变更的差异规格说明合并到主规格说明中，而 `/opsx:archive` 会主动为你执行同步。只有当你希望在归档之前先合并规格说明时，才手动运行 sync，例如处理耗时较长的变更。参阅[命令](/zh-CN/commands/#opsxsync)。
 
 ### 开始之后，如何编辑提案、规格说明或任务？
 
@@ -80,15 +80,15 @@ OpenSpec 是一个轻量级约定层，让你和 AI 编程助手在编写任何�
 
 ### 实现了一部分之后，还能回头修改计划吗？
 
-可以，任何时候都可以。工作流很灵活，审查和编辑不会把你限制在某个阶段。编辑产物后继续即可。如果需要有条理地检查代码是否仍符合计划，可以运行 `/opsx:verify`。参阅[编辑和迭代变更](/zh-CN/editing-changes/)。
+可以，任何时候都可以。工作流很灵活，审查和编辑不会把你限制在某个阶段。编辑产物后继续即可。如果需要有条理地检查代码是否仍符合计划，可以运行 `/opsx:verify`。参阅[编辑和迭代变更](/zh-CN/editing-changes/#实现之后如何回到审查)。
 
 ### 我手动编辑了代码，如何与规格说明协调？
 
-归档会让规格说明成为正式记录，所以归档前需要让两者重新一致。如果代码现在正确，就更新差异规格说明以反映已交付内容；如果规格说明正确，就继续实现，直到代码符合要求。`/opsx:verify` 可以指出不一致。参阅[编辑和迭代变更](/zh-CN/editing-changes/)。
+归档会让规格说明成为正式记录，所以归档前需要让两者重新一致。如果代码现在正确，就更新差异规格说明以反映已交付内容；如果规格说明正确，就继续实现，直到代码符合要求。`/opsx:verify` 可以指出不一致。参阅[编辑和迭代变更](/zh-CN/editing-changes/#我手动编辑了代码如何与-openspec-保持一致)。
 
 ### 何时应更新现有变更，何时应新建？
 
-同一项工作只是经过完善时就更新；意图彻底改变或范围膨胀成另一项工作时就重新开始。决策流程图和示例见[工作流](/zh-CN/workflows/)。
+同一项工作只是经过完善时就更新；意图彻底改变或范围膨胀成另一项工作时就重新开始。决策流程图和示例见[工作流](/zh-CN/workflows/#何时更新何时重新开始)。
 
 ### 如果会话上下文用完，或实现过程中需求发生变化，该怎么办？
 
@@ -102,11 +102,11 @@ OpenSpec 是一个轻量级约定层，让你和 AI 编程助手在编写任何�
 
 ### 规格说明和设计分别写什么？
 
-规格说明描述可观察的行为：系统做什么、输入和输出是什么，以及错误情形如何处理。设计描述如何构建：技术方案、架构决策和文件变更。如果改变实现但不改变外部可见行为，该内容就属于设计，而非规格说明。详见[概念](/zh-CN/concepts/)。
+规格说明描述可观察的行为：系统做什么、输入和输出是什么，以及错误情形如何处理。设计描述如何构建：技术方案、架构决策和文件变更。如果改变实现但不改变外部可见行为，该内容就属于设计，而非规格说明。详见[概念](/zh-CN/concepts/#规格说明是什么以及不是什么)。
 
 ### 什么是差异规格说明？
 
-差异规格说明只通过 `ADDED`、`MODIFIED` 和 `REMOVED` 章节描述变更内容，而不会重述整份规格说明。这是 OpenSpec 简洁地修改现有系统的方式。参阅[概念](/zh-CN/concepts/)。
+差异规格说明只通过 `ADDED`、`MODIFIED` 和 `REMOVED` 章节描述变更内容，而不会重述整份规格说明。这是 OpenSpec 简洁地修改现有系统的方式。参阅[概念](/zh-CN/concepts/#差异规格说明)。
 
 ### 已归档的变更会放在哪里？
 
@@ -116,7 +116,7 @@ OpenSpec 是一个轻量级约定层，让你和 AI 编程助手在编写任何�
 
 ### 如何告诉 AI 我的技术栈？
 
-将信息放在 `openspec/config.yaml` 的 `context:` 下。该文本会注入每个规划请求，因此 AI 始终了解你的技术栈和约定。参阅[自定义](/zh-CN/customization/)。
+将信息放在 `openspec/config.yaml` 的 `context:` 下。该文本会注入每个规划请求，因此 AI 始终了解你的技术栈和约定。参阅[自定义](/zh-CN/customization/#项目配置)。
 
 ### 可以用英语以外的语言生成规格说明吗？
 
@@ -124,7 +124,7 @@ OpenSpec 是一个轻量级约定层，让你和 AI 编程助手在编写任何�
 
 ### 可以更改工作流本身吗？
 
-可以，使用自定义模式即可。模式定义有哪些产物以及彼此之间的依赖关系。使用 `openspec schema fork spec-driven my-workflow` 从默认模式派生，再进行编辑。参阅[自定义](/zh-CN/customization/)。
+可以，使用自定义模式即可。模式定义有哪些产物以及彼此之间的依赖关系。使用 `openspec schema fork spec-driven my-workflow` 从默认模式派生，再进行编辑。参阅[自定义](/zh-CN/customization/#自定义模式)。
 
 ## 模型、隐私与升级
 
@@ -142,7 +142,7 @@ OpenSpec 最适合搭配推理能力强的模型。README 建议在规划和实�
 
 ### 如何卸载 OpenSpec？
 
-没有专门的卸载命令，因为它只是一个全局软件包和项目中的一些文件。移除软件包 (`npm uninstall -g @fission-ai/openspec`)，还可以选择删除 `openspec/` 目录和生成的工具文件。分步说明以及哪些内容可以保留，见[安装指南](/zh-CN/installation/)。
+没有专门的卸载命令，因为它只是一个全局软件包和项目中的一些文件。移除软件包 (`npm uninstall -g @fission-ai/openspec`)，还可以选择删除 `openspec/` 目录和生成的工具文件。分步说明以及哪些内容可以保留，见[安装指南](/zh-CN/installation/#卸载)。
 
 ## 获取帮助
 
@@ -154,4 +154,4 @@ OpenSpec 最适合搭配推理能力强的模型。README 建议在规划和实�
 
 ### 文档有错误或让人困惑，该怎么办？
 
-告诉我们，或者直接修正。我们欢迎并重视文档拉取请求。你可以提交 issue 或拉取请求。
+告诉我们。请通过[文档 issue](https://github.com/Fission-AI/OpenSpec/issues/new?template=docs.yml)提交反馈，说明相关页面以及错误之处——文档修正是我们收到的最有价值的反馈之一。

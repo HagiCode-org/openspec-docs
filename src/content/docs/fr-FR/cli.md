@@ -181,6 +181,8 @@ openspec update [path] [options]
 | Option | Description |
 |--------|-------------|
 | `--force` | Forcer la mise à jour même si les fichiers sont à jour |
+| `--dry-run` | Indiquer les modifications que la mise à jour effectuerait, sans rien écrire |
+| `--json` | Avec `--dry-run`, afficher les modifications prévues au format JSON |
 
 **Exemple :**
 
@@ -189,6 +191,30 @@ openspec update [path] [options]
 npm install -g @fission-ai/openspec@latest
 openspec update
 ```
+
+**Prévisualiser une mise à jour :**
+
+`--dry-run` indique les fichiers qu'une mise à jour ajouterait, modifierait ou supprimerait, sans rien écrire. Les chemins sont relatifs au projet ; les fichiers situés hors du projet (skills dans votre répertoire personnel) sont affichés avec le préfixe `~/`.
+
+```bash
+openspec update --dry-run --json
+```
+
+```json
+{
+  "changes": [
+    { "path": ".claude/skills/openspec-explore/SKILL.md", "action": "update", "tool": "claude" },
+    { "path": "~/.minimax/skills/openspec-propose/SKILL.md", "action": "add", "tool": "minimax-code" }
+  ],
+  "notes": [],
+  "failures": []
+}
+```
+
+Le plan correspond à ce qu'exécute une exécution non interactive et énumère chaque fichier qu'elle toucherait : déplacements hors de l'ancien répertoire d'un outil, enregistrement de la configuration globale pour une installation antérieure aux profils, fichiers de l'agent cloud Copilot et, avec `--force`, nettoyage des artefacts hérités. Les fichiers qui appartiennent à OpenSpec lui-même plutôt qu'à un outil ont `tool: "openspec"`. `notes` signale les étapes pour lesquelles un utilisateur du terminal serait interrogé, chacune avec un `code` stable : `legacy-tool-directories` (un déplacement indiqué comme effectué) et `legacy-artifacts` (fichiers à l'ancienne disposition que la mise à jour laisse en place sans `--force`). `failures` liste les outils pour lesquels la mise à jour réelle échouerait, y compris les écritures qu'elle ne peut pas effectuer (un répertoire à la place d'un fichier, absence de droit d'écriture) ; pour cet outil, le plan s'arrête là où la mise à jour s'arrêterait, et un outil défaillant ne vous prive pas du reste du plan. Ces deux listes sont vides pour une actualisation ordinaire.
+La référence complète se trouve sur [openspec.dev/docs/cli](https://openspec.dev/docs/cli).
+
+Un échec de `--dry-run --json` affiche tout de même exactement un document JSON, le plan vide accompagné d'un tableau `status`, et quitte avec un code de sortie non nul.
 
 Mettez d’abord le paquet à niveau. Les fichiers d’instructions sont générés par la CLI installée ; si celle-ci est obsolète, `openspec update` peut donc tout déclarer à jour sans ajouter les workflows des versions plus récentes.
 
@@ -394,7 +420,7 @@ Tout ce que le travail relie au moyen des déclarations OpenSpec, regroupé en u
 openspec context [--store <id>] [--json] [--code-workspace <path> [--force]]
 ```
 
-Le résumé JSON est destiné aux agents (chaque store référencé disponible fournit sa commande de récupération ; les éléments non résolus donnent les mêmes corrections que `instructions` et `doctor`). `--code-workspace` écrit en outre un fichier d’espace de travail VS Code contenant la racine et les stores référencés disponibles (dossiers `ref:<id>`) — c’est la seule écriture effectuée par cette commande ; si le fichier existe, l’écriture est refusée sans `--force`. Les éléments indisponibles sont signalés, jamais devinés.
+Le résumé JSON est destiné aux agents (chaque store référencé disponible fournit sa commande de récupération ; les éléments non résolus donnent les mêmes corrections que instructions et doctor). `--code-workspace` écrit en outre un fichier d’espace de travail VS Code contenant la racine et les stores référencés disponibles (dossiers `ref:<id>`) — c’est la seule écriture effectuée par cette commande ; si le fichier existe, l’écriture est refusée sans `--force`. Les éléments indisponibles sont signalés, jamais devinés.
 
 Le « contexte de travail » désigne l’ensemble assemblé ; le champ `context:` de `openspec/config.yaml` contient le contexte du projet injecté dans les instructions. Ce sont deux choses différentes. `openspec doctor` indique si l’ensemble est sain ; `openspec context` indique de quoi il se compose.
 
@@ -680,6 +706,18 @@ Archivez ensuite le changement normalement :
 openspec archive retire-legacy --yes
 ```
 
+**Conserver vos propres métadonnées :** une clé de premier niveau commençant par `x-` (en minuscules) vous appartient. OpenSpec ne la lit, ne l'écrit et ne la signale jamais ; ainsi, `openspec validate
+--strict` reste valide pour un changement qui contient des données propres à un outil :
+
+```yaml
+# openspec/changes/add-dark-mode/.openspec.yaml
+schema: spec-driven
+x-tracker: SB-5497
+x-jiraKey: ABC-1
+```
+
+Le nom qui suit le préfixe est librement choisi, quelle que soit la casse ou l'orthographe, à condition de ne pas être vide et de ne contenir aucun espace. Deux limites : le préfixe lui-même est en minuscules, donc `X-Tracker` est toujours signalé, et les extensions ne sont admises qu'au premier niveau — une clé placée sous `initiative:` est rejetée quel que soit son nom. Toute autre clé de premier niveau non reconnue est toujours signalée comme sans effet.
+
 Lorsque le changement supprime la dernière exigence d’une fonctionnalité, OpenSpec supprime
 son `spec.md` actif. Les autres deltas de fonctionnalités de ce changement actualisent toujours leurs
 spécifications principales. Sans ce marqueur, archive s’arrête avant de modifier les fichiers et
@@ -806,7 +844,7 @@ de compatibilité avec la même valeur.
 
 Les artefacts sont listés dans l’ordre de leurs dépendances : une dépendance n’apparaît jamais après
 un artefact qui en dépend. Les artefacts qui deviennent prêts simultanément
-(`specs` et `design` de `spec-driven` ne dépendent que de `proposal`) gardent l’ordre défini par
+(`specs` et `design` du schéma spec-driven ne dépendent que de `proposal`) gardent l’ordre défini par
 le schéma plutôt qu’un ordre alphabétique. Le premier élément `ready` est donc
 l’artefact à rédiger ensuite.
 
@@ -959,8 +997,6 @@ Available schemas:
 ```
 
 ---
-
-<a id="schema-commands"></a>
 
 ## Commandes de schéma
 

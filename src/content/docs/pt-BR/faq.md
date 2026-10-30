@@ -150,8 +150,8 @@ Não existe um comando de desinstalação, porque o OpenSpec consiste em um paco
 
 - **Discord:** [discord.gg/YctCnvvshC](https://discord.gg/YctCnvvshC)
 - **GitHub Issues:** [github.com/Fission-AI/OpenSpec/issues](https://github.com/Fission-AI/OpenSpec/issues)
-- **No terminal:** `openspec feedback "sua mensagem"` abre uma issue no GitHub para você.
+- **No terminal:** `openspec feedback "your message"` abre uma issue no GitHub para você.
 
 ### Esta documentação está errada ou confusa. O que faço?
 
-Avise-nos ou corrija o problema. Contribuições para a documentação são bem-vindas e valorizadas. Abra uma issue ou envie um pull request.
+Avise-nos. Abra uma [issue de documentação](https://github.com/Fission-AI/OpenSpec/issues/new?template=docs.yml) com a página e o que está errado — correções de documentação estão entre os relatos mais úteis que recebemos.

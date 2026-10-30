@@ -198,6 +198,8 @@ openspec update [path] [options]
 | Opção | Descrição |
 |--------|-------------|
 | `--force` | Forçar a atualização mesmo quando os arquivos estiverem atualizados |
+| `--dry-run` | Informar o que a atualização alteraria, sem gravar nada |
+| `--json` | Com `--dry-run`, exibir as alterações planejadas em JSON |
 
 **Exemplo:**
 
@@ -206,6 +208,30 @@ openspec update [path] [options]
 npm install -g @fission-ai/openspec@latest
 openspec update
 ```
+
+**Pré-visualizando uma atualização:**
+
+`--dry-run` informa os arquivos que uma atualização adicionaria, alteraria ou excluiria, sem gravar nada. Os caminhos são relativos ao projeto; arquivos fora dele (skills no seu diretório pessoal) aparecem com o prefixo `~/`.
+
+```bash
+openspec update --dry-run --json
+```
+
+```json
+{
+  "changes": [
+    { "path": ".claude/skills/openspec-explore/SKILL.md", "action": "update", "tool": "claude" },
+    { "path": "~/.minimax/skills/openspec-propose/SKILL.md", "action": "add", "tool": "minimax-code" }
+  ],
+  "notes": [],
+  "failures": []
+}
+```
+
+O plano é o que uma execução não interativa faz e lista todos os arquivos que ela tocaria: movimentações para fora do diretório anterior de uma ferramenta, o salvamento da configuração global em uma instalação anterior aos perfis, os arquivos do agente de nuvem do Copilot e, com `--force`, a limpeza de artefatos legados. Arquivos que pertencem ao próprio OpenSpec, e não a uma ferramenta, têm `tool: "openspec"`. `notes` sinaliza etapas sobre as quais um usuário de terminal seria consultado, cada uma com um `code` estável: `legacy-tool-directories` (uma movimentação listada como feita) e `legacy-artifacts` (arquivos do layout antigo que a atualização mantém sem `--force`). `failures` lista as ferramentas nas quais a atualização real falharia, incluindo gravações que ela não consegue fazer (um diretório no lugar de um arquivo, sem permissão de gravação); para essa ferramenta, o plano para no ponto em que a atualização pararia, e uma ferramenta com problema não compromete o restante do plano. Ambos ficam vazios em uma atualização comum.
+O guia completo está em [openspec.dev/docs/cli](https://openspec.dev/docs/cli).
+
+Um fracasso de `--dry-run --json` ainda imprime exatamente um documento JSON, o plano vazio mais um array `status`, e termina com código diferente de zero.
 
 Atualize primeiro o pacote. Os arquivos de instruções são gerados pela CLI
 instalada; portanto, executar `openspec update` com uma instalação desatualizada
@@ -222,13 +248,12 @@ A newer OpenSpec CLI is available (v1.6.0 → v1.7.0).
 ? Upgrade to v1.7.0 now? (Y/n)
 ```
 
-Se você responder sim, o comando executará `npm install -g
-@fission-ai/openspec@latest` e, em seguida, repetirá a atualização com a nova
+Se você responder sim, o comando executará `npm install -g @fission-ai/openspec@latest` e, em seguida, repetirá a atualização com a nova
 CLI para incluir os novos fluxos no mesmo comando. A confirmação da
 atualização consulta a versão do executável instalado, em vez de confiar no
 código de saída do npm. Assim, se outra instalação anterior no `PATH` ainda
 estiver sendo usada, o comando avisará você em vez de declarar sucesso. Se
-responder não, ele exibirá o comando e atualizará usando a CLI atual. `Ctrl-C`
+responder não, ele exibirá o comando e atualizará usando a CLI atual. Ctrl-C
 interrompe o comando.
 
 A oferta aparece somente em um terminal interativo e quando a instalação é
@@ -308,7 +333,7 @@ openspec store setup [id] [options]
 | `--json` | Gerar saída JSON |
 
 Execuções não interativas (`--json`, scripts, agentes) precisam receber o ID
-da store e `--path`. Em um terminal interativo, `setup` pergunta o local e
+da store e `--path`. Em um terminal interativo, setup pergunta o local e
 sugere um caminho editável em um diretório visível e pertencente à pessoa
 usuária (por exemplo, `~/openspec/<id>`); nunca usa como padrão o diretório de
 dados gerenciado pelo OpenSpec.
@@ -385,7 +410,7 @@ Verifique o registro local da store, seus metadados e a presença do Git.
 openspec store doctor [id] [--json]
 ```
 
-`doctor` serve apenas para diagnóstico: informa sobre raízes ausentes,
+doctor serve apenas para diagnóstico: informa sobre raízes ausentes,
 divergências nos metadados e estados inválidos do registro local, sem modificar
 a store.
 
@@ -431,7 +456,7 @@ O remoto é registrado em `.openspec-store/store.yaml` no commit inicial, para
 que todo clone já o conheça. Em uma store existente, edite `store.yaml`
 manualmente e faça commit. `store doctor` exibe o remoto registrado (e a
 origem Git detectada no checkout); as instruções de compartilhamento de
-setup/register o indicam; e `register` registra a origem do checkout no
+setup/register o indicam; e register registra a origem do checkout no
 registro local da máquina.
 
 Uma declaração de referência também pode incluir a origem do clone, para que
@@ -463,7 +488,7 @@ enquanto as sugestões impressas continuam incluindo `--store <id>`. A
 declaração é uma alternativa, nunca uma substituição: `--store` explícito
 sempre prevalece, e um diretório com pastas reais de planejamento ignora o
 ponteiro (com um aviso). Para converter um repositório com ponteiro em uma raiz
-local do OpenSpec, remova a linha `store:` e execute `openspec init` — `init`
+local do OpenSpec, remova a linha `store:` e execute `openspec init` — init
 não cria a estrutura enquanto a declaração existir.
 
 A opção no nível da máquina cobre todos os repositórios de uma só vez:
@@ -489,7 +514,7 @@ upstream atualizada pela última vez) e das referências (os mesmos diagnóstico
 exibidos pelas instruções, com correções de clone para referências não
 resolvidas). Problemas de integridade de qualquer gravidade resultam em código
 de saída 0 — os agentes consultam os arrays `status`; somente falhas de comando
-(raiz ausente, store desconhecida) resultam em código 1. `doctor` nunca clona,
+(raiz ausente, store desconhecida) resultam em código 1. doctor nunca clona,
 sincroniza ou corrige nada. Para obter o conjunto reunido em vez do relatório
 de integridade, use `openspec context`.
 
@@ -505,7 +530,7 @@ openspec context [--store <id>] [--json] [--code-workspace <path> [--force]]
 
 O resumo JSON pode ser usado por agentes (cada store referenciada disponível
 inclui instruções para consultá-la; membros não resolvidos incluem as mesmas
-correções exibidas por `instructions` e `doctor`). `--code-workspace` também
+correções exibidas por instructions e doctor). `--code-workspace` também
 grava um arquivo de workspace do VS Code com a raiz e as stores referenciadas
 disponíveis (pastas `ref:<id>`) — a única gravação feita pelo comando. Se o
 arquivo já existir, a gravação é recusada sem `--force`. Membros indisponíveis
@@ -710,8 +735,8 @@ ou documentação — consulte [Receita 5](/pt-BR/examples/#receita-5-refatoraç
 | `--no-interactive` | Desabilitar prompts |
 
 `--archived` tem seu próprio escopo: não valida especificações delta (já
-aplicadas durante o arquivamento), mas verifica se todas as caixas de seleção
-em `tasks.md` de cada mudança em `changes/archive/` estão marcadas. Se alguma
+aplicadas durante o arquivamento), mas verifica se, em cada mudança em `changes/archive/`, todas as caixas de seleção
+de `tasks.md` estão marcadas. Se alguma
 estiver desmarcada, termina com código diferente de zero. Assim, mudanças
 arquivadas com trabalho incompleto podem ser detectadas, por exemplo, em um
 hook de pre-commit.
@@ -827,6 +852,18 @@ Em seguida, arquive a mudança normalmente:
 openspec archive retire-legacy --yes
 ```
 
+**Mantenha seus próprios metadados:** uma chave de nível superior que começa com `x-` em minúsculas é sua. O OpenSpec nunca a lê, grava ou informa, então `openspec validate
+--strict` continua sem erros em uma mudança que tem dados específicos de uma ferramenta:
+
+```yaml
+# openspec/changes/add-dark-mode/.openspec.yaml
+schema: spec-driven
+x-tracker: SB-5497
+x-jiraKey: ABC-1
+```
+
+O nome após o prefixo é escolha sua, em qualquer capitalização ou grafia, desde que não esteja vazio e não contenha espaços em branco. Há dois limites: o próprio prefixo é em minúsculas, então `X-Tracker` continua sendo informado, e as extensões são permitidas apenas no nível superior — uma chave dentro de `initiative:` é rejeitada, qualquer que seja o nome. Qualquer outra chave de nível superior não reconhecida continua sendo informada como sem efeito.
+
 Quando a mudança remove o último requisito de uma capacidade, o OpenSpec
 exclui seu `spec.md` ativo. Os deltas de outras capacidades na mesma mudança
 ainda atualizam suas especificações principais. Sem o marcador, o arquivamento
@@ -907,13 +944,13 @@ openspec status [options]
 **Exemplos:**
 
 ```bash
-# Consultar o status interativamente
+# Interactive status check
 openspec status
 
-# Consultar o status de uma mudança específica
+# Status for specific change
 openspec status --change add-dark-mode
 
-# JSON para uso por agentes
+# JSON for agent use
 openspec status --change add-dark-mode --json
 ```
 
@@ -994,19 +1031,19 @@ esse comando não arquiva nem altera nada.
 **Exemplos:**
 
 ```bash
-# Obter instruções para o próximo artefato
+# Get instructions for next artifact
 openspec instructions --change add-dark-mode
 
-# Obter instruções para um artefato específico
+# Get specific artifact instructions
 openspec instructions design --change add-dark-mode
 
-# Obter instruções de execução/implementação
+# Get apply/implementation instructions
 openspec instructions apply --change add-dark-mode
 
-# Obter as entradas atuais de arquivamento sem arquivar
+# Get current archive operation inputs without archiving
 openspec instructions archive --change add-dark-mode --json
 
-# JSON para uso por agentes
+# JSON for agent consumption
 openspec instructions design --change add-dark-mode --json
 ```
 
@@ -1056,13 +1093,13 @@ openspec templates [options]
 **Exemplos:**
 
 ```bash
-# Exibir os caminhos dos templates do schema padrão
+# Show template paths for default schema
 openspec templates
 
-# Exibir os templates de um schema personalizado
+# Show templates for custom schema
 openspec templates --schema my-workflow
 
-# JSON para uso programático
+# JSON for programmatic use
 openspec templates --json
 ```
 
@@ -1105,15 +1142,15 @@ openspec schemas
 **Saída:**
 
 ```
-Schemas disponíveis:
+Available schemas:
 
   spec-driven (package)
-    Fluxo de trabalho padrão para desenvolvimento orientado a especificações
-    Fluxo: proposta → especificações → projeto → tarefas
+    The default spec-driven development workflow
+    Flow: proposal → specs → design → tasks
 
   my-custom (project)
-    Fluxo de trabalho personalizado deste projeto
-    Fluxo: pesquisa → proposta → tarefas
+    Custom workflow for this project
+    Flow: research → proposal → tasks
 ```
 
 ---
@@ -1150,12 +1187,12 @@ openspec schema init <name> [options]
 **Exemplos:**
 
 ```bash
-# Criar um schema interativamente
+# Interactive schema creation
 openspec schema init research-first
 
-# Modo não interativo com artefatos específicos
+# Non-interactive with specific artifacts
 openspec schema init rapid \
-  --description "Fluxo de iteração rápida" \
+  --description "Rapid iteration workflow" \
   --artifacts "proposal,tasks" \
   --default
 ```
@@ -1164,9 +1201,9 @@ openspec schema init rapid \
 
 ```
 openspec/schemas/<name>/
-├── schema.yaml           # Definição do schema
+├── schema.yaml           # Schema definition
 └── templates/
-    ├── proposal.md       # Template de cada artefato
+    ├── proposal.md       # Template for each artifact
     ├── specs.md
     ├── design.md
     └── tasks.md
@@ -1199,7 +1236,7 @@ openspec schema fork <source> [name] [options]
 **Exemplo:**
 
 ```bash
-# Criar uma cópia do schema spec-driven integrado
+# Fork the built-in spec-driven schema
 openspec schema fork spec-driven my-workflow
 ```
 
@@ -1229,10 +1266,10 @@ openspec schema validate [name] [options]
 **Exemplo:**
 
 ```bash
-# Validar um schema específico
+# Validate a specific schema
 openspec schema validate my-workflow
 
-# Validar todos os schemas
+# Validate all schemas
 openspec schema validate
 ```
 
@@ -1262,7 +1299,7 @@ openspec schema which [name] [options]
 **Exemplo:**
 
 ```bash
-# Verificar a origem de um schema
+# Check where a schema comes from
 openspec schema which spec-driven
 ```
 
@@ -1307,38 +1344,38 @@ openspec config <subcommand> [options]
 **Exemplos:**
 
 ```bash
-# Exibir o caminho do arquivo de configuração
+# Show config file path
 openspec config path
 
-# Listar todas as configurações
+# List all settings
 openspec config list
 
-# Obter um valor específico
+# Get a specific value
 openspec config get telemetry.enabled
 
-# Definir um valor (desabilitar telemetria anônima de uso)
+# Set a value (disable anonymous usage telemetry)
 openspec config set telemetry.enabled false
 
-# Definir explicitamente um valor de texto
+# Set a string value explicitly
 openspec config set user.name "My Name" --string
 
-# Remover uma configuração personalizada
+# Remove a custom setting
 openspec config unset user.name
 
-# Definir uma store padrão no nível da máquina (raiz alternativa quando não
-# houver resolução por --store, raiz local ou ponteiro store: do projeto)
+# Set a machine-level default store (fallback root when no --store,
+# local root, or project store: pointer resolves)
 openspec config set defaultStore team-plans
 
-# Redefinir toda a configuração
+# Reset all configuration
 openspec config reset --all --yes
 
-# Editar a configuração no editor
+# Edit config in your editor
 openspec config edit
 
-# Configurar o perfil com o assistente baseado em ações
+# Configure profile with action-based wizard
 openspec config profile
 
-# Predefinição rápida: mudar os fluxos para core (mantém o modo de distribuição)
+# Fast preset: switch workflows to core (keeps delivery mode)
 openspec config profile core
 ```
 
@@ -1370,15 +1407,15 @@ exibida dentro de um projeto).
 **Exemplos interativos:**
 
 ```bash
-# Atualizar somente a distribuição
+# Delivery-only update
 openspec config profile
-# escolher: alterar somente a distribuição
-# escolher a distribuição: somente skills
+# choose: Change delivery only
+# choose delivery: Skills only
 
-# Atualizar somente os fluxos de trabalho
+# Workflows-only update
 openspec config profile
-# escolher: alterar somente os fluxos de trabalho
-# alternar fluxos na lista de verificação e confirmar
+# choose: Change workflows only
+# toggle workflows in the checklist, then confirm
 ```
 
 ---
@@ -1437,16 +1474,16 @@ openspec completion <subcommand> [shell]
 **Exemplos:**
 
 ```bash
-# Instalar conclusões (detecta o shell automaticamente)
+# Install completions (auto-detects shell)
 openspec completion install
 
-# Instalar para um shell específico
+# Install for specific shell
 openspec completion install zsh
 
-# Gerar script para instalação manual (bash)
+# Generate script for manual installation (bash)
 openspec completion generate bash > ~/.bash_completion.d/openspec
 
-# Desinstalar
+# Uninstall
 openspec completion uninstall
 ```
 

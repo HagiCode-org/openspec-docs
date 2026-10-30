@@ -2,7 +2,7 @@
 title: "快速入門"
 ---
 
-本指南介紹安裝並初始化 OpenSpec 後的使用方式。安裝說明請參閱[文件首頁](/zh-Hant/)或[安裝指南](/zh-Hant/installation/)。剛開始閱讀整套文件？請檢視[文件首頁](/zh-Hant/)，瞭解各文件內容。
+本指南介紹安裝並初始化 OpenSpec 後的使用方式。安裝說明請參閱[主 README](https://github.com/Fission-AI/openspec/blob/dc37609827c8c3aba49e49347745f47aaa65cb1b/README.md#quick-start)或[安裝指南](/zh-Hant/installation/)。剛開始閱讀整套文件？[文件首頁](/zh-Hant/)會列出所有內容。
 
 > **這些命令應該在哪裡輸入？** 有兩個地方，混淆它們是初學者最常遇到的問題。
 >
@@ -16,7 +16,7 @@ title: "快速入門"
 完整流程如下，並標明瞭每一步發生的位置：
 
 ```text
-TERMINAL   $ npm install -g @fission-ai/openspec@latest
+TERMINAL   $ curl -fsSL https://raw.githubusercontent.com/Fission-AI/OpenSpec/main/scripts/binary/install.sh | sh
 TERMINAL   $ cd your-project && openspec init
 AI CHAT      /opsx:explore                    (optional: think it through first)
 AI CHAT      /opsx:propose add-dark-mode      (AI drafts the plan; you review it)
@@ -24,9 +24,9 @@ AI CHAT      /opsx:apply                      (AI builds it)
 AI CHAT      /opsx:archive                    (specs updated, change filed away)
 ```
 
-設定只需在終端中執行兩步，之後就在聊天中完成操作。本指南餘下部分將逐一介紹每一步的作用以及你會看到的內容。
+設定只需在終端中執行兩步，之後就在聊天中完成操作。（Windows、npm 及其他安裝方式請參閱[安裝指南](/zh-Hant/installation/)。）本指南餘下部分將逐一介紹每一步的作用以及你會看到的內容。
 
-**不想自己在終端中操作？** 將[設定提示詞](/zh-Hant/installation/)貼上給助手，它會處理這兩行命令，並報告建立了什麼。
+**不想自己在終端中操作？** 將[設定提示詞](/zh-Hant/installation/#使用-ai-助手安裝)貼上給助手，它會處理這兩行命令，並報告建立了什麼。
 
 > **還不確定要建置什麼？從 `/opsx:explore` 開始。** 它是一位沒有壓力的思考夥伴，會讀取程式碼庫、權衡選項，並在編寫任何程式碼之前，把模糊想法整理成具體計畫。思路明確後，它會交由 `/opsx:propose` 繼續。這是與 AI 合作時最值得養成的習慣，因為 AI 否則可能會自信地建置出錯誤的內容。參閱[探索指南](/zh-Hant/explore/)。
 

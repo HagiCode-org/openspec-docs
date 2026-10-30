@@ -2,91 +2,125 @@
 title: "Установка"
 ---
 
-## Предварительные требования
+## Установка
 
-- **Node.js версии 20.19.0 или новее** — проверьте версию: `node --version`
+OpenSpec — это один файл. Ему не нужны Node.js и что-либо ещё (в Alpine Linux сначала выполните `apk add libstdc++ libgcc`).
+
+macOS и Linux:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Fission-AI/OpenSpec/main/scripts/binary/install.sh | sh
+```
+
+Windows (PowerShell):
+
+```powershell
+irm https://raw.githubusercontent.com/Fission-AI/OpenSpec/main/scripts/binary/install.ps1 | iex
+```
+
+Установщик выбирает самый новый релиз, у которого прикреплены все файлы, и нужный файл для вашей машины, проверяет его по `SHA256SUMS` этого релиза и устанавливает в `~/.local/bin` (в Windows: `%LOCALAPPDATA%\Programs\openspec`, каталог добавляется в ваш пользовательский `PATH`). Чтобы выбрать другой каталог, задайте `OPENSPEC_INSTALL_DIR`, или `OPENSPEC_VERSION=v1.15.0`, чтобы закрепить версию релиза. Предпочитаете npm или другой менеджер пакетов? См. [Менеджеры пакетов](#менеджеры-пакетов).
+
+Чтобы установить вручную, скачайте файл для вашей платформы из [последнего релиза](https://github.com/Fission-AI/OpenSpec/releases/latest), переименуйте его в `openspec` (в Windows — `openspec.exe`), сделайте исполняемым в macOS и Linux (`chmod +x openspec`) и поместите в `PATH`:
+
+| Платформа | Файл |
+|---|---|
+| macOS 13+ (Apple Silicon / Intel) | `openspec-darwin-arm64` / `openspec-darwin-x64` |
+| Linux (glibc 2.17+) | `openspec-linux-x64` / `openspec-linux-arm64` |
+| Alpine 3.17+ (нужно `apk add libstdc++ libgcc`) | `openspec-linux-x64-musl` / `openspec-linux-arm64-musl` |
+| Windows 10+ | `openspec-windows-x64.exe` / `openspec-windows-arm64.exe` |
+
+В macOS файл, скачанный через браузер, блокируется, пока вы не выполните `xattr -d com.apple.quarantine openspec`; сценарий установки этого избегает. В Windows SmartScreen может показать предупреждение при первом запуске из Проводника.
 
 ## Установка с помощью ИИ-ассистента
 
 Не хотите выполнять эти действия вручную? Вставьте приведённую ниже инструкцию в любой ассистент для программирования, умеющий запускать команды оболочки, например Claude Code, Codex, Cursor, Gemini CLI, Copilot или другие [поддерживаемые инструменты](/ru-RU/supported-tools/). Ассистент установит CLI, инициализирует проект и сообщит, что именно было сделано.
 
-Ручные шаги ниже — источник истины; инструкция лишь выполняет их за вас. Если ассистент остановится и попросит вас продолжить, это предусмотрено: перед действиями с повышенными привилегиями он запрашивает разрешение и никогда не изменяет файлы запуска оболочки. Выполните оставшиеся шаги самостоятельно, воспользовавшись разделами [Менеджеры пакетов](#менеджеры-пакетов) и [Устранение неполадок](/ru-RU/troubleshooting/).
+Ручные шаги ниже — источник истины; инструкция лишь выполняет их за вас. Если ассистент остановится и попросит вас продолжить, это предусмотрено: перед действиями с повышенными привилегиями он запрашивает разрешение и никогда не изменяет файлы запуска оболочки. Выполните оставшиеся шаги самостоятельно, воспользовавшись разделом [Установка](#установка) и [Устранение неполадок](/ru-RU/troubleshooting/).
 
 ```text
-Установи OpenSpec в этот проект и настрой его. Выполняй шаги по порядку и
-останавливайся там, где это указано.
+Install OpenSpec in this project and set it up for me. Follow these steps in
+order, and stop where a step tells you to stop.
 
-1. СРЕДА ВЫПОЛНЕНИЯ. Выполни `node --version`. Для OpenSpec требуется Node.js
-   версии 20.19.0 или новее. Если Node.js не установлен или его версия ниже,
-   сообщи об этом и остановись — не устанавливай Node.js, не переключай версии
-   и не перенастраивай мой менеджер версий.
+1. INSTALL. Run `openspec --version` first. If it prints a version, OpenSpec is
+   already installed: run `openspec version --check`, which prints the update
+   command for how it was installed when it can tell (otherwise update it the
+   way it was installed, e.g. `brew upgrade openspec`), offer to run that, and
+   skip to step 3. If I installed it with a package manager, mention once that
+   `openspec install` switches to the standalone install, but only switch if I
+   ask; never switch it to a different install method on your own. Otherwise install
+   the standalone OpenSpec binary, which needs no Node.js. Show me the command
+   for my OS and run it only once I confirm, then skip to step 3:
+     macOS / Linux:        curl -fsSL https://raw.githubusercontent.com/Fission-AI/OpenSpec/main/scripts/binary/install.sh | sh
+     Windows (PowerShell): irm https://raw.githubusercontent.com/Fission-AI/OpenSpec/main/scripts/binary/install.ps1 | iex
+   If I'd rather use a package manager, or the installer fails, go to step 2.
 
-2. УСТАНОВКА. Используй менеджер пакетов, уже доступный в PATH; предпочтителен npm:
+2. PACKAGE MANAGER (only if step 1 did not install it). Run `node --version`:
+   this needs Node.js 20.19.0 or higher. If Node is missing or older, say so and
+   stop — don't install Node, switch versions, or reconfigure my version
+   manager for me. Otherwise use whichever package manager is already on my
+   PATH, preferring npm:
      npm install -g @fission-ai/openspec@latest
      pnpm add -g @fission-ai/openspec@latest
      bun add -g @fission-ai/openspec@latest
      yarn global add @fission-ai/openspec@latest   (Yarn 1.x only)
-   Не выбирай менеджер по lock-файлу проекта: глобальная установка не связана с
-   тем, как устанавливаются зависимости этого репозитория. Если ни один из этих
-   четырёх менеджеров недоступен, остановись и сообщи мне — не придумывай другой
-   способ установки. (Если я использую Nix, укажи вместо этого раздел Nix в
-   документации по установке OpenSpec.)
-   Покажи точную команду и дождись моего подтверждения перед выполнением:
-   программа устанавливается за пределами проекта, и я могу захотеть поручить
-   глобальную установку другому менеджеру пакетов.
-   Если для установки нужны sudo или права администратора, возникла ошибка
-   доступа либо сообщается, что глобальный каталог бинарных файлов отсутствует
-   или не настроен, остановись и снова спроси меня. Никогда не изменяй файлы
-   запуска моей оболочки (.bashrc, .zshrc, .profile, fish, профиль PowerShell)
-   и не запускай команды настройки, которые редактируют их за меня: покажи
-   изменение и предоставь мне возможность внести его самостоятельно.
+   Don't pick based on this project's lockfile — a global install has nothing to
+   do with how this repo's own dependencies are installed. If none of those four
+   is available, stop and tell me — don't improvise an install. (If I'm on Nix,
+   point me at the Nix section of the OpenSpec installation docs instead.)
+   Show me the exact command and let me confirm before you run it; this installs
+   software outside the project, and I may want a different package manager to
+   own it.
+   Stop and ask me again if the install needs sudo or admin rights, fails with a
+   permissions error, or reports that its global bin directory is missing or
+   unconfigured. Never edit my shell startup files (.bashrc, .zshrc, .profile,
+   fish, PowerShell profile), and never run a setup command that edits them for
+   me — show me the change and let me make it.
 
-3. PATH. Выполни `openspec --version`. Если команда не найдена, возможно,
-   она просто недоступна в текущей оболочке: сообщи, куда менеджер пакетов
-   установил программу и как добавить этот каталог в PATH для моей оболочки
-   и ОС, а затем дождись моего подтверждения. Если отображается версия старее
-   только что установленной, значит, более ранняя копия перекрывает её в PATH:
-   сообщи обе версии и не продолжай. Если я использую менеджер версий, укажи
-   на это вместо изменения PATH: при использовании nvm или fnm CLI привязана
-   к активной на момент установки версии Node.js, а для asdf или volta может
-   потребоваться обновить shim.
+3. PATH. Run `openspec --version`. If the command isn't found, it may just be
+   missing from this shell: tell me where it was installed (the standalone
+   installer prints the folder, ~/.local/bin by default; a package manager has
+   its own global bin folder) and how to add that folder to PATH for my shell
+   and OS, then stop until I confirm. On Windows the standalone installer adds
+   it for me; a new terminal picks it up. If it prints an older version than the one the install just
+   reported, an earlier copy is shadowing it on PATH — tell me both versions
+   instead of continuing. If I use a version manager, say so rather than editing
+   PATH around it: with nvm or fnm the CLI is tied to the Node version that was
+   active when you installed it, and with asdf or volta a shim may need
+   regenerating.
 
-4. ИНИЦИАЛИЗАЦИЯ. Спроси, каким инструментом или инструментами для программирования
-   с ИИ я пользуюсь, и сопоставь каждый из них с идентификатором из
-   `openspec init --help` (для Copilot это `github-copilot`, для Zoo Code —
-   `roocode`). Параметр `--tools` принимает список, разделённый запятыми,
-   поэтому укажи все инструменты.
-   Команда `openspec init --tools <ids>` автоматически и без запроса удаляет
-   остатки файлов от старых версий OpenSpec, в том числе файлы запросов
-   `opsx-*.md` в моей домашней папке (Codex хранит их в ~/.codex/prompts).
-   Перед запуском поищи их: каталоги `.../commands/openspec/`, блоки OpenSpec
-   в файлах вроде CLAUDE.md или AGENTS.md и запросы `opsx-*.md` в домашнем
-   каталоге. Перечисли всё найденное и дождись моего разрешения. Если ничего
-   не найдено, сообщи об этом и продолжай без запроса. Наличие каталога
-   `openspec/` не является проблемой: команда init обновит его, не затрагивая
-   мои спецификации и изменения.
-   Также проверь, что я нахожусь в нужной папке: команда init создаёт
-   `openspec/` в текущем каталоге, в том числе внутри пакета монорепозитория.
-   Затем выполни: openspec init --tools <ids>
+4. INITIALIZE. Ask me which AI coding tool or tools I use and map each to an id
+   from `openspec init --help` (Copilot is `github-copilot`, Zoo Code is
+   `roocode`). `--tools` takes a comma-separated list, so name all of them.
+   `openspec init --tools <ids>` deletes leftovers from older OpenSpec versions
+   automatically, without asking — including `opsx-*.md` prompt files in my home
+   directory (Codex keeps them in ~/.codex/prompts). Before you run it, look for
+   those: `.../commands/openspec/` folders, OpenSpec marker blocks in files like
+   CLAUDE.md or AGENTS.md, and home-directory `opsx-*.md` prompts. List whatever
+   you find and wait for my go-ahead; if you find nothing, say so and carry on
+   without asking. An existing `openspec/` folder is not a problem — init
+   refreshes it and leaves my specs and changes alone.
+   Confirm I'm in the right folder too: init creates `openspec/` wherever it
+   runs, including inside a monorepo package.
+   Then run: openspec init --tools <ids>
 
-5. ОТЧЁТ. Не предполагай, что должно существовать, — сообщи, что именно вывела
-   команда init: сколько навыков и/или команд создано и где, строку о файле
-   конфигурации, возможное примечание «Требуется настройка» и то, что нужно
-   перезапустить или перезагрузить. Некоторые инструменты используют только
-   навыки и корректно создают ноль файлов команд, поэтому отсутствие команд
-   само по себе не является ошибкой. Если команда init сообщила, что ничего
-   не создано, передай предложенный способ исправления, а не запускай её снова.
-   В завершение объясни, как вызвать OpenSpec в выбранном инструменте. Возьми
-   точное написание из созданных файлов, а не из строки-резюме: пунктуация
-   зависит от инструмента (/opsx:propose в одних, /opsx-propose в других,
-   @opsx-propose в Amazon Q); инструменты, использующие навыки вместо команд,
-   вызывают их по имени навыка (/openspec-propose, $openspec-propose в Codex
-   или /skill:openspec-propose в Kimi Code).
+5. REPORT. Don't assume what should exist — tell me what init actually printed:
+   how many skills and/or commands it created and where, the config file line,
+   any "Setup required" note, and what to restart or reload. Some tools are
+   skills-only and correctly create zero command files, so missing commands is
+   not a failure on its own. If init said nothing was generated, relay the fix
+   it suggested instead of retrying. Finish by telling me how to invoke OpenSpec
+   in my tool, and take the exact spelling from the files init created rather
+   than from its summary line: the punctuation differs per tool (/opsx:propose
+   in some, /opsx-propose in others, @opsx-propose in Amazon Q), and tools that
+   get skills instead of commands are invoked by skill name (/openspec-propose,
+   or $openspec-propose in Codex, or /skill:openspec-propose in Kimi Code).
 ```
 
 Инструкция не привязана к конкретному поставщику: это обычные указания и те же команды, что описаны на этой странице. Она работает в macOS, Linux и Windows и намеренно останавливается, а не импровизирует, когда требуется ваше разрешение. Ассистент должен уметь запускать команды оболочки — некоторые интеграции с IDE этого не умеют.
 
 ## Менеджеры пакетов
+
+Для установки через менеджер пакетов нужен **Node.js версии 20.19.0 или новее** (проверьте версию командой `node --version`).
 
 ### npm
 
@@ -123,7 +157,7 @@ deno install --global \
   npm:@fission-ai/openspec@^1.3.1
 ```
 
-Примечание: если подкоманды запускают внешние инструменты, например `config edit`, `feedback` или `workspace open`, может понадобиться точечное разрешение `--allow-run=<program>`.
+Примечание: если подкоманды запускают внешние инструменты, например config edit, feedback или workspace open, может понадобиться точечное разрешение --allow-run=<program>.
 
 ### bun
 
@@ -171,26 +205,35 @@ nix profile install github:Fission-AI/OpenSpec
 openspec --version
 ```
 
+## Переход с npm на автономную установку
+
+Настройки и проекты сохраняются; меняется только программа.
+
+1. Выполните `openspec install`. Она установит автономную копию и выведет команду, которая удаляет старую.
+2. Выполните эту команду, например `npm uninstall -g @fission-ai/openspec` (для Homebrew: `brew uninstall openspec`). До этого старая копия остаётся первой в PATH и продолжает запускаться.
+3. В новом терминале выполните `openspec version`. Должно вывестись `OpenSpec <version> (standalone)`. Если указан менеджер пакетов, в PATH всё ещё есть другая копия: `which -a openspec` (в Windows: `where.exe openspec`) покажет все копии.
+
 ## Обновление
 
-Обновите пакет, а затем обновите сгенерированные файлы в каждом проекте:
+Обновите CLI, выполнив [команду установки](#установка) ещё раз (при использовании менеджера пакетов: `npm install -g @fission-ai/openspec@latest` или её аналог для pnpm/yarn/bun). Затем обновите сгенерированные файлы в каждом проекте:
 
 ```bash
-npm install -g @fission-ai/openspec@latest   # or pnpm/yarn/bun equivalent
-openspec update                              # run inside each project
+openspec update   # run inside each project
 ```
 
 Команда `openspec update` повторно создаёт файлы навыков и команд для настроенных инструментов, чтобы slash-команды соответствовали установленной версии. Она также проверяет, не выпущена ли новая версия CLI, и предлагает обновиться: именно обновление позволяет использовать новые рабочие процессы. См. [Справочник по CLI](/ru-RU/cli/#openspec-update).
 
 ## Удаление
 
-Команды `openspec uninstall` нет, поскольку OpenSpec — это глобальный пакет и несколько файлов в проекте. Удаление выполняется вручную в несколько шагов и не затрагивает исходный код.
+Команды `openspec uninstall` нет, поскольку OpenSpec — это одна программа и несколько файлов в проекте. Удаление выполняется вручную в несколько шагов и не затрагивает исходный код.
 
-**1. Удалите глобальный пакет:**
+**1. Удалите CLI.** Удалите файл, который установщик разместил: `~/.local/bin/openspec` или в Windows `%LOCALAPPDATA%\Programs\openspec\openspec.exe` (а также уберите эту папку из пользовательского `PATH`). Если вы устанавливали через менеджер пакетов:
 
 ```bash
 npm uninstall -g @fission-ai/openspec   # or: pnpm rm -g / yarn global remove / bun rm -g
 ```
+
+Автономный бинарный файл также хранит, если этот каталог доступен для записи, копию своих встроенных схем в каталоге данных OpenSpec (`~/.local/share/openspec/binary-schemas` в macOS и Linux, `%LOCALAPPDATA%\openspec\binary-schemas` в Windows); её тоже можно удалить.
 
 **2. Удалите OpenSpec из проекта (необязательно).** Если спецификации и изменения больше не нужны, удалите каталог `openspec/`:
 

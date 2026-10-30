@@ -9,7 +9,7 @@ title: "OpenSpec 에이전트 계약"
 - **호출 한 번에 JSON 문서 하나를 출력합니다.** `--json` 모드에서 표준 출력에는 들여쓰기 2칸으로 정돈된 JSON 문서가 정확히 하나 출력됩니다. 사용자용 문장, 스피너, store 배너는 표준 오류로 출력됩니다.
 - **Store 배너.** 사람이 읽는 모드에서는 store로 선택한 루트가 `Using OpenSpec root: <id> (<path>)`를 표준 오류로 출력합니다. JSON 모드에서는 출력하지 않습니다.
 - **키 대소문자는 인터페이스에 따라 다릅니다**(불일치 항목 참조). store/doctor/context 페이로드는 `snake_case`, 워크플로 페이로드(`status`, `instructions`, `new change`, `validate`, `list`)는 `camelCase`를 사용합니다. 단, 포함된 `root` 객체는 항상 `store_id`를 사용합니다.
-- 대부분의 페이로드에서 **선택 키는 `null`이 아니라 생략됩니다**(예: `root.store_id`, `member.path`). 명시적으로 `null`을 사용하는 예외는 각 형식에 표시되어 있습니다(store doctor의 `git.*`, 실패 페이로드).
+- 대부분의 페이로드에서 **선택 키는 null이 아니라 생략됩니다**(예: `root.store_id`, `member.path`). 명시적으로 `null`을 사용하는 예외는 각 형식에 표시되어 있습니다(store doctor의 `git.*`, 실패 페이로드).
 
 ## 2. 진단 엔벨로프
 
@@ -29,7 +29,7 @@ title: "OpenSpec 에이전트 계약"
 
 ## 3. 루트 선택 및 `RootOutput`
 
-루트를 확인하는 모든 명령(`list`, `show`, `validate`, `status`, `instructions`, `instructions apply`, `instructions archive`, `new change`, `archive`, `doctor`, `context`, `schemas)은 다음 우선순위에 따라 하나의 OpenSpec 루트를 결정합니다.
+루트를 확인하는 모든 명령(`list`, `show`, `validate`, `status`, `instructions`, `instructions apply`, `instructions archive`, `new change`, `archive`, `doctor`, `context`, `schemas`)은 다음 우선순위에 따라 하나의 OpenSpec 루트를 결정합니다.
 
 1. `--store <id>` → 등록된 store의 루트(`source: "store"`).
 2. 그렇지 않으면 `openspec/`가 있는 가장 가까운 상위 디렉터리를 확인합니다. 계획 구조가 있으면 `source: "nearest"`입니다(`store:` 포인터는 무시하고 표준 오류에 경고를 출력). 유효한 `store:` 포인터가 있는 구성 전용 디렉터리라면 해당 store를 선택하며 `source: "declared"`입니다.
@@ -53,13 +53,13 @@ title: "OpenSpec 에이전트 계약"
 `warnings`(비어 있으면 생략)는 변경 사항이 아닌 `changes/` 아래 디렉터리를 보고합니다. 현재 유일한 코드는 `nested_change_directory`이며 변경 사항 디렉터리를 감싸는 네임스페이스 폴더를 나타냅니다. 변경 사항은 항상 `changes/` 바로 아래에 있는 디렉터리이므로 OpenSpec은 이 폴더를 대상으로 지정할 수 없습니다. 같은 항목이 나열된 변경 사항에 `nested` 값을 포함하면 해당 `status`는 의미가 없습니다. 이를 변경 사항으로 취급하지 마세요. 메시지를 보고하고 디렉터리는 그대로 두세요.
 
 ### 4.2 `show <item> --json`
-변경 사항: `{ "id", "title", "deltaCount", "deltas": [...], "root" }`. 사양: `{ "id", "title", "overview", "requirementCount", "requirements": [...], "metadata": { "version", "format", "sourcePath"? }, "root" }`.
+변경 사항: `{ "id", "title", "deltaCount", "deltas": [...], "root" }`. 사양: `{ "id", "title", "overview", "requirementCount", "requirements": [...], "metadata": { "version", "format", "sourcePath"? }, "root" }`. 사양 또는 변경 사항 델타의 `requirement`/`requirements`에 있는 요구 사항은 `{ "name", "text", "scenarios": [ { "name", "rawText" } ] }` 형식입니다. 요구 사항의 `name`은 `Requirement:`와 끝의 `#` 연속 기호를 제외한 헤더이며, 보관 시 MODIFIED/REMOVED/RENAMED 항목을 대조하는 정확한 이름입니다. 시나리오의 `name`은 `Scenario:`와 끝의 `#` 연속 기호를 제외한 4단계 헤더이며, MODIFIED 시나리오 손실 검사가 비교하는 이름입니다.
 
 ### 4.3 `validate --json`
 `{ "items": [ { "id", "type": "change"|"spec", "valid", "issues": [ { "level", "path", "message", "line"?, "column"? } ], "durationMs" } ], "summary": { "totals": {items,passed,failed}, "byType": {...} }, "version": "1.0", "root" }`. 항목이 하나라도 실패하면 종료 코드 1을 반환합니다.
 
 ### 4.4 `status --json`
-`{ "changeName", "schemaName", "planningHome"?: { "kind", "root", "changesDir", "defaultSchema" }, "changeRoot", "artifactPaths": { "<id>": {outputPath, resolvedOutputPath, existingOutputPaths} }, "nextSteps": ["..."], "actionContext": { "mode": "repo-local", "sourceOfTruth": "repo", "planningArtifacts", "linkedContext", "allowedEditRoots", "requiresAffectedAreaSelection", "constraints" }, "isPlanningComplete", "isComplete", "applyRequires", "artifacts": [ {id, outputPath, status: "done"|"skipped"|"ready"|"blocked", requires, missingDeps?} ], "root" }`. `isPlanningComplete`은 건너뛴 항목을 제외한 계획 산출물이 모두 있는지 나타냅니다. 건너뛴 산출물은 실제로 생성하지 않아도 완료된 것으로 간주합니다. 구현 작업의 완료 여부를 의미하지는 않습니다. `isComplete`는 같은 값을 사용하는 하위 호환 별칭입니다. 각 산출물의 `requires`에는 직접 의존 ID가 포함됩니다(모든 상태에서 제공되므로 산출물이 `done`이어도 전이 의존성을 계산할 수 있음). `missingDeps`는 상태가 `blocked`일 때만 나타납니다. `artifacts` 배열은 의존성 순서로 정렬하며 동시에 준비되는 산출물은 스키마의 `artifacts:` 선언 순서로 정렬합니다(알파벳순 아님). 따라서 첫 번째 `ready` 항목이 다음에 작성할 산출물입니다. `missingDeps`도 같은 순서를 사용합니다. `"skipped"`는 변경 사항의 `.openspec.yaml`에 `skip_specs: true`가 선언되어 있고 `generates` 경로가 `specs/` 아래인 산출물을 나타냅니다. 의존성은 충족하지만 파일을 만들면 안 됩니다. 진행 중인 변경 사항이 없으면 `{ "changes": [], "message", "root" }`를 반환하고 종료 코드 0으로 끝납니다.
+`{ "changeName", "schemaName", "planningHome"?: { "kind", "root", "changesDir", "defaultSchema" }, "changeRoot", "artifactPaths": { "<id>": {outputPath, resolvedOutputPath, existingOutputPaths} }, "nextSteps": ["..."], "actionContext": { "mode": "repo-local", "sourceOfTruth": "repo", "planningArtifacts", "linkedContext", "allowedEditRoots", "requiresAffectedAreaSelection", "constraints" }, "isPlanningComplete", "isComplete", "applyRequires", "artifacts": [ {id, outputPath, status: "done"|"skipped"|"ready"|"blocked", requires, missingDeps?} ], "root" }`. store로 선택한 루트의 경우, 현재 경로에서 가장 가까운 프로젝트가 해당 store를 가리키는 `store:` 포인터를 가진 구성 전용 루트이면 `allowedEditRoots`는 `[<declaring project>, <store>]`이고, 그 밖의 경우(전역 `defaultStore` 포함)에는 `[<store>]`입니다. 편집할 저장소를 사용자에게 물어야 한다는 제약이 함께 제공됩니다. OpenSpec은 store의 작업을 저장소별로 라우팅하지 않으므로, 선언한 프로젝트는 변경 사항이 건드리는 모든 저장소가 아니라 현재 프로젝트입니다. `isPlanningComplete`은 건너뛴 항목을 제외한 계획 산출물이 모두 있는지 나타냅니다. 건너뛴 산출물은 실제로 생성하지 않아도 완료된 것으로 간주합니다. 구현 작업의 완료 여부를 의미하지는 않습니다. `isComplete`는 같은 값을 사용하는 하위 호환 별칭입니다. 각 산출물의 `requires`에는 직접 의존 ID가 포함됩니다(모든 상태에서 제공되므로 산출물이 `done`이어도 전이 의존성을 계산할 수 있음). `missingDeps`는 상태가 `blocked`일 때만 나타납니다. `artifacts` 배열은 의존성 순서로 정렬하며 동시에 준비되는 산출물은 스키마의 `artifacts:` 선언 순서로 정렬합니다(알파벳순 아님). 따라서 첫 번째 `ready` 항목이 다음에 작성할 산출물입니다. `missingDeps`도 같은 순서를 사용합니다. `"skipped"`는 변경 사항의 `.openspec.yaml`에 `skip_specs: true`가 선언되어 있고 `generates` 경로가 `specs/` 아래인 산출물을 나타냅니다. 의존성은 충족하지만 파일을 만들면 안 됩니다. 진행 중인 변경 사항이 없으면 `{ "changes": [], "message", "root" }`를 반환하고 종료 코드 0으로 끝납니다.
 
 `--all`(일괄 모드, `--change`와 함께 사용할 수 없음 — 함께 지정하면 `{ "changes": [], "root": null, "status": [d] }`의 null 형식으로 오류 발생): `{ "changes": [ <per-change status object, no per-change root>, ... ], "root" }`를 변경 사항 이름순으로 반환합니다. 로드할 수 없는 변경 사항에는 해당 위치에 `{ "changeName", "status": [d] }`가 들어갑니다. 나머지 항목의 검색을 계속하고 전체 엔벨로프를 유지하며 텍스트 및 JSON 모드 모두에서 종료 코드 1을 반환합니다. 유효하지 않은 `--schema`는 변경 사항이 없더라도 전체 호출을 null 형식과 함께 실패시킵니다.
 
@@ -80,6 +80,10 @@ title: "OpenSpec 에이전트 계약"
 ### 4.9 `archive <name> --json`
 성공: `{ "archive": { "change", "archivedAs": "YYYY-MM-DD-name", "path", "specsUpdated", "totals"?, "warnings"? }, "root" }`. 실패: `{ "archive": null, "root"?, "status": [d] }`, 종료 코드 1. `specsUpdated`는 사양 파일을 하나 이상 작성하거나 폐기했을 때만 true입니다(변경 사항에서 마지막 요구 사항을 제거한 기능은 사양이 삭제되며 변경 사항의 `.openspec.yaml`에 `retire_capabilities: true`가 필요합니다. 폐기 항목은 모두 `warnings`에 표시되며 사양이 호출자의 체크아웃에 있을 때만 복사해 사용할 수 있는 Git 복구 명령이 포함됨). 이미 동기화된 변경 사항은 모든 합계가 0인 상태로 보관되며 건너뛴 항목은 `warnings`에 표시됩니다. JSON 모드는 대화형 입력을 허용하지 않으므로 모든 확인 요청이 `archive_*` 코드로 바뀝니다.
 
+- **`archive: null`**: 명령이 실패했습니다. 파일이 변경되지 않았다는 보장은 없습니다.
+- **`archive_retirement_cleanup_failed`**: 변경 사항은 보관되었지만 폐기 백업 검증 또는 정리에 실패했습니다. 나열된 백업 경로가 변경되었거나 사라졌을 수 있습니다. 메시지에는 실패한 대체 복사 정리 과정에서 남은 준비된 원본도 보고될 수 있습니다. 정리하기 전에 현재 보관본과 보고된 모든 복구 경로를 확인하고 필요한 내용은 보존하세요. 보관을 다시 시도해도 이 경로는 정리되지 않습니다.
+- **`archive_error`**: 대체 진단 정보로는 파일이 변경되었는지 알 수 없습니다. 다시 시도하기 전에 변경 사항, 보관본, 영향을 받은 사양을 확인하세요.
+
 ### 4.10 `doctor --json`
 `{ "root": { "path", "source", "store_id"?, "healthy", "status": [] }, "store": { "id", "metadata": {present,valid,remote?}, "origin_url"?, "drift"?: {ahead,behind}, "status": [] } | null, "references": [...], "status": [] }`. `drift`(Git 기반 store 체크아웃에 업스트림 추적 참조가 있을 때만 표시)는 현재 원격 저장소가 아니라 마지막으로 가져온 업스트림 기준 앞섬/뒤처짐 횟수입니다. 심각도와 관계없이 상태 진단 결과는 종료 코드 0을 반환합니다. 실패 페이로드: `{ "root": null, "store": null, "references": [], "status": [d] }`, 종료 코드 1.
 
@@ -90,7 +94,7 @@ title: "OpenSpec 에이전트 계약"
 setup/register: `{ "store": {id, root, metadata_path?}, "registry": {path, registered, already_registered}, "git": {is_repository, initialized, committed}, "created_files": [], "status": [] }`. unregister/remove: `{ "store", "registry": {path, removed}, "files": {deleted, deleted_path, left_on_disk}, "status": [] }`. list: `{ "stores": [{id, root}], "status": [] }`. doctor: `{ "stores": [ { id, root, metadata_path?, openspec_root: {...healthy, status}, metadata: {present, valid, id?, remote}, git: {is_repository, has_commits, has_uncommitted_changes, has_remote, origin_url}, status } ], "status": [] }`(`null`은 알 수 없거나 확인하지 않은 값을 의미). 상태 진단 결과는 종료 코드 0을 반환하며 실패 시 해당 null 형식과 함께 종료 코드 1을 반환합니다. 프롬프트 취소 시 종료 코드 130을 반환합니다.
 
 ### 4.13 `schemas --json` / `templates --json`
-`schemas`: 성공 시 일반 배열 `[ {name, description, artifacts, source} ]을 반환하며 표준 루트 선택 우선순위를 따르고 `--store <id>`를 허용합니다. 루트 선택 실패: `{ "schemas": [], "root": null, "status": [d] }`, 종료 코드 1. `templates`: 키 기반 객체 `{ "<artifactId>": {path, source} }`를 반환하며 여전히 현재 작업 디렉터리를 기준으로 하고 root/status 키는 없습니다.
+`schemas`: 성공 시 일반 배열 `[ {name, description, artifacts, source} ]`을 반환하며 표준 루트 선택 우선순위를 따르고 `--store <id>`를 허용합니다. 루트 선택 실패: `{ "schemas": [], "root": null, "status": [d] }`, 종료 코드 1. `templates`: 키 기반 객체 `{ "<artifactId>": {path, source} }`를 반환하며 여전히 현재 작업 디렉터리를 기준으로 하고 root/status 키는 없습니다.
 
 ## 5. 종료 코드 계약
 
@@ -125,7 +129,7 @@ setup/register: `{ "store": {id, root, metadata_path?}, "registry": {path, regis
 `relationship_registry_unreadable`, `root_pointer_ignored`, `root_pointer_invalid`, `pointer_declarations_inert`.
 
 ### 보관(JSON 모드)
-`archive_change_name_required`, `archive_change_not_found`, `archive_change_symlink`, `archive_validation_failed`, `archive_confirmation_required`, `archive_tasks_incomplete`, `archive_spec_update_failed`, `archive_spec_validation_failed`, `archive_target_exists`, `archive_error`.
+`archive_change_name_required`, `archive_change_not_found`, `archive_change_symlink`, `archive_validation_failed`, `archive_confirmation_required`, `archive_tasks_incomplete`, `archive_spec_update_failed`, `archive_spec_validation_failed`, `archive_target_exists`, `archive_retirement_cleanup_failed`, `archive_error`.
 
 ### 컨텍스트 파일 쓰기
 `context_file_exists`, `context_output_dir_missing`.

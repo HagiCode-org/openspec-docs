@@ -2,7 +2,7 @@
 title: "시작하기"
 ---
 
-이 안내서는 OpenSpec을 설치하고 초기화한 뒤 사용하는 방법을 설명합니다. 설치 방법은 [기본 README](https://github.com/Fission-AI/openspec/blob/79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777/README.md#quick-start) 또는 [설치 안내서](/ko-KR/installation/)를 참조하세요. 문서 전체를 처음 접하나요? [문서 홈](/ko-KR/)에서 전체 구성을 확인할 수 있습니다.
+이 안내서는 OpenSpec을 설치하고 초기화한 뒤 사용하는 방법을 설명합니다. 설치 방법은 [기본 README](https://github.com/Fission-AI/openspec/blob/dc37609827c8c3aba49e49347745f47aaa65cb1b/README.md#quick-start) 또는 [설치 안내서](/ko-KR/installation/)를 참조하세요. 문서 전체를 처음 접하나요? [문서 홈](/ko-KR/)에서 전체 구성을 확인할 수 있습니다.
 
 > **이 명령은 어디에 입력하나요?** 입력 위치는 두 곳이며 이를 혼동하는 경우가 가장 흔합니다.
 >
@@ -16,7 +16,7 @@ title: "시작하기"
 각 단계를 실행하는 위치와 함께 전체 작업 흐름을 살펴보세요.
 
 ```text
-TERMINAL   $ npm install -g @fission-ai/openspec@latest
+TERMINAL   $ curl -fsSL https://raw.githubusercontent.com/Fission-AI/OpenSpec/main/scripts/binary/install.sh | sh
 TERMINAL   $ cd your-project && openspec init
 AI CHAT      /opsx:explore                    (optional: think it through first)
 AI CHAT      /opsx:propose add-dark-mode      (AI drafts the plan; you review it)
@@ -24,7 +24,7 @@ AI CHAT      /opsx:apply                      (AI builds it)
 AI CHAT      /opsx:archive                    (specs updated, change filed away)
 ```
 
-터미널에서 두 단계를 설정한 뒤에는 채팅에서 작업합니다. 이 안내서의 나머지 부분에서 각 단계의 기능과 예상 결과를 설명합니다.
+터미널에서 두 단계를 설정한 뒤에는 채팅에서 작업합니다. (Windows, npm 등 다른 설치 방법은 [설치 안내서](/ko-KR/installation/)에 있습니다.) 이 안내서의 나머지 부분에서 각 단계의 기능과 예상 결과를 설명합니다.
 
 **터미널에서 직접 설정하고 싶지 않나요?** [설정 프롬프트](/ko-KR/installation/#ai-어시스턴트를-사용해-설치하기)를 어시스턴트에 붙여 넣으면 두 명령을 처리하고 생성된 내용을 알려 줍니다.
 
@@ -41,7 +41,7 @@ OpenSpec은 코드 작성 전에 사용자와 AI 코딩 어시스턴트가 무�
    (optional)
 ```
 
-무엇을 할지 고민 중이라면 `/opsx:explore`부터 시작하고, 이미 알고 있다면 바로 `/opsx:propose`로 넘어가세요. `explore`는 기본 프로필에 포함되어 있으므로 언제든 사용할 수 있습니다.
+무엇을 할지 고민 중이라면 `/opsx:explore`부터 시작하고, 이미 알고 있다면 바로 `/opsx:propose`로 넘어가세요. 탐색 기능은 기본 프로필에 포함되어 있으므로 언제든 사용할 수 있습니다.
 
 **확장 경로(사용자 지정 워크플로 선택):**
 

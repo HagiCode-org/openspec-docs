@@ -2,7 +2,7 @@
 title: "Начало работы"
 ---
 
-В этом руководстве объясняется, как работает OpenSpec после установки и инициализации. Инструкции по установке см. в [основном README](https://github.com/Fission-AI/openspec/blob/79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777/README.md#quick-start) или в [руководстве по установке](/ru-RU/installation/). Впервые открыли эту документацию? На [главной странице документации](/ru-RU/) описаны все разделы.
+В этом руководстве объясняется, как работает OpenSpec после установки и инициализации. Инструкции по установке см. в [основном README](https://github.com/Fission-AI/openspec/blob/dc37609827c8c3aba49e49347745f47aaa65cb1b/README.md#quick-start) или в [руководстве по установке](/ru-RU/installation/). Впервые открыли эту документацию? На [главной странице документации](/ru-RU/) описаны все разделы.
 
 > **Где вводить эти команды?** Есть два места, и путаница между ними — самая частая ошибка новичков.
 >
@@ -16,15 +16,15 @@ title: "Начало работы"
 Весь цикл с указанием места выполнения каждого шага:
 
 ```text
-ТЕРМИНАЛ   $ npm install -g @fission-ai/openspec@latest
-ТЕРМИНАЛ   $ cd your-project && openspec init
-ЧАТ С ИИ     /opsx:explore                    (необязательно: сначала обдумайте задачу)
-ЧАТ С ИИ     /opsx:propose add-dark-mode      (ИИ составляет план, вы его проверяете)
-ЧАТ С ИИ     /opsx:apply                      (ИИ реализует изменение)
-ЧАТ С ИИ     /opsx:archive                    (спецификации обновлены, изменение архивировано)
+TERMINAL   $ curl -fsSL https://raw.githubusercontent.com/Fission-AI/OpenSpec/main/scripts/binary/install.sh | sh
+TERMINAL   $ cd your-project && openspec init
+AI CHAT      /opsx:explore                    (optional: think it through first)
+AI CHAT      /opsx:propose add-dark-mode      (AI drafts the plan; you review it)
+AI CHAT      /opsx:apply                      (AI builds it)
+AI CHAT      /opsx:archive                    (specs updated, change filed away)
 ```
 
-Для настройки нужны два шага в терминале, а затем вся работа ведётся в чате. Далее в руководстве объясняется, что делает каждый шаг и что вы увидите.
+Для настройки нужны два шага в терминале, а затем вся работа ведётся в чате. (Windows, npm и другие способы установки описаны в [руководстве по установке](/ru-RU/installation/).) Далее в руководстве объясняется, что делает каждый шаг и что вы увидите.
 
 **Не хотите самостоятельно выполнять команды в терминале?** Вставьте [инструкцию по настройке](/ru-RU/installation/#установка-с-помощью-ии-ассистента) в чат ассистента. Он выполнит обе команды и сообщит, что было создано.
 
@@ -57,18 +57,18 @@ OpenSpec помогает вам и ИИ-ассистенту договорит
 
 ```
 openspec/
-├── specs/              # Источник истины (поведение системы)
+├── specs/              # Source of truth (your system's behavior)
 │   └── <domain>/
 │       └── spec.md
-├── changes/            # Предлагаемые изменения (отдельная папка для каждого)
+├── changes/            # Proposed updates (one folder per change)
 │   └── <change-name>/
 │       ├── proposal.md
 │       ├── design.md
 │       ├── tasks.md
-│       └── specs/      # Дельта-спецификации (что меняется)
+│       └── specs/      # Delta specs (what's changing)
 │           └── <domain>/
 │               └── spec.md
-└── config.yaml         # Конфигурация проекта (необязательно)
+└── config.yaml         # Project configuration (optional)
 ```
 
 **Два основных каталога:**
@@ -94,7 +94,7 @@ openspec/
 proposal ──► specs ──► design ──► tasks ──► implement
    ▲           ▲          ▲                    │
    └───────────┴──────────┴────────────────────┘
-            уточняйте по мере работы
+            update as you learn
 ```
 
 По мере реализации можно в любой момент вернуться к предыдущим артефактам и уточнить их.
@@ -108,33 +108,33 @@ proposal ──► specs ──► design ──► tasks ──► implement
 В дельта-спецификациях тип изменения указывается в заголовке раздела:
 
 ```markdown
-# Дельта для авторизации
+# Delta for Auth
 
 ## ADDED Requirements
 
-### Требование: двухфакторная аутентификация
-Система MUST запрашивать второй фактор при входе.
+### Requirement: Two-Factor Authentication
+The system MUST require a second factor during login.
 
-#### Сценарий: запрос одноразового пароля
-- GIVEN: у пользователя включена двухфакторная аутентификация
-- WHEN: пользователь отправляет действительные учётные данные
-- THEN: отображается запрос одноразового пароля
+#### Scenario: OTP required
+- GIVEN a user with 2FA enabled
+- WHEN the user submits valid credentials
+- THEN an OTP challenge is presented
 
 ## MODIFIED Requirements
 
-### Требование: время ожидания сеанса
-Система SHALL завершать сеансы после 30 минут бездействия.
-(Ранее: 60 минут)
+### Requirement: Session Timeout
+The system SHALL expire sessions after 30 minutes of inactivity.
+(Previously: 60 minutes)
 
-#### Сценарий: завершение неактивного сеанса
-- GIVEN: сеанс пользователя аутентифицирован
-- WHEN: проходит 30 минут бездействия
-- THEN: сеанс аннулируется
+#### Scenario: Idle timeout
+- GIVEN an authenticated session
+- WHEN 30 minutes pass without activity
+- THEN the session is invalidated
 
 ## REMOVED Requirements
 
-### Требование: запоминание входа
-(Устарело и заменено двухфакторной аутентификацией.)
+### Requirement: Remember Me
+(Deprecated in favor of 2FA)
 ```
 
 ### Что происходит при архивации
@@ -154,14 +154,14 @@ proposal ──► specs ──► design ──► tasks ──► implement
 ### 1. Начните изменение (профиль по умолчанию)
 
 ```text
-Вы: /opsx:propose add-dark-mode
+You: /opsx:propose add-dark-mode
 
-ИИ:  Создана папка openspec/changes/add-dark-mode/
-     ✓ proposal.md — зачем мы это делаем и что меняется
-     ✓ specs/       — требования и сценарии
-     ✓ design.md    — технический подход
-     ✓ tasks.md     — контрольный список реализации
-     Готово к реализации!
+AI:  Created openspec/changes/add-dark-mode/
+     ✓ proposal.md — why we're doing this, what's changing
+     ✓ specs/       — requirements and scenarios
+     ✓ design.md    — technical approach
+     ✓ tasks.md     — implementation checklist
+     Ready for implementation!
 ```
 
 Если вы включили расширенный профиль рабочих процессов, можно выполнить два шага: `/opsx:new`, а затем `/opsx:ff` (или последовательно использовать `/opsx:continue`).
@@ -171,76 +171,76 @@ proposal ──► specs ──► design ──► tasks ──► implement
 **proposal.md** — фиксирует цель:
 
 ```markdown
-# Предложение: добавить тёмную тему
+# Proposal: Add Dark Mode
 
 ## Intent
-Пользователи попросили добавить тёмную тему, чтобы уменьшить
-нагрузку на глаза при использовании приложения ночью.
+Users have requested a dark mode option to reduce eye strain
+during nighttime usage.
 
-## Область работ
-- Добавить переключатель темы в настройки
-- Поддержать определение системных предпочтений
-- Сохранять предпочтение в localStorage
+## Scope
+- Add theme toggle in settings
+- Support system preference detection
+- Persist preference in localStorage
 
 ## Approach
-Использовать пользовательские свойства CSS для тем и контекст React
-для управления состоянием.
+Use CSS custom properties for theming with a React context
+for state management.
 ```
 
 **specs/ui/spec.md** — дельта с новыми требованиями:
 
 ```markdown
-# Дельта для интерфейса
+# Delta for UI
 
 ## ADDED Requirements
 
-### Требование: выбор темы
-Система SHALL позволять пользователям выбирать светлую или тёмную тему.
+### Requirement: Theme Selection
+The system SHALL allow users to choose between light and dark themes.
 
-#### Сценарий: ручное переключение
-- GIVEN: пользователь находится на любой странице
-- WHEN: он нажимает переключатель темы
-- THEN: тема переключается немедленно
-- AND: выбранная настройка сохраняется между сеансами
+#### Scenario: Manual toggle
+- GIVEN a user on any page
+- WHEN the user clicks the theme toggle
+- THEN the theme switches immediately
+- AND the preference persists across sessions
 
-#### Сценарий: системные предпочтения
-- GIVEN: у пользователя нет сохранённого предпочтения
-- WHEN: приложение загружается
-- THEN: используется цветовая схема, выбранная в системе
+#### Scenario: System preference
+- GIVEN a user with no saved preference
+- WHEN the application loads
+- THEN the system's preferred color scheme is used
 ```
 
 **tasks.md** — контрольный список реализации:
 
 ```markdown
-# Задачи
+# Tasks
 
-## 1. Инфраструктура тем
-- [ ] 1.1 Создать ThemeContext с состояниями светлой и тёмной темы
-- [ ] 1.2 Добавить пользовательские свойства CSS для цветов
-- [ ] 1.3 Реализовать сохранение в localStorage
+## 1. Theme Infrastructure
+- [ ] 1.1 Create ThemeContext with light/dark state
+- [ ] 1.2 Add CSS custom properties for colors
+- [ ] 1.3 Implement localStorage persistence
 
-## 2. Компоненты интерфейса
-- [ ] 2.1 Создать компонент ThemeToggle
-- [ ] 2.2 Добавить переключатель на страницу настроек
-- [ ] 2.3 Обновить Header, добавив быстрый переключатель
+## 2. UI Components
+- [ ] 2.1 Create ThemeToggle component
+- [ ] 2.2 Add toggle to settings page
+- [ ] 2.3 Update Header to include quick toggle
 
-## 3. Стилизация
-- [ ] 3.1 Определить палитру цветов тёмной темы
-- [ ] 3.2 Обновить компоненты, чтобы использовать переменные CSS
+## 3. Styling
+- [ ] 3.1 Define dark theme color palette
+- [ ] 3.2 Update components to use CSS variables
 ```
 
 ### 3. Реализуйте изменение
 
 ```
-Вы: /opsx:apply
+You: /opsx:apply
 
-ИИ:  Выполняю задачи...
-     ✓ 1.1 Создан ThemeContext с состояниями светлой и тёмной темы
-     ✓ 1.2 Добавлены пользовательские свойства CSS в globals.css
-     ✓ 1.3 Реализовано сохранение в localStorage
-     ✓ 2.1 Создан компонент ThemeToggle
+AI:  Working through tasks...
+     ✓ 1.1 Created ThemeContext with light/dark state
+     ✓ 1.2 Added CSS custom properties to globals.css
+     ✓ 1.3 Implemented localStorage persistence
+     ✓ 2.1 Created ThemeToggle component
      ...
-     Все задачи выполнены!
+     All tasks complete!
 ```
 
 Если во время реализации выяснится, что проектное решение нужно скорректировать, просто обновите артефакт и продолжайте.
@@ -248,12 +248,12 @@ proposal ──► specs ──► design ──► tasks ──► implement
 ### 4. Архивируйте изменение
 
 ```
-Вы: /opsx:archive
+You: /opsx:archive
 
-ИИ:  Архивирую add-dark-mode...
-     ✓ Спецификации объединены с openspec/specs/ui/spec.md
-     ✓ Перемещено в openspec/changes/archive/2025-01-24-add-dark-mode/
-     Готово! Можно приступать к следующей функции.
+AI:  Archiving add-dark-mode...
+     ✓ Merged specs into openspec/specs/ui/spec.md
+     ✓ Moved to openspec/changes/archive/2025-01-24-add-dark-mode/
+     Done! Ready for the next feature.
 ```
 
 Теперь дельта-спецификации стали частью основных спецификаций и описывают поведение системы.
@@ -263,16 +263,16 @@ proposal ──► specs ──► design ──► tasks ──► implement
 Проверить изменения можно с помощью CLI:
 
 ```bash
-# Вывести список активных изменений
+# List active changes
 openspec list
 
-# Просмотреть сведения об изменении
+# View change details
 openspec show add-dark-mode
 
-# Проверить формат спецификации
+# Validate spec formatting
 openspec validate add-dark-mode
 
-# Интерактивная панель
+# Interactive dashboard
 openspec view
 ```
 

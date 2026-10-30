@@ -180,6 +180,8 @@ openspec update [path] [options]
 | 選項 | 說明 |
 |--------|-------------|
 | `--force` | 即使檔案已是最新，也強制更新 |
+| `--dry-run` | 報告更新會變更的內容，但不寫入任何檔案 |
+| `--json` | 與 `--dry-run` 搭配使用時，以 JSON 輸出計劃變更 |
 
 **範例：**
 
@@ -188,6 +190,30 @@ openspec update [path] [options]
 npm install -g @fission-ai/openspec@latest
 openspec update
 ```
+
+**預覽更新：**
+
+`--dry-run` 會報告更新將新增、變更或刪除的檔案，且不寫入任何內容。路徑相對於專案；專案之外的檔案（例如主目錄中的技能）會以 `~/` 字首顯示。
+
+```bash
+openspec update --dry-run --json
+```
+
+```json
+{
+  "changes": [
+    { "path": ".claude/skills/openspec-explore/SKILL.md", "action": "update", "tool": "claude" },
+    { "path": "~/.minimax/skills/openspec-propose/SKILL.md", "action": "add", "tool": "minimax-code" }
+  ],
+  "notes": [],
+  "failures": []
+}
+```
+
+計劃即非互動式執行所做的事，並列出它會觸及的每個檔案：從工具舊目錄的移動、針對早於設定檔案版本之安裝的全域設定儲存、Copilot 雲端智慧代理程式的檔案，以及使用 `--force` 時的舊版產物清理。屬於 OpenSpec 本身而非某個工具的檔案會標示為 `tool: "openspec"`。`notes` 會標示終端使用者會被詢問的步驟，每項都帶有穩定的 `code`：`legacy-tool-directories`（已列為完成的移動）和 `legacy-artifacts`（舊版佈局中的檔案，未使用 `--force` 時更新會保留它們）。`failures` 列出真正的更新會失敗的工具，包括它無法完成的寫入（例如檔案所在位置存在目錄、沒有寫入權限）；對於該工具，計劃會在更新將停止之處停止，且單一損壞的工具不會影響計劃的其餘部分。普通的重新整理中兩者都為空。
+完整參考請見 [openspec.dev/docs/cli](https://openspec.dev/docs/cli)。
+
+`--dry-run --json` 失敗時仍只會輸出一個 JSON 文件，即空計劃加上 `status` 陣列，並以非零值退出。
 
 請先升級軟體包。指令檔案由已安裝的 CLI 生成，因此如果安裝版本過舊，執行 `openspec update` 會報告所有內容均為最新，卻不會新增較新版本提供的工作流程。
 
@@ -663,6 +689,18 @@ retire_capabilities: true
 openspec archive retire-legacy --yes
 ```
 
+**保留你自己的元資料：**頂層鍵以小寫 `x-` 開頭即屬於你自己。OpenSpec 不會讀取、寫入或報告它，因此在帶有工具專屬資料的變更上，`openspec validate
+--strict` 仍會保持通過：
+
+```yaml
+# openspec/changes/add-dark-mode/.openspec.yaml
+schema: spec-driven
+x-tracker: SB-5497
+x-jiraKey: ABC-1
+```
+
+前綴之後的名稱可任意選擇，大小寫和拼寫都不限，但不能為空，且不能包含空白字元。有兩項限制：前綴本身必須為小寫，因此 `X-Tracker` 仍會被報告；擴充套件僅限頂層，`initiative:` 內的鍵無論叫什麼名稱都會被拒絕。其他無法識別的頂層鍵仍會被報告為不產生任何效果。
+
 當變更移除某項 capability 的最後一個需求時，OpenSpec 會刪除其有效的 `spec.md`。同一變更中其他 capability 的增量仍會更新各自的主規範。如果沒有此標記，歸檔會在修改任何檔案之前停止，並提示你新增該標記。
 
 **執行內容：**
@@ -772,7 +810,7 @@ Progress: 2/4 artifacts complete
 }
 ```
 
-`isPlanningComplete` 表示所有未跳過的規劃產物是否都已存在；跳過的產物視為已滿足，無需實際建立。它不表示實作任務是否完成。`isComplete` 作為相容別名保留，其值與 `isPlanningComplete` 相同。
+`isPlanningComplete` 表示所有未跳過的規劃產物是否都已存在；跳過的產物視為已滿足，無需實際建立。它不表示實作任務是否完成。`isComplete` 作為相容別名保留，其值與該欄位相同。
 
 產物按依賴順序列出——依賴項始終出現在需要它的產物之前。若多個產物同時變為可用（例如 spec-driven 的 `specs` 和 `design` 都只依賴 `proposal`），則按 schema 中宣告的順序排列，而非按字母順序排列。因此，第一個 `ready` 條目就是下一步要編寫的產物。
 

@@ -19,7 +19,7 @@ O arquivo `openspec/config.yaml` é a maneira mais simples de personalizar o Ope
 - **Definir um schema padrão** — omitir `--schema` em todos os comandos
 - **Incluir o contexto do projeto** — a IA conhece sua pilha tecnológica, convenções etc.
 - **Adicionar regras por artefato** — regras personalizadas para artefatos específicos
-- **Adicionar orientações por operação** — preferências consultivas para as operações `apply` e `archive`
+- **Adicionar orientações por operação** — preferências consultivas para as operações apply e archive
 - **Memorizar escolhas de integração** — por exemplo, a opção de habilitar o [agente de codificação na nuvem do GitHub Copilot](/pt-BR/supported-tools/#agente-de-codificação-na-nuvem-do-github-copilot)
 
 ### Configuração rápida
@@ -35,29 +35,29 @@ O comando orienta você interativamente na criação de uma configuração. Se p
 schema: spec-driven
 
 context: |
-  Pilha tecnológica: TypeScript, React, Node.js, PostgreSQL
-  Estilo de API: RESTful, documentada em docs/api.md
-  Testes: Jest + React Testing Library
-  Valorizamos a compatibilidade retroativa de todas as APIs públicas
+  Tech stack: TypeScript, React, Node.js, PostgreSQL
+  API style: RESTful, documented in docs/api.md
+  Testing: Jest + React Testing Library
+  We value backwards compatibility for all public APIs
 
 rules:
   proposal:
-    - Incluir um plano de reversão
-    - Identificar as equipes afetadas
+    - Include rollback plan
+    - Identify affected teams
   specs:
-    - Usar o formato Dado/Quando/Então
-    - Consultar padrões existentes antes de criar novos
+    - Use Given/When/Then format
+    - Reference existing patterns before inventing new ones
 
 operations:
   apply:
     guidance:
-      - Executar testes direcionados antes do conjunto completo
+      - Run focused tests before the full suite
   archive:
     guidance:
-      - Manter o resumo da conclusão conciso
+      - Keep the completion summary concise
 
-# Definido por `openspec init` quando você opta por usar (ou não) o agente de
-# codificação na nuvem do GitHub Copilot; controla se `init`/`update` geram os arquivos dele.
+# Set by `openspec init` when you choose (or decline) the GitHub Copilot
+# cloud coding agent; controls whether `init`/`update` generate its files.
 githubCopilot:
   cloudAgent: false
 ```
@@ -67,10 +67,10 @@ githubCopilot:
 **Schema padrão:**
 
 ```bash
-# Sem configuração
+# Without config
 openspec new change my-feature --schema spec-driven
 
-# Com configuração — o schema é selecionado automaticamente
+# With config - schema is automatic
 openspec new change my-feature
 ```
 
@@ -105,7 +105,7 @@ Elas são independentes de `rules`: as orientações por operação não restrin
 conteúdo dos artefatos, e as regras dos artefatos nunca são reclassificadas como
 orientações por operação.
 
-`apply` e `archive` obtêm essas entradas no momento da execução:
+Apply e archive obtêm essas entradas no momento da execução:
 
 ```bash
 openspec instructions apply --change my-feature --json
@@ -181,12 +181,12 @@ código.
 ```text
 your-project/
 ├── openspec/
-│   ├── config.yaml        # Configuração do projeto
-│   ├── schemas/           # Schemas personalizados ficam aqui
+│   ├── config.yaml        # Project config
+│   ├── schemas/           # Custom schemas live here
 │   │   └── my-workflow/
 │   │       ├── schema.yaml
 │   │       └── templates/
-│   └── changes/           # Suas mudanças
+│   └── changes/           # Your changes
 └── src/
 ```
 
@@ -205,12 +205,12 @@ onde você poderá editá-lo livremente.
 
 ```text
 openspec/schemas/my-workflow/
-├── schema.yaml           # Definição do fluxo de trabalho
+├── schema.yaml           # Workflow definition
 └── templates/
-    ├── proposal.md       # Template do artefato proposal
-    ├── spec.md           # Template de especificações
-    ├── design.md         # Template de design
-    └── tasks.md          # Template de tarefas
+    ├── proposal.md       # Template for proposal artifact
+    ├── spec.md           # Template for specs
+    ├── design.md         # Template for design
+    └── tasks.md          # Template for tasks
 ```
 
 Agora edite `schema.yaml` para alterar o fluxo de trabalho ou os templates para
@@ -221,12 +221,12 @@ alterar o que a IA gera.
 Para criar um fluxo de trabalho inteiramente novo:
 
 ```bash
-# Interativo
+# Interactive
 openspec schema init research-first
 
-# Não interativo
+# Non-interactive
 openspec schema init rapid \
-  --description "Fluxo de iteração rápida" \
+  --description "Rapid iteration workflow" \
   --artifacts "proposal,tasks" \
   --default
 ```
@@ -239,30 +239,30 @@ Um schema define os artefatos do seu fluxo de trabalho e as dependências entre 
 # openspec/schemas/my-workflow/schema.yaml
 name: my-workflow
 version: 1
-description: Fluxo de trabalho personalizado da minha equipe
+description: My team's custom workflow
 
 artifacts:
   - id: proposal
     generates: proposal.md
-    description: Documento da proposta inicial
+    description: Initial proposal document
     template: proposal.md
     instruction: |
-      Criar uma proposta que explique POR QUE esta mudança é necessária.
-      Focar no problema, não na solução.
+      Create a proposal that explains WHY this change is needed.
+      Focus on the problem, not the solution.
     requires: []
 
   - id: design
     generates: design.md
-    description: Projeto técnico
+    description: Technical design
     template: design.md
     instruction: |
-      Criar um documento de projeto que explique COMO implementar.
+      Create a design document explaining HOW to implement.
     requires:
-      - proposal    # Não é possível criar o design antes da proposta
+      - proposal    # Can't create design until proposal exists
 
   - id: tasks
     generates: tasks.md
-    description: Lista de verificação da implementação
+    description: Implementation checklist
     template: tasks.md
     requires:
       - design
@@ -293,17 +293,17 @@ prompt durante a criação do artefato correspondente.
 
 ```markdown
 <!-- templates/proposal.md -->
-## Por quê
+## Why
 
-<!-- Explique a motivação desta mudança. Que problema ela resolve? -->
+<!-- Explain the motivation for this change. What problem does this solve? -->
 
-## O que muda
+## What Changes
 
-<!-- Descreva o que vai mudar. Seja específico sobre novos recursos ou modificações. -->
+<!-- Describe what will change. Be specific about new capabilities or modifications. -->
 
-## Impacto
+## Impact
 
-<!-- Código, APIs, dependências e sistemas afetados -->
+<!-- Affected code, APIs, dependencies, systems -->
 ```
 
 Os templates podem incluir:
@@ -330,10 +330,10 @@ O comando verifica se:
 Depois de criá-lo, use o schema assim:
 
 ```bash
-# Especificar no comando
+# Specify on command
 openspec new change feature --schema my-workflow
 
-# Ou defini-lo como padrão em config.yaml
+# Or set as default in config.yaml
 schema: my-workflow
 ```
 
@@ -342,10 +342,10 @@ schema: my-workflow
 Não sabe qual schema está sendo usado? Confira com:
 
 ```bash
-# Ver de onde vem a resolução de um schema específico
+# See where a specific schema resolves from
 openspec schema which my-workflow
 
-# Listar todos os schemas disponíveis
+# List all available schemas
 openspec schema which --all
 ```
 
@@ -450,9 +450,11 @@ contém instruções de instalação).
 | `nanopm` | @nmrtn | [nmrtn/nanopm](https://github.com/nmrtn/nanopm/tree/main/openspec-schema) | Fluxo de trabalho voltado primeiro à gestão de produto. Executa o pipeline de planejamento do [nanopm](https://github.com/nmrtn/nanopm) (auditoria → estratégia → roteiro → PRD) antes da implementação. Conecta o planejamento de produto ao fluxo de engenharia orientado a especificações do OpenSpec. Se existir `.nanopm/`, os artefatos usam seus arquivos como fonte: a proposta parte da auditoria, o projeto parte da estratégia e as tarefas partem da decomposição do PRD. |
 | `e2e-runbooks` | @Lukk17 | [Lukk17/openspec-schemas](https://github.com/Lukk17/openspec-schemas/tree/master/openspec/schemas/e2e-runbooks) | Runbooks de testes de ponta a ponta no nível de capacidade. Cada capacidade recebe uma especificação imutável, um template imutável de tarefas e um registro de execução com data e hora. Asserções limitam-se a comportamentos observáveis (status HTTP, corpo da resposta, estado persistido — nunca trechos de logs); cada execução registra início e fim em UTC, duração e uma estimativa do consumo de tokens do LLM. |
 | `anvil` | @jikkujoyce | [jikkujoyce/openspec-schemas](https://github.com/jikkujoyce/openspec-schemas/tree/main/schemas/anvil) | Fluxo orientado a especificações, com disciplina de TDD e uma etapa de revisão adversarial. Etapas: `proposal` → `specs` → `design` → `review` → `test-plan` → `tasks` → `apply` → `verify`. `review` é escrito por um revisor somente para leitura, com contexto novo (um segundo modelo, quando disponível), e emite uma linha `VERDICT:` que instrui o agente a bloquear `test-plan`, `tasks` e `apply`; o OpenSpec só verifica se os artefatos existem, então aplique esse bloqueio com sua própria CI ou hook. `test-plan` associa cada cenário da especificação a um teste nomeado e também funciona como um registro red/green auditado por `verify`. |
+| `ml-research` | @tsenst | [idealo/openspec-schemas](https://github.com/idealo/openspec-schemas/tree/main/openspec/schemas/ml-research) | Fluxo de trabalho para experimentos de aprendizado de máquina. Etapas: `proposal` → `design` → `evaluation` → `tasks` → `apply` → `specs`. `evaluation` fixa métricas, critérios de sucesso e a condição de falsificação antes da execução; `apply` grava `results.md`; `specs` registra apenas descobertas respaldadas por evidências (inclusive hipóteses refutadas) como requisitos `Finding:`, com blocos `Evidence:` vinculados. |
+| `epic-driven` | @ivanferic| [IvanFeric/openspec-epic-driven](https://github.com/IvanFeric/openspec-epic-driven/tree/main/openspec/schemas/epic-driven) | Fluxo de trabalho orientado a épicos. Etapas: `explore` (opcional) → `epic-propose` → `epic-next` seleciona uma história filha → `apply` da filha → `archive` da filha → `epic-sync`. O épico não tem fase `apply` e só é arquivado depois que suas histórias estiverem concluídas. `epic-propose` cria visão, histórias e roteiro; `epic-next` recomenda uma história filha, e `epic-next <story> start` delega o planejamento da filha ao fluxo de trabalho padrão `openspec-propose`; `epic-status` mostra o estado atual de todas as histórias do épico; `epic-replan` pode alterar o plano mantendo as histórias ativas ou concluídas; `epic-sync` atualiza os indicadores de conclusão das histórias. |
 
 > Quer contribuir com um schema da comunidade? Abra uma issue com o link do seu
-> repositório ou envie um PR adicionando uma linha a esta tabela.
+> repositório e uma descrição de uma linha; um mantenedor adiciona a linha a esta tabela.
 
 ---
 

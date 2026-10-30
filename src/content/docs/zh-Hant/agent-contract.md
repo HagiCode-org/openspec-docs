@@ -55,7 +55,7 @@ title: "OpenSpec 智慧代理程式契約"
 
 ### 4.2 `show <item> --json`
 
-變更：`{ "id", "title", "deltaCount", "deltas": [...], "root" }`。規格說明：`{ "id", "title", "overview", "requirementCount", "requirements": [...], "metadata": { "version", "format", "sourcePath"? }, "root" }`。
+變更：`{ "id", "title", "deltaCount", "deltas": [...], "root" }`。規格說明：`{ "id", "title", "overview", "requirementCount", "requirements": [...], "metadata": { "version", "format", "sourcePath"? }, "root" }`。需求（位於規格說明中，或位於變更差異規格說明的 `requirement`/`requirements` 中）的結構為 `{ "name", "text", "scenarios": [ { "name", "rawText" } ] }`。需求的 `name` 是其標題去掉 `Requirement:` 及結尾的 `#` 序列後的內容，即歸檔比對 MODIFIED/REMOVED/RENAMED 條目時所用的確切名稱。情境的 `name` 是其第 4 級標題去掉 `Scenario:` 及結尾的 `#` 序列後的內容，即 MODIFIED 情境遺失檢查所比較的名稱。
 
 ### 4.3 `validate --json`
 
@@ -63,7 +63,7 @@ title: "OpenSpec 智慧代理程式契約"
 
 ### 4.4 `status --json`
 
-`{ "changeName", "schemaName", "planningHome"?: { "kind", "root", "changesDir", "defaultSchema" }, "changeRoot", "artifactPaths": { "<id>": {outputPath, resolvedOutputPath, existingOutputPaths} }, "nextSteps": ["..."], "actionContext": { "mode": "repo-local", "sourceOfTruth": "repo", "planningArtifacts", "linkedContext", "allowedEditRoots", "requiresAffectedAreaSelection", "constraints" }, "isPlanningComplete", "isComplete", "applyRequires", "artifacts": [ {id, outputPath, status: "done"|"skipped"|"ready"|"blocked", requires, missingDeps?} ], "root" }`。`isPlanningComplete` 表示所有未跳過的規劃產物均已存在；跳過的產物視為滿足要求，無需建立。它不表示實作任務已經完成。為保持相容，`isComplete` 仍保留，且含義相同。每個產物的 `requires` 是其直接依賴 ID（所有狀態均存在，因此即使產物為 `done`，也能計算傳遞依賴集合）；只有狀態為 `blocked` 時才會出現 `missingDeps`。
+`{ "changeName", "schemaName", "planningHome"?: { "kind", "root", "changesDir", "defaultSchema" }, "changeRoot", "artifactPaths": { "<id>": {outputPath, resolvedOutputPath, existingOutputPaths} }, "nextSteps": ["..."], "actionContext": { "mode": "repo-local", "sourceOfTruth": "repo", "planningArtifacts", "linkedContext", "allowedEditRoots", "requiresAffectedAreaSelection", "constraints" }, "isPlanningComplete", "isComplete", "applyRequires", "artifacts": [ {id, outputPath, status: "done"|"skipped"|"ready"|"blocked", requires, missingDeps?} ], "root" }`。對於由儲存庫選定的根目錄，若當前路徑上最近的專案是僅含設定的根目錄，且其 `store:` 指標指向該儲存庫，則 `allowedEditRoots` 為 `[<declaring project>, <store>]`；其他情況（包括全域 `defaultStore`）則為 `[<store>]`，並附帶一條約束，提示智慧代理程式詢問應編輯哪個儲存庫。OpenSpec 不會把儲存庫的任務分派到各個儲存庫，因此聲明的專案是當前專案，而不是變更涉及的每一個儲存庫。`isPlanningComplete` 表示所有未跳過的規劃產物均已存在；跳過的產物視為滿足要求，無需建立。它不表示實作任務已經完成。為保持相容，`isComplete` 仍保留，且含義相同。每個產物的 `requires` 是其直接依賴 ID（所有狀態均存在，因此即使產物為 `done`，也能計算傳遞依賴集合）；只有狀態為 `blocked` 時才會出現 `missingDeps`。
 
 `artifacts` 陣列按依賴順序排列。如果多個產物同時就緒，則依照模式中 `artifacts:` 的宣告順序排列（絕非按字母排序）。因此，第一個 `ready` 條目就是接下來應編寫的產物；`missingDeps` 也按相同順序排列。若某項產物的 `generates` 路徑位於 `specs/` 下，且變更的 `.openspec.yaml` 聲明瞭 `skip_specs: true`，其狀態會標記為 `"skipped"`；它滿足依賴關係，但不得建立。沒有活動變更時返回 `{ "changes": [], "message", "root" }`，退出碼為 0。
 
@@ -93,6 +93,10 @@ title: "OpenSpec 智慧代理程式契約"
 
 成功：`{ "archive": { "change", "archivedAs": "YYYY-MM-DD-name", "path", "specsUpdated", "totals"?, "warnings"? }, "root" }`。失敗：`{ "archive": null, "root"?, "status": [d] }`，退出碼為 1。只有至少寫入或廢棄了一份規格檔案時，`specsUpdated` 才為 true。（如果變更刪除了某項能力的最後一條需求，該能力的規格檔案會被刪除；這要求變更的 `.openspec.yaml` 中設定 `retire_capabilities: true`。每次廢棄都會列入 `warnings`；只有規格檔案位於呼叫者當前檢出目錄時，才會附上可貼上執行的 Git 恢復命令。）已經同步過的變更仍會歸檔，但 totals 全為零，並在 `warnings` 中列出跳過的內容。JSON 模式嚴格禁止互動：每個原本的提示點都會轉換成 `archive_*` 程式碼。
 
+- **`archive: null`**：命令失敗。這並不保證檔案未被更改。
+- **`archive_retirement_cleanup_failed`**：變更已歸檔，但廢棄作業的備份驗證或清理失敗。列出的備份路徑可能已被更改或消失。訊息也可能回報因備援複製清理失敗而殘留的暫存來源。清理前請檢查目前的歸檔及所有回報的恢復路徑，並保留任何需要的內容。重試歸檔不會清理這些路徑。
+- **`archive_error`**：備援診斷無法判斷檔案是否已被更改。重試前請檢查變更、歸檔與受影響的規格說明。
+
 ### 4.10 `doctor --json`
 
 `{ "root": { "path", "source", "store_id"?, "healthy", "status": [] }, "store": { "id", "metadata": {present,valid,remote?}, "origin_url"?, "drift"?: {ahead,behind}, "status": [] } | null, "references": [...], "status": [] }`。僅當儲存庫是基於 Git 的檢出且設定了上游追蹤引用時，才會出現 `drift`；其中 ahead/behind 數量是相對於上次獲取的上游，而非即時遠端。任何嚴重級別的健康問題都以 0 退出。失敗載荷為 `{ "root": null, "store": null, "references": [], "status": [d] }`，退出碼為 1。
@@ -107,36 +111,36 @@ setup/register：`{ "store": {id, root, metadata_path?}, "registry": {path, regi
 
 ### 4.13 `schemas --json` / `templates --json`
 
-`schemas`：成功時仍返回裸陣列 `[ {name, description, artifacts, source} ]；按标准根目录选择顺序解析，并接受 `--store <id>`。根目录解析失败时返回 `{ "schemas": [], "root": null, "status": [d] }`，退出码为 1。`templates`：返回以键组织的对象 `{ "<artifactId>": {path, source} }`，仍依据当前工作目录运行，不包含 root/status 字段。
+`schemas`：成功時仍返回裸陣列 `[ {name, description, artifacts, source} ]`；按標準根目錄選擇順序解析，並接受 `--store <id>`。根目錄解析失敗時返回 `{ "schemas": [], "root": null, "status": [d] }`，退出碼為 1。`templates`：返回以鍵組織的物件 `{ "<artifactId>": {path, source} }`，仍依據當前工作目錄執行，不包含 root/status 字段。
 
-## 5. 退出码约定
+## 5. 退出碼約定
 
-| 情形 | 退出码 | Stdout |
+| 情形 | 退出碼 | Stdout |
 |---|---|---|
-| 成功，包括健康检查发现问题（doctor/context/store doctor） | 0 | 载荷 |
-| `--json` 模式下命令失败 | 1 | 一个含 `status: [d]` 和命令空值载荷的 JSON 文档 |
-| `validate` 中有失败条目 | 1 | 完整报告 |
-| 取消提示（store 命令组，人类可读模式） | 130 | 仅 stderr |
+| 成功，包括健康檢查發現問題（doctor/context/store doctor） | 0 | 載荷 |
+| `--json` 模式下命令失敗 | 1 | 一個含 `status: [d]` 和命令空值載荷的 JSON 文件 |
+| `validate` 中有失敗條目 | 1 | 完整報告 |
+| 取消提示（`store` 命令組，人類可讀模式） | 130 | 僅 stderr |
 
-## 6. 诊断代码目录
+## 6. 診斷程式碼目錄
 
 ### 解析
 
-`no_openspec_root`、`no_root_with_registered_stores`、`no_registered_stores`、`unknown_store`、`store_identity_mismatch`、`unhealthy_store_root`、`store_path_not_supported`、`invalid_store_pointer`、`initiative_option_removed`、`areas_option_removed`；透传代码：`invalid_store_id`、`invalid_store_registry`、`invalid_store_metadata`。
+`no_openspec_root`、`no_root_with_registered_stores`、`no_registered_stores`、`unknown_store`、`store_identity_mismatch`、`unhealthy_store_root`、`store_path_not_supported`、`invalid_store_pointer`、`initiative_option_removed`、`areas_option_removed`；透傳程式碼：`invalid_store_id`、`invalid_store_registry`、`invalid_store_metadata`。
 
-### OpenSpec 根目录健康状态（错误，无修复指引）
+### OpenSpec 根目錄健康狀態（錯誤，無修復指引）
 
-`openspec_store_root_missing`、`openspec_store_root_not_directory`、`openspec_root_missing`、`openspec_root_not_directory`、`openspec_config_missing`、`openspec_config_not_file`、`openspec_specs_not_directory`、`openspec_changes_not_directory`、`openspec_archive_not_directory`。在 stores beta 期间，健康根目录中可以缺少 `openspec/specs/`、`openspec/changes/` 和 `openspec/changes/archive/`；仅当这些路径存在但不是目录时，才报告健康错误。
+`openspec_store_root_missing`、`openspec_store_root_not_directory`、`openspec_root_missing`、`openspec_root_not_directory`、`openspec_config_missing`、`openspec_config_not_file`、`openspec_specs_not_directory`、`openspec_changes_not_directory`、`openspec_archive_not_directory`。在 stores beta 期間，健康根目錄中可以缺少 `openspec/specs/`、`openspec/changes/` 和 `openspec/changes/archive/`；僅當這些路徑存在但不是目錄時，才報告健康錯誤。
 
-### 存储库注册表、身份和状态
+### 儲存庫註冊表、身分與狀態
 
 `invalid_store_id`、`invalid_store_registry`、`invalid_store_metadata`、`store_registry_busy`、`store_not_found`、`no_store_registry`、`store_registry_changed`、`store_metadata_missing`、`store_metadata_id_mismatch`、`store_metadata_invalid`、`store_id_conflict`、`store_path_conflict`、`store_already_registered`（info）。
 
-### 存储库设置、注册和移除
+### 儲存庫設定、註冊和移除
 
-`store_setup_id_required`、`store_setup_path_required`、`store_setup_path_not_directory`、`store_setup_inside_git_repo`、`store_setup_non_empty_directory`、`store_setup_cancelled`、`store_path_required`、`store_path_missing`、`store_path_not_directory`、`store_root_pointer_declared`、`store_register_root_unhealthy`、`store_register_identity_confirmation_required`、`store_register_cancelled`、`store_remote_empty`、`store_remote_requires_hand_edit`、`store_remove_confirmation_required`、`store_remove_cancelled`、`store_remove_path_not_directory`、`store_remove_metadata_missing`、`store_remove_contains_registered_store`、`store_root_missing`（remove 时为 warning，store doctor 时为 error）、`store_root_not_directory`。
+`store_setup_id_required`、`store_setup_path_required`、`store_setup_path_not_directory`、`store_setup_inside_git_repo`、`store_setup_non_empty_directory`、`store_setup_cancelled`、`store_path_required`、`store_path_missing`、`store_path_not_directory`、`store_root_pointer_declared`、`store_register_root_unhealthy`、`store_register_identity_confirmation_required`、`store_register_cancelled`、`store_remote_empty`、`store_remote_requires_hand_edit`、`store_remove_confirmation_required`、`store_remove_cancelled`、`store_remove_path_not_directory`、`store_remove_metadata_missing`、`store_remove_contains_registered_store`、`store_root_missing`（remove 時為 warning，store doctor 時為 error）、`store_root_not_directory`。
 
-### 存储库 Git
+### 儲存庫 Git
 
 `store_git_init_failed`、`store_git_identity_missing`、`store_git_commit_failed`、`store_git_no_commits`（warning）、`store_clone_fragile_directories`（warning）、`store_remote_divergence`（info，doctor）、`store_checkout_drift`（info，doctor）。
 
@@ -144,31 +148,31 @@ setup/register：`{ "store": {id, root, metadata_path?}, "registry": {path, regi
 
 `reference_invalid_id`、`reference_registry_unreadable`、`reference_unresolved`、`reference_root_unhealthy`、`reference_index_truncated`。
 
-### 关系（warning；doctor 会报告，context 仅保留注册表相关项）
+### 關係（warning；doctor 會報告，context 僅保留註冊表相關項）
 
 `relationship_registry_unreadable`、`root_pointer_ignored`、`root_pointer_invalid`、`pointer_declarations_inert`。
 
-### 归档（JSON 模式）
+### 歸檔（JSON 模式）
 
-`archive_change_name_required`、`archive_change_not_found`、`archive_change_symlink`、`archive_validation_failed`、`archive_confirmation_required`、`archive_tasks_incomplete`、`archive_spec_update_failed`、`archive_spec_validation_failed`、`archive_target_exists`、`archive_error`。
+`archive_change_name_required`、`archive_change_not_found`、`archive_change_symlink`、`archive_validation_failed`、`archive_confirmation_required`、`archive_tasks_incomplete`、`archive_spec_update_failed`、`archive_spec_validation_failed`、`archive_target_exists`、`archive_retirement_cleanup_failed`、`archive_error`。
 
-### 上下文写入
+### 上下文寫入
 
 `context_file_exists`、`context_output_dir_missing`。
 
-### 回退错误
+### 回退錯誤
 
 `doctor_failed`、`context_failed`、`store_error`、`change_error`、`archive_error`。
 
 ## 已知的不一致
 
-capstone 审计记录了以下问题；发布键名重命名属于产品决策，推迟到此版本之后：
+capstone 審計記錄了以下問題；發布鍵名的重新命名屬於產品決策，推遲到此版本之後：
 
-1. ~~在 `--json` 模式下，若干失败路径只输出 stderr，不提供 JSON 文档。~~ 已在 capstone gauntlet 阶段修复：`show`/`validate` 遇到未知或有歧义的条目时会输出 `{status:[{code: unknown_item | ambiguous_item, ...}]}`；`status`/`instructions`/`list`/`show`/`validate` 中抛出的错误会经由支持 JSON 的失败处理函数（命令空值载荷 + `status`）；`store <unknown subcommand> --json` 会输出 `{status:[{code: unknown_store_subcommand}]}`；`list` 在根目录解析失败时会带上 `{changes|specs: [], root: null}` 空值载荷。
-2. `store_root_missing` 会带有两种严重级别（remove 时为 warning，store doctor 时为 error），具体取决于上下文，详见上文。
-3. 键名大小写：store 系列使用 snake_case，workflow 系列使用 camelCase；`root.store_id` 在任何位置都使用 snake_case。
-4. `src` 中存在四组并行的信封类型声明；archive 诊断从不携带 `target`。
-5. `list --json` 会将每项变更的 `status` 字段用作字符串枚举。
-6. 只有 `validate` 输出包含 `version` 字段。
-7. `templates` 忽略根目录选择（基于当前工作目录，不支持 `--store`）。
-8. 已弃用的名词形式（`change`/`spec` 子命令）会输出未封装的载荷，不包含 `root`/`status`。
+1. ~~在 `--json` 模式下，若干失敗路徑只輸出 stderr，不提供 JSON 文件。~~ 已在 capstone gauntlet 階段修復：`show`/`validate` 遇到未知或有歧義的條目時會輸出 `{status:[{code: unknown_item | ambiguous_item, ...}]}`；`status`/`instructions`/`list`/`show`/`validate` 中拋出的錯誤會經由支援 JSON 的失敗處理函式（命令空值載荷 + `status`）；`store <unknown subcommand> --json` 會輸出 `{status:[{code: unknown_store_subcommand}]}`；`list` 在根目錄解析失敗時會帶上 `{changes|specs: [], root: null}` 空值載荷。
+2. `store_root_missing` 會帶有兩種嚴重級別（remove 時為 warning，store doctor 時為 error），具體取決於上下文，詳見上文。
+3. 鍵名大小寫：store 系列使用 snake_case，workflow 系列使用 camelCase；`root.store_id` 在任何位置都使用 snake_case。
+4. src 中存在四組並行的信封類型聲明；archive 診斷從不攜帶 `target`。
+5. `list --json` 會將每項變更的 `status` 字段用作字串列舉。
+6. 只有 `validate` 輸出包含 `version` 字段。
+7. `templates` 忽略根目錄選擇（基於當前工作目錄，不支援 `--store`）。
+8. 已棄用的名詞形式（`change`/`spec` 子命令）會輸出未封裝的載荷，不包含 `root`/`status`。

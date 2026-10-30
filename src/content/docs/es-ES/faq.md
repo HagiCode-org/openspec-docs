@@ -66,7 +66,7 @@ Usa Explore para pensar la idea, Propose para redactar el plan, Apply para imple
 
 `/opsx:propose` es el comando predeterminado de un paso: crea el cambio y redacta todos los artefactos de planificación de una vez. `/opsx:new` forma parte del conjunto ampliado y solo crea la estructura vacía del cambio; después tendrás que crear los artefactos uno por uno con `/opsx:continue` (o todos a la vez con `/opsx:ff`). Usa propose, a menos que quieras controlar cada paso. Consulta [Comandos](/es-ES/commands/).
 
-### ¿Qué son los perfiles `core` y `expanded`?
+### ¿Qué son los perfiles `core` y expanded?
 
 Un perfil determina qué comandos de barra se instalan. **Core** (el predeterminado) incluye `propose`, `explore`, `apply`, `update`, `sync` y `archive`. El conjunto **expanded** añade `new`, `continue`, `ff`, `verify`, `bulk-archive` y `onboard` para ofrecer un control más detallado. Cámbialo con `openspec config profile` y aplícalo con `openspec update`.
 
@@ -154,4 +154,4 @@ No hay un comando de desinstalación, porque solo consta de un paquete global y 
 
 ### La documentación es incorrecta o confusa. ¿Qué hago?
 
-Dínoslo o corrígela. Las pull requests de documentación son bienvenidas y apreciadas. Abre una incidencia o envía un pull request.
+Dínoslo. Abre una [incidencia de documentación](https://github.com/Fission-AI/OpenSpec/issues/new?template=docs.yml) con la página y lo que está mal; las correcciones de documentación son de los informes más útiles que recibimos.

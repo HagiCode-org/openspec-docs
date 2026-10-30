@@ -9,10 +9,10 @@ title: "概念"
 OpenSpec は4つの原則を基礎としています。
 
 ```
-柔軟であり、硬直しない         — フェーズの関門を設けず、妥当な作業を進める
-反復的であり、ウォーターフォールではない — 構築しながら学び、進めながら洗練する
-簡単であり、複雑ではない       — 軽量なセットアップと最小限の手続き
-既存システムを重視             — 新規開発だけでなく、既存コードベースにも対応
+fluid not rigid         — no phase gates, work on what makes sense
+iterative not waterfall — learn as you build, refine as you go
+easy not complex        — lightweight setup, minimal ceremony
+brownfield-first        — works with existing codebases, not just greenfield
 ```
 
 ### これらの原則が重要な理由
@@ -60,59 +60,59 @@ OpenSpec では作業を2つの主要領域に整理します。
 ```
 openspec/specs/
 ├── auth/
-│   └── spec.md           # 認証の動作
+│   └── spec.md           # Authentication behavior
 ├── payments/
-│   └── spec.md           # 決済処理
+│   └── spec.md           # Payment processing
 ├── notifications/
-│   └── spec.md           # 通知システム
+│   └── spec.md           # Notification system
 └── ui/
-    └── spec.md           # UI の動作とテーマ
+    └── spec.md           # UI behavior and themes
 ```
 
 仕様はシステムにとって意味のある論理的なまとまりであるドメインごとに整理します。一般的なパターンは次のとおりです。
 
-- **機能領域ごと:** `auth/`、`payments/`、`search/`
-- **コンポーネントごと:** `api/`、`frontend/`、`workers/`
-- **境界づけられたコンテキストごと:** `ordering/`、`fulfillment/`、`inventory/`
+- **機能領域ごと：** `auth/`、`payments/`、`search/`
+- **コンポーネントごと：** `api/`、`frontend/`、`workers/`
+- **境界づけられたコンテキストごと：** `ordering/`、`fulfillment/`、`inventory/`
 
 ### 仕様の形式
 
 仕様には要件が含まれ、各要件にはシナリオがあります。
 
 ```markdown
-# 認証の仕様
+# Auth Specification
 
 ## Purpose
-アプリケーションの認証とセッション管理。
+Authentication and session management for the application.
 
 ## Requirements
 
-### Requirement: ユーザー認証
-システムはログインの成功時に JWT トークンを発行しなければならない。
+### Requirement: User Authentication
+The system SHALL issue a JWT token upon successful login.
 
-#### Scenario: 有効な認証情報
-- GIVEN 有効な認証情報を持つユーザーがいる
-- WHEN ユーザーがログインフォームを送信する
-- THEN JWT トークンが返される
-- AND ユーザーはダッシュボードにリダイレクトされる
+#### Scenario: Valid credentials
+- GIVEN a user with valid credentials
+- WHEN the user submits login form
+- THEN a JWT token is returned
+- AND the user is redirected to dashboard
 
-#### Scenario: 無効な認証情報
-- GIVEN 無効な認証情報がある
-- WHEN ユーザーがログインフォームを送信する
-- THEN エラーメッセージが表示される
-- AND トークンは発行されない
+#### Scenario: Invalid credentials
+- GIVEN invalid credentials
+- WHEN the user submits login form
+- THEN an error message is displayed
+- AND no token is issued
 
-### Requirement: セッションの期限切れ
-システムは、30分間操作がない場合にセッションを期限切れにしなければならない。
+### Requirement: Session Expiration
+The system MUST expire sessions after 30 minutes of inactivity.
 
-#### Scenario: アイドルタイムアウト
-- GIVEN 認証済みセッションがある
-- WHEN 操作せずに30分が経過する
-- THEN セッションが無効になる
-- AND ユーザーは再認証しなければならない
+#### Scenario: Idle timeout
+- GIVEN an authenticated session
+- WHEN 30 minutes pass without activity
+- THEN the session is invalidated
+- AND the user must re-authenticate
 ```
 
-**主な要素:**
+**主な要素：**
 
 | 要素 | 目的 |
 |---------|---------|
@@ -139,22 +139,22 @@ openspec/specs/
 
 仕様は **動作に関する契約** であり、実装計画ではありません。
 
-仕様に含める内容:
+仕様に含める内容：
 - ユーザーや下流システムが依存する、観測可能な動作
 - 入力、出力、エラー条件
 - 外部制約（セキュリティ、プライバシー、信頼性、互換性）
 - テストまたは明示的な検証が可能なシナリオ
 
-仕様に含めない内容:
+仕様に含めない内容：
 - 内部のクラス名や関数名
 - ライブラリやフレームワークの選択
 - 実装の詳細な手順
 - 詳細な作業計画（`design.md` または `tasks.md` に記述）
 
-簡単な判断基準:
+簡単な判断基準：
 - 外部から見える動作を変えずに実装を変更できるなら、おそらく仕様に含める内容ではありません。
 
-### 軽量さを保つ: 段階的な厳密さ
+### 軽量さを保つ：段階的な厳密さ
 
 OpenSpec は官僚的な手続きを避けることを目指しています。変更を検証できる範囲で、最も軽いレベルを使ってください。
 
@@ -189,13 +189,13 @@ change は、システムに対する変更案をフォルダーにまとめた�
 
 ```
 openspec/changes/add-dark-mode/
-├── proposal.md           # 理由と内容
-├── design.md             # 方法（技術的な方針）
-├── tasks.md              # 実装チェックリスト
-├── .openspec.yaml        # change のメタデータ（任意）: schema、created、skip_specs、retire_capabilities
+├── proposal.md           # Why and what
+├── design.md             # How (technical approach)
+├── tasks.md              # Implementation checklist
+├── .openspec.yaml        # Change metadata (optional): schema, created, skip_specs, retire_capabilities, plus your own x-* keys
 └── specs/                # Delta specs
     └── ui/
-        └── spec.md       # ui/spec.md の変更内容
+        └── spec.md       # What's changing in ui/spec.md
 ```
 
 各 change は自己完結しており、次のものを含みます。
@@ -224,8 +224,8 @@ openspec/changes/add-dark-mode/
 ```
 proposal ──────► specs ──────► design ──────► tasks ──────► implement
     │               │             │              │
-   理由            内容           方法          手順
- + 範囲        変更内容       アプローチ     やること
+   why            what           how          steps
+ + scope        changes       approach      to take
 ```
 
 成果物は互いに積み重なります。それぞれの成果物が次のものにコンテキストを与えます。
@@ -237,28 +237,29 @@ proposal ──────► specs ──────► design ────�
 提案では、**目的**、**範囲**、**方針**を大まかに記録します。
 
 ```markdown
-# 提案: ダークモードの追加
+# Proposal: Add Dark Mode
 
 ## Intent
-夜間利用時の目の負担を軽減し、システム設定に合わせるため、
-ユーザーからダークモードの追加が求められています。
+Users have requested a dark mode option to reduce eye strain
+during nighttime usage and match system preferences.
 
 ## Scope
-対象:
-- 設定画面のテーマ切り替え
-- システム設定の検出
-- localStorage への設定保存
+In scope:
+- Theme toggle in settings
+- System preference detection
+- Persist preference in localStorage
 
-対象外:
-- カスタムカラーテーマ（今後の作業）
-- ページごとのテーマ上書き
+Out of scope:
+- Custom color themes (future work)
+- Per-page theme overrides
 
-## 方針
-テーマには CSS カスタムプロパティを使い、状態管理には React context を使います。
-初回読み込み時にシステム設定を検出し、手動での上書きも可能にします。
+## Approach
+Use CSS custom properties for theming with a React context
+for state management. Detect system preference on first load,
+allow manual override.
 ```
 
-**提案を更新するタイミング:**
+**提案を更新するタイミング：**
 - 範囲が変わった（縮小または拡大した）
 - 目的が明確になった（問題をより深く理解できた）
 - 方針が根本的に変わった
@@ -272,44 +273,44 @@ proposal ──────► specs ──────► design ────�
 設計では、**技術的な方針** と **アーキテクチャ上の判断** を記録します。
 
 ````markdown
-# 設計: ダークモードの追加
+# Design: Add Dark Mode
 
 ## Technical Approach
-prop drilling を避けるため、テーマの状態は React Context で管理します。
-CSS カスタムプロパティを使えば、クラスを切り替えずに実行時にテーマを変更できます。
+Theme state managed via React Context to avoid prop drilling.
+CSS custom properties enable runtime switching without class toggling.
 
 ## Architecture Decisions
 
-### 判断: Redux ではなく Context
-次の理由から、テーマの状態管理に React Context を使います。
-- 単純な2値状態（ライト/ダーク）
-- 複雑な状態遷移がない
-- Redux 依存関係を追加せずに済む
+### Decision: Context over Redux
+Using React Context for theme state because:
+- Simple binary state (light/dark)
+- No complex state transitions
+- Avoids adding Redux dependency
 
-### 判断: CSS カスタムプロパティ
-CSS-in-JS ではなく CSS 変数を使う理由:
-- 既存のスタイルシートで使える
-- 実行時のオーバーヘッドがない
-- ブラウザー標準の仕組みである
+### Decision: CSS Custom Properties
+Using CSS variables instead of CSS-in-JS because:
+- Works with existing stylesheet
+- No runtime overhead
+- Browser-native solution
 
 ## Data Flow
 ```
-ThemeProvider（context）
+ThemeProvider (context)
        │
        ▼
 ThemeToggle ◄──► localStorage
        │
        ▼
-CSS 変数（:root に適用）
+CSS Variables (applied to :root)
 ```
 
-## ファイルの変更
-- `src/contexts/ThemeContext.tsx`（新規）
-- `src/components/ThemeToggle.tsx`（新規）
-- `src/styles/globals.css`（変更）
+## File Changes
+- `src/contexts/ThemeContext.tsx` (new)
+- `src/components/ThemeToggle.tsx` (new)
+- `src/styles/globals.css` (modified)
 ````
 
-**設計を更新するタイミング:**
+**設計を更新するタイミング：**
 - 実装により方針がうまくいかないと分かった
 - より良い解決策が見つかった
 - 依存関係や制約が変わった
@@ -319,26 +320,26 @@ CSS 変数（:root に適用）
 タスクは **実装チェックリスト** であり、チェックボックス付きの具体的な手順です。
 
 ```markdown
-# タスク
+# Tasks
 
-## 1. テーマの基盤
-- [ ] 1.1 ライト/ダーク状態を持つ ThemeContext を作成する
-- [ ] 1.2 色の CSS カスタムプロパティを追加する
-- [ ] 1.3 localStorage への保存を実装する
-- [ ] 1.4 システム設定の検出を追加する
+## 1. Theme Infrastructure
+- [ ] 1.1 Create ThemeContext with light/dark state
+- [ ] 1.2 Add CSS custom properties for colors
+- [ ] 1.3 Implement localStorage persistence
+- [ ] 1.4 Add system preference detection
 
-## 2. UI コンポーネント
-- [ ] 2.1 ThemeToggle コンポーネントを作成する
-- [ ] 2.2 設定ページに切り替えを追加する
-- [ ] 2.3 簡易切り替えを含めるよう Header を更新する
+## 2. UI Components
+- [ ] 2.1 Create ThemeToggle component
+- [ ] 2.2 Add toggle to settings page
+- [ ] 2.3 Update Header to include quick toggle
 
-## 3. スタイル
-- [ ] 3.1 ダークテーマのカラーパレットを定義する
-- [ ] 3.2 CSS 変数を使うようコンポーネントを更新する
-- [ ] 3.3 アクセシビリティのコントラスト比をテストする
+## 3. Styling
+- [ ] 3.1 Define dark theme color palette
+- [ ] 3.2 Update components to use CSS variables
+- [ ] 3.3 Test contrast ratios for accessibility
 ```
 
-**タスク作成のベストプラクティス:**
+**タスク作成のベストプラクティス：**
 - 関連するタスクを見出しの下にまとめる
 - 階層的な番号（1.1、1.2 など）を使う
 - 1回のセッションで完了できる大きさにする
@@ -353,40 +354,40 @@ CSS 変数（:root に適用）
 ### 形式
 
 ```markdown
-# Auth の差分
+# Delta for Auth
 
 ## ADDED Requirements
 
-### Requirement: 二要素認証
-システムは TOTP ベースの二要素認証に対応しなければならない。
+### Requirement: Two-Factor Authentication
+The system MUST support TOTP-based two-factor authentication.
 
-#### Scenario: 2FA の登録
-- GIVEN 2FA を有効にしていないユーザーがいる
-- WHEN ユーザーが設定で 2FA を有効にする
-- THEN 認証アプリのセットアップ用 QR コードが表示される
-- AND 有効化前にコードによる確認が必要となる
+#### Scenario: 2FA enrollment
+- GIVEN a user without 2FA enabled
+- WHEN the user enables 2FA in settings
+- THEN a QR code is displayed for authenticator app setup
+- AND the user must verify with a code before activation
 
-#### Scenario: 2FA でログイン
-- GIVEN 2FA が有効なユーザーがいる
-- WHEN ユーザーが有効な認証情報を送信する
-- THEN OTP チャレンジが表示される
-- AND 有効な OTP の入力後にのみログインが完了する
+#### Scenario: 2FA login
+- GIVEN a user with 2FA enabled
+- WHEN the user submits valid credentials
+- THEN an OTP challenge is presented
+- AND login completes only after valid OTP
 
 ## MODIFIED Requirements
 
-### Requirement: セッションの期限切れ
-システムは、15分間操作がない場合にセッションを期限切れにしなければならない。
-(変更前: 30分)
+### Requirement: Session Expiration
+The system MUST expire sessions after 15 minutes of inactivity.
+(Previously: 30 minutes)
 
-#### Scenario: アイドルタイムアウト
-- GIVEN 認証済みのセッションがある
-- WHEN 操作せずに15分が経過する
-- THEN セッションが無効になる
+#### Scenario: Idle timeout
+- GIVEN an authenticated session
+- WHEN 15 minutes pass without activity
+- THEN the session is invalidated
 
 ## REMOVED Requirements
 
-### Requirement: ログイン状態を保持
-(2FA に移行するため非推奨。ユーザーはセッションごとに再認証する。)
+### Requirement: Remember Me
+(Deprecated in favor of 2FA. Users should re-authenticate each session.)
 ```
 
 ### 差分の節
@@ -420,39 +421,39 @@ name: spec-driven
 artifacts:
   - id: proposal
     generates: proposal.md
-    requires: []              # 依存関係なし。最初に作成可能
+    requires: []              # No dependencies, can create first
 
   - id: specs
     generates: specs/**/*.md
-    requires: [proposal]      # 作成前に proposal が必要
+    requires: [proposal]      # Needs proposal before creating
 
   - id: design
     generates: design.md
-    requires: [proposal]      # specs と並行して作成可能
+    requires: [proposal]      # Can create in parallel with specs
 
   - id: tasks
     generates: tasks.md
-    requires: [specs, design] # specs と design の両方が先に必要
+    requires: [specs, design] # Needs both specs and design first
 ```
 
 **成果物は依存関係グラフを形成します。**
 
 ```
                     proposal
-                   (ルートノード)
+                   (root node)
                        │
          ┌─────────────┴─────────────┐
          │                           │
          ▼                           ▼
       specs                       design
-   (必要:                       (必要:
+   (requires:                  (requires:
     proposal)                   proposal)
          │                           │
          └─────────────┬─────────────┘
                        │
                        ▼
                     tasks
-                (必要:
+                (requires:
                 specs, design)
 ```
 
@@ -468,21 +469,21 @@ artifacts:
 proposal → specs → design → tasks → implement
 ```
 
-最適な用途: 実装前に仕様について合意したい、ほとんどの機能開発。
+最適な用途：実装前に仕様について合意したい、ほとんどの機能開発。
 
 ### カスタムスキーマ
 
 チームのワークフローに合わせてカスタムスキーマを作成します。
 
 ```bash
-# 新規作成
+# Create from scratch
 openspec schema init research-first
 
-# 既存スキーマをフォーク
+# Or fork an existing one
 openspec schema fork spec-driven research-first
 ```
 
-**カスタムスキーマの例:**
+**カスタムスキーマの例：**
 
 ```yaml
 # openspec/schemas/research-first/schema.yaml
@@ -490,15 +491,15 @@ name: research-first
 artifacts:
   - id: research
     generates: research.md
-    requires: []           # 先に調査する
+    requires: []           # Do research first
 
   - id: proposal
     generates: proposal.md
-    requires: [research]   # 調査結果を踏まえて提案
+    requires: [research]   # Proposal informed by research
 
   - id: tasks
     generates: tasks.md
-    requires: [proposal]   # specs/design を省略し、tasks に進む
+    requires: [proposal]   # Skip specs/design, go straight to tasks
 ```
 
 カスタムスキーマの作成と使用の詳細は、[カスタマイズ](/ja-JP/customization/)を参照してください。
@@ -510,7 +511,7 @@ artifacts:
 ### アーカイブ時の処理
 
 ```
-アーカイブ前:
+Before archive:
 
 openspec/
 ├── specs/
@@ -526,15 +527,15 @@ openspec/
                 └── spec.md ─────────┘
 
 
-アーカイブ後:
+After archive:
 
 openspec/
 ├── specs/
 │   └── auth/
-│       └── spec.md        # 2FA 要件を含む
+│       └── spec.md        # Now includes 2FA requirements
 └── changes/
     └── archive/
-        └── 2025-01-24-add-2fa/    # 履歴として保存
+        └── 2025-01-24-add-2fa/    # Preserved for history
             ├── proposal.md
             ├── design.md
             ├── tasks.md
@@ -563,44 +564,44 @@ openspec/
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────┐
-│                              OPENSPEC の流れ                                  │
+│                              OPENSPEC FLOW                                   │
 │                                                                              │
 │   ┌────────────────┐                                                         │
-│   │  1. change を  │  /opsx:propose (core) または /opsx:new (expanded)       │
-│   │     開始       │                                                         │
+│   │  1. START      │  /opsx:propose (core) or /opsx:new (expanded)           │
+│   │     CHANGE     │                                                         │
 │   └───────┬────────┘                                                         │
 │           │                                                                  │
 │           ▼                                                                  │
 │   ┌────────────────┐                                                         │
-│   │  2. 成果物を   │  /opsx:ff または /opsx:continue (expanded workflow)    │
-│   │     作成       │  proposal → specs → design → tasks を作成               │
-│   │                │  (スキーマの依存関係に基づく)                           │
+│   │  2. CREATE     │  /opsx:ff or /opsx:continue (expanded workflow)         │
+│   │     ARTIFACTS  │  Creates proposal → specs → design → tasks              │
+│   │                │  (based on schema dependencies)                         │
 │   └───────┬────────┘                                                         │
 │           │                                                                  │
 │           ▼                                                                  │
 │   ┌────────────────┐                                                         │
-│   │  3. タスクを   │  /opsx:apply                                            │
-│   │     実装       │  タスクを進め、完了したらチェック                        │
-│   │                │◄──── 学びに合わせて成果物を更新                          │
+│   │  3. IMPLEMENT  │  /opsx:apply                                            │
+│   │     TASKS      │  Work through tasks, checking them off                  │
+│   │                │◄──── Update artifacts as you learn                      │
 │   └───────┬────────┘                                                         │
 │           │                                                                  │
 │           ▼                                                                  │
 │   ┌────────────────┐                                                         │
-│   │  4. 作業を     │  /opsx:verify (任意)                                    │
-│   │     検証       │  実装が仕様に一致するか確認                              │
+│   │  4. VERIFY     │  /opsx:verify (optional)                                │
+│   │     WORK       │  Check implementation matches specs                     │
 │   └───────┬────────┘                                                         │
 │           │                                                                  │
 │           ▼                                                                  │
 │   ┌────────────────┐     ┌──────────────────────────────────────────────┐    │
-│   │  5. change を  │────►│  差分仕様をメイン仕様にマージ                 │    │
-│   │     アーカイブ │     │  change フォルダーを archive/ に移動           │    │
-│   └────────────────┘     │  仕様が更新後の真実の情報源になる             │    │
+│   │  5. ARCHIVE    │────►│  Delta specs merge into main specs           │    │
+│   │     CHANGE     │     │  Change folder moves to archive/             │    │
+│   └────────────────┘     │  Specs are now the updated source of truth   │    │
 │                          └──────────────────────────────────────────────┘    │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
 ```
 
-**好循環:**
+**好循環：**
 
 1. 仕様が現在の動作を記述する
 2. change が差分として修正を提案する
@@ -617,7 +618,7 @@ openspec/
 | **Archive（アーカイブ）** | change を完了し、その差分をメイン仕様にマージするプロセス |
 | **Change（変更）** | 成果物とともにフォルダーにまとめられた、システムへの変更案 |
 | **Delta spec（差分仕様）** | 現在の仕様に対する変更（ADDED/MODIFIED/REMOVED）を記述した仕様 |
-| **Domain（ドメイン）** | 仕様を論理的にまとめたもの（例: `auth/`、`payments/`） |
+| **Domain（ドメイン）** | 仕様を論理的にまとめたもの（例：`auth/`、`payments/`） |
 | **Requirement（要件）** | システムが備えるべき具体的な動作 |
 | **Scenario（シナリオ）** | 要件の具体例。通常は Given/When/Then 形式で記述 |
 | **Schema（スキーマ）** | 成果物の種類とその依存関係の定義 |

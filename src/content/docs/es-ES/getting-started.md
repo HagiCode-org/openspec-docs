@@ -3,7 +3,7 @@ title: "Primeros pasos"
 ---
 
 Esta guía explica cómo funciona OpenSpec después de instalarlo e inicializarlo.
-Para instalarlo, consulta el [README principal](https://github.com/Fission-AI/openspec/blob/79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777/README.md#quick-start)
+Para instalarlo, consulta el [README principal](https://github.com/Fission-AI/openspec/blob/dc37609827c8c3aba49e49347745f47aaa65cb1b/README.md#quick-start)
 o la [guía de instalación](/es-ES/installation/). ¿Acabas de llegar a esta
 documentación? En la [página principal de la documentación](/es-ES/) encontrarás
 un mapa de todos los temas.
@@ -23,7 +23,7 @@ un mapa de todos los temas.
 El ciclo completo, con el lugar donde se realiza cada paso:
 
 ```text
-TERMINAL   $ npm install -g @fission-ai/openspec@latest
+TERMINAL   $ curl -fsSL https://raw.githubusercontent.com/Fission-AI/OpenSpec/main/scripts/binary/install.sh | sh
 TERMINAL   $ cd your-project && openspec init
 AI CHAT      /opsx:explore                    (optional: think it through first)
 AI CHAT      /opsx:propose add-dark-mode      (AI drafts the plan; you review it)
@@ -32,7 +32,8 @@ AI CHAT      /opsx:archive                    (specs updated, change filed away)
 ```
 
 La configuración requiere dos pasos en el terminal; después, todo se hace en el
-chat. El resto de esta guía explica cada paso y lo que verás.
+chat. (Windows, npm y otras formas de instalación están en [Instalación](/es-ES/installation/).)
+El resto de esta guía explica cada paso y lo que verás.
 
 **¿Prefieres no usar el terminal?** Pega la [instrucción de configuración](/es-ES/installation/#instalar-con-tu-asistente-de-ia)
 en tu asistente. Este ejecutará ambos comandos y luego te dirá qué creó.
@@ -49,7 +50,7 @@ en tu asistente. Este ejecutará ambos comandos y luego te dirá qué creó.
 OpenSpec te ayuda a ti y a tu asistente de programación con IA a acordar qué se
 va a construir antes de escribir código.
 
-**Ruta rápida predeterminada (perfil `core`):**
+**Ruta rápida predeterminada (perfil core):**
 
 ```text
 /opsx:explore ──► /opsx:propose ──► /opsx:apply ──► /opsx:sync ──► /opsx:archive

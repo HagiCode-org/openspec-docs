@@ -179,6 +179,8 @@ openspec update [path] [options]
 | 옵션 | 설명 |
 |--------|-------------|
 | `--force` | 파일이 최신이어도 강제로 업데이트합니다. |
+| `--dry-run` | 업데이트가 변경할 내용을 보고하고 아무것도 쓰지 않습니다. |
+| `--json` | `--dry-run`과 함께 사용하면 계획된 변경 사항을 JSON으로 출력합니다. |
 
 **Example:**
 
@@ -187,6 +189,30 @@ openspec update [path] [options]
 npm install -g @fission-ai/openspec@latest
 openspec update
 ```
+
+**업데이트 미리 보기:**
+
+`--dry-run`은 업데이트가 추가, 변경 또는 삭제할 파일을 보고하며 아무것도 쓰지 않습니다. 경로는 프로젝트 기준 상대 경로이며, 프로젝트 밖의 파일(홈 디렉터리의 스킬 등)은 `~/` 접두사와 함께 표시됩니다.
+
+```bash
+openspec update --dry-run --json
+```
+
+```json
+{
+  "changes": [
+    { "path": ".claude/skills/openspec-explore/SKILL.md", "action": "update", "tool": "claude" },
+    { "path": "~/.minimax/skills/openspec-propose/SKILL.md", "action": "add", "tool": "minimax-code" }
+  ],
+  "notes": [],
+  "failures": []
+}
+```
+
+계획은 대화형 실행이 아닌 비대화형 실행이 수행할 작업과 같으며, 건드릴 모든 파일을 나열합니다. 도구의 이전 디렉터리에서 옮기는 작업, 프로필 도입 이전 설치의 전역 구성 저장, Copilot 클라우드 코딩 에이전트 파일, 그리고 `--force`를 사용할 때는 이전 형식 산출물 정리가 포함됩니다. 특정 도구가 아니라 OpenSpec 자체에 속한 파일은 `tool: "openspec"`을 가집니다. `notes`는 터미널 사용자에게 확인을 요청할 단계를 표시하며, 각 항목에는 안정적인 `code`가 있습니다. `legacy-tool-directories`는 완료된 것으로 표시된 이동을, `legacy-artifacts`는 `--force` 없이 업데이트가 그대로 두는 이전 형식 파일을 가리킵니다. `failures`는 실제 업데이트가 실패할 도구를 나열하며, 파일이 있어야 할 자리에 디렉터리가 있거나 쓰기 권한이 없는 경우처럼 업데이트가 쓸 수 없는 항목도 포함합니다. 해당 도구에서는 계획이 실제 업데이트가 멈추는 지점에서 멈추지만, 한 도구가 실패해도 나머지 계획은 계속 표시됩니다. 일반적인 새로 고침에서는 두 목록 모두 비어 있습니다.
+전체 참조는 [openspec.dev/docs/cli](https://openspec.dev/docs/cli)에서 확인할 수 있습니다.
+
+`--dry-run --json` 실패 시에도 빈 계획과 `status` 배열을 담은 JSON 문서가 정확히 하나 출력되며, 0이 아닌 종료 코드로 끝납니다.
 
 먼저 패키지를 업그레이드하세요. 지침 파일은 설치된 CLI에서 생성되므로 오래된 설치 버전에서 `openspec update`를 실행하면 새 릴리스의 워크플로를 추가하지 않고도 모든 항목이 최신이라고 보고합니다.
 
@@ -665,6 +691,18 @@ retire_capabilities: true
 ```bash
 openspec archive retire-legacy --yes
 ```
+
+**자체 메타데이터 유지:** 소문자 `x-`로 시작하는 최상위 키는 사용자의 것입니다. OpenSpec은 이 키를 읽거나, 쓰거나, 보고하지 않으므로 도구별 데이터를 담은 변경 사항도 `openspec validate
+--strict`를 계속 통과합니다.
+
+```yaml
+# openspec/changes/add-dark-mode/.openspec.yaml
+schema: spec-driven
+x-tracker: SB-5497
+x-jiraKey: ABC-1
+```
+
+접두사 뒤의 이름은 대소문자와 철자를 자유롭게 정할 수 있지만 비어 있지 않고 공백이 없어야 합니다. 제한은 두 가지입니다. 접두사 자체는 소문자여야 하므로 `X-Tracker`는 여전히 보고되며, 확장 키는 최상위 수준에서만 허용됩니다. `initiative:` 안의 키는 이름과 관계없이 거부됩니다. 그 밖에 인식되지 않는 최상위 키는 여전히 효과가 없다고 보고됩니다.
 
 변경 사항에서 해당 기능의 마지막 요구 사항을 제거하면 OpenSpec이 실제
 `spec.md`를 삭제합니다. 같은 변경 사항의 다른 기능 델타는 기본 사양을 계속 업데이트합니다. 표시가 없으면 보관은 파일을 변경하기 전에 중지되고 표시를 추가하라는 안내를 출력합니다.
@@ -1149,7 +1187,7 @@ openspec config profile core
 **텔레메트리 거부:** `telemetry.enabled`를 지정하지 않으면 기본적으로 켜집니다(거부 방식).
 익명 사용 통계와 `openspec update` 버전 확인을 비활성화하려면 `false`로 설정하세요.
 환경 변수는 구성보다 우선합니다. `OPENSPEC_TELEMETRY=0`, `DO_NOT_TRACK=1`,
-또는 참으로 평가되는 `CI` 값(예: `true`/`1`/`yes)이 설정되면 구성 값과 관계없이 텔레메트리를 비활성화합니다.
+또는 참으로 평가되는 `CI` 값(예: `true`/`1`/`yes`)이 설정되면 구성 값과 관계없이 텔레메트리를 비활성화합니다.
 
 `openspec config profile`은 현재 상태 요약을 표시한 뒤 다음 항목을 선택하게 합니다.
 - 전달 방식 및 워크플로 변경

@@ -55,7 +55,7 @@ title: "OpenSpec 智能体契约"
 
 ### 4.2 `show <item> --json`
 
-变更：`{ "id", "title", "deltaCount", "deltas": [...], "root" }`。规格说明：`{ "id", "title", "overview", "requirementCount", "requirements": [...], "metadata": { "version", "format", "sourcePath"? }, "root" }`。
+变更：`{ "id", "title", "deltaCount", "deltas": [...], "root" }`。规格说明：`{ "id", "title", "overview", "requirementCount", "requirements": [...], "metadata": { "version", "format", "sourcePath"? }, "root" }`。需求（无论位于规格说明中，还是位于变更差异的 `requirement`/`requirements` 中）的结构为 `{ "name", "text", "scenarios": [ { "name", "rawText" } ] }`。需求的 `name` 为其标题去掉 `Requirement:` 及结尾 `#` 序列后的内容，也就是归档时用来匹配 MODIFIED/REMOVED/RENAMED 条目的精确名称。场景的 `name` 为其四级标题去掉 `Scenario:` 及结尾 `#` 序列后的内容，也就是 MODIFIED 场景丢失检查所比较的名称。
 
 ### 4.3 `validate --json`
 
@@ -63,7 +63,7 @@ title: "OpenSpec 智能体契约"
 
 ### 4.4 `status --json`
 
-`{ "changeName", "schemaName", "planningHome"?: { "kind", "root", "changesDir", "defaultSchema" }, "changeRoot", "artifactPaths": { "<id>": {outputPath, resolvedOutputPath, existingOutputPaths} }, "nextSteps": ["..."], "actionContext": { "mode": "repo-local", "sourceOfTruth": "repo", "planningArtifacts", "linkedContext", "allowedEditRoots", "requiresAffectedAreaSelection", "constraints" }, "isPlanningComplete", "isComplete", "applyRequires", "artifacts": [ {id, outputPath, status: "done"|"skipped"|"ready"|"blocked", requires, missingDeps?} ], "root" }`。`isPlanningComplete` 表示所有未跳过的规划产物均已存在；跳过的产物视为满足要求，无需创建。它不表示实现任务已经完成。为保持兼容，`isComplete` 仍保留，且含义相同。每个产物的 `requires` 是其直接依赖 ID（所有状态均存在，因此即使产物为 `done`，也能计算传递依赖集合）；只有状态为 `blocked` 时才会出现 `missingDeps`。
+`{ "changeName", "schemaName", "planningHome"?: { "kind", "root", "changesDir", "defaultSchema" }, "changeRoot", "artifactPaths": { "<id>": {outputPath, resolvedOutputPath, existingOutputPaths} }, "nextSteps": ["..."], "actionContext": { "mode": "repo-local", "sourceOfTruth": "repo", "planningArtifacts", "linkedContext", "allowedEditRoots", "requiresAffectedAreaSelection", "constraints" }, "isPlanningComplete", "isComplete", "applyRequires", "artifacts": [ {id, outputPath, status: "done"|"skipped"|"ready"|"blocked", requires, missingDeps?} ], "root" }`。对于存储库选择的根目录：当前路径上最近的项目是仅含配置的根目录，且其 `store:` 指针指向该存储库时，`allowedEditRoots` 为 `[<declaring project>, <store>]`；否则（包括全局 `defaultStore`）为 `[<store>]`，并附带一条约束，提示智能体询问应编辑哪个仓库。OpenSpec 不会把存储库的任务路由到各个仓库，因此，声明项目指的是当前项目，而不是变更涉及的每个仓库。`isPlanningComplete` 表示所有未跳过的规划产物均已存在；跳过的产物视为满足要求，无需创建。它不表示实现任务已经完成。为保持兼容，`isComplete` 仍保留，且含义相同。每个产物的 `requires` 是其直接依赖 ID（所有状态均存在，因此即使产物为 `done`，也能计算传递依赖集合）；只有状态为 `blocked` 时才会出现 `missingDeps`。
 
 `artifacts` 数组按依赖顺序排列。如果多个产物同时就绪，则依照模式中 `artifacts:` 的声明顺序排列（绝非按字母排序）。因此，第一个 `ready` 条目就是接下来应编写的产物；`missingDeps` 也按相同顺序排列。若某项产物的 `generates` 路径位于 `specs/` 下，且变更的 `.openspec.yaml` 声明了 `skip_specs: true`，其状态会标记为 `"skipped"`；它满足依赖关系，但不得创建。没有活动变更时返回 `{ "changes": [], "message", "root" }`，退出码为 0。
 
@@ -93,6 +93,10 @@ title: "OpenSpec 智能体契约"
 
 成功：`{ "archive": { "change", "archivedAs": "YYYY-MM-DD-name", "path", "specsUpdated", "totals"?, "warnings"? }, "root" }`。失败：`{ "archive": null, "root"?, "status": [d] }`，退出码为 1。只有至少写入或废弃了一份规格文件时，`specsUpdated` 才为 true。（如果变更删除了某项能力的最后一条需求，该能力的规格文件会被删除；这要求变更的 `.openspec.yaml` 中设置 `retire_capabilities: true`。每次废弃都会列入 `warnings`；只有规格文件位于调用者当前检出目录时，才会附上可粘贴执行的 Git 恢复命令。）已经同步过的变更仍会归档，但 totals 全为零，并在 `warnings` 中列出跳过的内容。JSON 模式严格禁止交互：每个原本的提示点都会转换成 `archive_*` 代码。
 
+- **`archive: null`**：命令执行失败。这并不保证文件未被改动。
+- **`archive_retirement_cleanup_failed`**：变更已归档，但废弃备份的校验或清理失败。列出的备份路径可能已被改动或消失。消息中也可能报告某个暂存源，它是失败的回退复制清理后遗留的。清理前请检查当前归档以及所有报告的恢复路径，并保留所有需要的内容。重试 archive 不会清理这些路径。
+- **`archive_error`**：回退诊断信息无法判断文件是否已被改动。重试前请检查变更、归档以及受影响的规格说明。
+
 ### 4.10 `doctor --json`
 
 `{ "root": { "path", "source", "store_id"?, "healthy", "status": [] }, "store": { "id", "metadata": {present,valid,remote?}, "origin_url"?, "drift"?: {ahead,behind}, "status": [] } | null, "references": [...], "status": [] }`。仅当存储库是基于 Git 的检出且配置了上游跟踪引用时，才会出现 `drift`；其中 ahead/behind 数量是相对于上次获取的上游，而非实时远端。任何严重级别的健康问题都以 0 退出。失败载荷为 `{ "root": null, "store": null, "references": [], "status": [d] }`，退出码为 1。
@@ -107,7 +111,7 @@ setup/register：`{ "store": {id, root, metadata_path?}, "registry": {path, regi
 
 ### 4.13 `schemas --json` / `templates --json`
 
-`schemas`：成功时仍返回裸数组 `[ {name, description, artifacts, source} ]；按标准根目录选择顺序解析，并接受 `--store <id>`。根目录解析失败时返回 `{ "schemas": [], "root": null, "status": [d] }`，退出码为 1。`templates`：返回以键组织的对象 `{ "<artifactId>": {path, source} }`，仍依据当前工作目录运行，不包含 root/status 字段。
+`schemas`：成功时仍返回裸数组 `[ {name, description, artifacts, source} ]`；按标准根目录选择顺序解析，并接受 `--store <id>`。根目录解析失败时返回 `{ "schemas": [], "root": null, "status": [d] }`，退出码为 1。`templates`：返回以键组织的对象 `{ "<artifactId>": {path, source} }`，仍依据当前工作目录运行，不包含 root/status 字段。
 
 ## 5. 退出码约定
 
@@ -116,7 +120,7 @@ setup/register：`{ "store": {id, root, metadata_path?}, "registry": {path, regi
 | 成功，包括健康检查发现问题（doctor/context/store doctor） | 0 | 载荷 |
 | `--json` 模式下命令失败 | 1 | 一个含 `status: [d]` 和命令空值载荷的 JSON 文档 |
 | `validate` 中有失败条目 | 1 | 完整报告 |
-| 取消提示（store 命令组，人类可读模式） | 130 | 仅 stderr |
+| 取消提示（`store` 命令组，人类可读模式） | 130 | 仅 stderr |
 
 ## 6. 诊断代码目录
 
@@ -150,7 +154,7 @@ setup/register：`{ "store": {id, root, metadata_path?}, "registry": {path, regi
 
 ### 归档（JSON 模式）
 
-`archive_change_name_required`、`archive_change_not_found`、`archive_change_symlink`、`archive_validation_failed`、`archive_confirmation_required`、`archive_tasks_incomplete`、`archive_spec_update_failed`、`archive_spec_validation_failed`、`archive_target_exists`、`archive_error`。
+`archive_change_name_required`、`archive_change_not_found`、`archive_change_symlink`、`archive_validation_failed`、`archive_confirmation_required`、`archive_tasks_incomplete`、`archive_spec_update_failed`、`archive_spec_validation_failed`、`archive_target_exists`、`archive_retirement_cleanup_failed`、`archive_error`。
 
 ### 上下文写入
 
@@ -167,7 +171,7 @@ capstone 审计记录了以下问题；发布键名重命名属于产品决策�
 1. ~~在 `--json` 模式下，若干失败路径只输出 stderr，不提供 JSON 文档。~~ 已在 capstone gauntlet 阶段修复：`show`/`validate` 遇到未知或有歧义的条目时会输出 `{status:[{code: unknown_item | ambiguous_item, ...}]}`；`status`/`instructions`/`list`/`show`/`validate` 中抛出的错误会经由支持 JSON 的失败处理函数（命令空值载荷 + `status`）；`store <unknown subcommand> --json` 会输出 `{status:[{code: unknown_store_subcommand}]}`；`list` 在根目录解析失败时会带上 `{changes|specs: [], root: null}` 空值载荷。
 2. `store_root_missing` 会带有两种严重级别（remove 时为 warning，store doctor 时为 error），具体取决于上下文，详见上文。
 3. 键名大小写：store 系列使用 snake_case，workflow 系列使用 camelCase；`root.store_id` 在任何位置都使用 snake_case。
-4. `src` 中存在四组并行的信封类型声明；archive 诊断从不携带 `target`。
+4. src 中存在四组并行的信封类型声明；archive 诊断从不携带 `target`。
 5. `list --json` 会将每项变更的 `status` 字段用作字符串枚举。
 6. 只有 `validate` 输出包含 `version` 字段。
 7. `templates` 忽略根目录选择（基于当前工作目录，不支持 `--store`）。

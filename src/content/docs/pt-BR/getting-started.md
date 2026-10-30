@@ -2,7 +2,7 @@
 title: "Primeiros passos"
 ---
 
-Este guia explica como o OpenSpec funciona depois de instalado e inicializado. Para instruções de instalação, consulte o [README principal](https://github.com/Fission-AI/openspec/blob/79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777/README.md#quick-start) ou o [guia de instalação](/pt-BR/installation/). Está conhecendo a documentação agora? A [página inicial da documentação](/pt-BR/) apresenta todos os tópicos.
+Este guia explica como o OpenSpec funciona depois de instalado e inicializado. Para instruções de instalação, consulte o [README principal](https://github.com/Fission-AI/openspec/blob/dc37609827c8c3aba49e49347745f47aaa65cb1b/README.md#quick-start) ou o [guia de instalação](/pt-BR/installation/). Está conhecendo a documentação agora? A [página inicial da documentação](/pt-BR/) apresenta todos os tópicos.
 
 > **Onde digito esses comandos?** Em dois lugares — confundi-los é o tropeço inicial mais comum.
 >
@@ -16,7 +16,7 @@ Este guia explica como o OpenSpec funciona depois de instalado e inicializado. P
 O ciclo completo, com cada etapa identificada pelo local em que acontece:
 
 ```text
-TERMINAL   $ npm install -g @fission-ai/openspec@latest
+TERMINAL   $ curl -fsSL https://raw.githubusercontent.com/Fission-AI/OpenSpec/main/scripts/binary/install.sh | sh
 TERMINAL   $ cd your-project && openspec init
 AI CHAT      /opsx:explore                    (optional: think it through first)
 AI CHAT      /opsx:propose add-dark-mode      (AI drafts the plan; you review it)
@@ -24,7 +24,7 @@ AI CHAT      /opsx:apply                      (AI builds it)
 AI CHAT      /opsx:archive                    (specs updated, change filed away)
 ```
 
-São duas etapas de configuração no terminal; depois, você trabalha no chat. O restante deste guia explica o que cada etapa faz e o que você verá.
+São duas etapas de configuração no terminal; depois, você trabalha no chat. (Windows, npm e outras formas de instalação estão em [Instalação](/pt-BR/installation/).) O restante deste guia explica o que cada etapa faz e o que você verá.
 
 **Não quer fazer a parte do terminal por conta própria?** Cole o [prompt de configuração](/pt-BR/installation/#instale-com-seu-assistente-de-ia) no assistente. Ele executará as duas linhas e informará o que criou.
 

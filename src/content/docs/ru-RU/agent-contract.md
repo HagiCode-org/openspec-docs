@@ -6,7 +6,7 @@ title: "Контракт агента OpenSpec"
 
 ## 1. Общие соглашения
 
-- **Один документ JSON на вызов.** В режиме `--json` stdout содержит ровно один документ JSON с отступами в два пробела. Читаемый текст, индикаторы выполнения и баннер хранилища выводятся в stderr.
+- **Один документ JSON на вызов.** В режиме `--json` stdout содержит ровно один документ JSON с отступами в 2 пробела. Читаемый текст, индикаторы выполнения и баннер хранилища выводятся в stderr.
 - **Баннер хранилища.** В человекочитаемом режиме при выборе корня-хранилища в stderr выводится `Using OpenSpec root: <id> (<path>)`. В режиме JSON он не выводится.
 - **Формат регистра ключей зависит от интерфейса** (см. «Известные несоответствия»): полезные данные store/doctor/context используют `snake_case`, а полезные данные рабочих процессов (`status`, `instructions`, `new change`, `validate`, `list`) — `camelCase`, кроме встроенного объекта `root`, где всегда используется `store_id`.
 - **Необязательные ключи обычно опускаются, а не задаются как null** (например, `root.store_id`, `member.path`). Исключения с явным значением `null` указаны в описании структуры (например, `git.*` в store doctor и полезные данные при ошибке).
@@ -19,9 +19,9 @@ title: "Контракт агента OpenSpec"
 {
   "severity": "error" | "warning" | "info",
   "code": "snake_case_string",
-  "message": "понятное пользователю сообщение",
-  "target": "интерфейс с точками (необязательно)",
-  "fix": "конкретная рекомендация/команда (необязательно)"
+  "message": "human sentence",
+  "target": "dotted.surface (optional)",
+  "fix": "one actionable sentence/command (optional)"
 }
 ```
 
@@ -41,7 +41,7 @@ title: "Контракт агента OpenSpec"
 `schemas --json` намеренно оставляет совместимый массив без обёртки, описанный в §4.13:
 
 ```json
-"root": { "path": "/abs/path", "source": "store" | "declared" | "global_default" | "nearest" | "implicit", "store_id": "id (только для выбранного хранилища)" }
+"root": { "path": "/abs/path", "source": "store" | "declared" | "global_default" | "nearest" | "implicit", "store_id": "id (only when store-selected)" }
 ```
 
 **Контракт ошибки выбора корня:** в режиме JSON ошибка разрешения выводит в stdout `{ ...commandNullShape, "status": [diagnostic] }` и завершается с кодом 1.
@@ -54,15 +54,15 @@ title: "Контракт агента OpenSpec"
 `warnings` (опускается, если массив пуст) сообщает о каталогах под `changes/`, которые не являются изменениями. Сейчас используется только код `nested_change_directory`: это пространство имён, содержащее каталоги изменений. OpenSpec не может адресовать его напрямую, поскольку изменение всегда является каталогом непосредственно в `changes/`. В соответствующей записи изменения также содержится `nested`, поэтому её `status` не имеет смысла. Не считайте такую запись изменением: передайте сообщение и не меняйте каталоги.
 
 ### 4.2 `show <item> --json`
-Change: `{ "id", "title", "deltaCount", "deltas": [...], "root" }`. Spec: `{ "id", "title", "overview", "requirementCount", "requirements": [...], "metadata": { "version", "format", "sourcePath"? }, "root" }`.
+Change: `{ "id", "title", "deltaCount", "deltas": [...], "root" }`. Spec: `{ "id", "title", "overview", "requirementCount", "requirements": [...], "metadata": { "version", "format", "sourcePath"? }, "root" }`. Требование в спецификации или в полях `requirement`/`requirements` дельты изменения имеет вид `{ "name", "text", "scenarios": [ { "name", "rawText" } ] }`. `name` требования — это его заголовок без `Requirement:` и без завершающей последовательности `#`, точное имя, по которому archive сопоставляет записи MODIFIED/REMOVED/RENAMED. `name` сценария — это его заголовок уровня 4 без `Scenario:` и без завершающей последовательности `#`, имя, которое сравнивает проверка потери сценария при MODIFIED.
 
 ### 4.3 `validate --json`
 `{ "items": [ { "id", "type": "change"|"spec", "valid", "issues": [ { "level", "path", "message", "line"?, "column"? } ], "durationMs" } ], "summary": { "totals": {items,passed,failed}, "byType": {...} }, "version": "1.0", "root" }`. При ошибке любого элемента возвращается код завершения 1.
 
 ### 4.4 `status --json`
-`{ "changeName", "schemaName", "planningHome"?: { "kind", "root", "changesDir", "defaultSchema" }, "changeRoot", "artifactPaths": { "<id>": {outputPath, resolvedOutputPath, existingOutputPaths} }, "nextSteps": ["..."], "actionContext": { "mode": "repo-local", "sourceOfTruth": "repo", "planningArtifacts", "linkedContext", "allowedEditRoots", "requiresAffectedAreaSelection", "constraints" }, "isPlanningComplete", "isComplete", "applyRequires", "artifacts": [ {id, outputPath, status: "done"|"skipped"|"ready"|"blocked", requires, missingDeps?} ], "root" }`. `isPlanningComplete` означает, что существуют все артефакты планирования, кроме пропущенных; пропущенные артефакты считаются выполненными, хотя не создаются. Это не означает, что завершены задачи реализации. `isComplete` сохранён как совместимый псевдоним с тем же значением. Для каждого артефакта `requires` содержит ID его непосредственных зависимостей (поле присутствует при любом статусе, поэтому можно вычислить и транзитивный набор зависимостей, даже когда артефакт уже `done`); `missingDeps` присутствует только при `blocked`. Массив `artifacts` упорядочен по зависимостям. Если несколько артефактов становятся готовыми одновременно, порядок задаётся объявлением `artifacts:` в схеме (не алфавитом), поэтому первым создаётся первый элемент `ready`; `missingDeps` использует тот же порядок. Статус `"skipped"` указывает на артефакт, путь `generates` которого находится в `specs/`, если `.openspec.yaml` изменения содержит `skip_specs: true`. Такой артефакт удовлетворяет зависимостям, но создавать его не нужно. Нет активных изменений: `{ "changes": [], "message", "root" }`, код завершения 0.
+`{ "changeName", "schemaName", "planningHome"?: { "kind", "root", "changesDir", "defaultSchema" }, "changeRoot", "artifactPaths": { "<id>": {outputPath, resolvedOutputPath, existingOutputPaths} }, "nextSteps": ["..."], "actionContext": { "mode": "repo-local", "sourceOfTruth": "repo", "planningArtifacts", "linkedContext", "allowedEditRoots", "requiresAffectedAreaSelection", "constraints" }, "isPlanningComplete", "isComplete", "applyRequires", "artifacts": [ {id, outputPath, status: "done"|"skipped"|"ready"|"blocked", requires, missingDeps?} ], "root" }`. Для корня, выбранного через хранилище, `allowedEditRoots` равен `[<declaring project>, <store>]`, если ближайший проект по текущему пути — это корень только с конфигурацией, чей указатель `store:` ссылается на это хранилище, и `[<store>]` в остальных случаях (в том числе для глобального `defaultStore`); при этом ограничение велит агенту спросить, в каком репозитории редактировать. OpenSpec не распределяет задачи хранилища по репозиториям, поэтому объявляющий проект — это текущий проект, а не каждый репозиторий, которого касается изменение. `isPlanningComplete` означает, что существуют все артефакты планирования, кроме пропущенных; пропущенные артефакты считаются выполненными, хотя не создаются. Это не означает, что завершены задачи реализации. `isComplete` сохранён как совместимый псевдоним с тем же значением. Для каждого артефакта `requires` содержит ID его непосредственных зависимостей (поле присутствует при любом статусе, поэтому можно вычислить и транзитивный набор зависимостей, даже когда артефакт уже `done`); `missingDeps` присутствует только при `blocked`. Массив `artifacts` упорядочен по зависимостям. Если несколько артефактов становятся готовыми одновременно, порядок задаётся объявлением `artifacts:` в схеме (не алфавитом), поэтому первым создаётся первый элемент `ready`; `missingDeps` использует тот же порядок. Статус `"skipped"` указывает на артефакт, путь `generates` которого находится в `specs/`, если `.openspec.yaml` изменения содержит `skip_specs: true`. Такой артефакт удовлетворяет зависимостям, но создавать его не нужно. Нет активных изменений: `{ "changes": [], "message", "root" }`, код завершения 0.
 
-`--all` (пакетный режим, несовместим с `--change`; при их совместном использовании возвращается ошибка с пустой структурой `{ "changes": [], "root": null, "status": [d] }`): `{ "changes": [ <объект статуса изменения без отдельного root>, ... ], "root" }`; изменения отсортированы по имени. Если изменение не удалось загрузить, вместо него добавляется `{ "changeName", "status": [d] }`; обработка остальных продолжается, полная обёртка сохраняется, код завершения равен 1 как в текстовом режиме, так и в JSON. Недопустимый `--schema` завершает весь вызов с пустой структурой, даже если изменений нет.
+`--all` (пакетный режим, несовместим с `--change`; при их совместном использовании возвращается ошибка с пустой структурой `{ "changes": [], "root": null, "status": [d] }`): `{ "changes": [ <per-change status object, no per-change root>, ... ], "root" }`; изменения отсортированы по имени. Если изменение не удалось загрузить, вместо него добавляется `{ "changeName", "status": [d] }`; обработка остальных продолжается, полная обёртка сохраняется, код завершения равен 1 как в текстовом режиме, так и в JSON. Недопустимый `--schema` завершает весь вызов с пустой структурой, даже если изменений нет.
 
 ### 4.5 `instructions <artifact> --json`
 `{ "changeName", "artifactId", "schemaName", "changeDir", "planningHome"?, "outputPath", "resolvedOutputPath", "existingOutputPaths", "description", "instruction"?, "context"?, "rules"?, "references"?: ReferenceIndexEntry[], "skipped"?, "warning"?, "template", "dependencies": [{id,done,path,description,skipped?}], "unlocks", "root" }`. `unlocks` содержит артефакты, которые становятся готовыми благодаря текущему, в порядке их объявления в схеме (в том же порядке, что их рекомендует создавать `status`). `"skipped": true` (вместе с `"warning"`) появляется, если изменение объявляет `skip_specs: true` и данный артефакт пропущен: не создавайте его файлы. Зависимость со `skipped: true` считается выполненной без файлов — не пытайтесь читать указанные пути.
@@ -80,6 +80,10 @@ Success: `{ "change": { "id", "path", "metadataPath", "schema" }, "root" }`. Fai
 
 ### 4.9 `archive <name> --json`
 Успешный ответ: `{ "archive": { "change", "archivedAs": "YYYY-MM-DD-name", "path", "specsUpdated", "totals"?, "warnings"? }, "root" }`. Ошибка: `{ "archive": null, "root"?, "status": [d] }`, код завершения 1. `specsUpdated` равно true, только если был записан или выведен из эксплуатации хотя бы один файл спецификации (если изменение удалило последнее требование возможности, её спецификация удаляется; для этого в `.openspec.yaml` изменения требуется `retire_capabilities: true`; каждый такой случай перечисляется в `warnings`, а вставляемая команда восстановления Git приводится, только если спецификация была в рабочей копии вызывающего процесса). Уже синхронизированное изменение архивируется с нулевыми итогами и пропусками, перечисленными в `warnings`. Режим JSON строго неинтерактивный: каждому запросу соответствует код `archive_*`.
+
+- **`archive: null`**: команда завершилась с ошибкой. Это не гарантирует, что файлы остались без изменений.
+- **`archive_retirement_cleanup_failed`**: изменение архивировано, но проверка резервной копии при выводе спецификации из эксплуатации или её очистка не удалась. Указанный путь резервной копии мог измениться или исчезнуть. Сообщение может также указывать на исходный файл, оставшийся после неудачной очистки при запасном копировании. Прежде чем очищать, проверьте текущий архив и все указанные пути восстановления и сохраните нужное содержимое. Повторный запуск archive эти пути не очищает.
+- **`archive_error`**: резервная диагностика не указывает, изменились ли файлы. Проверьте изменение, архив и затронутые спецификации, прежде чем повторять попытку.
 
 ### 4.10 `doctor --json`
 `{ "root": { "path", "source", "store_id"?, "healthy", "status": [] }, "store": { "id", "metadata": {present,valid,remote?}, "origin_url"?, "drift"?: {ahead,behind}, "status": [] } | null, "references": [...], "status": [] }`. `drift` (присутствует только для checkout-хранилища на основе Git с настроенной upstream-ссылкой) содержит количество коммитов впереди/позади относительно последнего полученного upstream, а не актуального удалённого репозитория. Диагностика о состоянии любого уровня завершается с кодом 0. Структура ошибки: `{ "root": null, "store": null, "references": [], "status": [d] }`, код завершения 1.
@@ -126,7 +130,7 @@ setup/register: `{ "store": {id, root, metadata_path?}, "registry": {path, regis
 `relationship_registry_unreadable`, `root_pointer_ignored`, `root_pointer_invalid`, `pointer_declarations_inert`.
 
 ### Архивация (режим JSON)
-`archive_change_name_required`, `archive_change_not_found`, `archive_change_symlink`, `archive_validation_failed`, `archive_confirmation_required`, `archive_tasks_incomplete`, `archive_spec_update_failed`, `archive_spec_validation_failed`, `archive_target_exists`, `archive_error`.
+`archive_change_name_required`, `archive_change_not_found`, `archive_change_symlink`, `archive_validation_failed`, `archive_confirmation_required`, `archive_tasks_incomplete`, `archive_spec_update_failed`, `archive_spec_validation_failed`, `archive_target_exists`, `archive_retirement_cleanup_failed`, `archive_error`.
 
 ### Запись контекста
 `context_file_exists`, `context_output_dir_missing`.
@@ -140,7 +144,7 @@ setup/register: `{ "store": {id, root, metadata_path?}, "registry": {path, regis
 
 1. ~~В режиме `--json` некоторые пути ошибки выводили только stderr, без документа JSON.~~ Исправлено в итоговом цикле проверок: неизвестные и неоднозначные элементы `show`/`validate` выдают `{status:[{code: unknown_item | ambiguous_item, ...}]}`; выброшенные ошибки в `status`/`instructions`/`list`/`show`/`validate` обрабатываются JSON-совместимым помощником ошибок (структура null команды + `status`); `store <unknown subcommand> --json` выдаёт `{status:[{code: unknown_store_subcommand}]}`; при ошибках выбора корня `list` содержит структуру null `{changes|specs: [], root: null}`.
 2. `store_root_missing` может иметь два уровня серьёзности (предупреждение при remove, ошибка в store doctor) — это зависит от контекста и описано выше.
-3. Регистр ключей `snake_case` (семейство store) и `camelCase` (семейство рабочих процессов); `root.store_id` всегда записывается в `snake_case`.
+3. Регистр ключей snake_case (семейство store) и camelCase (семейство рабочих процессов); `root.store_id` всегда записывается в snake_case.
 4. В src существуют четыре параллельных объявления типа обёртки; диагностика archive никогда не содержит `target`.
 5. `list --json` использует ключ `status` повторно как строковое перечисление для каждого изменения.
 6. Поле `version` есть только в выводе `validate`.

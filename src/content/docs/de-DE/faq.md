@@ -66,7 +66,7 @@ Erkunden Sie die Idee, schlagen Sie den Plan vor, setzen Sie ihn um und archivie
 
 `/opsx:propose` ist der standardmäßige Befehl mit nur einem Schritt: Er erstellt die Änderung und entwirft alle Planungsartefakte auf einmal. `/opsx:new` gehört zum erweiterten Befehlssatz und legt nur die leere Änderung an. Die Artefakte erstellen Sie anschließend einzeln mit `/opsx:continue` (oder alle auf einmal mit `/opsx:ff`). Verwenden Sie „Propose“, sofern Sie nicht Schritt-für-Schritt-Steuerung wünschen. Siehe [Befehle](/de-DE/commands/).
 
-### Was sind die Profile `core` und `expanded`?
+### Was sind die Profile `core` und expanded?
 
 Ein Profil legt fest, welche Slash-Befehle installiert werden. **Core** (Standard) umfasst `propose`, `explore`, `apply`, `update`, `sync` und `archive`. Der **erweiterte** Satz ergänzt für eine feinere Steuerung `new`, `continue`, `ff`, `verify`, `bulk-archive` und `onboard`. Wechseln Sie das Profil mit `openspec config profile` und wenden Sie es anschließend mit `openspec update` an.
 
@@ -150,8 +150,8 @@ Es gibt keinen Deinstallationsbefehl, da OpenSpec lediglich aus einem globalen P
 
 - **Discord:** [discord.gg/YctCnvvshC](https://discord.gg/YctCnvvshC)
 - **GitHub-Issues:** [github.com/Fission-AI/OpenSpec/issues](https://github.com/Fission-AI/OpenSpec/issues)
-- **Im Terminal:** `openspec feedback "Ihre Nachricht"` öffnet ein GitHub-Issue für Sie.
+- **Im Terminal:** `openspec feedback "your message"` öffnet ein GitHub-Issue für Sie.
 
 ### Diese Dokumentation ist falsch oder verwirrend. Was soll ich tun?
 
-Teilen Sie es uns mit oder korrigieren Sie es selbst. Pull Requests für die Dokumentation sind willkommen und werden geschätzt. Eröffnen Sie ein Issue oder senden Sie einen Pull Request.
+Teilen Sie es uns mit. Eröffnen Sie ein [Docs-Issue](https://github.com/Fission-AI/OpenSpec/issues/new?template=docs.yml) mit der betroffenen Seite und dem Fehler – Korrekturen an der Dokumentation gehören zu den nützlichsten Meldungen, die wir erhalten.

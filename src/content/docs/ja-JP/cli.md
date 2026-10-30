@@ -94,13 +94,13 @@ openspec init [path] [options]
 既存プロジェクトでは、OpenSpec がプロジェクト固有のガイダンスを上書きしないよう、設定ファイルの
 `context` フィールドを編集してください。
 
-**引数:**
+**引数：**
 
 | 引数 | 必須 | 説明 |
 |----------|----------|-------------|
-| `path` | いいえ | 対象ディレクトリ（既定: 現在のディレクトリ） |
+| `path` | いいえ | 対象ディレクトリ（既定：現在のディレクトリ） |
 
-**オプション:**
+**オプション：**
 
 | オプション | 説明 |
 |--------|-------------|
@@ -116,48 +116,48 @@ openspec init [path] [options]
 
 `OPENSPEC_NO_ANIMATION` 環境変数が設定されている場合（空の値を含む）、`NO_COLOR` に空でない値が設定されている場合、または OS の視差効果を減らす設定が有効な場合（macOS の Reduce Motion、GNOME のアニメーション無効化）も、ウェルカムアニメーションは省略されます。
 
-**対応ツール ID（`--tools`）** — `devin` の別名として `windsurf` も使用できます: `amazon-q`、`antigravity`、`auggie`、`bob`、`claude`、`cline`、`command-code`、`codeartsagent`、`codex`、`devin`、`forgecode`、`codebuddy`、`continue`、`costrict`、`crush`、`cursor`、`factory`、`gemini`、`github-copilot`、`hermes`、`iflow`、`junie`、`kilocode`、`kimi`、`kiro`、`lingma`、`minimax-code`、`vibe`、`oh-my-pi`、`opencode`、`pi`、`codeassistant`、`qoder`、`qwen`、`rovodev`、`roocode`、`trae`、`zed`、`zcode`、`agents`
+**対応ツール ID（`--tools`）** — `devin` の別名として `windsurf` も使用できます：`amazon-q`、`antigravity`、`auggie`、`bob`、`claude`、`cline`、`command-code`、`codeartsagent`、`codex`、`devin`、`forgecode`、`codebuddy`、`continue`、`costrict`、`crush`、`cursor`、`factory`、`gemini`、`github-copilot`、`hermes`、`iflow`、`junie`、`kilocode`、`kimi`、`kiro`、`lingma`、`minimax-code`、`vibe`、`oh-my-pi`、`opencode`、`pi`、`codeassistant`、`qoder`、`qwen`、`rovodev`、`roocode`、`trae`、`zed`、`zcode`、`agents`
 
 > この一覧は `src/core/config.ts` の `AI_TOOLS` と一致します。ツールごとのスキルとコマンドのパスは[対応ツール](/ja-JP/supported-tools/)を参照してください。
 
-**例:**
+**例：**
 
 ```bash
-# 対話形式で初期化
+# Interactive initialization
 openspec init
 
-# 特定のディレクトリで初期化
+# Initialize in a specific directory
 openspec init ./my-project
 
-# 非対話形式: Claude と Cursor を設定
+# Non-interactive: configure for Claude and Cursor
 openspec init --tools claude,cursor
 
-# 非対話形式: グローバル MiniMax Code スキルを設定
+# Non-interactive: configure global MiniMax Code skills
 openspec init --tools minimax-code
 
-# 対応するすべてのツールを設定
+# Configure for all supported tools
 openspec init --tools all
 
-# 今回の実行に限りプロファイルを上書き
+# Override profile for this run
 openspec init --profile core
 
-# 確認を省略し、従来ファイルを自動整理
+# Skip prompts and auto-cleanup legacy files
 openspec init --force
 ```
 
-**作成されるもの:**
+**作成されるもの：**
 
 ```
 openspec/
-├── specs/              # 仕様（真実の情報源）
-├── changes/            # 提案中の変更
-└── config.yaml         # プロジェクト設定
+├── specs/              # Your specifications (source of truth)
+├── changes/            # Proposed changes
+└── config.yaml         # Project configuration
 
-.claude/skills/         # Claude Code スキル（claude を選択した場合）
-.cursor/skills/         # Cursor スキル（cursor を選択した場合）
-.cursor/commands/       # Cursor OPSX コマンド（配布方式にコマンドを含む場合）
-.agents/skills/         # AGENTS.md 対応ツールの共有スキル（agents を選択した場合）
-... (その他のツール設定)
+.claude/skills/         # Claude Code skills (if claude selected)
+.cursor/skills/         # Cursor skills (if cursor selected)
+.cursor/commands/       # Cursor OPSX commands (if delivery includes commands)
+.agents/skills/         # Shared skills for AGENTS.md-compatible tools (if agents selected)
+... (other tool configs)
 ```
 
 ---
@@ -170,44 +170,70 @@ CLI のアップグレード後に OpenSpec の指示ファイルを更新しま
 openspec update [path] [options]
 ```
 
-**引数:**
+**引数：**
 
 | 引数 | 必須 | 説明 |
 |----------|----------|-------------|
-| `path` | いいえ | 対象ディレクトリ（既定: 現在のディレクトリ） |
+| `path` | いいえ | 対象ディレクトリ（既定：現在のディレクトリ） |
 
-**オプション:**
+**オプション：**
 
 | オプション | 説明 |
 |--------|-------------|
 | `--force` | ファイルが最新でも強制的に更新 |
+| `--dry-run` | 更新で変わる内容を報告し、何も書き込まない |
+| `--json` | `--dry-run` と併用すると、計画された変更を JSON で出力 |
 
-**例:**
+**例：**
 
 ```bash
-# npm のアップグレード後に指示ファイルを更新
+# Update instruction files after npm upgrade
 npm install -g @fission-ai/openspec@latest
 openspec update
 ```
+
+**更新内容のプレビュー：**
+
+`--dry-run` は、更新で追加、変更、削除されるファイルを報告しますが、何も書き込みません。パスはプロジェクトからの相対パスです。プロジェクトの外にあるファイル（ホームディレクトリのスキルなど）は、`~/` の接頭辞付きで表示されます。
+
+```bash
+openspec update --dry-run --json
+```
+
+```json
+{
+  "changes": [
+    { "path": ".claude/skills/openspec-explore/SKILL.md", "action": "update", "tool": "claude" },
+    { "path": "~/.minimax/skills/openspec-propose/SKILL.md", "action": "add", "tool": "minimax-code" }
+  ],
+  "notes": [],
+  "failures": []
+}
+```
+
+計画は、非対話型の実行が行う内容と同じで、変更対象となるすべてのファイルを一覧にします。ツールの旧ディレクトリからの移動、プロファイル導入前のインストールに対するグローバル設定の保存、Copilot cloud agent のファイル、そして `--force` を指定した場合のレガシー成果物の削除が含まれます。1つのツールではなく OpenSpec 自体に属するファイルには `tool: "openspec"` が付きます。`notes` は、ターミナルのユーザーに確認が求められるステップを示し、それぞれに安定した `code` があります。`legacy-tool-directories`（移動済みとして記録された移動）と `legacy-artifacts`（`--force` なしでは更新されない旧レイアウトのファイル）です。`failures` は、実際の更新が失敗するツールを一覧にします。ファイルの場所にあるディレクトリや書き込み権限がないなど、書き込めないものを含みます。そのツールでは計画は実際の更新が止まる箇所で停止し、1つのツールが壊れていても計画の残りは失われません。どちらも通常の更新では空になります。
+完全なリファレンスは [openspec.dev/docs/cli](https://openspec.dev/docs/cli) にあります。
+
+`--dry-run --json` が失敗した場合も、JSON ドキュメントは1つだけ出力されます。内容は空の計画と `status` 配列で、終了コードは0以外になります。
 
 先にパッケージをアップグレードしてください。指示ファイルはインストール済み CLI が生成します。そのため古い CLI で `openspec update` を実行すると、新しいリリースのワークフローを追加せずに、すべて最新と報告することがあります。
 
 この状態を分かりやすくするため、`openspec update` は npm レジストリに新しい CLI が公開されているか問い合わせます。使用中のものが古い場合、アップグレードを提案します。
 
 ```text
-新しい OpenSpec CLI が利用可能です (v1.6.0 → v1.7.0)。
-  実行元: /usr/local/lib/node_modules/@fission-ai/openspec
-? 今すぐ v1.7.0 にアップグレードしますか？ (Y/n)
+A newer OpenSpec CLI is available (v1.6.0 → v1.7.0).
+  Running from: /usr/local/lib/node_modules/@fission-ai/openspec
+? Upgrade to v1.7.0 now? (Y/n)
 ```
 
-「はい」と答えると `npm install -g @fission-ai/openspec@latest` を実行し、新しい CLI で update を再実行するため、新しいワークフローが同じコマンドで反映されます。npm の終了コードを信用するのではなく、インストール済みのバイナリにバージョンを問い合わせてアップグレードを確認します。そのため PATH 上で別のインストールが優先されている場合も、成功したと偽らずに通知します。「いいえ」と答えると、コマンドを表示して現在の CLI で更新します。Ctrl-C でコマンドを停止します。
+「はい」と答えると `npm install -g @fission-ai/openspec@latest` を実行し、新しい CLI で update を再実行するため、新しいワークフローが同じコマンドで反映されます。npm の終了コードを信用するのではなく、インストール済みのバイナリにバージョンを問い合わせてアップグレードを確認します。そのため `PATH` 上で別のインストールが優先されている場合も、成功したと偽らずに通知します。「いいえ」と答えると、コマンドを表示して現在の CLI で更新します。Ctrl-C でコマンドを停止します。
 
 アップグレードの提案は、対話型ターミナルで、かつ npm がインストールを管理している場合に限って表示されます。これは `npm install -g` で実際に修正できる唯一のケースです。それ以外では、インストール方法に応じたコマンドを表示します。
 
 | OpenSpec のインストール方法 | 表示内容 |
 |---------------------------|--------------|
 | グローバル npm インストール | 対話型ターミナルでは確認後にアップグレードを実行します。出力をパイプした場合は、代わりにコマンドを表示します。 |
-| グローバル pnpm、bun、yarn、または volta インストール | 各マネージャー固有のコマンド: `pnpm add -g …@latest`、`bun add -g …@latest`、`yarn global add …@latest`、または `volta install …@latest` |
+| グローバル pnpm、bun、yarn、または volta インストール | 各マネージャー固有のコマンド：`pnpm add -g …@latest`、`bun add -g …@latest`、`yarn global add …@latest`、または `volta install …@latest` |
 | プロジェクトの依存関係 | lockfile をパッケージマネージャーが管理するため、依存関係を更新するよう案内 |
 | `npx` / `dlx` キャッシュ | `npx @fission-ai/openspec@latest update` — このコマンド自体が更新を行うため、追加の手順は不要 |
 | git clone | 何もしない — 使用中のバージョンはブランチの内容に依存 |
@@ -216,7 +242,7 @@ openspec update
 
 レジストリへの問い合わせには、npm が `npm_config_registry` を設定している場合はその値を使い、それ以外では `https://registry.npmjs.org` を使います。`.npmrc` は読み込みません。ファイルの内容に外部リクエスト先を決めさせるのは避けるべきであり、プロジェクトの `.npmrc` はリポジトリとともに共有されるためです。プライベートミラーを使う場合は `npm_config_registry` を export するか、`OPENSPEC_NO_UPDATE_CHECK` を設定して確認を完全にスキップしてください。`CI` に明示的な無効値（`false`、`0`、`no`、`off`、空文字列）以外が設定されている場合、`NODE_ENV=test` の場合、または `OPENSPEC_NO_UPDATE_CHECK`（任意の値）、`DO_NOT_TRACK=1`、`OPENSPEC_TELEMETRY=0` のいずれかが設定されている場合は確認をスキップします。確認は更新前に実行され、最大1.5秒の遅延が発生する可能性があります。ネットワークがパケットを黙って破棄する場合でも、その時間を過ぎると諦め、レジストリに到達できない場合も何も表示しません。
 
-**「最新」の判定方法:** スキルファイルには生成時のバージョンが記録されるため、OpenSpec はそれをインストール済み CLI と比較します。コマンドファイルにはバージョン情報がないため、スキルを使わずコマンドのみを使うツール（配布方式 `commands`）では、現在生成されるファイルと内容を比較します。手動編集は差分と見なされ、上書きされます。配布方式が `skills` または `both` の場合は記録されたバージョンのみを確認するため、バージョンが一致していれば手動編集したファイルはそのまま残ります。上書きするには `--force` を使ってください。いずれの場合も生成ファイルは OpenSpec の管理対象です。独自の指示は別の場所に保存してください。
+**「最新」の判定方法：** スキルファイルには生成時のバージョンが記録されるため、OpenSpec はそれをインストール済み CLI と比較します。コマンドファイルにはバージョン情報がないため、スキルを使わずコマンドのみを使うツール（配布方式 `commands`）では、現在生成されるファイルと内容を比較します。手動編集は差分と見なされ、上書きされます。配布方式が `skills` または `both` の場合は記録されたバージョンのみを確認するため、バージョンが一致していれば手動編集したファイルはそのまま残ります。上書きするには `--force` を使ってください。いずれの場合も生成ファイルは OpenSpec の管理対象です。独自の指示は別の場所に保存してください。
 
 ---
 
@@ -236,19 +262,19 @@ OpenSpec がセットアップを案内します。エージェントやスク�
 openspec store setup [id] [options]
 ```
 
-**オプション:**
+**オプション：**
 
 | オプション | 説明 |
 |--------|-------------|
-| `--path <path>` | store の保存先フォルダー（例: `~/openspec/<id>`） |
+| `--path <path>` | store の保存先フォルダー（例：`~/openspec/<id>`） |
 | `--remote <url>` | 正規のリモート URL を新しい store の `store.yaml` に記録 |
 | `--init-git` | 初回コミットを含む Git リポジトリを初期化（既定） |
 | `--no-init-git` | Git 操作をすべてスキップ（初期化も初回コミットも行わない） |
 | `--json` | JSON を出力 |
 
-非対話形式（`--json`、スクリプト、エージェント）では、store ID と `--path` の両方を指定する必要があります。対話型ターミナルでは、ユーザーが確認できて管理する場所（例: `~/openspec/<id>`）を編集可能な候補として表示し、保存先を尋ねます。OpenSpec 管理のデータディレクトリが既定値になることはありません。
+非対話形式（`--json`、スクリプト、エージェント）では、store ID と `--path` の両方を指定する必要があります。対話型ターミナルでは、ユーザーが確認できて管理する場所（例：`~/openspec/<id>`）を編集可能な候補として表示し、保存先を尋ねます。OpenSpec 管理のデータディレクトリが既定値になることはありません。
 
-例:
+例：
 
 ```bash
 openspec store setup
@@ -265,7 +291,7 @@ openspec store setup team-context --path ~/openspec/team-context --no-init-git -
 openspec store register [path] [options]
 ```
 
-**オプション:**
+**オプション：**
 
 | オプション | 説明 |
 |--------|-------------|
@@ -326,7 +352,7 @@ references:
 
 以降、そのリポジトリの `openspec instructions` 出力（成果物ごとの指示と `apply` の両方、人間向け/JSON モードの両方）には、参照先 store の仕様索引が含まれます。索引には仕様 ID、各仕様の Purpose 節から取得した1行の概要、取得コマンド（`openspec show <spec-id> --type spec --store <id>`）が含まれます。索引は実行ごとに登録済みチェックアウトから生成され、仕様の内容が出力にコピーされることはありません。
 
-参照は読み取り専用のコンテキストです。コマンドの実行場所は変わりません。作業はリポジトリ自身のルートで行い、参照先 store への書き込みには明示的な `--store` 指定が必要です。解決できない参照（例: このマシンに未登録の store）は、正確な修正方法を含む警告として索引に表示されますが、指示は引き続き生成されます。参照の状態は `openspec doctor` で一元的に確認できます。
+参照は読み取り専用のコンテキストです。コマンドの実行場所は変わりません。作業はリポジトリ自身のルートで行い、参照先 store への書き込みには明示的な `--store` 指定が必要です。解決できない参照（例：このマシンに未登録の store）は、正確な修正方法を含む警告として索引に表示されますが、指示は引き続き生成されます。参照の状態は `openspec doctor` で一元的に確認できます。
 
 ### store の clone 元を記録する
 
@@ -353,7 +379,7 @@ references:
 計画を完全に外部化したリポジトリ（ローカルに `openspec/specs/` や `openspec/changes/` がない場合）では、各コマンドに `--store` を指定する代わりに、store を一度だけ宣言できます。
 
 ```yaml
-# openspec/config.yaml（openspec/ 以下に置く唯一のファイル）
+# openspec/config.yaml (the only file under openspec/)
 store: team-context
 ```
 
@@ -423,7 +449,7 @@ openspec workset remove <name> [--yes] [--json]
 openspec list [options]
 ```
 
-**オプション:**
+**オプション：**
 
 | オプション | 説明 |
 |--------|-------------|
@@ -432,24 +458,24 @@ openspec list [options]
 | `--sort <order>` | `recent`（既定）または `name` で並べ替え |
 | `--json` | JSON 形式で出力 |
 
-**例:**
+**例：**
 
 ```bash
-# 作業中の change をすべて一覧表示
+# List all active changes
 openspec list
 
-# 仕様をすべて一覧表示
+# List all specs
 openspec list --specs
 
-# スクリプト向けに JSON 出力
+# JSON output for scripts
 openspec list --json
 ```
 
 **出力（テキスト）:**
 
 ```
-変更:
-  add-dark-mode     タスクなし     たった今
+Changes:
+  add-dark-mode     No tasks      just now
 ```
 
 ---
@@ -474,27 +500,27 @@ change または仕様の詳細を表示します。
 openspec show [item-name] [options]
 ```
 
-**引数:**
+**引数：**
 
 | 引数 | 必須 | 説明 |
 |----------|----------|-------------|
 | `item-name` | いいえ | change または仕様の名前（省略すると入力を求める） |
 
-**オプション:**
+**オプション：**
 
 | オプション | 説明 |
 |--------|-------------|
-| `--type <type>` | 種類を指定: `change` または `spec`（一意に判断できる場合は自動検出） |
+| `--type <type>` | 種類を指定：`change` または `spec`（一意に判断できる場合は自動検出） |
 | `--json` | JSON 形式で出力 |
 | `--no-interactive` | プロンプトを無効化 |
 
-**change 固有のオプション:**
+**change 固有のオプション：**
 
 | オプション | 説明 |
 |--------|-------------|
 | `--deltas-only` | 差分仕様のみを表示（JSON モード） |
 
-**仕様固有のオプション:**
+**仕様固有のオプション：**
 
 | オプション | 説明 |
 |--------|-------------|
@@ -502,19 +528,19 @@ openspec show [item-name] [options]
 | `--no-scenarios` | シナリオの内容を除外（JSON モード） |
 | `-r, --requirement <id>` | 1始まりのインデックスで特定の要件を表示（JSON モード） |
 
-**例:**
+**例：**
 
 ```bash
-# 対話形式で選択
+# Interactive selection
 openspec show
 
-# 特定の change を表示
+# Show a specific change
 openspec show add-dark-mode
 
-# 特定の仕様を表示
+# Show a specific spec
 openspec show auth --type spec
 
-# 解析用の JSON 出力
+# JSON output for parsing
 openspec show add-dark-mode --json
 ```
 
@@ -532,13 +558,13 @@ openspec validate [item-name] [options]
 
 仕様の差分が0件の change は、`.openspec.yaml` に `skip_specs: true` が宣言されていない限り検証に失敗します（動作を変えないリファクタリング、ツール、ドキュメント作業の場合。[レシピ5](/ja-JP/examples/#レシピ5-動作を変えないリファクタリング)を参照）。
 
-**引数:**
+**引数：**
 
 | 引数 | 必須 | 説明 |
 |----------|----------|-------------|
 | `item-name` | いいえ | 検証する項目（省略すると入力を求める） |
 
-**オプション:**
+**オプション：**
 
 | オプション | 説明 |
 |--------|-------------|
@@ -546,45 +572,45 @@ openspec validate [item-name] [options]
 | `--changes` | すべての change を検証 |
 | `--specs` | すべての仕様を検証 |
 | `--archived` | アーカイブ済み change のすべてのタスクが完了しているか検証（pre-commit lint 用） |
-| `--type <type>` | 名前が曖昧な場合に種類を指定: `change` または `spec` |
+| `--type <type>` | 名前が曖昧な場合に種類を指定：`change` または `spec` |
 | `--strict` | 厳格な検証モードを有効化 |
 | `--json` | JSON 形式で出力 |
-| `--concurrency <n>` | 並列検証の最大数（既定: 6、または `OPENSPEC_CONCURRENCY` 環境変数） |
+| `--concurrency <n>` | 並列検証の最大数（既定： 6、または `OPENSPEC_CONCURRENCY` 環境変数） |
 | `--no-interactive` | プロンプトを無効化 |
 
 `--archived` は独立した対象範囲です。仕様の差分は検証しません（アーカイブ時にすでに適用済みのため）。`changes/archive/` 以下のすべての change について、`tasks.md` のチェックボックスがすべてオンか確認します。未チェックが1つでもあると、ゼロ以外の終了コードで終了します。これにより未完了の作業を含む change がアーカイブされたことを検出できます。pre-commit フックに便利です。
 
-**例:**
+**例：**
 
 ```bash
-# 対話形式で検証
+# Interactive validation
 openspec validate
 
-# 特定の change を検証
+# Validate a specific change
 openspec validate add-dark-mode
 
-# すべての change を検証
+# Validate all changes
 openspec validate --changes
 
-# すべてを JSON 出力で検証（CI/スクリプト向け）
+# Validate everything with JSON output (for CI/scripts)
 openspec validate --all --json
 
-# 並列度を上げて厳格に検証
+# Strict validation with increased parallelism
 openspec validate --all --strict --concurrency 12
 
-# アーカイブ済み change に未チェックのタスクがあれば失敗
+# Fail if any archived change still has unchecked tasks
 openspec validate --archived
 ```
 
 **出力（テキスト）:**
 
 ```
-add-dark-mode を検証しています...
-  ✓ proposal.md は有効
-  ✓ specs/ui/spec.md は有効
-  ⚠ design.md: "Technical Approach" セクションがありません
+Validating add-dark-mode...
+  ✓ proposal.md valid
+  ✓ specs/ui/spec.md valid
+  ⚠ design.md: missing "Technical Approach" section
 
-警告が1件見つかりました
+1 warning found
 ```
 
 **出力（JSON）:**
@@ -597,7 +623,7 @@ add-dark-mode を検証しています...
       {
         "name": "add-dark-mode",
         "valid": true,
-        "warnings": ["design.md: 'Technical Approach' セクションがありません"]
+        "warnings": ["design.md: missing 'Technical Approach' section"]
       }
     ]
   },
@@ -621,13 +647,13 @@ add-dark-mode を検証しています...
 openspec archive [change-name] [options]
 ```
 
-**引数:**
+**引数：**
 
 | 引数 | 必須 | 説明 |
 |----------|----------|-------------|
 | `change-name` | いいえ | アーカイブする change（省略すると入力を求める。プロンプトに応答できない場合は必須） |
 
-**オプション:**
+**オプション：**
 
 | オプション | 説明 |
 |--------|-------------|
@@ -635,23 +661,23 @@ openspec archive [change-name] [options]
 | `--skip-specs` | 1回のアーカイブで仕様更新をスキップ。仕様の差分が恒久的にない change では、代わりに `.openspec.yaml` に `skip_specs: true` を宣言すると、フラグなしでアーカイブ可能 |
 | `--no-validate` | 検証をスキップ（確認が必要）。機能の廃止も無効化され、検証結果がないため何も廃止されない |
 
-**例:**
+**例：**
 
 ```bash
-# 対話形式でアーカイブ（対象 change を尋ねてから確認）
+# Interactive archive (asks which change, then confirms)
 openspec archive
 
-# 特定の change をアーカイブ
+# Archive specific change
 openspec archive add-dark-mode
 
-# プロンプトなしでアーカイブ（エージェント、CI、スクリプト）
+# Archive without prompts (agents, CI, scripts)
 openspec archive add-dark-mode --yes
 
-# 仕様に影響しないツール関連の change をアーカイブ
+# Archive a tooling change that doesn't affect specs
 openspec archive update-ci-config --skip-specs
 ```
 
-**機能を廃止する:** change のメタデータに廃止マーカーを追加します。
+**機能を廃止する：** change のメタデータに廃止マーカーを追加します。
 
 ```yaml
 # openspec/changes/retire-legacy/.openspec.yaml
@@ -665,11 +691,23 @@ retire_capabilities: true
 openspec archive retire-legacy --yes
 ```
 
+**独自のメタデータを保持する：** 小文字の `x-` で始まるトップレベルのキーは、利用者が自由に使えます。OpenSpec はそれを読み取ることも、書き込むことも、報告することもないため、ツール固有のデータを持つ change でも `openspec validate
+--strict` は成功のままです。
+
+```yaml
+# openspec/changes/add-dark-mode/.openspec.yaml
+schema: spec-driven
+x-tracker: SB-5497
+x-jiraKey: ABC-1
+```
+
+プレフィックスの後ろの名前は、大文字と小文字や表記を問わず自由に決められます。ただし、空であってはならず、空白を含んでもいけません。制限は2つあります。プレフィックス自体は小文字でなければならないため、`X-Tracker` は引き続き報告されます。また、拡張はトップレベルにのみ置けます。`initiative:` 内のキーは、名前にかかわらず拒否されます。それ以外の認識されないトップレベルのキーは、効果がないものとして引き続き報告されます。
+
 change によって機能の最後の要件が削除されると、OpenSpec は有効な `spec.md` を削除します。
 同じ change 内にある他の機能の差分は、引き続きメイン仕様を更新します。
 マーカーがない場合、アーカイブはファイルを変更する前に停止し、マーカーを追加するよう通知します。
 
-**動作:**
+**動作：**
 
 1. change を検証（`--no-validate` を指定しない場合）
 2. 確認を求める（`--yes` を指定しない場合）
@@ -679,7 +717,7 @@ change によって機能の最後の要件が削除されると、OpenSpec は�
 6. アーカイブが完全に確保される前に仕様の変更または最終移動が失敗した場合、仕様を復元し、change を作業中のパスに残すか戻す
 7. 検証済みのフォールバックコピーが完了した後、ステージング元のクリーンアップに失敗した場合、復旧できるよう完全なアーカイブと確定済みの仕様を保持
 
-**ターミナル以外での実行:** AI エージェント、CI ジョブ、stdin が閉じられた実行などでは手順2に回答できません。そのため archive は何も変更する前に停止して終了コード1で終了し、再実行するコマンド（指定した他のフラグも含む `openspec archive <name> --yes`）を示します。確認のやり取りを省くには、最初から `--yes`（および change 名）を指定してください。
+**ターミナル以外での実行：** AI エージェント、CI ジョブ、stdin が閉じられた実行などでは手順2に回答できません。そのため archive は何も変更する前に停止して終了コード1で終了し、再実行するコマンド（指定した他のフラグも含む `openspec archive <name> --yes`）を示します。確認のやり取りを省くには、最初から `--yes`（および change 名）を指定してください。
 
 ---
 
@@ -700,7 +738,7 @@ change 名には小文字のケバブケースを使います。小文字、数�
 先頭に数字を付けることは可能です。たとえば `100-add-feature` や `00001-add-auth` のように、
 change の順序付けや段階分けに使えます。
 
-**オプション:**
+**オプション：**
 
 | オプション | 説明 |
 |--------|-------------|
@@ -710,7 +748,7 @@ change の順序付けや段階分けに使えます。
 | `--store <id>` | OpenSpec ルートとして使う store ID（store は登録済みの独立した OpenSpec リポジトリ） |
 | `--json` | JSON を出力 |
 
-例:
+例：
 
 ```bash
 openspec new change add-billing-api
@@ -725,7 +763,7 @@ change の成果物の完了状態を表示します。
 openspec status [options]
 ```
 
-**オプション:**
+**オプション：**
 
 | オプション | 説明 |
 |--------|-------------|
@@ -733,25 +771,25 @@ openspec status [options]
 | `--schema <name>` | スキーマを上書き（change の設定から自動検出） |
 | `--json` | JSON を出力 |
 
-**例:**
+**例：**
 
 ```bash
-# 対話形式で状態を確認
+# Interactive status check
 openspec status
 
-# 特定の change の状態
+# Status for specific change
 openspec status --change add-dark-mode
 
-# エージェント向け JSON
+# JSON for agent use
 openspec status --change add-dark-mode --json
 ```
 
 **出力（テキスト）:**
 
 ```
-change: add-dark-mode
-スキーマ: spec-driven
-進捗: 4成果物中2件完了
+Change: add-dark-mode
+Schema: spec-driven
+Progress: 2/4 artifacts complete
 
 [x] proposal
 [x] specs
@@ -759,7 +797,7 @@ change: add-dark-mode
 [-] tasks (blocked by: design)
 ```
 
-`skip_specs: true` を宣言した change では、specs 段階は `[~] specs (スキップ: change が skip_specs を宣言)` と表示され、進捗数には含まれません。
+`skip_specs: true` を宣言した change では、specs 段階は `[~] specs (skipped: change declares skip_specs)` と表示され、進捗数には含まれません。
 
 **Output (JSON):**
 
@@ -798,13 +836,13 @@ change: add-dark-mode
 openspec instructions [artifact] [options]
 ```
 
-**引数:**
+**引数：**
 
 | 引数 | 必須 | 説明 |
 |----------|----------|-------------|
-| `artifact` | いいえ | 成果物 ID、またはワークフロー入力用サーフェス: `apply` または `archive` |
+| `artifact` | いいえ | 成果物 ID、またはワークフロー入力用サーフェス：`apply` または `archive` |
 
-**オプション:**
+**オプション：**
 
 | オプション | 説明 |
 |--------|-------------|
@@ -812,30 +850,30 @@ openspec instructions [artifact] [options]
 | `--schema <name>` | スキーマの上書き |
 | `--json` | JSON を出力 |
 
-**特別なケース:** タスクの実装指示を取得するには `apply` を使います。有効な change の現在の
+**特別なケース：** タスクの実装指示を取得するには `apply` を使います。有効な change の現在の
 アーカイブ入力（`context` と `operationGuidance`）を読み取り専用で取得するには `archive` を
 使います。アーカイブや変更操作は行いません。
 
-**例:**
+**例：**
 
 ```bash
-# 次の成果物の指示を取得
+# Get instructions for next artifact
 openspec instructions --change add-dark-mode
 
-# 特定の成果物の指示を取得
+# Get specific artifact instructions
 openspec instructions design --change add-dark-mode
 
-# apply/実装の指示を取得
+# Get apply/implementation instructions
 openspec instructions apply --change add-dark-mode
 
-# アーカイブせずに現在の archive 操作入力を取得
+# Get current archive operation inputs without archiving
 openspec instructions archive --change add-dark-mode --json
 
-# エージェント用の JSON
+# JSON for agent consumption
 openspec instructions design --change add-dark-mode --json
 ```
 
-**出力に含まれる内容:**
+**出力に含まれる内容：**
 
 - 成果物のテンプレート内容
 - 設定ファイルからのプロジェクトコンテキスト
@@ -866,32 +904,32 @@ CLI が強制できる検査ではありません。`instructions archive` は�
 openspec templates [options]
 ```
 
-**オプション:**
+**オプション：**
 
 | オプション | 説明 |
 |--------|-------------|
-| `--schema <name>` | 確認するスキーマ（既定: `spec-driven`） |
+| `--schema <name>` | 確認するスキーマ（既定：`spec-driven`） |
 | `--json` | JSON を出力 |
 
-**例:**
+**例：**
 
 ```bash
-# 既定スキーマのテンプレートパスを表示
+# Show template paths for default schema
 openspec templates
 
-# カスタムスキーマのテンプレートを表示
+# Show templates for custom schema
 openspec templates --schema my-workflow
 
-# プログラム利用向けの JSON
+# JSON for programmatic use
 openspec templates --json
 ```
 
 **出力（テキスト）:**
 
 ```
-スキーマ: spec-driven
+Schema: spec-driven
 
-テンプレート:
+Templates:
   proposal  → ~/.openspec/schemas/spec-driven/templates/proposal.md
   specs     → ~/.openspec/schemas/spec-driven/templates/specs.md
   design    → ~/.openspec/schemas/spec-driven/templates/design.md
@@ -908,31 +946,31 @@ openspec templates --json
 openspec schemas [options]
 ```
 
-**オプション:**
+**オプション：**
 
 | オプション | 説明 |
 |--------|-------------|
 | `--json` | JSON を出力 |
 | `--store <id>` | 登録済み store を OpenSpec ルートとして使用 |
 
-**例:**
+**例：**
 
 ```bash
 openspec schemas
 ```
 
-**出力:**
+**出力：**
 
 ```
-利用可能なスキーマ:
+Available schemas:
 
   spec-driven (package)
-    既定の仕様駆動開発ワークフロー
-    流れ: proposal → specs → design → tasks
+    The default spec-driven development workflow
+    Flow: proposal → specs → design → tasks
 
   my-custom (project)
-    このプロジェクト向けのカスタムワークフロー
-    流れ: research → proposal → tasks
+    Custom workflow for this project
+    Flow: research → proposal → tasks
 ```
 
 ---
@@ -949,43 +987,43 @@ openspec schemas
 openspec schema init <name> [options]
 ```
 
-**引数:**
+**引数：**
 
 | 引数 | 必須 | 説明 |
 |----------|----------|-------------|
 | `name` | はい | スキーマ名（ケバブケース） |
 
-**オプション:**
+**オプション：**
 
 | オプション | 説明 |
 |--------|-------------|
 | `--description <text>` | スキーマの説明 |
-| `--artifacts <list>` | 成果物 ID のカンマ区切りリスト（既定: `proposal,specs,design,tasks`） |
+| `--artifacts <list>` | 成果物 ID のカンマ区切りリスト（既定：`proposal,specs,design,tasks`） |
 | `--default` | プロジェクトの既定スキーマとして設定 |
 | `--no-default` | 既定値として設定するか確認しない |
 | `--force` | 既存スキーマを上書き |
 | `--json` | JSON を出力 |
 
-**例:**
+**例：**
 
 ```bash
-# 対話形式でスキーマを作成
+# Interactive schema creation
 openspec schema init research-first
 
-# 特定の成果物を指定して非対話形式で作成
+# Non-interactive with specific artifacts
 openspec schema init rapid \
-  --description "高速な反復ワークフロー" \
+  --description "Rapid iteration workflow" \
   --artifacts "proposal,tasks" \
   --default
 ```
 
-**作成されるもの:**
+**作成されるもの：**
 
 ```
 openspec/schemas/<name>/
-├── schema.yaml           # スキーマ定義
+├── schema.yaml           # Schema definition
 └── templates/
-    ├── proposal.md       # 各成果物のテンプレート
+    ├── proposal.md       # Template for each artifact
     ├── specs.md
     ├── design.md
     └── tasks.md
@@ -1001,24 +1039,24 @@ openspec/schemas/<name>/
 openspec schema fork <source> [name] [options]
 ```
 
-**引数:**
+**引数：**
 
 | 引数 | 必須 | 説明 |
 |----------|----------|-------------|
 | `source` | はい | コピーするスキーマ |
-| `name` | いいえ | 新しいスキーマ名（既定: `<source>-custom`） |
+| `name` | いいえ | 新しいスキーマ名（既定：`<source>-custom`） |
 
-**オプション:**
+**オプション：**
 
 | オプション | 説明 |
 |--------|-------------|
 | `--force` | 既存のコピー先を上書き |
 | `--json` | JSON を出力 |
 
-**例:**
+**例：**
 
 ```bash
-# 組み込みの spec-driven スキーマをフォーク
+# Fork the built-in spec-driven schema
 openspec schema fork spec-driven my-workflow
 ```
 
@@ -1032,26 +1070,26 @@ openspec schema fork spec-driven my-workflow
 openspec schema validate [name] [options]
 ```
 
-**引数:**
+**引数：**
 
 | 引数 | 必須 | 説明 |
 |----------|----------|-------------|
 | `name` | いいえ | 検証するスキーマ（省略するとすべてを検証） |
 
-**オプション:**
+**オプション：**
 
 | オプション | 説明 |
 |--------|-------------|
 | `--verbose` | 詳細な検証手順を表示 |
 | `--json` | JSON を出力 |
 
-**例:**
+**例：**
 
 ```bash
-# 特定のスキーマを検証
+# Validate a specific schema
 openspec schema validate my-workflow
 
-# すべてのスキーマを検証
+# Validate all schemas
 openspec schema validate
 ```
 
@@ -1065,38 +1103,38 @@ openspec schema validate
 openspec schema which [name] [options]
 ```
 
-**引数:**
+**引数：**
 
 | 引数 | 必須 | 説明 |
 |----------|----------|-------------|
 | `name` | いいえ | スキーマ名 |
 
-**オプション:**
+**オプション：**
 
 | オプション | 説明 |
 |--------|-------------|
 | `--all` | すべてのスキーマを解決元とともに一覧表示 |
 | `--json` | JSON を出力 |
 
-**例:**
+**例：**
 
 ```bash
-# スキーマの取得元を確認
+# Check where a schema comes from
 openspec schema which spec-driven
 ```
 
-**出力:**
+**出力：**
 
 ```
-spec-driven の解決元: package
-  ソース: /usr/local/lib/node_modules/@fission-ai/openspec/schemas/spec-driven
+spec-driven resolves from: package
+  Source: /usr/local/lib/node_modules/@fission-ai/openspec/schemas/spec-driven
 ```
 
-**スキーマの優先順位:**
+**スキーマの優先順位：**
 
-1. プロジェクト: `openspec/schemas/<name>/`
-2. ユーザー: `~/.local/share/openspec/schemas/<name>/`
-3. パッケージ: 組み込みスキーマ
+1. プロジェクト：`openspec/schemas/<name>/`
+2. ユーザー：`~/.local/share/openspec/schemas/<name>/`
+3. パッケージ：組み込みスキーマ
 
 ---
 
@@ -1110,7 +1148,7 @@ OpenSpec のグローバル設定を表示・変更します。
 openspec config <subcommand> [options]
 ```
 
-**サブコマンド:**
+**サブコマンド：**
 
 | サブコマンド | 説明 |
 |------------|-------------|
@@ -1123,48 +1161,48 @@ openspec config <subcommand> [options]
 | `edit` | `$EDITOR` で開く |
 | `profile [preset]` | 対話形式またはプリセットでワークフロープロファイルを設定 |
 
-**例:**
+**例：**
 
 ```bash
-# 設定ファイルのパスを表示
+# Show config file path
 openspec config path
 
-# すべての設定を一覧表示
+# List all settings
 openspec config list
 
-# 指定した値を取得
+# Get a specific value
 openspec config get telemetry.enabled
 
-# 値を設定（匿名の利用状況テレメトリを無効化）
+# Set a value (disable anonymous usage telemetry)
 openspec config set telemetry.enabled false
 
-# 文字列値を明示的に設定
+# Set a string value explicitly
 openspec config set user.name "My Name" --string
 
-# カスタム設定を削除
+# Remove a custom setting
 openspec config unset user.name
 
-# マシン全体の既定 store を設定（--store、ローカルルート、
-# プロジェクトの store: ポインターのいずれも解決できない場合のフォールバック）
+# Set a machine-level default store (fallback root when no --store,
+# local root, or project store: pointer resolves)
 openspec config set defaultStore team-plans
 
-# すべての設定をリセット
+# Reset all configuration
 openspec config reset --all --yes
 
-# エディターで設定を編集
+# Edit config in your editor
 openspec config edit
 
-# アクション形式のウィザードでプロファイルを設定
+# Configure profile with action-based wizard
 openspec config profile
 
-# 簡易プリセット: ワークフローを core に切り替え（配布方式は維持）
+# Fast preset: switch workflows to core (keeps delivery mode)
 openspec config profile core
 ```
 
-**テレメトリのオプトアウト:** `telemetry.enabled` が未設定の場合、既定で有効です（オプトアウト方式）。
+**テレメトリのオプトアウト：** `telemetry.enabled` が未設定の場合、既定で有効です（オプトアウト方式）。
 匿名利用統計と `openspec update` のバージョン確認を無効にするには `false` を設定します。
 環境変数は設定より優先されます。`OPENSPEC_TELEMETRY=0`、`DO_NOT_TRACK=1`、
-または truthy な `CI` 値（例: `true`/`1`/`yes）が設定されていると、設定値に関係なくテレメトリは無効になります。
+または truthy な `CI` 値（例：`true`/`1`/`yes`）が設定されていると、設定値に関係なくテレメトリは無効になります。
 
 `openspec config profile` は現在の状態のサマリーを表示し、続いて次の選択肢を提示します。
 - 配布方式とワークフローを変更
@@ -1177,18 +1215,18 @@ openspec config profile core
 `Ctrl+C` を押すとスタックトレースなしで正常にキャンセルされ、終了コード `130` で終了します。
 ワークフローのチェックリストでは、`[x]` はグローバル設定で選択されていることを示します。選択内容をプロジェクトファイルに適用するには `openspec update` を実行するか、プロジェクト内で確認されたときに `Apply changes to this project now?` を選択してください。
 
-**対話形式の例:**
+**対話形式の例：**
 
 ```bash
-# 配布方式のみを更新
+# Delivery-only update
 openspec config profile
-# 選択: 配布方式のみ変更
-# 配布方式を選択: スキルのみ
+# choose: Change delivery only
+# choose delivery: Skills only
 
-# ワークフローのみを更新
+# Workflows-only update
 openspec config profile
-# 選択: ワークフローのみ変更
-# チェックリストでワークフローを切り替え、確認
+# choose: Change workflows only
+# toggle workflows in the checklist, then confirm
 ```
 
 ---
@@ -1203,21 +1241,21 @@ OpenSpec に関するフィードバックを送信します。GitHub Issue を�
 openspec feedback <message> [options]
 ```
 
-**引数:**
+**引数：**
 
 | 引数 | 必須 | 説明 |
 |----------|----------|-------------|
 | `message` | はい | フィードバックの概要。長文の場合は Issue のタイトルで短縮し、本文では保持 |
 
-**オプション:**
+**オプション：**
 
 | オプション | 説明 |
 |--------|-------------|
 | `--body <text>` | 概要の後に含める追加の詳細 |
 
-**必要条件:** GitHub CLI（`gh`）がインストールされ、認証済みであること。
+**必要条件：** GitHub CLI（`gh`）がインストールされ、認証済みであること。
 
-**例:**
+**例：**
 
 ```bash
 openspec feedback "Add support for custom artifact types" \
@@ -1234,7 +1272,7 @@ OpenSpec CLI のシェル補完を管理します。
 openspec completion <subcommand> [shell]
 ```
 
-**サブコマンド:**
+**サブコマンド：**
 
 | サブコマンド | 説明 |
 |------------|-------------|
@@ -1242,21 +1280,21 @@ openspec completion <subcommand> [shell]
 | `install [shell]` | 使用するシェルの補完をインストール |
 | `uninstall [shell]` | インストール済み補完を削除 |
 
-**対応シェル:** `bash`、`zsh`、`fish`、`powershell`
+**対応シェル：** `bash`、`zsh`、`fish`、`powershell`
 
-**例:**
+**例：**
 
 ```bash
-# 補完をインストール（シェルを自動検出）
+# Install completions (auto-detects shell)
 openspec completion install
 
-# 特定のシェル用にインストール
+# Install for specific shell
 openspec completion install zsh
 
-# 手動インストール用スクリプトを生成（bash）
+# Generate script for manual installation (bash)
 openspec completion generate bash > ~/.bash_completion.d/openspec
 
-# アンインストール
+# Uninstall
 openspec completion uninstall
 ```
 
@@ -1300,12 +1338,12 @@ openspec completion uninstall powershell
 |----------|-------------|
 | `OPENSPEC_TELEMETRY` | `0` を設定するとテレメトリと `openspec update` のバージョン確認を無効化（グローバル設定の `telemetry.enabled` より優先） |
 | `DO_NOT_TRACK` | `1` を設定するとテレメトリと `openspec update` のバージョン確認を無効化（標準 DNT 信号。設定より優先） |
-| `OPENSPEC_CONCURRENCY` | 一括検証の既定並列度（既定: 6） |
+| `OPENSPEC_CONCURRENCY` | 一括検証の既定並列度（既定： 6） |
 | `EDITOR` または `VISUAL` | `openspec config edit` で使うエディター |
 | `NO_COLOR` | 設定するとカラー出力を無効化 |
 | `OPENSPEC_NO_ANIMATION` | 設定すると `openspec init` のウェルカムアニメーションを無効化 |
 | `OPENSPEC_NO_COMPLETIONS` | `1` を設定するとシェル補完に関する一度限りの案内を抑制 |
-| `OPENSPEC_NO_UPDATE_CHECK` | 設定すると公開済み CLI の新バージョン確認を無効化（空を含む任意の値）。`CI` が設定されている場合（`false`/`0`/`no`/`off` を除く）または `NODE_ENV=test` の場合もスキップ |
+| `OPENSPEC_NO_UPDATE_CHECK` | 設定すると `openspec update` で公開済み CLI の新バージョン確認を無効化（空を含む任意の値）。`CI` が設定されている場合（`false`/`0`/`no`/`off` を除く）または `NODE_ENV=test` の場合もスキップ |
 | `npm_config_registry` | `openspec update` のバージョン確認に使うレジストリ。`http(s)` URL でなければ `https://registry.npmjs.org` にフォールバック。`.npmrc` ファイルは読み込まない |
 
 ---

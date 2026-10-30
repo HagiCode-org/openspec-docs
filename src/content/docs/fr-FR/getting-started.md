@@ -2,7 +2,7 @@
 title: "Bien démarrer"
 ---
 
-Ce guide explique le fonctionnement d'OpenSpec après son installation et son initialisation. Pour installer le logiciel, consultez le [README principal](/fr-FR/) ou le [Guide d'installation](/fr-FR/installation/). Vous découvrez l'ensemble de la documentation ? La [page d'accueil de la documentation](/fr-FR/) en présente l'organisation.
+Ce guide explique le fonctionnement d'OpenSpec après son installation et son initialisation. Pour installer le logiciel, consultez le [README principal](https://github.com/Fission-AI/openspec/blob/dc37609827c8c3aba49e49347745f47aaa65cb1b/README.md#quick-start) ou le [Guide d'installation](/fr-FR/installation/). Vous découvrez l'ensemble de la documentation ? La [page d'accueil de la documentation](/fr-FR/) en présente l'organisation.
 
 > **Où saisir ces commandes ?** À deux endroits, et les confondre est l'erreur la plus fréquente au début.
 >
@@ -16,7 +16,7 @@ Ce guide explique le fonctionnement d'OpenSpec après son installation et son in
 Le cycle complet, avec l'endroit où chaque étape a lieu :
 
 ```text
-TERMINAL   $ npm install -g @fission-ai/openspec@latest
+TERMINAL   $ curl -fsSL https://raw.githubusercontent.com/Fission-AI/OpenSpec/main/scripts/binary/install.sh | sh
 TERMINAL   $ cd your-project && openspec init
 AI CHAT      /opsx:explore                    (optional: think it through first)
 AI CHAT      /opsx:propose add-dark-mode      (AI drafts the plan; you review it)
@@ -24,7 +24,7 @@ AI CHAT      /opsx:apply                      (AI builds it)
 AI CHAT      /opsx:archive                    (specs updated, change filed away)
 ```
 
-Deux étapes dans le terminal pour la configuration, puis le travail se déroule dans la conversation. Le reste de ce guide explique le rôle de chaque étape et ce que vous verrez.
+Deux étapes dans le terminal pour la configuration, puis le travail se déroule dans la conversation. (Windows, npm et les autres modes d'installation sont décrits dans [Installation](/fr-FR/installation/).) Le reste de ce guide explique le rôle de chaque étape et ce que vous verrez.
 
 **Vous ne voulez pas effectuer vous-même les étapes dans le terminal ?** Collez la [consigne de configuration](/fr-FR/installation/#installer-avec-votre-assistant-ia) dans votre assistant : il effectuera les deux commandes, puis indiquera ce qui a été créé.
 

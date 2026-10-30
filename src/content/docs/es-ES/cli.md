@@ -200,6 +200,8 @@ openspec update [path] [options]
 | Opción | Descripción |
 |--------|-------------|
 | `--force` | Forzar la actualización aunque los archivos estén al día |
+| `--dry-run` | Informar de lo que cambiaría la actualización, sin escribir nada |
+| `--json` | Con `--dry-run`, imprimir los cambios previstos en formato JSON |
 
 **Ejemplo:**
 
@@ -208,6 +210,48 @@ openspec update [path] [options]
 npm install -g @fission-ai/openspec@latest
 openspec update
 ```
+
+**Previsualizar una actualización:**
+
+`--dry-run` informa de los archivos que una actualización añadiría, modificaría
+o eliminaría, y no escribe nada. Las rutas son relativas al proyecto; los
+archivos situados fuera de él (habilidades en tu directorio personal) se
+muestran con el prefijo `~/`.
+
+```bash
+openspec update --dry-run --json
+```
+
+```json
+{
+  "changes": [
+    { "path": ".claude/skills/openspec-explore/SKILL.md", "action": "update", "tool": "claude" },
+    { "path": "~/.minimax/skills/openspec-propose/SKILL.md", "action": "add", "tool": "minimax-code" }
+  ],
+  "notes": [],
+  "failures": []
+}
+```
+
+El plan es lo que haría una ejecución no interactiva y enumera cada archivo que
+tocaría: los traslados desde el directorio anterior de una herramienta, el
+guardado global de la configuración en una instalación anterior a los perfiles,
+los archivos del agente en la nube de Copilot y, con `--force`, la limpieza de
+artefactos heredados. Los archivos que pertenecen a OpenSpec y no a una
+herramienta concreta tienen `tool: "openspec"`. `notes` señala los pasos sobre
+los que una persona que usa la terminal recibiría una pregunta; cada uno tiene
+un `code` estable: `legacy-tool-directories` (un traslado indicado como
+realizado) y `legacy-artifacts` (archivos con el diseño antiguo que la
+actualización deja intactos sin `--force`). `failures` enumera las herramientas
+en las que fallaría la actualización real, incluidas las escrituras que no puede
+realizar (un directorio en lugar de un archivo, falta de permiso de escritura);
+en esa herramienta, el plan se detiene donde se detendría la actualización, y
+una herramienta defectuosa no te hace perder el resto del plan. Ambos están
+vacíos en una actualización normal.
+La referencia completa está en [openspec.dev/docs/cli](https://openspec.dev/docs/cli).
+
+Un fallo de `--dry-run --json` sigue imprimiendo exactamente un documento JSON:
+el plan vacío más una matriz `status`, y termina con un código distinto de cero.
 
 Primero, actualiza el paquete. La CLI instalada genera los archivos de
 instrucciones, por lo que ejecutar `openspec update` con una instalación
@@ -404,7 +448,7 @@ La URL se guarda en `.openspec-store/store.yaml` dentro del commit inicial,
 así que cada clon ya la conoce. Para un almacén existente, edita `store.yaml`
 manualmente y confirma el cambio. `store doctor` muestra la URL registrada
 (y el origen Git detectado en la copia local); las indicaciones para compartir
-de `setup` y `register` la mencionan, y `register` guarda el origen de la copia
+de setup/register la mencionan, y register guarda el origen de la copia
 local en el registro de la máquina.
 
 Una declaración de referencia también puede incluir el origen de clonación,
@@ -804,6 +848,26 @@ Después, archiva el cambio como de costumbre:
 openspec archive retire-legacy --yes
 ```
 
+**Conserva tus propios metadatos:** una clave de nivel superior que empieza por
+`x-` en minúscula es tuya. OpenSpec nunca la lee, escribe ni informa de ella, así
+que `openspec validate
+--strict` sigue en verde en un cambio que contiene datos
+específicos de una herramienta:
+
+```yaml
+# openspec/changes/add-dark-mode/.openspec.yaml
+schema: spec-driven
+x-tracker: SB-5497
+x-jiraKey: ABC-1
+```
+
+El nombre que sigue al prefijo lo eliges tú, con cualquier mayúscula o forma,
+siempre que no esté vacío y no contenga espacios en blanco. Hay dos límites: el
+propio prefijo va en minúscula, así que `X-Tracker` sigue informándose, y las
+extensiones solo pueden estar en el nivel superior; una clave dentro de
+`initiative:` se rechaza, sea cual sea su nombre. Cualquier otra clave de nivel
+superior no reconocida sigue informando de que no tiene efecto.
+
 Cuando el cambio elimina el último requisito de una capacidad, OpenSpec borra
 su archivo `spec.md` activo. Las deltas de otras capacidades incluidas en el
 mismo cambio siguen actualizando sus especificaciones principales. Si falta la
@@ -939,7 +1003,7 @@ tener que crearlos. No indica si se completaron las tareas de implementación.
 
 Los artefactos aparecen ordenados por dependencias: ninguna dependencia va
 después de un artefacto que la necesite. Si varios artefactos están listos a la
-vez (en `spec-driven`, tanto `specs` como `design` solo requieren `proposal`),
+vez (en spec-driven, tanto `specs` como `design` solo requieren `proposal`),
 se mantiene el orden declarado en el esquema, en vez de ordenarlos
 alfabéticamente. Por tanto, la primera entrada `ready` indica qué artefacto
 escribir a continuación.
@@ -1350,8 +1414,7 @@ Pulsar `Ctrl+C` también cancela correctamente el flujo (sin mostrar un
 rastreo de pila) y devuelve el código `130`.
 En la lista de comprobación, `[x]` indica que el flujo está seleccionado en la
 configuración global. Para aplicar esas selecciones a los archivos del
-proyecto, ejecuta `openspec update` (o selecciona `Apply changes to this
-project now?` cuando se te pregunte dentro de un proyecto).
+proyecto, ejecuta `openspec update` (o selecciona `Apply changes to this project now?` cuando se te pregunte dentro de un proyecto).
 
 **Ejemplos interactivos:**
 

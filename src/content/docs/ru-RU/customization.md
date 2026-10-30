@@ -35,29 +35,29 @@ openspec init
 schema: spec-driven
 
 context: |
-  Технологический стек: TypeScript, React, Node.js, PostgreSQL
-  Стиль API: RESTful, документация в docs/api.md
-  Тестирование: Jest + React Testing Library
-  Мы ценим обратную совместимость всех публичных API
+  Tech stack: TypeScript, React, Node.js, PostgreSQL
+  API style: RESTful, documented in docs/api.md
+  Testing: Jest + React Testing Library
+  We value backwards compatibility for all public APIs
 
 rules:
   proposal:
-    - Добавлять план отката
-    - Указывать затронутые команды
+    - Include rollback plan
+    - Identify affected teams
   specs:
-    - Использовать формат Given/When/Then
-    - Сначала ссылаться на существующие шаблоны, а не изобретать новые
+    - Use Given/When/Then format
+    - Reference existing patterns before inventing new ones
 
 operations:
   apply:
     guidance:
-      - Перед полным набором запускать целевые тесты
+      - Run focused tests before the full suite
   archive:
     guidance:
-      - Делать итоговое резюме кратким
+      - Keep the completion summary concise
 
-# Устанавливается командой `openspec init`, если вы соглашаетесь или отказываетесь
-# от облачного агента GitHub Copilot; определяет, создают ли `init`/`update` его файлы.
+# Set by `openspec init` when you choose (or decline) the GitHub Copilot
+# cloud coding agent; controls whether `init`/`update` generate its files.
 githubCopilot:
   cloudAgent: false
 ```
@@ -67,10 +67,10 @@ githubCopilot:
 **Схема по умолчанию:**
 
 ```bash
-# Без конфигурации
+# Without config
 openspec new change my-feature --schema spec-driven
 
-# С конфигурацией схема определяется автоматически
+# With config - schema is automatic
 openspec new change my-feature
 ```
 
@@ -80,17 +80,17 @@ openspec new change my-feature
 
 ```xml
 <context>
-Технологический стек: TypeScript, React, Node.js, PostgreSQL
+Tech stack: TypeScript, React, Node.js, PostgreSQL
 ...
 </context>
 
 <rules>
-- Добавлять план отката
-- Указывать затронутые команды
+- Include rollback plan
+- Identify affected teams
 </rules>
 
 <template>
-[Встроенный шаблон схемы]
+[Schema's built-in template]
 </template>
 ```
 
@@ -177,12 +177,12 @@ openspec instructions archive --change my-feature --json
 ```text
 your-project/
 ├── openspec/
-│   ├── config.yaml        # Конфигурация проекта
-│   ├── schemas/           # Каталог пользовательских схем
+│   ├── config.yaml        # Project config
+│   ├── schemas/           # Custom schemas live here
 │   │   └── my-workflow/
 │   │       ├── schema.yaml
 │   │       └── templates/
-│   └── changes/           # Изменения проекта
+│   └── changes/           # Your changes
 └── src/
 ```
 
@@ -200,12 +200,12 @@ openspec schema fork spec-driven my-workflow
 
 ```text
 openspec/schemas/my-workflow/
-├── schema.yaml           # Определение рабочего процесса
+├── schema.yaml           # Workflow definition
 └── templates/
-    ├── proposal.md       # Шаблон артефакта предложения
-    ├── spec.md           # Шаблон спецификаций
-    ├── design.md         # Шаблон проектного решения
-    └── tasks.md          # Шаблон задач
+    ├── proposal.md       # Template for proposal artifact
+    ├── spec.md           # Template for specs
+    ├── design.md         # Template for design
+    └── tasks.md          # Template for tasks
 ```
 
 Измените `schema.yaml`, чтобы настроить рабочий процесс, или отредактируйте шаблоны, чтобы изменить генерируемое ИИ содержимое.
@@ -215,10 +215,10 @@ openspec/schemas/my-workflow/
 Чтобы создать полностью новый рабочий процесс:
 
 ```bash
-# Интерактивный режим
+# Interactive
 openspec schema init research-first
 
-# Неинтерактивный режим
+# Non-interactive
 openspec schema init rapid \
   --description "Rapid iteration workflow" \
   --artifacts "proposal,tasks" \
@@ -233,30 +233,30 @@ openspec schema init rapid \
 # openspec/schemas/my-workflow/schema.yaml
 name: my-workflow
 version: 1
-description: Пользовательский рабочий процесс команды
+description: My team's custom workflow
 
 artifacts:
   - id: proposal
     generates: proposal.md
-    description: Первоначальный документ с предложением
+    description: Initial proposal document
     template: proposal.md
     instruction: |
-      Создай предложение, объясняющее, ЗАЧЕМ нужно это изменение.
-      Сосредоточься на проблеме, а не на решении.
+      Create a proposal that explains WHY this change is needed.
+      Focus on the problem, not the solution.
     requires: []
 
   - id: design
     generates: design.md
-    description: Техническое проектное решение
+    description: Technical design
     template: design.md
     instruction: |
-      Создай документ проектного решения с объяснением того, КАК выполнить работу.
+      Create a design document explaining HOW to implement.
     requires:
-      - proposal    # Сначала нужно создать предложение
+      - proposal    # Can't create design until proposal exists
 
   - id: tasks
     generates: tasks.md
-    description: Контрольный список реализации
+    description: Implementation checklist
     template: tasks.md
     requires:
       - design
@@ -288,15 +288,15 @@ apply:
 <!-- templates/proposal.md -->
 ## Why
 
-<!-- Объясни причину изменения. Какую проблему оно решает? -->
+<!-- Explain the motivation for this change. What problem does this solve? -->
 
-## Что меняется
+## What Changes
 
-<!-- Опиши, что изменится. Укажи новые возможности или модификации. -->
+<!-- Describe what will change. Be specific about new capabilities or modifications. -->
 
 ## Impact
 
-<!-- Затронутый код, API, зависимости и системы -->
+<!-- Affected code, APIs, dependencies, systems -->
 ```
 
 Шаблоны могут включать:
@@ -323,10 +323,10 @@ openspec schema validate my-workflow
 После создания применяйте схему так:
 
 ```bash
-# Указать в команде
+# Specify on command
 openspec new change feature --schema my-workflow
 
-# Или задать по умолчанию в config.yaml
+# Or set as default in config.yaml
 schema: my-workflow
 ```
 
@@ -335,10 +335,10 @@ schema: my-workflow
 Не знаете, какая схема используется? Проверьте это командами:
 
 ```bash
-# Узнать, откуда загружается определённая схема
+# See where a specific schema resolves from
 openspec schema which my-workflow
 
-# Вывести список всех доступных схем
+# List all available schemas
 openspec schema which --all
 ```
 
@@ -366,21 +366,21 @@ Path: /path/to/project/openspec/schemas/my-workflow
 # openspec/schemas/rapid/schema.yaml
 name: rapid
 version: 1
-description: Быстрая итерация с минимальными накладными расходами
+description: Fast iteration with minimal overhead
 
 artifacts:
   - id: proposal
     generates: proposal.md
-    description: Краткое предложение
+    description: Quick proposal
     template: proposal.md
     instruction: |
-      Создай краткое предложение для этого изменения.
-      Сосредоточься на том, что меняется и зачем; подробные спецификации не нужны.
+      Create a brief proposal for this change.
+      Focus on what and why, skip detailed specs.
     requires: []
 
   - id: tasks
     generates: tasks.md
-    description: Контрольный список реализации
+    description: Implementation checklist
     template: tasks.md
     requires: [proposal]
 
@@ -402,11 +402,11 @@ openspec schema fork spec-driven with-review
 ```yaml
   - id: review
     generates: review.md
-    description: Контрольный список проверки перед реализацией
+    description: Pre-implementation review checklist
     template: review.md
     instruction: |
-      Создай контрольный список проверки на основе проектного решения.
-      Учти безопасность, производительность и тестирование.
+      Create a review checklist based on the design.
+      Include security, performance, and testing considerations.
     requires:
       - design
 
@@ -415,7 +415,7 @@ openspec schema fork spec-driven with-review
     requires:
       - specs
       - design
-      - review    # Теперь перед задачами нужно выполнить проверку
+      - review    # Now tasks require review too
 ```
 
 ---
@@ -433,8 +433,10 @@ OpenSpec также поддерживает схемы сообщества, р
 | `nanopm` | @nmrtn | [nmrtn/nanopm](https://github.com/nmrtn/nanopm/tree/main/openspec-schema) | Рабочий процесс с приоритетом управления продуктом. До реализации запускает конвейер планирования [nanopm](https://github.com/nmrtn/nanopm) (аудит → стратегия → дорожная карта → PRD). Связывает продуктовое планирование с инженерным процессом OpenSpec на основе спецификаций. При наличии артефакты читаются из `.nanopm/`: предложение опирается на аудит, проектное решение — на стратегию, а задачи — на декомпозицию PRD. |
 | `e2e-runbooks` | @Lukk17 | [Lukk17/openspec-schemas](https://github.com/Lukk17/openspec-schemas/tree/master/openspec/schemas/e2e-runbooks) | Инструкции для сквозного тестирования на уровне возможностей. Для каждой возможности создаются неизменяемая спецификация, неизменяемый шаблон задач и отдельная запись о каждом запуске с отметкой времени. Проверки ограничены наблюдаемым поведением (статус HTTP, тело ответа, сохранённое состояние — но не фрагменты журналов); каждый запуск фиксирует время начала и окончания в UTC, длительность и оценочное потребление токенов LLM. |
 | `anvil` | @jikkujoyce | [jikkujoyce/openspec-schemas](https://github.com/jikkujoyce/openspec-schemas/tree/main/schemas/anvil) | Рабочий процесс на основе спецификаций с дисциплиной TDD и состязательной проверкой. Последовательность: `proposal` → `specs` → `design` → `review` → `test-plan` → `tasks` → `apply` → `verify`. `review` подготавливает новый проверяющий с чистым контекстом и доступом только для чтения (при наличии — вторая модель); он выводит строку `VERDICT:`, по которой агент должен блокировать `test-plan`, `tasks` и `apply`. OpenSpec проверяет только наличие артефактов, поэтому соблюдение этого условия нужно обеспечить собственным CI или хуком. `test-plan` сопоставляет каждый сценарий спецификации с именованным тестом и служит журналом red/green, который проверяет `verify`. |
+| `ml-research` | @tsenst | [idealo/openspec-schemas](https://github.com/idealo/openspec-schemas/tree/main/openspec/schemas/ml-research) | Рабочий процесс экспериментов в машинном обучении. Последовательность: `proposal` → `design` → `evaluation` → `tasks` → `apply` → `specs`. `evaluation` фиксирует метрики, критерии успеха и условие опровержения до запуска; `apply` записывает `results.md`; `specs` записывает только подтверждённые данными выводы (включая опровергнутые гипотезы) как требования `Finding:` со связанными блоками `Evidence:`. |
+| `epic-driven` | @ivanferic| [IvanFeric/openspec-epic-driven](https://github.com/IvanFeric/openspec-epic-driven/tree/main/openspec/schemas/epic-driven) | Рабочий процесс на основе эпиков. Последовательность: `explore` (необязательно) → `epic-propose` → `epic-next` выбирает дочернюю историю → дочерний `apply` → дочерний `archive` → `epic-sync`. У эпика нет фазы `apply`, и он архивируется только после завершения всех своих историй. `epic-propose` создаёт видение, истории и дорожную карту; `epic-next` рекомендует дочернюю историю, а `epic-next <story> start` передаёт планирование дочерней истории обычному рабочему процессу `openspec-propose`; `epic-status` показывает текущий статус всех историй эпика; `epic-replan` может изменить план, сохранив активные или завершённые истории; `epic-sync` обновляет индикаторы завершения историй. |
 
-> Хотите внести вклад в схему сообщества? Создайте issue со ссылкой на репозиторий или отправьте PR, добавив строку в эту таблицу.
+> Хотите внести вклад в схему сообщества? Создайте issue со ссылкой на репозиторий и однострочным описанием, а сопровождающий добавит строку в таблицу.
 
 ---
 

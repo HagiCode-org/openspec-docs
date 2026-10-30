@@ -20,7 +20,7 @@ OpenSpec 提供三個層次的自訂方式：
 - **注入專案上下文**——讓 AI 瞭解你的技術棧、約定等
 - **新增產物級規則**——為特定產物新增自訂規則
 - **新增操作指引**——為 apply 和 archive 操作提供建議
-- **記住整合選項**——例如選擇是否啟用 [GitHub Copilot 雲端編碼智慧代理程式](/zh-Hant/supported-tools/)
+- **記住整合選項**——例如選擇是否啟用 [GitHub Copilot 雲端編碼智慧代理程式](/zh-Hant/supported-tools/#github-copilot-雲端編碼智慧代理程式)
 
 ### 快速設定
 
@@ -396,11 +396,13 @@ OpenSpec 也支援透過獨立儲存庫分發、由社群維護的模式。這�
 | `nanopm` | @nmrtn | [nmrtn/nanopm](https://github.com/nmrtn/nanopm/tree/main/openspec-schema) | 以產品管理為先的工作流程。先執行 [nanopm](https://github.com/nmrtn/nanopm) 規劃流水線（審計 → 策略 → 路線圖 → PRD），再進入實作階段。將產品規劃銜接到 OpenSpec 的規格驅動工程工作流程。如果存在 `.nanopm/`，產物會讀取其中內容：提案引用審計，設計引用策略，任務引用 PRD 分解。 |
 | `e2e-runbooks` | @Lukk17 | [Lukk17/openspec-schemas](https://github.com/Lukk17/openspec-schemas/tree/master/openspec/schemas/e2e-runbooks) | 面向能力的端到端測試手冊。每項能力都有不可變規格說明、不可變任務模板，併為每次執行生成帶時間戳的執行記錄。斷言只關注可觀察行為（HTTP 狀態、響應正文、持久化狀態，不檢查日誌片段）；每次執行都會記錄 UTC 開始/結束時間、持續時間，以及估算的 LLM token 消耗量。 |
 | `anvil` | @jikkujoyce | [jikkujoyce/openspec-schemas](https://github.com/jikkujoyce/openspec-schemas/tree/main/schemas/anvil) | 遵循 TDD 並包含對抗式審查步驟的規格驅動工作流程。流程：`proposal` → `specs` → `design` → `review` → `test-plan` → `tasks` → `apply` → `verify`。`review` 由具備全新上下文的只讀審查者編寫（如有條件則使用第二個模型），並輸出 `VERDICT:` 行，指示智慧代理程式阻止 `test-plan`、`tasks` 和 `apply` 直至透過審查；OpenSpec 只檢查產物是否存在，因此需透過自己的 CI 或鉤子實施此關卡。`test-plan` 會將每個規格情境對映到具名測試，同時作為由 `verify` 審計的紅/綠進度記錄。 |
+| `ml-research` | @tsenst | [idealo/openspec-schemas](https://github.com/idealo/openspec-schemas/tree/main/openspec/schemas/ml-research) | 機器學習實驗工作流程。流程：`proposal` → `design` → `evaluation` → `tasks` → `apply` → `specs`。`evaluation` 會在執行前固定指標、成功標準和證偽條件；`apply` 寫入 `results.md`；`specs` 只記錄有證據支持的發現（包括被推翻的假設），並以附有 `Evidence:` 區塊的 `Finding:` 需求形式呈現。 |
+| `epic-driven` | @ivanferic| [IvanFeric/openspec-epic-driven](https://github.com/IvanFeric/openspec-epic-driven/tree/main/openspec/schemas/epic-driven) | 史詩驅動工作流程。流程：`explore`（可選）→ `epic-propose` → `epic-next` 選擇子故事 → 子故事 `apply` → 子故事 `archive` → `epic-sync`。史詩沒有 `apply` 階段，且只有在其所有故事完成後才會歸檔。`epic-propose` 建立願景、故事和路線圖；`epic-next` 推薦子故事，而 `epic-next <story> start` 會將子故事的規劃委派給一般的 `openspec-propose` 工作流程；`epic-status` 顯示史詩中所有故事的當前狀態；`epic-replan` 可在保留進行中或已完成故事的前提下變更計畫；`epic-sync` 更新故事完成指示器。 |
 
-> 想貢獻社群模式？請提交包含儲存庫連結的 issue，或提交 PR 在此表格中新增一行。
+> 想貢獻社群模式？請提交包含儲存庫連結和一行說明的 issue，由維護者新增該列。
 
 ---
 
 ## 另請參閱
 
-- [CLI 參考：模式命令](/zh-Hant/cli/)——完整的命令文件
+- [CLI 參考：模式命令](/zh-Hant/cli/#schema-命令)——完整的命令文件

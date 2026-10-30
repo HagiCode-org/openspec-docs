@@ -2,27 +2,63 @@
 title: "Installation"
 ---
 
-## Prérequis
+## Installer
 
-- **Node.js 20.19.0 ou une version ultérieure** — vérifiez votre version avec `node --version`.
+OpenSpec est un fichier unique. Il ne nécessite ni Node.js ni aucun autre logiciel (sous Alpine Linux, exécutez d'abord `apk add libstdc++ libgcc`).
 
-<a id="install-with-your-ai-assistant"></a>
+macOS et Linux :
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Fission-AI/OpenSpec/main/scripts/binary/install.sh | sh
+```
+
+Windows (PowerShell) :
+
+```powershell
+irm https://raw.githubusercontent.com/Fission-AI/OpenSpec/main/scripts/binary/install.ps1 | iex
+```
+
+Le programme d'installation choisit la version la plus récente dont tous les fichiers sont publiés, ainsi que le fichier adapté à votre machine, le vérifie par rapport au `SHA256SUMS` de la version et l'installe dans `~/.local/bin` (Windows : `%LOCALAPPDATA%\Programs\openspec`, ajouté à votre `PATH` utilisateur). Définissez `OPENSPEC_INSTALL_DIR` pour choisir un autre dossier, ou `OPENSPEC_VERSION=v1.15.0` pour figer une version. Vous préférez npm ou un autre gestionnaire de paquets ? Voir [Gestionnaires de paquets](#gestionnaires-de-paquets).
+
+Pour une installation manuelle, téléchargez le fichier de votre plateforme depuis la [dernière version](https://github.com/Fission-AI/OpenSpec/releases/latest), renommez-le `openspec` (`openspec.exe` sous Windows), rendez-le exécutable sous macOS et Linux (`chmod +x openspec`), puis placez-le dans votre `PATH` :
+
+| Plateforme | Fichier |
+|---|---|
+| macOS 13+ (Apple Silicon / Intel) | `openspec-darwin-arm64` / `openspec-darwin-x64` |
+| Linux (glibc 2.17+) | `openspec-linux-x64` / `openspec-linux-arm64` |
+| Alpine 3.17+ (nécessite `apk add libstdc++ libgcc`) | `openspec-linux-x64-musl` / `openspec-linux-arm64-musl` |
+| Windows 10+ | `openspec-windows-x64.exe` / `openspec-windows-arm64.exe` |
+
+Sous macOS, un fichier téléchargé avec un navigateur reste bloqué tant que vous n'avez pas exécuté `xattr -d com.apple.quarantine openspec` ; le script d'installation évite ce blocage. Sous Windows, SmartScreen peut afficher un avertissement la première fois que vous l'exécutez depuis l'Explorateur.
 
 ## Installer avec votre assistant IA
 
 Vous préférez ne pas effectuer ces opérations à la main ? Collez l'instruction ci-dessous dans un assistant de programmation capable d'exécuter des commandes shell — Claude Code, Codex, Cursor, Gemini CLI, Copilot ou tout autre [outil pris en charge](/fr-FR/supported-tools/). Il installe la CLI, initialise ce projet et vous indique ce qui s'est réellement passé.
 
-Les étapes manuelles ci-dessous font autorité ; l'instruction les exécute simplement à votre place. Si l'assistant s'arrête et vous laisse terminer certaines étapes, c'est voulu : il demande votre accord avant toute opération privilégiée et ne modifie jamais les fichiers de démarrage du shell. Terminez vous-même ces étapes en consultant [Gestionnaires de paquets](/fr-FR/installation/#gestionnaires-de-paquets) et [Dépannage](/fr-FR/troubleshooting/).
+Les étapes manuelles ci-dessous font autorité ; l'instruction les exécute simplement à votre place. Si l'assistant s'arrête et vous laisse terminer certaines étapes, c'est voulu : il demande votre accord avant toute opération privilégiée et ne modifie jamais les fichiers de démarrage du shell. Terminez vous-même ces étapes en consultant [Installer](#installer) et [Dépannage](/fr-FR/troubleshooting/).
 
 ```text
 Install OpenSpec in this project and set it up for me. Follow these steps in
 order, and stop where a step tells you to stop.
 
-1. RUNTIME. Run `node --version`. OpenSpec needs Node.js 20.19.0 or higher. If
-   Node is missing or older, say so and stop — don't install Node, switch
-   versions, or reconfigure my version manager for me.
+1. INSTALL. Run `openspec --version` first. If it prints a version, OpenSpec is
+   already installed: run `openspec version --check`, which prints the update
+   command for how it was installed when it can tell (otherwise update it the
+   way it was installed, e.g. `brew upgrade openspec`), offer to run that, and
+   skip to step 3. If I installed it with a package manager, mention once that
+   `openspec install` switches to the standalone install, but only switch if I
+   ask; never switch it to a different install method on your own. Otherwise install
+   the standalone OpenSpec binary, which needs no Node.js. Show me the command
+   for my OS and run it only once I confirm, then skip to step 3:
+     macOS / Linux:        curl -fsSL https://raw.githubusercontent.com/Fission-AI/OpenSpec/main/scripts/binary/install.sh | sh
+     Windows (PowerShell): irm https://raw.githubusercontent.com/Fission-AI/OpenSpec/main/scripts/binary/install.ps1 | iex
+   If I'd rather use a package manager, or the installer fails, go to step 2.
 
-2. INSTALL. Use whichever package manager is already on my PATH, preferring npm:
+2. PACKAGE MANAGER (only if step 1 did not install it). Run `node --version`:
+   this needs Node.js 20.19.0 or higher. If Node is missing or older, say so and
+   stop — don't install Node, switch versions, or reconfigure my version
+   manager for me. Otherwise use whichever package manager is already on my
+   PATH, preferring npm:
      npm install -g @fission-ai/openspec@latest
      pnpm add -g @fission-ai/openspec@latest
      bun add -g @fission-ai/openspec@latest
@@ -41,9 +77,11 @@ order, and stop where a step tells you to stop.
    me — show me the change and let me make it.
 
 3. PATH. Run `openspec --version`. If the command isn't found, it may just be
-   missing from this shell: tell me where the package manager installed it and
-   how to add that directory to PATH for my shell and OS, then stop until I
-   confirm. If it prints an older version than the one the install just
+   missing from this shell: tell me where it was installed (the standalone
+   installer prints the folder, ~/.local/bin by default; a package manager has
+   its own global bin folder) and how to add that folder to PATH for my shell
+   and OS, then stop until I confirm. On Windows the standalone installer adds
+   it for me; a new terminal picks it up. If it prints an older version than the one the install just
    reported, an earlier copy is shadowing it on PATH — tell me both versions
    instead of continuing. If I use a version manager, say so rather than editing
    PATH around it: with nvm or fnm the CLI is tied to the Node version that was
@@ -80,9 +118,9 @@ order, and stop where a step tells you to stop.
 
 L'instruction n'est liée à aucun fournisseur : il s'agit de consignes ordinaires et des mêmes commandes que celles documentées sur cette page. Elle fonctionne sous macOS, Linux et Windows et s'arrête délibérément plutôt que d'improviser lorsqu'une étape nécessite votre autorisation. Votre assistant doit toutefois pouvoir exécuter des commandes shell ; certaines intégrations d'IDE ne le permettent pas.
 
-<a id="package-managers"></a>
-
 ## Gestionnaires de paquets
+
+Pour installer avec un gestionnaire de paquets, **Node.js 20.19.0 ou une version ultérieure** est requis (vérifiez avec `node --version`).
 
 ### npm
 
@@ -106,8 +144,8 @@ Yarn 2 et les versions ultérieures (Berry) ne proposent plus la commande `globa
 
 ### deno
 
-Deno rencontre parfois des difficultés à analyser l'étiquette `@latest`, mais vous pouvez indiquer une version lors de l'installation initiale.
-Dans ce cas, remplacez `@latest` par la version voulue, par exemple `@^1.3.1`.
+Deno rencontre parfois des difficultés à analyser l'étiquette @latest, mais vous pouvez indiquer une version lors de l'installation initiale.
+Dans ce cas, remplacez @latest par la version voulue, par exemple `@^1.3.1`.
 
 ```bash
 deno install --global \
@@ -119,7 +157,7 @@ deno install --global \
   npm:@fission-ai/openspec@^1.3.1
 ```
 
-Remarque : si vos sous-commandes lancent des outils externes — par exemple `config edit`, `feedback` ou `workspace open` — une option `--allow-run=<program>` limitée peut être nécessaire.
+Remarque : si vos sous-commandes lancent des outils externes — par exemple config edit, feedback ou workspace open — une option --allow-run=<program> limitée peut être nécessaire.
 
 ### bun
 
@@ -166,28 +204,35 @@ Ou l'ajouter à votre environnement de développement dans `flake.nix` :
 openspec --version
 ```
 
+## Passer de npm à l'installation autonome
+
+Vos paramètres et vos projets sont conservés ; seul le programme change.
+
+1. Exécutez `openspec install`. Il installe la copie autonome et affiche la commande qui supprime votre ancienne copie.
+2. Exécutez cette commande, par exemple `npm uninstall -g @fission-ai/openspec` (Homebrew : `brew uninstall openspec`). Tant que vous ne l'avez pas fait, l'ancienne copie reste celle qui s'exécute en premier dans votre PATH.
+3. Dans un nouveau terminal, exécutez `openspec version`. Elle doit afficher `OpenSpec <version> (standalone)`. Si elle mentionne un gestionnaire de paquets, une autre copie se trouve encore dans votre PATH : `which -a openspec` (Windows : `where.exe openspec`) les répertorie.
+
 ## Mise à jour
 
-Mettez à niveau le paquet, puis actualisez les fichiers générés dans chaque projet :
+Mettez à niveau la CLI en exécutant de nouveau la [commande d'installation](#installer) (avec un gestionnaire de paquets : `npm install -g @fission-ai/openspec@latest` ou son équivalent pnpm/yarn/bun). Actualisez ensuite les fichiers générés de chaque projet :
 
 ```bash
-npm install -g @fission-ai/openspec@latest   # or pnpm/yarn/bun equivalent
-openspec update                              # run inside each project
+openspec update   # run inside each project
 ```
 
 `openspec update` régénère les fichiers de skills et de commandes pour les outils configurés, afin que vos commandes slash correspondent à la version installée. La commande vérifie également si une CLI plus récente a été publiée et propose de la mettre à niveau, car c'est cette mise à niveau qui rend les nouveaux workflows disponibles — voir [Référence CLI](/fr-FR/cli/#openspec-update).
 
-<a id="uninstalling"></a>
-
 ## Désinstallation
 
-Il n'existe pas de commande `openspec uninstall`, car OpenSpec n'est qu'un paquet global et quelques fichiers de votre projet. La désinstallation s'effectue en quelques étapes manuelles, sans toucher au code source.
+Il n'existe pas de commande `openspec uninstall`, car OpenSpec n'est qu'un seul programme et quelques fichiers de votre projet. La désinstallation s'effectue en quelques étapes manuelles, sans toucher au code source.
 
-**1. Supprimer le paquet global :**
+**1. Supprimer la CLI.** Supprimez le fichier installé par le programme d'installation : `~/.local/bin/openspec`, ou sous Windows `%LOCALAPPDATA%\Programs\openspec\openspec.exe` (et retirez ce dossier de votre `PATH` utilisateur). Si vous avez installé avec un gestionnaire de paquets :
 
 ```bash
 npm uninstall -g @fission-ai/openspec   # or: pnpm rm -g / yarn global remove / bun rm -g
 ```
+
+Le binaire autonome conserve aussi, lorsque ce dossier est accessible en écriture, une copie de ses schémas intégrés dans votre répertoire de données OpenSpec (`~/.local/share/openspec/binary-schemas` sous macOS et Linux, `%LOCALAPPDATA%\openspec\binary-schemas` sous Windows), que vous pouvez aussi supprimer.
 
 **2. Supprimer OpenSpec d'un projet (facultatif).** Supprimez le répertoire `openspec/` si vous ne voulez plus conserver ses spécifications et changements :
 

@@ -94,8 +94,6 @@ Mettez-le à jour si le travail reste le même et que vous l'affinez. Recommence
 
 C'est là que les spécifications montrent leur utilité. Le plan étant enregistré dans des fichiers (et pas uniquement dans l'historique de la conversation), vous pouvez effacer le contexte, démarrer une nouvelle session d'IA et reprendre avec `/opsx:apply` ; la commande lit les artefacts et reprend à la première tâche non cochée. Si les exigences changent, mettez à jour les artefacts pour refléter la nouvelle réalité et continuez. Un contexte de session propre améliore aussi les résultats ; effacez-le avant l'implémentation.
 
-<a id="should-i-commit-the-openspec-folder-to-git"></a>
-
 ### Dois-je valider le dossier `openspec/` dans git ?
 
 Oui. Vos spécifications, changements actifs et archives font partie de l'historique du projet. Validez-les comme n'importe quel autre code source. L'archive devient notamment une trace durable des raisons pour lesquelles le système fonctionne comme il le fait.
@@ -152,8 +150,8 @@ Il n'y a pas de commande de désinstallation : OpenSpec se compose d'un paquet g
 
 - **Discord :** [discord.gg/YctCnvvshC](https://discord.gg/YctCnvvshC)
 - **Problèmes GitHub :** [github.com/Fission-AI/OpenSpec/issues](https://github.com/Fission-AI/OpenSpec/issues)
-- **Depuis le terminal :** `openspec feedback "votre message"` ouvre une issue GitHub.
+- **Depuis le terminal :** `openspec feedback "your message"` ouvre une issue GitHub.
 
 ### Cette documentation est erronée ou confuse. Que faire ?
 
-Signalez-le-nous ou corrigez-la vous-même. Les pull requests de documentation sont bienvenues et appréciées. Ouvrez une issue ou envoyez une pull request.
+Signalez-le-nous. Ouvrez une [issue de documentation](https://github.com/Fission-AI/OpenSpec/issues/new?template=docs.yml) en indiquant la page concernée et ce qui est erroné : les corrections de documentation font partie des signalements les plus utiles que nous recevons.

@@ -12,8 +12,6 @@ OpenSpec propose trois niveaux de personnalisation :
 
 ---
 
-<a id="project-configuration"></a>
-
 ## Configuration du projet
 
 Le fichier `openspec/config.yaml` est le moyen le plus simple d'adapter OpenSpec à votre équipe. Il vous permet de :
@@ -170,8 +168,6 @@ Lorsqu'OpenSpec doit sélectionner un schéma, il vérifie les sources dans cet 
 4. Valeur par défaut (`spec-driven`)
 
 ---
-
-<a id="custom-schemas"></a>
 
 ## Schémas personnalisés
 
@@ -436,8 +432,10 @@ Les schémas communautaires ne sont pas inclus dans OpenSpec Core : ils résiden
 | `nanopm` | @nmrtn | [nmrtn/nanopm](https://github.com/nmrtn/nanopm/tree/main/openspec-schema) | Workflow axé sur le produit. Exécute en amont de l'implémentation le processus de planification de [nanopm](https://github.com/nmrtn/nanopm) (audit → stratégie → feuille de route → PRD), puis relie cette planification produit au workflow d'ingénierie piloté par les spécifications d'OpenSpec. Le cas échéant, les artefacts sont lus dans `.nanopm/` : la proposition s'appuie sur l'audit, la conception sur la stratégie et les tâches sur le découpage du PRD. |
 | `e2e-runbooks` | @Lukk17 | [Lukk17/openspec-schemas](https://github.com/Lukk17/openspec-schemas/tree/master/openspec/schemas/e2e-runbooks) | Procédures de tests de bout en bout au niveau des fonctionnalités. Chaque fonctionnalité reçoit une spécification immuable, un modèle de tâches immuable et un compte rendu horodaté par exécution. Les assertions portent uniquement sur des comportements observables (statut HTTP, corps de réponse, état persistant — jamais des sous-chaînes de journaux). Chaque exécution consigne ses heures de début et de fin UTC, sa durée et une estimation du nombre de jetons consommés par le modèle de langage. |
 | `anvil` | @jikkujoyce | [jikkujoyce/openspec-schemas](https://github.com/jikkujoyce/openspec-schemas/tree/main/schemas/anvil) | Workflow piloté par les spécifications avec discipline TDD et revue contradictoire. Parcours : `proposal` → `specs` → `design` → `review` → `test-plan` → `tasks` → `apply` → `verify`. `review` est rédigé par un relecteur en lecture seule, avec un contexte vierge (un second modèle si disponible), et émet une ligne `VERDICT:` qui demande à l'agent de bloquer `test-plan`, `tasks` et `apply` jusqu'à approbation. OpenSpec vérifie uniquement la présence des artefacts : utilisez votre propre CI ou hook pour imposer cette étape. `test-plan` associe chaque scénario de spécification à un test nommé et sert aussi de registre rouge/vert audité par `verify`. |
+| `ml-research` | @tsenst | [idealo/openspec-schemas](https://github.com/idealo/openspec-schemas/tree/main/openspec/schemas/ml-research) | Workflow d'expérimentation en apprentissage automatique. Parcours : `proposal` → `design` → `evaluation` → `tasks` → `apply` → `specs`. `evaluation` fixe les métriques, les critères de réussite et la condition de réfutation avant l'exécution ; `apply` écrit `results.md` ; `specs` ne consigne que les constats étayés par des preuves (hypothèses réfutées comprises) sous forme d'exigences `Finding:` assorties de blocs `Evidence:` liés. |
+| `epic-driven` | @ivanferic| [IvanFeric/openspec-epic-driven](https://github.com/IvanFeric/openspec-epic-driven/tree/main/openspec/schemas/epic-driven) | Workflow piloté par epics. Parcours : `explore` (facultatif) → `epic-propose` → `epic-next` sélectionne une story enfant → `apply` de l'enfant → `archive` de l'enfant → `epic-sync`. L'epic n'a pas de phase `apply` et n'est archivé qu'une fois toutes ses stories terminées. `epic-propose` crée la vision, les stories et la feuille de route ; `epic-next` recommande une story enfant, et `epic-next <story> start` délègue la planification de l'enfant au workflow `openspec-propose` habituel ; `epic-status` affiche l'état de toutes les stories de l'epic ; `epic-replan` peut modifier le plan en conservant les stories actives ou terminées ; `epic-sync` met à jour les indicateurs d'achèvement des stories. |
 
-> Vous souhaitez contribuer un schéma communautaire ? Ouvrez une issue contenant un lien vers votre dépôt, ou envoyez une PR ajoutant une ligne à ce tableau.
+> Vous souhaitez contribuer un schéma communautaire ? Ouvrez une issue contenant un lien vers votre dépôt et une description d'une ligne ; un mainteneur ajoute la ligne au tableau.
 
 ---
 

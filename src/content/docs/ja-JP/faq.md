@@ -57,7 +57,7 @@ AI ツールごとにカスタムコマンドの表示方法が異なるため�
 ### 最も簡単なワークフローは何ですか？
 
 ```text
-/opsx:explore (任意)       次に   /opsx:propose <実現したいこと>   次に   /opsx:apply   次に   /opsx:archive
+/opsx:explore (optional)   then   /opsx:propose <what you want>   then   /opsx:apply   then   /opsx:archive
 ```
 
 explore で考えを整理し、propose で計画を下書きし、apply で実装し、archive で保管します。実現したいことが明確な場合は explore を省略してください。
@@ -142,7 +142,7 @@ OpenSpec は推論能力の高いモデルで最もよく機能します。READM
 
 ### OpenSpec をアンインストールするには？
 
-OpenSpec はグローバルパッケージとプロジェクト内のファイルだけで構成されるため、アンインストールコマンドはありません。パッケージ（`npm uninstall -g @fission-ai/openspec`）を削除し、必要に応じて `openspec/` ディレクトリと生成されたツールファイルも削除してください。安全に残せるものを含む詳しい手順は、[インストール: アンインストール](/ja-JP/installation/#アンインストール)にあります。
+OpenSpec はグローバルパッケージとプロジェクト内のファイルだけで構成されるため、アンインストールコマンドはありません。パッケージ（`npm uninstall -g @fission-ai/openspec`）を削除し、必要に応じて `openspec/` ディレクトリと生成されたツールファイルも削除してください。安全に残せるものを含む詳しい手順は、[インストール：アンインストール](/ja-JP/installation/#アンインストール)にあります。
 
 ## サポートを受ける
 
@@ -150,8 +150,8 @@ OpenSpec はグローバルパッケージとプロジェクト内のファイ�
 
 - **Discord:** [discord.gg/YctCnvvshC](https://discord.gg/YctCnvvshC)
 - **GitHub の Issue:** [github.com/Fission-AI/OpenSpec/issues](https://github.com/Fission-AI/OpenSpec/issues)
-- **ターミナルから:** `openspec feedback "your message"` で GitHub Issue を作成できます。
+- **ターミナルから：** `openspec feedback "your message"` で GitHub Issue を作成できます。
 
 ### ドキュメントが間違っている、または分かりにくい場合はどうすればよいですか？
 
-お知らせいただくか、直接修正してください。ドキュメントの PR は歓迎され、重視されています。Issue を作成するか、プルリクエストを送ってください。
+お知らせください。該当するページと誤りの内容を添えて、[ドキュメントの Issue](https://github.com/Fission-AI/OpenSpec/issues/new?template=docs.yml) を開いてください。ドキュメントの修正は、最も役立つ報告の一つです。

@@ -20,7 +20,7 @@ OpenSpec 提供三个层次的自定义方式：
 - **注入项目上下文**——让 AI 了解你的技术栈、约定等
 - **添加产物级规则**——为特定产物添加自定义规则
 - **添加操作指引**——为 apply 和 archive 操作提供建议
-- **记住集成选项**——例如选择是否启用 [GitHub Copilot 云端编码智能体](/zh-CN/supported-tools/)
+- **记住集成选项**——例如选择是否启用 [GitHub Copilot 云端编码智能体](/zh-CN/supported-tools/#github-copilot-云端编码智能体)
 
 ### 快速设置
 
@@ -396,11 +396,13 @@ OpenSpec 也支持通过独立仓库分发、由社区维护的模式。这些�
 | `nanopm` | @nmrtn | [nmrtn/nanopm](https://github.com/nmrtn/nanopm/tree/main/openspec-schema) | 以产品管理为先的工作流。先运行 [nanopm](https://github.com/nmrtn/nanopm) 规划流水线（审计 → 策略 → 路线图 → PRD），再进入实现阶段。将产品规划衔接到 OpenSpec 的规格驱动工程工作流。如果存在 `.nanopm/`，产物会读取其中内容：提案引用审计，设计引用策略，任务引用 PRD 分解。 |
 | `e2e-runbooks` | @Lukk17 | [Lukk17/openspec-schemas](https://github.com/Lukk17/openspec-schemas/tree/master/openspec/schemas/e2e-runbooks) | 面向能力的端到端测试手册。每项能力都有不可变规格说明、不可变任务模板，并为每次执行生成带时间戳的运行记录。断言只关注可观察行为（HTTP 状态、响应正文、持久化状态，不检查日志片段）；每次运行都会记录 UTC 开始/结束时间、持续时间，以及估算的 LLM token 消耗量。 |
 | `anvil` | @jikkujoyce | [jikkujoyce/openspec-schemas](https://github.com/jikkujoyce/openspec-schemas/tree/main/schemas/anvil) | 遵循 TDD 并包含对抗式审查步骤的规格驱动工作流。流程：`proposal` → `specs` → `design` → `review` → `test-plan` → `tasks` → `apply` → `verify`。`review` 由具备全新上下文的只读审查者编写（如有条件则使用第二个模型），并输出 `VERDICT:` 行，指示智能体阻止 `test-plan`、`tasks` 和 `apply` 直至通过审查；OpenSpec 只检查产物是否存在，因此需通过自己的 CI 或钩子实施此关卡。`test-plan` 会将每个规格场景映射到具名测试，同时作为由 `verify` 审计的红/绿进度记录。 |
+| `ml-research` | @tsenst | [idealo/openspec-schemas](https://github.com/idealo/openspec-schemas/tree/main/openspec/schemas/ml-research) | 机器学习实验工作流。流程：`proposal` → `design` → `evaluation` → `tasks` → `apply` → `specs`。`evaluation` 在实验运行前确定指标、成功标准和证伪条件；`apply` 写入 `results.md`；`specs` 仅将有证据支持的发现（包括被证伪的假设）记录为带有链接 `Evidence:` 块的 `Finding:` 需求。 |
+| `epic-driven` | @ivanferic| [IvanFeric/openspec-epic-driven](https://github.com/IvanFeric/openspec-epic-driven/tree/main/openspec/schemas/epic-driven) | Epic 驱动的工作流。流程：`explore`（可选）→ `epic-propose` → `epic-next` 选择子故事 → 子故事的 `apply` → 子故事的 `archive` → `epic-sync`。Epic 没有 `apply` 阶段，只有在其所有故事完成后才会归档。`epic-propose` 创建愿景、故事和路线图；`epic-next` 推荐一个子故事，`epic-next <story> start` 会将子故事的规划委托给常规的 `openspec-propose` 工作流；`epic-status` 显示该 Epic 中所有故事的当前状态；`epic-replan` 可以修改计划，同时保留当前进行中或已完成的故事；`epic-sync` 更新故事的完成标记。 |
 
-> 想贡献社区模式？请提交包含仓库链接的 issue，或提交 PR 在此表格中添加一行。
+> 想贡献社区模式？请提交包含仓库链接和一句话简介的 issue，由维护者添加对应行。
 
 ---
 
 ## 另请参阅
 
-- [CLI 参考：模式命令](/zh-CN/cli/)——完整的命令文档
+- [CLI 参考：模式命令](/zh-CN/cli/#schema-命令)——完整的命令文档

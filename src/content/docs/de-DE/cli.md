@@ -107,7 +107,7 @@ der Konfiguration, damit OpenSpec projektspezifische Hinweise niemals überschre
 | `--tools <list>` | KI-Tools nicht-interaktiv konfigurieren. Verwenden Sie `all`, `none` oder eine kommagetrennte Liste. |
 | `--language <language>` | Beim Erstellen einer neuen Konfiguration Artefakte in dieser Sprache verfassen. |
 | `--force` | Alte Dateien ohne Rückfrage automatisch bereinigen. |
-| `--profile <profile>` | Das globale Profil für diesen `init`-Aufruf überschreiben (`core` oder `custom`). |
+| `--profile <profile>` | Das globale Profil für diesen init-Aufruf überschreiben (`core` oder `custom`). |
 | `--no-animation` | Einen statischen statt des animierten Begrüßungsbildschirms anzeigen. |
 | `--copilot-cloud` | GitHub-Copilot-Dateien für den [Cloud-Codieragenten](/de-DE/supported-tools/#github-copilot-cloud-codieragent) ohne Rückfrage einrichten. |
 | `--no-copilot-cloud` | GitHub-Copilot-Dateien für den Cloud-Codieragenten ohne Rückfrage überspringen. |
@@ -181,6 +181,8 @@ openspec update [path] [options]
 | Option | Beschreibung |
 |--------|-------------|
 | `--force` | Aktualisierung erzwingen, auch wenn die Dateien aktuell sind |
+| `--dry-run` | Meldet, was das Update ändern würde, und schreibt nichts |
+| `--json` | Gibt mit `--dry-run` die geplanten Änderungen als JSON aus |
 
 **Beispiel:**
 
@@ -189,6 +191,30 @@ openspec update [path] [options]
 npm install -g @fission-ai/openspec@latest
 openspec update
 ```
+
+**Vorschau eines Updates:**
+
+`--dry-run` meldet, welche Dateien ein Update hinzufügen, ändern oder löschen würde, und schreibt nichts. Pfade sind relativ zum Projekt; Dateien außerhalb davon (Skills in Ihrem Home-Verzeichnis) werden mit dem Präfix `~/` angezeigt.
+
+```bash
+openspec update --dry-run --json
+```
+
+```json
+{
+  "changes": [
+    { "path": ".claude/skills/openspec-explore/SKILL.md", "action": "update", "tool": "claude" },
+    { "path": "~/.minimax/skills/openspec-propose/SKILL.md", "action": "add", "tool": "minimax-code" }
+  ],
+  "notes": [],
+  "failures": []
+}
+```
+
+Der Plan entspricht dem, was ein nicht interaktiver Lauf tun würde, und listet jede Datei auf, die er berühren würde: Verschiebungen aus dem früheren Verzeichnis eines Tools, das globale Speichern der Konfiguration bei einer Installation von vor den Profilen, die Dateien des Copilot-Cloud-Agents und bei `--force` die Bereinigung alter Artefakte. Dateien, die zu OpenSpec selbst statt zu einem einzelnen Tool gehören, haben `tool: "openspec"`. `notes` markiert Schritte, nach denen ein Terminalnutzer gefragt würde, jeweils mit einem stabilen `code`: `legacy-tool-directories` (eine als erledigt aufgeführte Verschiebung) und `legacy-artifacts` (Dateien im alten Layout, die das Update ohne `--force` unverändert lässt). `failures` listet Tools auf, bei denen das echte Update fehlschlagen würde, einschließlich Schreibvorgängen, die es nicht ausführen kann (ein Verzeichnis an der Stelle einer Datei, fehlende Schreibberechtigung). Für dieses Tool endet der Plan dort, wo das Update enden würde, und ein kaputtes Tool kostet Sie nicht den Rest des Plans. Bei einer gewöhnlichen Aktualisierung sind beide Listen leer.
+Die vollständige Referenz finden Sie unter [openspec.dev/docs/cli](https://openspec.dev/docs/cli).
+
+Ein `--dry-run --json`-Fehler gibt weiterhin genau ein JSON-Dokument aus, den leeren Plan mit einem Array `status`, und endet mit einem Exitcode ungleich null.
 
 Aktualisieren Sie zuerst das Paket. Anweisungsdateien werden von der installierten CLI generiert. Wenn Sie `openspec update` mit einer veralteten Installation ausführen, meldet der Befehl daher, dass alles aktuell sei, ohne die Workflows neuerer Versionen hinzuzufügen.
 
@@ -349,7 +375,7 @@ openspec store setup team-context --path ~/openspec/team-context \
   --remote git@github.com:acme/team-context.git
 ```
 
-Der Remote wird im ersten Commit in `.openspec-store/store.yaml` gespeichert, sodass jeder Klon diese Information von Anfang an enthält. Bearbeiten Sie bei einem vorhandenen Store `store.yaml` von Hand und committen Sie die Änderung. `store doctor` zeigt den gespeicherten Remote (und den im Checkout festgestellten Git-Ursprung) an. Hinweise zum Teilen nach `setup`/`register` nennen ihn ebenfalls, und `register` trägt den Ursprung des Checkouts in die lokale Registry des Rechners ein.
+Der Remote wird im ersten Commit in `.openspec-store/store.yaml` gespeichert, sodass jeder Klon diese Information von Anfang an enthält. Bearbeiten Sie bei einem vorhandenen Store `store.yaml` von Hand und committen Sie die Änderung. `store doctor` zeigt den gespeicherten Remote (und den im Checkout festgestellten Git-Ursprung) an. Hinweise zum Teilen nach setup/register nennen ihn ebenfalls, und register trägt den Ursprung des Checkouts in die lokale Registry des Rechners ein.
 
 Eine Referenzdeklaration kann ebenfalls die Klonquelle enthalten. So erhält ein Teammitglied, das den Store noch nicht besitzt, eine vollständige, kopierbare Lösung (`git clone <remote> <path> && openspec store register <path> --id <id>`):
 
@@ -369,7 +395,7 @@ Ein Repository, dessen Planung vollständig ausgelagert ist – also ohne lokale
 store: team-context
 ```
 
-Normale Befehle werden dann automatisch auf den deklarierten Store aufgelöst. Das Stamm-Banner und der JSON-Block `root` melden `source: "declared"` sowie die Store-ID; ausgegebene Hinweise enthalten weiterhin `--store <id>`. Die Deklaration ist ein Fallback und überschreibt niemals andere Angaben: Ein ausdrücklich angegebenes `--store` hat immer Vorrang. Ein Verzeichnis mit echten Planungsordnern ignoriert den Verweis (mit einer Warnung). Um ein Verweis-Repository in einen lokalen OpenSpec-Stamm umzuwandeln, entfernen Sie die Zeile `store:` und führen `openspec init` aus – solange die Deklaration vorhanden ist, verweigert `init` das Anlegen des Gerüsts.
+Normale Befehle werden dann automatisch auf den deklarierten Store aufgelöst. Das Stamm-Banner und der JSON-Block `root` melden `source: "declared"` sowie die Store-ID; ausgegebene Hinweise enthalten weiterhin `--store <id>`. Die Deklaration ist ein Fallback und überschreibt niemals andere Angaben: Ein ausdrücklich angegebenes `--store` hat immer Vorrang. Ein Verzeichnis mit echten Planungsordnern ignoriert den Verweis (mit einer Warnung). Um ein Verweis-Repository in einen lokalen OpenSpec-Stamm umzuwandeln, entfernen Sie die Zeile `store:` und führen `openspec init` aus – solange die Deklaration vorhanden ist, verweigert init das Anlegen des Gerüsts.
 
 Eine rechnerweite Variante gilt für alle Repositories: `openspec config set defaultStore <id>` (siehe „Konfiguration“). Sie wird erst herangezogen, wenn `--store`, ein lokaler Stamm und ein Projektverweis nicht aufgelöst werden konnten. Das Stamm-Banner und der JSON-Block `root` melden dann `source: "global_default"`.
 
@@ -381,7 +407,7 @@ Eine schreibgeschützte Prüfung an einer Stelle: Ist der OpenSpec-Stamm gesund 
 openspec doctor [--store <id>] [--json]
 ```
 
-Der Bericht unterscheidet zwischen dem Zustand des Stamms, dem Zustand der Store-Metadaten (einschließlich eines Hinweises, wenn der gespeicherte Remote und der Ursprung des Checkouts voneinander abweichen, sowie eines Hinweises, wenn der Store-Checkout hinter der zuletzt abgerufenen Upstream-Tracking-Referenz zurückliegt) und dem Zustand der Referenzen (dieselben Diagnosen, die auch `instructions` anzeigt, mit Klonbefehlen für nicht auflösbare Referenzen). Gesundheitsbefunde jeder Schwere führen zu Exitcode 0 – Agents lesen die `status`-Arrays. Nur Befehlsfehler (kein Stamm, unbekannter Store) führen zu Exitcode 1. Doctor klont, synchronisiert und repariert niemals. Um statt des Zustands den zusammengestellten Arbeitsbestand abzurufen, verwenden Sie `openspec context`.
+Der Bericht unterscheidet zwischen dem Zustand des Stamms, dem Zustand der Store-Metadaten (einschließlich eines Hinweises, wenn der gespeicherte Remote und der Ursprung des Checkouts voneinander abweichen, sowie eines Hinweises, wenn der Store-Checkout hinter der zuletzt abgerufenen Upstream-Tracking-Referenz zurückliegt) und dem Zustand der Referenzen (dieselben Diagnosen, die auch instructions anzeigt, mit Klonbefehlen für nicht auflösbare Referenzen). Gesundheitsbefunde jeder Schwere führen zu Exitcode 0 – Agents lesen die `status`-Arrays. Nur Befehlsfehler (kein Stamm, unbekannter Store) führen zu Exitcode 1. Doctor klont, synchronisiert und repariert niemals. Um statt des Zustands den zusammengestellten Arbeitsbestand abzurufen, verwenden Sie `openspec context`.
 
 ## Arbeitskontext (der zusammengestellte Bestand)
 
@@ -391,7 +417,7 @@ Alles, was laut OpenSpec-Deklarationen zu dieser Arbeit gehört, in einem Arbeit
 openspec context [--store <id>] [--json] [--code-workspace <path> [--force]]
 ```
 
-Die JSON-Kurzübersicht kann von Agents verwendet werden (jeder verfügbare referenzierte Store enthält sein Abrufrezept; nicht auflösbare Elemente enthalten dieselben Lösungshinweise wie `instructions` und `doctor`). `--code-workspace` schreibt zusätzlich eine VS-Code-Arbeitsbereichsdatei mit dem Stamm und den verfügbaren referenzierten Stores (Ordner `ref:<id>`). Dies ist der einzige Schreibvorgang des Befehls. Wenn die Datei bereits vorhanden ist, wird er ohne `--force` verweigert. Nicht verfügbare Elemente werden gemeldet, nicht erraten.
+Die JSON-Kurzübersicht kann von Agents verwendet werden (jeder verfügbare referenzierte Store enthält sein Abrufrezept; nicht auflösbare Elemente enthalten dieselben Lösungshinweise wie instructions und doctor). `--code-workspace` schreibt zusätzlich eine VS-Code-Arbeitsbereichsdatei mit dem Stamm und den verfügbaren referenzierten Stores (Ordner `ref:<id>`). Dies ist der einzige Schreibvorgang des Befehls. Wenn die Datei bereits vorhanden ist, wird er ohne `--force` verweigert. Nicht verfügbare Elemente werden gemeldet, nicht erraten.
 
 Der „Arbeitskontext“ ist der zusammengestellte Bestand. Das Feld `context:` in `openspec/config.yaml` dagegen enthält Projektinformationen, die in Anweisungen eingefügt werden – es handelt sich um zwei verschiedene Dinge. `openspec doctor` beantwortet die Frage, ob der Bestand gesund ist; `openspec context` zeigt, was zu diesem Bestand gehört.
 
@@ -677,6 +703,18 @@ Archivieren Sie die Änderung anschließend wie gewohnt:
 openspec archive retire-legacy --yes
 ```
 
+**Eigene Metadaten behalten:** Ein Schlüssel auf oberster Ebene, der mit einem kleingeschriebenen `x-` beginnt, gehört Ihnen. OpenSpec liest, schreibt oder meldet ihn nie, sodass `openspec validate
+--strict` auch bei einer Änderung grün bleibt, die toolspezifische Daten enthält:
+
+```yaml
+# openspec/changes/add-dark-mode/.openspec.yaml
+schema: spec-driven
+x-tracker: SB-5497
+x-jiraKey: ABC-1
+```
+
+Den Namen nach dem Präfix wählen Sie selbst, in beliebiger Groß- und Kleinschreibung oder Schreibweise, solange er nicht leer ist und keine Leerzeichen enthält. Zwei Einschränkungen gelten: Das Präfix selbst ist kleingeschrieben, daher wird `X-Tracker` weiterhin gemeldet, und Erweiterungen gelten nur auf oberster Ebene – ein Schlüssel innerhalb von `initiative:` wird abgelehnt, egal wie er heißt. Jeder andere nicht erkannte Schlüssel auf oberster Ebene wird weiterhin als wirkungslos gemeldet.
+
 Wenn die Änderung die letzte Anforderung einer Funktion entfernt, löscht OpenSpec deren aktive `spec.md`. Deltas anderer Funktionen in derselben Änderung aktualisieren weiterhin deren Hauptspezifikationen. Ohne die Markierung hält archive an, bevor Dateien geändert werden, und fordert Sie auf, sie hinzuzufügen.
 
 **Funktion:**
@@ -797,7 +835,7 @@ abwärtskompatibler Alias mit demselben Wert erhalten.
 
 Artefakte werden nach Abhängigkeiten geordnet aufgelistet – eine Abhängigkeit erscheint nie nach
 dem Artefakt, das sie voraussetzt. Artefakte, die gleichzeitig bereit werden
-(bei `spec-driven` benötigen sowohl `specs` als auch `design` nur `proposal`), behalten die im
+(bei spec-driven benötigen sowohl `specs` als auch `design` nur `proposal`), behalten die im
 Schema deklarierte Reihenfolge statt alphabetisch sortiert zu werden. Der erste Eintrag mit Status `ready`
 ist somit das Artefakt, das als Nächstes geschrieben werden soll.
 

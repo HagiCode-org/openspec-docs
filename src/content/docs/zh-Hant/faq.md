@@ -38,11 +38,11 @@ OpenSpec 是一個輕量級約定層，讓你和 AI 程式設計助手在編寫�
 
 ### 我輸入了斜槓命令，卻什麼也沒發生。為什麼？
 
-最可能的原因是你在終端而非 AI 聊天中輸入了命令、使用了工具無法識別的拼寫，或尚未安裝這些命令。如果檔案缺失，或你從未設定該工具，請執行 `openspec init`；`openspec update` 只會重新整理已有檔案。然後重新啟動助手，並使用“Getting started”中顯示的命令格式——參見[如何呼叫](/zh-Hant/supported-tools/)。完整檢查清單見[故障排除](/zh-Hant/troubleshooting/)。
+最可能的原因是你在終端而非 AI 聊天中輸入了命令、使用了工具無法識別的拼寫，或尚未安裝這些命令。如果檔案缺失，或你從未設定該工具，請執行 `openspec init`；`openspec update` 只會重新整理已有檔案。然後重新啟動助手，並使用“Getting started”中顯示的命令格式——參見[如何呼叫](/zh-Hant/supported-tools/#如何呼叫)。完整檢查清單見[故障排除](/zh-Hant/troubleshooting/#命令沒有顯示)。
 
 ### 為什麼有些工具使用 `/opsx:propose`，另一些卻用 `/opsx-propose`？
 
-不同 AI 工具呈現自訂命令的方式不同，OpenSpec 會根據工具載入的檔案形式選擇命令拼寫。名為 `opsx-propose.md` 的命令檔案對應 `/opsx-propose`；放在 `commands/opsx/` 下的檔案則對應 `/opsx:propose`。使用技能而非命令的工具會使用技能名稱——Codex 使用 `$openspec-propose`，Kimi Code 使用 `/skill:openspec-propose`。`openspec init` 中的“Getting started”提示會顯示你所選工具對應的格式；完整表格見[如何呼叫](/zh-Hant/supported-tools/)。
+不同 AI 工具呈現自訂命令的方式不同，OpenSpec 會根據工具載入的檔案形式選擇命令拼寫。名為 `opsx-propose.md` 的命令檔案對應 `/opsx-propose`；放在 `commands/opsx/` 下的檔案則對應 `/opsx:propose`。使用技能而非命令的工具會使用技能名稱——Codex 使用 `$openspec-propose`，Kimi Code 使用 `/skill:openspec-propose`。`openspec init` 中的“Getting started”提示會顯示你所選工具對應的格式；完整表格見[如何呼叫](/zh-Hant/supported-tools/#如何呼叫)。
 
 ### 技能和命令有什麼區別？
 
@@ -72,7 +72,7 @@ OpenSpec 是一個輕量級約定層，讓你和 AI 程式設計助手在編寫�
 
 ### 我需要執行 `/opsx:sync` 嗎？
 
-通常不需要。Sync 會把變更的差異規格說明合併到主規格說明中，而 `/opsx:archive` 會主動為你執行同步。只有當你希望在歸檔之前先合併規格說明時，才手動執行 sync，例如處理耗時較長的變更。參閱[命令](/zh-Hant/commands/)。
+通常不需要。Sync 會把變更的差異規格說明合併到主規格說明中，而 `/opsx:archive` 會主動為你執行同步。只有當你希望在歸檔之前先合併規格說明時，才手動執行 sync，例如處理耗時較長的變更。參閱[命令](/zh-Hant/commands/#opsxsync)。
 
 ### 開始之後，如何編輯提案、規格說明或任務？
 
@@ -80,15 +80,15 @@ OpenSpec 是一個輕量級約定層，讓你和 AI 程式設計助手在編寫�
 
 ### 實作了一部分之後，還能回頭修改計畫嗎？
 
-可以，任何時候都可以。工作流程很靈活，審查和編輯不會把你限制在某個階段。編輯產物後繼續即可。如果需要有條理地檢查程式碼是否仍符合計畫，可以執行 `/opsx:verify`。參閱[編輯和迭代變更](/zh-Hant/editing-changes/)。
+可以，任何時候都可以。工作流程很靈活，審查和編輯不會把你限制在某個階段。編輯產物後繼續即可。如果需要有條理地檢查程式碼是否仍符合計畫，可以執行 `/opsx:verify`。參閱[編輯和迭代變更](/zh-Hant/editing-changes/#實作之後如何回到審查)。
 
 ### 我手動編輯了程式碼，如何與規格說明協調？
 
-歸檔會讓規格說明成為正式記錄，所以歸檔前需要讓兩者重新一致。如果程式碼現在正確，就更新差異規格說明以反映已交付內容；如果規格說明正確，就繼續實作，直到程式碼符合要求。`/opsx:verify` 可以指出不一致。參閱[編輯和迭代變更](/zh-Hant/editing-changes/)。
+歸檔會讓規格說明成為正式記錄，所以歸檔前需要讓兩者重新一致。如果程式碼現在正確，就更新差異規格說明以反映已交付內容；如果規格說明正確，就繼續實作，直到程式碼符合要求。`/opsx:verify` 可以指出不一致。參閱[編輯和迭代變更](/zh-Hant/editing-changes/#我手動編輯了程式碼如何與-openspec-保持一致)。
 
 ### 何時應更新現有變更，何時應新建？
 
-同一項工作只是經過完善時就更新；意圖徹底改變或範圍膨脹成另一項工作時就重新開始。決策流程圖和範例見[工作流程](/zh-Hant/workflows/)。
+同一項工作只是經過完善時就更新；意圖徹底改變或範圍膨脹成另一項工作時就重新開始。決策流程圖和範例見[工作流程](/zh-Hant/workflows/#何時更新何時重新開始)。
 
 ### 如果會話上下文用完，或實作過程中需求發生變化，該怎麼辦？
 
@@ -102,11 +102,11 @@ OpenSpec 是一個輕量級約定層，讓你和 AI 程式設計助手在編寫�
 
 ### 規格說明和設計分別寫什麼？
 
-規格說明描述可觀察的行為：系統做什麼、輸入和輸出是什麼，以及錯誤情形如何處理。設計描述如何建置：技術方案、架構決策和檔案變更。如果改變實作但不改變外部可見行為，該內容就屬於設計，而非規格說明。詳見[概念](/zh-Hant/concepts/)。
+規格說明描述可觀察的行為：系統做什麼、輸入和輸出是什麼，以及錯誤情形如何處理。設計描述如何建置：技術方案、架構決策和檔案變更。如果改變實作但不改變外部可見行為，該內容就屬於設計，而非規格說明。詳見[概念](/zh-Hant/concepts/#規格說明是什麼以及不是什麼)。
 
 ### 什麼是差異規格說明？
 
-差異規格說明只通過 `ADDED`、`MODIFIED` 和 `REMOVED` 章節描述變更內容，而不會重述整份規格說明。這是 OpenSpec 簡潔地修改現有系統的方式。參閱[概念](/zh-Hant/concepts/)。
+差異規格說明只通過 `ADDED`、`MODIFIED` 和 `REMOVED` 章節描述變更內容，而不會重述整份規格說明。這是 OpenSpec 簡潔地修改現有系統的方式。參閱[概念](/zh-Hant/concepts/#差異規格說明)。
 
 ### 已歸檔的變更會放在哪裡？
 
@@ -116,7 +116,7 @@ OpenSpec 是一個輕量級約定層，讓你和 AI 程式設計助手在編寫�
 
 ### 如何告訴 AI 我的技術棧？
 
-將資訊放在 `openspec/config.yaml` 的 `context:` 下。該文字會注入每個規劃請求，因此 AI 始終了解你的技術棧和約定。參閱[自訂](/zh-Hant/customization/)。
+將資訊放在 `openspec/config.yaml` 的 `context:` 下。該文字會注入每個規劃請求，因此 AI 始終了解你的技術棧和約定。參閱[自訂](/zh-Hant/customization/#專案設定)。
 
 ### 可以用英語以外的語言生成規格說明嗎？
 
@@ -124,7 +124,7 @@ OpenSpec 是一個輕量級約定層，讓你和 AI 程式設計助手在編寫�
 
 ### 可以更改工作流程本身嗎？
 
-可以，使用自訂模式即可。模式定義有哪些產物以及彼此之間的依賴關係。使用 `openspec schema fork spec-driven my-workflow` 從預設模式派生，再進行編輯。參閱[自訂](/zh-Hant/customization/)。
+可以，使用自訂模式即可。模式定義有哪些產物以及彼此之間的依賴關係。使用 `openspec schema fork spec-driven my-workflow` 從預設模式派生，再進行編輯。參閱[自訂](/zh-Hant/customization/#自訂模式)。
 
 ## 模型、隱私與升級
 
@@ -142,7 +142,7 @@ OpenSpec 最適合搭配推理能力強的模型。README 建議在規劃和實�
 
 ### 如何解除安裝 OpenSpec？
 
-沒有專門的解除安裝命令，因為它只是一個全域軟體包和專案中的一些檔案。移除軟體包 (`npm uninstall -g @fission-ai/openspec`)，還可以選擇刪除 `openspec/` 目錄和生成的工具檔案。分步說明以及哪些內容可以保留，見[安裝指南](/zh-Hant/installation/)。
+沒有專門的解除安裝命令，因為它只是一個全域軟體包和專案中的一些檔案。移除軟體包 (`npm uninstall -g @fission-ai/openspec`)，還可以選擇刪除 `openspec/` 目錄和生成的工具檔案。分步說明以及哪些內容可以保留，見[安裝指南：解除安裝](/zh-Hant/installation/#解除安裝)。
 
 ## 獲取幫助
 
@@ -154,4 +154,4 @@ OpenSpec 最適合搭配推理能力強的模型。README 建議在規劃和實�
 
 ### 文件有錯誤或讓人困惑，該怎麼辦？
 
-告訴我們，或者直接修正。我們歡迎並重視文件拉取請求。你可以提交 issue 或拉取請求。
+告訴我們。請開立[文件議題](https://github.com/Fission-AI/OpenSpec/issues/new?template=docs.yml)，說明相關頁面與錯誤之處——文件修正是我們收到最有用的回報之一。

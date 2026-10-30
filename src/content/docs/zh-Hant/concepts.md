@@ -126,13 +126,11 @@ The system MUST expire sessions after 30 minutes of inactivity.
 **需求描述“做什麼”**——它們說明系統應該做什麼，而不指定具體實作。
 
 **情境描述“何時發生”**——它們提供可以驗證的具體範例。優質情境應當：
-
 - 可測試（可以據此編寫自動化測試）
 - 同時涵蓋正常流程和邊界情況
 - 使用 Given/When/Then 或類似的結構化格式
 
 **RFC 2119 關鍵詞**（SHALL、MUST、SHOULD、MAY）用於表達要求的嚴格程度：
-
 - **MUST/SHALL**——絕對要求
 - **SHOULD**——建議遵循，但允許例外
 - **MAY**——可選
@@ -142,21 +140,18 @@ The system MUST expire sessions after 30 minutes of inactivity.
 規格說明是**行為約定**，不是實作計畫。
 
 適合寫入規格說明的內容：
-
 - 使用者或下游系統依賴的可觀察行為
 - 輸入、輸出和錯誤情況
 - 外部約束（安全、隱私、可靠性、相容性）
 - 可以測試或明確驗證的情境
 
 避免寫入規格說明的內容：
-
 - 內部類/函式名稱
 - 庫或框架的選擇
 - 逐步實作細節
 - 詳細執行計畫（這些屬於 `design.md` 或 `tasks.md`）
 
 快速判斷：
-
 - 如果改變實作方式而不影響外部可見行為，該內容通常不屬於規格說明。
 
 ### 保持輕量：逐步提高嚴謹程度
@@ -164,13 +159,11 @@ The system MUST expire sessions after 30 minutes of inactivity.
 OpenSpec 希望避免官僚流程。選擇仍能讓變更可驗證的最輕量方式。
 
 **輕量規格說明（預設）：**
-
 - 簡短且以行為為主的需求
 - 範圍清楚，包含明確的非目標
 - 若干具體的驗收檢查
 
 **完整規格說明（適用於較高風險）：**
-
 - 跨團隊或跨儲存庫的變更
 - API/約定變更、遷移、安全或隱私問題
 - 歧義可能造成昂貴返工的變更
@@ -199,14 +192,13 @@ openspec/changes/add-dark-mode/
 ├── proposal.md           # Why and what
 ├── design.md             # How (technical approach)
 ├── tasks.md              # Implementation checklist
-├── .openspec.yaml        # Change metadata (optional): schema, created, skip_specs, retire_capabilities
+├── .openspec.yaml        # Change metadata (optional): schema, created, skip_specs, retire_capabilities, plus your own x-* keys
 └── specs/                # Delta specs
     └── ui/
         └── spec.md       # What's changing in ui/spec.md
 ```
 
 每項變更都自成一體，包含：
-
 - **產物**——記錄意圖、設計和任務的文件
 - **差異規格說明**——描述新增、修改或移除內容的規格說明
 - **元資料**——針對該項變更的可選設定
@@ -216,8 +208,11 @@ openspec/changes/add-dark-mode/
 將變更打包成資料夾有多項好處：
 
 1. **內容集中。** 提案、設計、任務和規格說明都放在同一處，不必四處尋找。
+
 2. **支援並行工作。** 多項變更可以同時存在而互不衝突；你可以在處理 `add-dark-mode` 時，同時推進 `fix-auth-bug`。
+
 3. **歷史清晰。** 歸檔後，變更會連同完整上下文一起移入 `changes/archive/`。日後可以瞭解不僅改了什麼，也能瞭解為什麼要改。
+
 4. **便於審查。** 變更資料夾容易審查——開啟資料夾，閱讀提案、檢查設計、檢視規格差異即可。
 
 ## 產物
@@ -265,7 +260,6 @@ allow manual override.
 ```
 
 **以下情形應更新提案：**
-
 - 範圍發生變化（縮小或擴大）
 - 意圖更加明確（對問題有了更深入的理解）
 - 方案發生根本變化
@@ -317,7 +311,6 @@ CSS Variables (applied to :root)
 ````
 
 **以下情形應更新設計：**
-
 - 實作過程中發現方案不可行
 - 找到更好的解決辦法
 - 依賴項或約束髮生變化
@@ -347,7 +340,6 @@ CSS Variables (applied to :root)
 ```
 
 **任務最佳實踐：**
-
 - 使用標題對相關任務分組
 - 使用層級編號（1.1、1.2 等）
 - 任務粒度應足以在一次工作時段內完成
@@ -555,7 +547,9 @@ openspec/
 ### 歸檔流程
 
 1. **合併差異。** 每份差異規格說明中的 ADDED/MODIFIED/REMOVED 章節都會應用到相應的主規格說明中。
+
 2. **移入歸檔。** 變更資料夾會帶日期字首移至 `changes/archive/`，以便按時間排序。
+
 3. **保留上下文。** 所有產物都會完整保留在歸檔中。你隨時可以回顧變更原因。
 
 ### 歸檔為何重要

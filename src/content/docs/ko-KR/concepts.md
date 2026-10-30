@@ -192,7 +192,7 @@ openspec/changes/add-dark-mode/
 ├── proposal.md           # Why and what
 ├── design.md             # How (technical approach)
 ├── tasks.md              # Implementation checklist
-├── .openspec.yaml        # Change metadata (optional): schema, created, skip_specs, retire_capabilities
+├── .openspec.yaml        # Change metadata (optional): schema, created, skip_specs, retire_capabilities, plus your own x-* keys
 └── specs/                # Delta specs
     └── ui/
         └── spec.md       # What's changing in ui/spec.md
@@ -476,10 +476,10 @@ proposal → specs → design → tasks → implement
 팀의 워크플로에 맞춰 사용자 지정 스키마를 만드세요.
 
 ```bash
-# 처음부터 만들기
+# Create from scratch
 openspec schema init research-first
 
-# 또는 기존 스키마 포크
+# Or fork an existing one
 openspec schema fork spec-driven research-first
 ```
 

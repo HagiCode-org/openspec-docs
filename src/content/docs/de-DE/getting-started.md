@@ -2,7 +2,7 @@
 title: "Erste Schritte"
 ---
 
-Dieser Leitfaden erklärt, wie OpenSpec nach der Installation und Initialisierung funktioniert. Anweisungen zur Installation finden Sie in der [README](https://github.com/Fission-AI/openspec/blob/79b6aa9c98f1e36795b2bc4ef2a8f770c6d3a777/README.md#quick-start) oder im [Installationsleitfaden](/de-DE/installation/). Ist die gesamte Dokumentation neu für Sie? Auf der [Dokumentations-Startseite](/de-DE/) finden Sie einen Überblick.
+Dieser Leitfaden erklärt, wie OpenSpec nach der Installation und Initialisierung funktioniert. Anweisungen zur Installation finden Sie in der [README](https://github.com/Fission-AI/openspec/blob/dc37609827c8c3aba49e49347745f47aaa65cb1b/README.md#quick-start) oder im [Installationsleitfaden](/de-DE/installation/). Ist die gesamte Dokumentation neu für Sie? Auf der [Dokumentations-Startseite](/de-DE/) finden Sie einen Überblick.
 
 > **Wo gebe ich diese Befehle ein?** An zwei verschiedenen Orten. Diese zu verwechseln ist der häufigste Anfängerfehler.
 >
@@ -16,7 +16,7 @@ Dieser Leitfaden erklärt, wie OpenSpec nach der Installation und Initialisierun
 Der gesamte Ablauf, wobei für jeden Schritt angegeben ist, wo er ausgeführt wird:
 
 ```text
-TERMINAL   $ npm install -g @fission-ai/openspec@latest
+TERMINAL   $ curl -fsSL https://raw.githubusercontent.com/Fission-AI/OpenSpec/main/scripts/binary/install.sh | sh
 TERMINAL   $ cd your-project && openspec init
 AI CHAT      /opsx:explore                    (optional: think it through first)
 AI CHAT      /opsx:propose add-dark-mode      (AI drafts the plan; you review it)
@@ -24,7 +24,7 @@ AI CHAT      /opsx:apply                      (AI builds it)
 AI CHAT      /opsx:archive                    (specs updated, change filed away)
 ```
 
-Zwei Einrichtungsschritte im Terminal, danach findet die Arbeit im Chat statt. Im Rest dieses Leitfadens erfahren Sie, was jeder Schritt tut und was Sie dabei sehen.
+Zwei Einrichtungsschritte im Terminal, danach findet die Arbeit im Chat statt. (Windows, npm und andere Installationsmethoden finden Sie unter [Installation](/de-DE/installation/).) Im Rest dieses Leitfadens erfahren Sie, was jeder Schritt tut und was Sie dabei sehen.
 
 **Möchten Sie die Terminalschritte nicht selbst ausführen?** Fügen Sie die [Einrichtungsanweisung](/de-DE/installation/#mit-ihrem-ki-assistenten-installieren) in Ihren Assistenten ein. Er führt beide Zeilen aus und meldet anschließend, was er erstellt hat.
 

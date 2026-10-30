@@ -181,10 +181,10 @@ openspec/schemas/my-workflow/
 새 워크플로를 처음부터 만들려면 다음을 실행하세요.
 
 ```bash
-# 대화형
+# Interactive
 openspec schema init research-first
 
-# 비대화형
+# Non-interactive
 openspec schema init rapid \
   --description "Rapid iteration workflow" \
   --artifacts "proposal,tasks" \
@@ -287,10 +287,10 @@ openspec schema validate my-workflow
 스키마를 만든 뒤 다음과 같이 사용하세요.
 
 ```bash
-# 명령에서 지정
+# Specify on command
 openspec new change feature --schema my-workflow
 
-# 또는 config.yaml에서 기본값으로 설정
+# Or set as default in config.yaml
 schema: my-workflow
 ```
 
@@ -299,10 +299,10 @@ schema: my-workflow
 어떤 스키마가 사용되는지 확실하지 않나요? 다음 명령으로 확인하세요.
 
 ```bash
-# 특정 스키마의 확인 위치 보기
+# See where a specific schema resolves from
 openspec schema which my-workflow
 
-# 사용 가능한 스키마 모두 나열
+# List all available schemas
 openspec schema which --all
 ```
 
@@ -397,8 +397,10 @@ OpenSpec은 독립 저장소를 통해 배포되는 커뮤니티 관리 스키�
 | `nanopm` | @nmrtn | [nmrtn/nanopm](https://github.com/nmrtn/nanopm/tree/main/openspec-schema) | 제품 관리 우선 워크플로입니다. [nanopm](https://github.com/nmrtn/nanopm)의 계획 파이프라인(audit → strategy → roadmap → PRD)을 구현 전에 실행합니다. 제품 계획을 OpenSpec의 사양 주도 엔지니어링 워크플로와 연결합니다. `.nanopm/`이 있으면 산출물에서 이를 읽습니다. 제안은 audit, 설계는 strategy, 작업은 PRD 분석을 기반으로 합니다. |
 | `e2e-runbooks` | @Lukk17 | [Lukk17/openspec-schemas](https://github.com/Lukk17/openspec-schemas/tree/master/openspec/schemas/e2e-runbooks) | 기능 단위의 종단 간 테스트 실행 안내서입니다. 각 기능에는 불변 사양, 불변 작업 템플릿, 실행마다 타임스탬프가 포함된 실행 기록 하나가 제공됩니다. 단언은 관찰 가능한 동작만 대상으로 합니다(HTTP 상태, 응답 본문, 저장된 상태. 로그 부분 문자열은 사용하지 않음). 각 실행에는 시작/종료 UTC 시각, 소요 시간, 추정 LLM 토큰 소비량을 기록합니다. |
 | `anvil` | @jikkujoyce | [jikkujoyce/openspec-schemas](https://github.com/jikkujoyce/openspec-schemas/tree/main/schemas/anvil) | TDD 규율과 적대적 검토 단계를 포함하는 사양 주도 워크플로입니다. 순서: `proposal` → `specs` → `design` → `review` → `test-plan` → `tasks` → `apply` → `verify`. `review`는 새 컨텍스트에서 읽기 전용으로 검토하는 담당자(가능하면 두 번째 모델)가 작성하고 에이전트에 `test-plan`, `tasks`, `apply`를 관문으로 삼으라고 지시하는 `VERDICT:` 줄을 출력합니다. OpenSpec은 산출물 존재 여부만 검사하므로 자체 CI 또는 훅에서 이 관문을 강제해야 합니다. `test-plan`은 각 사양 시나리오를 이름이 있는 테스트에 대응시키며 `verify`가 감사하는 red/green 기록 역할도 합니다. |
+| `ml-research` | @tsenst | [idealo/openspec-schemas](https://github.com/idealo/openspec-schemas/tree/main/openspec/schemas/ml-research) | 머신러닝 실험 워크플로입니다. 순서: `proposal` → `design` → `evaluation` → `tasks` → `apply` → `specs`. `evaluation`은 실행 전에 지표, 성공 기준, 반증 조건을 확정합니다. `apply`는 `results.md`를 작성하고, `specs`는 근거가 확인된 발견 사항(반증된 가설 포함)만 연결된 `Evidence:` 블록과 함께 `Finding:` 요구 사항으로 기록합니다. |
+| `epic-driven` | @ivanferic| [IvanFeric/openspec-epic-driven](https://github.com/IvanFeric/openspec-epic-driven/tree/main/openspec/schemas/epic-driven) | 에픽 중심 워크플로입니다. 순서: `explore`(선택) → `epic-propose` → `epic-next`가 하위 스토리를 선택 → 하위 `apply` → 하위 `archive` → `epic-sync`. 에픽에는 `apply` 단계가 없으며 스토리가 모두 완료된 뒤에만 보관됩니다. `epic-propose`는 비전, 스토리, 로드맵을 만들고, `epic-next`는 하위 스토리를 추천하며, `epic-next <story> start`는 하위 스토리 계획을 일반 `openspec-propose` 워크플로에 위임합니다. `epic-status`는 에픽 내 모든 스토리의 현재 상태를 보여 주고, `epic-replan`은 진행 중이거나 완료된 스토리를 유지하면서 계획을 변경할 수 있으며, `epic-sync`는 스토리 완료 표시를 갱신합니다. |
 
-> 커뮤니티 스키마에 기여하고 싶나요? 저장소 링크를 포함한 이슈를 열거나 이 표에 항목을 추가하는 PR을 제출하세요.
+> 커뮤니티 스키마에 기여하고 싶나요? 저장소 링크와 한 줄 설명을 포함한 이슈를 열어 주세요. 관리자가 표에 항목을 추가합니다.
 
 ---
 

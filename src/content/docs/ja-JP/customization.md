@@ -20,7 +20,7 @@ OpenSpec では、次の3つのレベルでカスタマイズできます。
 - **プロジェクトのコンテキストを注入する** — AI が技術スタックや規約などを把握する
 - **成果物ごとのルールを追加する** — 特定の成果物に独自のルールを適用する
 - **操作ごとのガイダンスを追加する** — apply や archive の作業に関する助言的な設定を行う
-- **統合に関する選択を記憶する** — 例: [GitHub Copilot クラウドコーディングエージェント](/ja-JP/supported-tools/#github-copilot-クラウドコーディングエージェント)のオプトイン
+- **統合に関する選択を記憶する** — 例：[GitHub Copilot クラウドコーディングエージェント](/ja-JP/supported-tools/#github-copilot-クラウドコーディングエージェント)のオプトイン
 
 ### クイックセットアップ
 
@@ -35,29 +35,29 @@ openspec init
 schema: spec-driven
 
 context: |
-  技術スタック: TypeScript、React、Node.js、PostgreSQL
-  API の形式: RESTful。docs/api.md に記載
-  テスト: Jest + React Testing Library
-  すべての公開 API で後方互換性を重視する
+  Tech stack: TypeScript, React, Node.js, PostgreSQL
+  API style: RESTful, documented in docs/api.md
+  Testing: Jest + React Testing Library
+  We value backwards compatibility for all public APIs
 
 rules:
   proposal:
-    - ロールバック計画を含める
-    - 影響を受けるチームを特定する
+    - Include rollback plan
+    - Identify affected teams
   specs:
-    - Given/When/Then 形式を使う
-    - 新しいパターンを考案する前に既存のパターンを参照する
+    - Use Given/When/Then format
+    - Reference existing patterns before inventing new ones
 
 operations:
   apply:
     guidance:
-      - 全体のテストスイートの前に対象を絞ったテストを実行する
+      - Run focused tests before the full suite
   archive:
     guidance:
-      - 完了サマリーを簡潔にする
+      - Keep the completion summary concise
 
-# GitHub Copilot クラウドコーディングエージェントを選択（または拒否）すると、
-# `openspec init` によって設定される。`init`/`update` でのファイル生成を制御する。
+# Set by `openspec init` when you choose (or decline) the GitHub Copilot
+# cloud coding agent; controls whether `init`/`update` generate its files.
 githubCopilot:
   cloudAgent: false
 ```
@@ -67,10 +67,10 @@ githubCopilot:
 **Default schema:**
 
 ```bash
-# 設定なし
+# Without config
 openspec new change my-feature --schema spec-driven
 
-# 設定あり — スキーマが自動的に適用される
+# With config - schema is automatic
 openspec new change my-feature
 ```
 
@@ -85,19 +85,19 @@ Tech stack: TypeScript, React, Node.js, PostgreSQL
 </context>
 
 <rules>
-- ロールバック計画を含める
-- 影響を受けるチームを特定する
+- Include rollback plan
+- Identify affected teams
 </rules>
 
 <template>
-[スキーマに組み込まれたテンプレート]
+[Schema's built-in template]
 </template>
 ```
 
 - **コンテキスト** はすべての成果物に含まれる
 - **ルール** は一致する成果物にのみ含まれる
 
-**操作ガイダンス:**
+**操作ガイダンス：**
 
 `operations.apply.guidance` と `operations.archive.guidance` は、エージェントが各操作を
 どのように行うかについての助言的な指示を含む任意の配列です。
@@ -128,7 +128,7 @@ change の移動、静的な archive ワークフローの実行は行いませ�
 どちらのフィールドも強制的な検証項目ではありません。ユーザーが別途依頼しない限り、
 ワークフローはその文章を実装ファイル、仕様、change の成果物、サマリーにコピーしません。
 
-**Archive と仕様同期の入力安全性:**
+**Archive と仕様同期の入力安全性：**
 
 Archive、一括 archive、単独の sync は
 `openspec status --json` の `artifactPaths.specs.existingOutputPaths` を差分仕様の唯一の入力元として使います。`specs` 成果物のないスキーマや、具体的な出力一覧が
@@ -151,7 +151,7 @@ Archive、一括 archive、単独の sync は
 
 OpenSpec がスキーマを必要とするときは、次の順番で確認します。
 
-1. CLI フラグ: `--schema <name>`
+1. CLI フラグ：`--schema <name>`
 2. change のメタデータ（change フォルダー内の `.openspec.yaml`）
 3. プロジェクト設定（`openspec/config.yaml`）
 4. 既定値（`spec-driven`）
@@ -165,12 +165,12 @@ OpenSpec がスキーマを必要とするときは、次の順番で確認し�
 ```text
 your-project/
 ├── openspec/
-│   ├── config.yaml        # プロジェクト設定
-│   ├── schemas/           # カスタムスキーマを格納
+│   ├── config.yaml        # Project config
+│   ├── schemas/           # Custom schemas live here
 │   │   └── my-workflow/
 │   │       ├── schema.yaml
 │   │       └── templates/
-│   └── changes/           # プロジェクトの変更
+│   └── changes/           # Your changes
 └── src/
 ```
 
@@ -184,31 +184,31 @@ openspec schema fork spec-driven my-workflow
 
 `spec-driven` スキーマ全体が `openspec/schemas/my-workflow/` にコピーされ、自由に編集できます。
 
-**作成される内容:**
+**作成される内容：**
 
 ```text
 openspec/schemas/my-workflow/
-├── schema.yaml           # ワークフローの定義
+├── schema.yaml           # Workflow definition
 └── templates/
-    ├── proposal.md       # proposal 成果物のテンプレート
-    ├── spec.md           # specs のテンプレート
-    ├── design.md         # design のテンプレート
-    └── tasks.md          # tasks のテンプレート
+    ├── proposal.md       # Template for proposal artifact
+    ├── spec.md           # Template for specs
+    ├── design.md         # Template for design
+    └── tasks.md          # Template for tasks
 ```
 
 `schema.yaml` を編集してワークフローを変更するか、テンプレートを編集して AI の生成内容を変更します。
 
 ### スキーマを新規作成する
 
-まったく新しいワークフローを作成する場合:
+まったく新しいワークフローを作成する場合：
 
 ```bash
-# 対話形式
+# Interactive
 openspec schema init research-first
 
-# 非対話形式
+# Non-interactive
 openspec schema init rapid \
-  --description "高速な反復ワークフロー" \
+  --description "Rapid iteration workflow" \
   --artifacts "proposal,tasks" \
   --default
 ```
@@ -221,30 +221,30 @@ openspec schema init rapid \
 # openspec/schemas/my-workflow/schema.yaml
 name: my-workflow
 version: 1
-description: チーム独自のワークフロー
+description: My team's custom workflow
 
 artifacts:
   - id: proposal
     generates: proposal.md
-    description: 最初の提案ドキュメント
+    description: Initial proposal document
     template: proposal.md
     instruction: |
-      この変更が必要な理由を説明する提案を作成してください。
-      解決策ではなく問題に焦点を当ててください。
+      Create a proposal that explains WHY this change is needed.
+      Focus on the problem, not the solution.
     requires: []
 
   - id: design
     generates: design.md
-    description: 技術設計
+    description: Technical design
     template: design.md
     instruction: |
-      実装方法を説明する設計ドキュメントを作成してください。
+      Create a design document explaining HOW to implement.
     requires:
-      - proposal    # proposal が存在するまで design を作成できない
+      - proposal    # Can't create design until proposal exists
 
   - id: tasks
     generates: tasks.md
-    description: 実装チェックリスト
+    description: Implementation checklist
     template: tasks.md
     requires:
       - design
@@ -254,7 +254,7 @@ apply:
   tracks: tasks.md
 ```
 
-**主なフィールド:**
+**主なフィールド：**
 
 | フィールド | 目的 |
 |-------|---------|
@@ -274,17 +274,17 @@ apply:
 
 ```markdown
 <!-- templates/proposal.md -->
-## 理由
+## Why
 
-<!-- この変更の動機を説明してください。どの問題を解決しますか？ -->
+<!-- Explain the motivation for this change. What problem does this solve? -->
 
-## 変更内容
+## What Changes
 
-<!-- 何が変わるかを説明してください。新機能や変更を具体的に記述します。 -->
+<!-- Describe what will change. Be specific about new capabilities or modifications. -->
 
-## 影響
+## Impact
 
-<!-- 影響を受けるコード、API、依存関係、システム -->
+<!-- Affected code, APIs, dependencies, systems -->
 ```
 
 テンプレートには次の内容を含められます。
@@ -311,10 +311,10 @@ openspec schema validate my-workflow
 作成したスキーマは次のように使用します。
 
 ```bash
-# コマンドで指定
+# Specify on command
 openspec new change feature --schema my-workflow
 
-# または config.yaml で既定値として設定
+# Or set as default in config.yaml
 schema: my-workflow
 ```
 
@@ -323,10 +323,10 @@ schema: my-workflow
 どのスキーマが使われているか分からない場合は、次で確認します。
 
 ```bash
-# 特定のスキーマの解決元を表示
+# See where a specific schema resolves from
 openspec schema which my-workflow
 
-# 利用可能なスキーマをすべて表示
+# List all available schemas
 openspec schema which --all
 ```
 
@@ -340,7 +340,7 @@ Path: /path/to/project/openspec/schemas/my-workflow
 
 ---
 
-> **注:** OpenSpec は、複数プロジェクトで共有するユーザーレベルのスキーマ（`~/.local/share/openspec/schemas/`）にも対応しています。ただし、コードとともにバージョン管理できるため、プロジェクトレベルの `openspec/schemas/` を推奨します。
+> **注：** OpenSpec は、複数プロジェクトで共有するユーザーレベルのスキーマ（`~/.local/share/openspec/schemas/`）にも対応しています。ただし、コードとともにバージョン管理できるため、プロジェクトレベルの `openspec/schemas/` を推奨します。
 
 ---
 
@@ -354,21 +354,21 @@ Path: /path/to/project/openspec/schemas/my-workflow
 # openspec/schemas/rapid/schema.yaml
 name: rapid
 version: 1
-description: 最小限の負担で素早く反復
+description: Fast iteration with minimal overhead
 
 artifacts:
   - id: proposal
     generates: proposal.md
-    description: 簡易な提案
+    description: Quick proposal
     template: proposal.md
     instruction: |
-      この変更について簡潔な提案を作成してください。
-      何を、なぜ行うかに焦点を当て、詳細な仕様は省略します。
+      Create a brief proposal for this change.
+      Focus on what and why, skip detailed specs.
     requires: []
 
   - id: tasks
     generates: tasks.md
-    description: 実装チェックリスト
+    description: Implementation checklist
     template: tasks.md
     requires: [proposal]
 
@@ -390,20 +390,20 @@ openspec schema fork spec-driven with-review
 ```yaml
   - id: review
     generates: review.md
-    description: 実装前レビューのチェックリスト
+    description: Pre-implementation review checklist
     template: review.md
     instruction: |
-      設計に基づいてレビュー用チェックリストを作成してください。
-      セキュリティ、パフォーマンス、テストに関する確認事項を含めます。
+      Create a review checklist based on the design.
+      Include security, performance, and testing considerations.
     requires:
       - design
 
   - id: tasks
-    # ... 既存の tasks 設定 ...
+    # ... existing tasks config ...
     requires:
       - specs
       - design
-      - review    # tasks にも review が必要
+      - review    # Now tasks require review too
 ```
 
 ---
@@ -420,12 +420,14 @@ OpenSpec は、独立したリポジトリで配布されるコミュニティ�
 | `superpowers-bridge` | @JiangWay | [JiangWay/openspec-schemas](https://github.com/JiangWay/openspec-schemas/tree/main/superpowers-bridge) | OpenSpec の成果物ガバナンスを [obra/superpowers](https://github.com/obra/superpowers) の実行スキル（ブレインストーミング、計画の作成、サブエージェントを使った TDD、コードレビュー、仕上げ）と統合します。Superpowers が標準ではカバーしない部分を補う、証拠を重視する `retrospective` 成果物を追加します。 |
 | `nanopm` | @nmrtn | [nmrtn/nanopm](https://github.com/nmrtn/nanopm/tree/main/openspec-schema) | PM 主導のワークフローです。実装の前段階で [nanopm](https://github.com/nmrtn/nanopm) の計画パイプライン（監査 → 戦略 → ロードマップ → PRD）を実行します。製品計画と OpenSpec の仕様駆動エンジニアリングワークフローを橋渡しします。`.nanopm/` があれば成果物がその内容を読み込み、proposal は監査、design は戦略、tasks は PRD の分解内容を参照します。 |
 | `e2e-runbooks` | @Lukk17 | [Lukk17/openspec-schemas](https://github.com/Lukk17/openspec-schemas/tree/master/openspec/schemas/e2e-runbooks) | 機能単位のエンドツーエンドテスト用ランブックです。各機能に変更不能な仕様、変更不能なタスクテンプレート、実行ごとにタイムスタンプ付きの実行記録を用意します。アサーションは観測可能な動作のみを対象とします（HTTP ステータス、レスポンス本文、永続化された状態。ログの部分文字列は対象外）。各実行では開始/終了時刻（UTC）、所要時間、LLM トークン消費量の推定値を記録します。 |
-| `anvil` | @jikkujoyce | [jikkujoyce/openspec-schemas](https://github.com/jikkujoyce/openspec-schemas/tree/main/schemas/anvil) | TDD の規律と対立的なレビュー手順を含む仕様駆動ワークフローです。流れ: `proposal` → `specs` → `design` → `review` → `test-plan` → `tasks` → `apply` → `verify`。`review` は新しいコンテキストで読み取り専用のレビュアー（利用できる場合は2つ目のモデル）が作成し、エージェントに `test-plan`、`tasks`、`apply` の開始条件を指示する `VERDICT:` 行を出力します。OpenSpec は成果物の存在のみを確認するため、ゲートは独自の CI またはフックで強制してください。`test-plan` は各仕様シナリオを名前付きテストに対応付け、`verify` が監査する red/green 台帳としても機能します。 |
+| `anvil` | @jikkujoyce | [jikkujoyce/openspec-schemas](https://github.com/jikkujoyce/openspec-schemas/tree/main/schemas/anvil) | TDD の規律と対立的なレビュー手順を含む仕様駆動ワークフローです。流れ：`proposal` → `specs` → `design` → `review` → `test-plan` → `tasks` → `apply` → `verify`。`review` は新しいコンテキストで読み取り専用のレビュアー（利用できる場合は2つ目のモデル）が作成し、エージェントに `test-plan`、`tasks`、`apply` の開始条件を指示する `VERDICT:` 行を出力します。OpenSpec は成果物の存在のみを確認するため、ゲートは独自の CI またはフックで強制してください。`test-plan` は各仕様シナリオを名前付きテストに対応付け、`verify` が監査する red/green 台帳としても機能します。 |
+| `ml-research` | @tsenst | [idealo/openspec-schemas](https://github.com/idealo/openspec-schemas/tree/main/openspec/schemas/ml-research) | 機械学習の実験ワークフローです。流れ：`proposal` → `design` → `evaluation` → `tasks` → `apply` → `specs`。`evaluation` は実行前に評価指標、成功基準、反証条件を確定させます。`apply` は `results.md` を書き出し、`specs` は裏付けのある知見のみ（反証された仮説を含む）を、`Evidence:` ブロックを伴う `Finding:` 要件として記録します。 |
+| `epic-driven` | @ivanferic | [IvanFeric/openspec-epic-driven](https://github.com/IvanFeric/openspec-epic-driven/tree/main/openspec/schemas/epic-driven) | エピック駆動のワークフローです。流れ：`explore`（任意）→ `epic-propose` → `epic-next` が子ストーリーを選択 → 子の `apply` → 子の `archive` → `epic-sync`。エピックには `apply` 段階がなく、ストーリーがすべて完了してからアーカイブされます。`epic-propose` はビジョン、ストーリー、ロードマップを作成します。`epic-next` は子ストーリーを推奨し、`epic-next <story> start` は子の計画を通常の `openspec-propose` ワークフローに委ねます。`epic-status` はエピック内の全ストーリーの現在の状態を表示します。`epic-replan` は、進行中または完了したストーリーを残したまま計画を変更できます。`epic-sync` はストーリーの完了表示を更新します。 |
 
-> コミュニティスキーマを追加したい場合は、リポジトリへのリンクを添えて Issue を作成するか、この表に1行追加する PR を送ってください。
+> コミュニティスキーマを追加したい場合は、リポジトリへのリンクと一行の説明を添えて Issue を作成してください。メンテナーが表に行を追加します。
 
 ---
 
 ## 関連ページ
 
-- [CLI リファレンス: スキーマコマンド](/ja-JP/cli/#スキーマコマンド) — コマンドの詳細
+- [CLI リファレンス：スキーマコマンド](/ja-JP/cli/#スキーマコマンド) — コマンドの詳細
