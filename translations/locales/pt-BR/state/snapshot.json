@@ -1,11 +1,11 @@
 {
   "schema": 1,
   "locale": "pt-BR",
-  "updatedAt": "2026-10-30T21:22:23.646Z",
+  "updatedAt": "2026-10-31T01:57:34.228Z",
   "lastRun": "20261030-os1",
   "sourceRevision": "dc37609827c8c3aba49e49347745f47aaa65cb1b",
-  "glossaryVersion": null,
-  "glossarySha256": null,
+  "glossaryVersion": 1,
+  "glossarySha256": "3302169956272cd0cf5225fa37a90b9ad1252caeeb17e15ea6e2dc83dadae74c",
   "docs": {
     "agent-contract.md": {
       "status": "done",
