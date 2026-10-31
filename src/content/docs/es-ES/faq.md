@@ -34,7 +34,7 @@ En el chat de tu asistente de IA, no en el terminal. Es el punto que suele causa
 
 ### ¿Cómo «inicio el modo interactivo»?
 
-No hay que iniciar ningún modo especial. Abre tu asistente de IA como de costumbre y escribe un comando de barra en el chat. Así es como «entras» en OpenSpec. (La única función realmente interactiva del terminal es `openspec view`, un panel para explorar especificaciones y cambios). La explicación completa está en [Cómo funcionan los comandos](/es-ES/how-commands-work/).
+No hay que iniciar ningún modo especial. Abre tu asistente de IA como de costumbre y escribe un comando de barra en el chat. Así es como «entras» en OpenSpec. (La única función realmente interactiva del terminal es `openspec view`, un dashboard para explorar especificaciones y cambios). La explicación completa está en [Cómo funcionan los comandos](/es-ES/how-commands-work/).
 
 ### Escribí un comando de barra y no pasó nada. ¿Por qué?
 
@@ -52,7 +52,7 @@ Ambos son archivos que OpenSpec escribe para que el asistente pueda ejecutar el 
 
 ### ¿Por dónde empiezo si no sé qué construir?
 
-Con `/opsx:explore`. Es un compañero de reflexión sin compromiso que lee tu base de código, plantea opciones y convierte un problema impreciso en un plan concreto antes de escribir código. Está incluido en el perfil predeterminado y siempre está disponible. Cuando el plan esté claro, pasa a `/opsx:propose`. Es el mejor hábito que puedes adquirir para evitar que una IA entusiasta construya con seguridad algo equivocado. Consulta [Empieza por explorar](/es-ES/explore/).
+Con `/opsx:explore`. Es un compañero de reflexión sin compromiso que lee tu base de código, plantea opciones y convierte un problema impreciso en un plan concreto antes de escribir código. Está incluido en el profile predeterminado y siempre está disponible. Cuando el plan esté claro, pasa a `/opsx:propose`. Es el mejor hábito que puedes adquirir para evitar que una IA entusiasta construya con seguridad algo equivocado. Consulta [Empieza por explorar](/es-ES/explore/).
 
 ### ¿Cuál es el flujo más sencillo?
 
@@ -66,9 +66,9 @@ Usa Explore para pensar la idea, Propose para redactar el plan, Apply para imple
 
 `/opsx:propose` es el comando predeterminado de un paso: crea el cambio y redacta todos los artefactos de planificación de una vez. `/opsx:new` forma parte del conjunto ampliado y solo crea la estructura vacía del cambio; después tendrás que crear los artefactos uno por uno con `/opsx:continue` (o todos a la vez con `/opsx:ff`). Usa propose, a menos que quieras controlar cada paso. Consulta [Comandos](/es-ES/commands/).
 
-### ¿Qué son los perfiles `core` y expanded?
+### ¿Qué son los profiles `core` y expanded?
 
-Un perfil determina qué comandos de barra se instalan. **Core** (el predeterminado) incluye `propose`, `explore`, `apply`, `update`, `sync` y `archive`. El conjunto **expanded** añade `new`, `continue`, `ff`, `verify`, `bulk-archive` y `onboard` para ofrecer un control más detallado. Cámbialo con `openspec config profile` y aplícalo con `openspec update`.
+Un profile determina qué comandos de barra se instalan. **Core** (el predeterminado) incluye `propose`, `explore`, `apply`, `update`, `sync` y `archive`. El conjunto **expanded** añade `new`, `continue`, `ff`, `verify`, `bulk-archive` y `onboard` para ofrecer un control más detallado. Cámbialo con `openspec config profile` y aplícalo con `openspec update`.
 
 ### ¿Tengo que ejecutar `/opsx:sync`?
 

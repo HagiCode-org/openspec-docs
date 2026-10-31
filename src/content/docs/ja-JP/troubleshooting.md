@@ -61,7 +61,7 @@ openspec init --tools claude,cursor
 
 5. **このプロジェクトを初期化したか確認する。** スキルはプロジェクトごとに作成されます。リポジトリを clone した場合や、別のフォルダーに切り替えた場合は、その場所で `openspec init`（または `openspec update`）を実行してください。
 
-6. **ツールがコマンドファイルに対応しているか確認する。** Codex、CodeArts、ForgeCode、Hermes、Kimi Code、Mistral Vibe、Zed Agent、共有 `.agents` ターゲットには `opsx-*` コマンドファイルは生成されません。代わりにスキルを使うため、`/opsx` は補完候補に表示されません。Codex では `$openspec-propose`、Kimi Code では `/skill:openspec-propose`、その他では `/openspec-propose` と入力してください。共有 `.agents` ターゲットはベンダー中立なので、`/openspec-propose` は一般的な形式であり、必ず機能するとは限りません。アシスタントが応答しない場合は、スキルの呼び出し方法をそのツールのドキュメントで確認してください。Amazon Q にはコマンドファイルが生成されますが、スラッシュメニューではなくプロンプトライブラリに読み込まれるため、`/opsx` ではなく `@opsx-propose` と入力します。各ツールの形式は[呼び出し方法](/ja-JP/supported-tools/#呼び出し方法)に記載されています。
+6. **ツールがコマンドファイルに対応しているか確認する。** Codex、CodeArts、ForgeCode、Hermes、Kimi Code、Mistral Vibe、Zed Agent、共有 `.agents` ターゲットには `opsx-*` コマンドファイルは生成されません。代わりにスキルを使うため、`/opsx` は補完候補に表示されません。Codex では `$openspec-propose`、Kimi Code では `/skill:openspec-propose`、その他では `/openspec-propose` と入力してください。共有 `.agents` ターゲットはベンダー中立なので、`/openspec-propose` は一般的な形式であり、必ず機能するとは限りません。アシスタントが応答しない場合は、スキルの呼び出し方法をそのツールのドキュメントで確認してください。Amazon Q にはコマンドファイルが生成されますが、スラッシュメニューではなく prompt ライブラリに読み込まれるため、`/opsx` ではなく `@opsx-propose` と入力します。各ツールの形式は[呼び出し方法](/ja-JP/supported-tools/#呼び出し方法)に記載されています。
 
 ## change の操作
 
@@ -122,7 +122,7 @@ Archive は未完了のタスクを理由に *ブロック* はしませんが�
 
 ### "User force closed the prompt with 0 null"
 
-AI エージェントがツールから呼び出した場合、CI ジョブ内、または stdin が閉じられたシェル内など、質問に答えられない環境で `openspec archive` が実行されました。Archive は最大3つの確認を求めますが、答えられない場合、以前はこの生のエラーメッセージで失敗していました。
+AI agent がツールから呼び出した場合、CI ジョブ内、または stdin が閉じられたシェル内など、質問に答えられない環境で `openspec archive` が実行されました。Archive は最大3つの確認を求めますが、答えられない場合、以前はこの生のエラーメッセージで失敗していました。
 
 事前に確認に同意するには `--yes` を指定します。
 
@@ -132,7 +132,7 @@ openspec archive <change-name> --yes
 
 すでに指定していたフラグはそのまま付けてください。`--skip-specs` と `--no-validate` は Archive の動作を変えるため、`--yes` だけで再実行すると同じコマンドにはなりません。現在のバージョンではフラグが表示され、貼り付けて使える `Fix:` 行が出力されます。一覧から選ぼうとしていた場合は、change 名を明示してください。選択画面にも回答が必要です。
 
-代わりに Archive の出力をファイルにリダイレクトしたりツールで取得したりし、回答をパイプで渡した場合（`printf 'y\n' | openspec archive …`）、以前のバージョンではプロンプト表示時にターミナルのエスケープコードも出力に含まれていました。環境によってはファイルが大きく膨らむことがありました。現在のバージョンでは、stdout がターミナルでない場合、確認プロンプトをプレーンテキストとして読み取ります。また、引数なしの `openspec archive`（本来は対話型の change 選択画面を表示する）では、メニューを出力に含めず、先に change 名を指定するよう求めます。いずれの場合も、リダイレクト時やエージェントからの実行をクリーンに保てます。change 名と `--yes` を指定すれば、確認自体を省略できます。
+代わりに Archive の出力をファイルにリダイレクトしたりツールで取得したりし、回答をパイプで渡した場合（`printf 'y\n' | openspec archive …`）、以前のバージョンでは prompt 表示時にターミナルのエスケープコードも出力に含まれていました。環境によってはファイルが大きく膨らむことがありました。現在のバージョンでは、stdout がターミナルでない場合、確認 prompt をプレーンテキストとして読み取ります。また、引数なしの `openspec archive`（本来は対話型の change 選択画面を表示する）では、メニューを出力に含めず、先に change 名を指定するよう求めます。いずれの場合も、リダイレクト時や agent からの実行をクリーンに保てます。change 名と `--yes` を指定すれば、確認自体を省略できます。
 
 ## 設定
 
@@ -178,7 +178,7 @@ CI または非対話型シェルで実行されているため、OpenSpec は�
 openspec init --force
 ```
 
-Codex では、OpenSpec が `$CODEX_HOME/prompts` または `~/.codex/prompts` 内の古い管理対象プロンプトファイルを検出することがあります。削除対象は OpenSpec が許可リストに登録した従来の Codex プロンプトファイル名に限定されます。非対話型の `openspec init` は、置き換え先の `.agents/skills/openspec-*` スキルがあるファイルだけを削除します。非対話型の `openspec update` は、`--force` を指定しない限り、従来ファイルを削除しません。
+Codex では、OpenSpec が `$CODEX_HOME/prompts` または `~/.codex/prompts` 内の古い管理対象 prompt ファイルを検出することがあります。削除対象は OpenSpec が許可リストに登録した従来の Codex prompt ファイル名に限定されます。非対話型の `openspec init` は、置き換え先の `.agents/skills/openspec-*` スキルがあるファイルだけを削除します。非対話型の `openspec update` は、`--force` を指定しない限り、従来ファイルを削除しません。
 
 ### Commands didn't appear after migrating
 
@@ -186,7 +186,7 @@ IDE を再起動してください。スキルは起動時に検出されます�
 
 ### My old `project.md` wasn't migrated
 
-意図された動作です。OpenSpec は、あなたが書いたコンテキストが含まれている可能性があるため、`project.md` を自動で削除しません。有用な内容を `config.yaml` の `context:` 節に移してから、自分で削除してください。[移行ガイド](/ja-JP/migration-guide/#projectmd-を-configyaml-に移行する)では、この手順と、AI に要約を依頼するためのプロンプトを紹介しています。
+意図された動作です。OpenSpec は、あなたが書いたコンテキストが含まれている可能性があるため、`project.md` を自動で削除しません。有用な内容を `config.yaml` の `context:` 節に移してから、自分で削除してください。[移行ガイド](/ja-JP/migration-guide/#projectmd-を-configyaml-に移行する)では、この手順と、AI に要約を依頼するための prompt を紹介しています。
 
 ## まだ解決しませんか？
 

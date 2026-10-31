@@ -22,7 +22,7 @@ Esto deja de ser práctico cuando la planificación abarca más de un repositori
 - El equipo planifica antes de que exista el código, o planifica trabajo que
   nunca se convertirá en código en *este* repositorio.
 - Un equipo es responsable de los requisitos y otros los utilizan. La versión
-  de la wiki acaba desactualizada y, de todos modos, el agente de programación
+  de la wiki acaba desactualizada y, de todos modos, el coding agent
   no puede leerla.
 
 La solución es un **almacén**: un repositorio independiente dedicado a la
@@ -154,7 +154,7 @@ Using OpenSpec root: team-plans (/Users/you/openspec/team-plans)
 ...
 ```
 
-Este puntero es una alternativa, no una anulación: siempre prevalece un
+Este puntero es un fallback, no una anulación: siempre prevalece un
 `--store` explícito. Si el repositorio incorpora sus propias carpetas de
 planificación, estas prevalecen (y se muestra una advertencia para que elimines
 el puntero obsoleto).
@@ -208,7 +208,7 @@ incorporación.
 Seleccionar un almacén cambia la raíz de OpenSpec; no busca ni lee todos los
 repositorios de código que lo usan. Las instrucciones del almacén ven sus
 artefactos y el contexto configurado. Solo ven el código de los componentes si
-esas carpetas también están disponibles para el agente o editor y este las lee.
+esas carpetas también están disponibles para el agent o editor y este las lee.
 
 Un conjunto de trabajo permite abrir cómodamente el almacén de planificación y
 los dos repositorios de código al mismo tiempo:
@@ -224,7 +224,7 @@ openspec workset open checkout-promo
 
 Así, las carpetas quedan visibles en un mismo espacio de trabajo del IDE. Esto
 no copia al almacén el contexto de los repositorios, no selecciona los
-repositorios afectados ni concede al agente permiso para editarlos. Registra en
+repositorios afectados ni concede al agent permiso para editarlos. Registra en
 las especificaciones compartidas los datos duraderos que afecten a varios
 componentes; no confíes en que quien planifique recuerde el código que haya
 inspeccionado.
@@ -309,7 +309,7 @@ raíz `openspec/`, donde permanece el trabajo. Lo que cambia es que
 `openspec instructions` incluye un índice de las especificaciones del almacén
 referenciado, cada una con un resumen de una línea y el comando exacto para
 consultarla (`openspec show <spec-id> --type spec --store platform-reqs`). Un
-agente que trabaje en `api-server` puede encontrar y citar los requisitos
+agent que trabaje en `api-server` puede encontrar y citar los requisitos
 ascendentes de pagos y redactar el diseño detallado en la raíz del propio
 repositorio, sin que nadie tenga que copiarle el contexto.
 
@@ -369,7 +369,7 @@ Referenced stores
     Fetch: openspec show <spec-id> --type spec --store platform-reqs
 ```
 
-Ambos admiten `--json` para los agentes. Además,
+Ambos admiten `--json` para los agents. Además,
 `openspec context --code-workspace <path>` escribe un archivo de espacio de
 trabajo de VS Code que contiene todo el conjunto; es la única escritura que
 realiza este comando.
@@ -467,9 +467,9 @@ indica cuál de estos casos se aplica.
 - **Dos métodos para iniciar conjuntos de trabajo.** No se puede añadir como
   iniciador una herramienta que no admita un archivo de espacio de trabajo ni
   indicadores para adjuntar carpetas.
-- **El JSON de los agentes tiene una diferencia conocida en el uso de
+- **El JSON de los agents tiene una diferencia conocida en el uso de
   mayúsculas** (las claves de la familia de almacenes usan `snake_case` y las
-  de flujos de trabajo, `camelCase`). Se explica en el [contrato del agente](/es-ES/agent-contract/);
+  de flujos de trabajo, `camelCase`). Se explica en el [contrato del agent](/es-ES/agent-contract/);
   la unificación se pospone a una versión posterior.
 
 ## Dónde se guarda cada cosa
@@ -490,4 +490,4 @@ Windows.
 Consulta las opciones exactas y la estructura JSON de todos los comandos de
 esta página en la [referencia de la CLI](/es-ES/cli/) (Almacenes, Diagnóstico,
 Contexto de trabajo y Conjuntos de trabajo personales) y el [contrato del
-agente](/es-ES/agent-contract/).
+agent](/es-ES/agent-contract/).

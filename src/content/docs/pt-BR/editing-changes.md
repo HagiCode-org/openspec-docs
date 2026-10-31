@@ -2,7 +2,7 @@
 title: "Editando e iterando em uma mudança"
 ---
 
-**Todo artefato de uma mudança é apenas um arquivo Markdown que você pode editar a qualquer momento.** Não existe uma “fase de planejamento” bloqueada, etapa de aprovação ou modo especial de edição. Quer alterar a proposta depois de começar a implementação? Abra `proposal.md` e edite-o. Percebeu no meio da implementação que o design está errado? Corrija `design.md` e continue. Essa é toda a resposta — e foi assim que o processo foi projetado.
+**Todo artefato de uma mudança é apenas um arquivo Markdown que você pode editar a qualquer momento.** Não existe uma “fase de planejamento” bloqueada, approval gate ou modo especial de edição. Quer alterar a proposta depois de começar a implementação? Abra `proposal.md` e edite-o. Percebeu no meio da implementação que o design está errado? Corrija `design.md` e continue. Essa é toda a resposta — e foi assim que o processo foi projetado.
 
 Esta página é para quando você pensa: “espera, posso voltar e mudar isso?”. Sim. Veja como fazer em cada situação comum.
 
@@ -20,7 +20,7 @@ Use a opção que fizer mais sentido. É só um pequeno ajuste de texto? Edite o
 
 É só atualizá-la. É a mesma mudança, refinada.
 
-Se você usa os comandos expandidos, o fluxo natural é editar o artefato e executar `/opsx:continue` para retomar a partir do novo estado, ou `/opsx:apply` para continuar implementando com base no plano atualizado. Se usa os comandos padrão do perfil `core`, edite o artefato e execute `/opsx:apply`; ele lê os arquivos atuais e, portanto, implementa o que os artefatos descrevem naquele momento.
+Se você usa os comandos expandidos, o fluxo natural é editar o artefato e executar `/opsx:continue` para retomar a partir do novo estado, ou `/opsx:apply` para continuar implementando com base no plano atualizado. Se usa os comandos padrão do profile `core`, edite o artefato e execute `/opsx:apply`; ele lê os arquivos atuais e, portanto, implementa o que os artefatos descrevem naquele momento.
 
 O modelo mental é este: os artefatos são o plano vigente, não um contrato assinado. A IA sempre trabalha com o conteúdo atual deles, então editá-los direciona o trabalho.
 

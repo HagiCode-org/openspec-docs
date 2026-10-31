@@ -457,7 +457,7 @@ artifacts:
                 specs, design)
 ```
 
-**Abhängigkeiten ermöglichen Schritte, statt sie zu blockieren.** Sie zeigen, was erstellt werden kann, nicht, was Sie als Nächstes erstellen müssen. Wenn Sie keinen Entwurf benötigen, können Sie ihn überspringen. Sie können Spezifikationen vor oder nach dem Entwurf erstellen – beide hängen nur vom Vorschlag ab.
+**Abhängigkeiten ermöglichen Schritte, statt gates zu sein.** Sie zeigen, was erstellt werden kann, nicht, was Sie als Nächstes erstellen müssen. Wenn Sie keinen Entwurf benötigen, können Sie ihn überspringen. Sie können Spezifikationen vor oder nach dem Entwurf erstellen – beide hängen nur vom Vorschlag ab.
 
 ### Integrierte Schemas
 

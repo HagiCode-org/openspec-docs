@@ -34,7 +34,7 @@ AI アシスタントは間違っていても自信満々に答えるからで�
 
 ### 「対話モード」を開始するには？
 
-別のモードを開始する必要はありません。通常どおり AI アシスタントを開いて、チャットにスラッシュコマンドを入力します。スラッシュコマンドが OpenSpec を「開始」する方法です。（本当に対話型のターミナル機能は、仕様や change を閲覧するダッシュボード `openspec view` です。）詳しくは[コマンドの実行方法](/ja-JP/how-commands-work/)を参照してください。
+別のモードを開始する必要はありません。通常どおり AI アシスタントを開いて、チャットにスラッシュコマンドを入力します。スラッシュコマンドが OpenSpec を「開始」する方法です。（本当に対話型のターミナル機能は、仕様や change を閲覧する dashboard `openspec view` です。）詳しくは[コマンドの実行方法](/ja-JP/how-commands-work/)を参照してください。
 
 ### スラッシュコマンドを入力しても何も起きません。なぜですか？
 
@@ -52,7 +52,7 @@ AI ツールごとにカスタムコマンドの表示方法が異なるため�
 
 ### 何を作るか決まっていない場合、どこから始めればよいですか？
 
-`/opsx:explore` から始めてください。コードを書く前にコードベースを読み、選択肢を整理し、曖昧な問題を具体的な計画にする、リスクのない思考パートナーです。既定のプロファイルに含まれるため、いつでも使えます。計画が明確になったら `/opsx:propose` に引き継ぎます。AI が自信満々に間違ったものを作るのを防ぐ、最も有効な習慣です。[まず Explore](/ja-JP/explore/)を参照してください。
+`/opsx:explore` から始めてください。コードを書く前にコードベースを読み、選択肢を整理し、曖昧な問題を具体的な計画にする、リスクのない思考パートナーです。既定の profile に含まれるため、いつでも使えます。計画が明確になったら `/opsx:propose` に引き継ぎます。AI が自信満々に間違ったものを作るのを防ぐ、最も有効な習慣です。[まず Explore](/ja-JP/explore/)を参照してください。
 
 ### 最も簡単なワークフローは何ですか？
 
@@ -66,9 +66,9 @@ explore で考えを整理し、propose で計画を下書きし、apply で実�
 
 `/opsx:propose` は既定の一段階コマンドです。change を作成し、すべての計画成果物を一度に下書きします。`/opsx:new` は拡張コマンドセットの一部で、空の change のひな型だけを作成します。その後 `/opsx:continue` で成果物を1つずつ作成するか、`/opsx:ff` ですべてまとめて作成します。段階的に制御したい場合を除き、propose を使ってください。[コマンド](/ja-JP/commands/)を参照してください。
 
-### `core` と expanded プロファイルとは何ですか？
+### `core` と expanded profile とは何ですか？
 
-プロファイルでは、どのスラッシュコマンドをインストールするかを決めます。既定の **Core** では `propose`、`explore`、`apply`、`update`、`sync`、`archive` が使えます。**expanded** セットでは、より細かく制御できるよう `new`、`continue`、`ff`、`verify`、`bulk-archive`、`onboard` が追加されます。`openspec config profile` で切り替え、`openspec update` で適用します。
+profile では、どのスラッシュコマンドをインストールするかを決めます。既定の **Core** では `propose`、`explore`、`apply`、`update`、`sync`、`archive` が使えます。**expanded** セットでは、より細かく制御できるよう `new`、`continue`、`ff`、`verify`、`bulk-archive`、`onboard` が追加されます。`openspec config profile` で切り替え、`openspec update` で適用します。
 
 ### `/opsx:sync` を実行する必要がありますか？
 

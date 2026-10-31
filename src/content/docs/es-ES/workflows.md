@@ -110,9 +110,9 @@ sequenceDiagram
 
 ## Dos modos
 
-### Ruta rápida predeterminada (perfil `core`)
+### Ruta rápida predeterminada (profile `core`)
 
-Las instalaciones nuevas usan el perfil predeterminado `core`, que ofrece:
+Las instalaciones nuevas usan el profile predeterminado `core`, que ofrece:
 - `/opsx:explore`
 - `/opsx:propose`
 - `/opsx:apply`
@@ -129,7 +129,7 @@ Flujo habitual:
 
 #### Empieza por explorar (un hábito que merece la pena adquirir)
 
-`/opsx:explore` forma parte del perfil predeterminado, no es un complemento
+`/opsx:explore` forma parte del profile predeterminado, no es un complemento
 avanzado. Conviene usarlo siempre que tengas un problema, pero aún no un plan;
 con un asistente de IA, eso ocurre la mayoría de las veces.
 
@@ -562,7 +562,7 @@ Para ver todos los detalles y las opciones de los comandos, consulta
 
 | Comando | Función | Cuándo usarlo |
 |---------|---------|-------------|
-| `/opsx:propose` | Crear el cambio y sus artefactos de planificación | Ruta rápida predeterminada (perfil `core`) |
+| `/opsx:propose` | Crear el cambio y sus artefactos de planificación | Ruta rápida predeterminada (profile `core`) |
 | `/opsx:explore` | Analizar ideas con la IA | Empieza aquí si tienes dudas: requisitos poco claros, investigación o comparación de opciones |
 | `/opsx:new` | Crear la estructura inicial de un cambio | Modo ampliado, control explícito de artefactos |
 | `/opsx:continue` | Crear el siguiente artefacto | Modo ampliado, creación de artefactos paso a paso |

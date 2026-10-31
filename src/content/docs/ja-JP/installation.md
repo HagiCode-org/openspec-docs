@@ -33,9 +33,9 @@ macOS では、ブラウザでダウンロードしたファイルは `xattr -d 
 
 ## AI アシスタントを使ってインストールする
 
-手動で操作したくない場合は、以下のプロンプトをシェルコマンドを実行できるコーディングアシスタント（Claude Code、Codex、Cursor、Gemini CLI、Copilot などの[対応ツール](/ja-JP/supported-tools/)）に貼り付けてください。CLI をインストールし、このプロジェクトを初期化して、実際に行った内容を報告します。
+手動で操作したくない場合は、以下の prompt をシェルコマンドを実行できるコーディングアシスタント（Claude Code、Codex、Cursor、Gemini CLI、Copilot などの[対応ツール](/ja-JP/supported-tools/)）に貼り付けてください。CLI をインストールし、このプロジェクトを初期化して、実際に行った内容を報告します。
 
-以下の手動手順が正式な情報源であり、プロンプトはその手順を代わりに実行するだけです。アシスタントが途中で停止し、作業を引き継いでも、それは意図された動作です。権限が必要な操作の前に確認し、シェルの起動ファイルを編集することはありません。[インストール](#インストール)と[トラブルシューティング](/ja-JP/troubleshooting/)を参照して、残りの作業を自分で完了してください。
+以下の手動手順が正式な情報源であり、prompt はその手順を代わりに実行するだけです。アシスタントが途中で停止し、作業を引き継いでも、それは意図された動作です。権限が必要な操作の前に確認し、シェルの起動ファイルを編集することはありません。[インストール](#インストール)と[トラブルシューティング](/ja-JP/troubleshooting/)を参照して、残りの作業を自分で完了してください。
 
 ```text
 Install OpenSpec in this project and set it up for me. Follow these steps in
@@ -116,7 +116,7 @@ order, and stop where a step tells you to stop.
    or $openspec-propose in Codex, or /skill:openspec-propose in Kimi Code).
 ```
 
-このプロンプトにベンダー固有の要素はありません。このページで説明するコマンドと通常の指示だけです。macOS、Linux、Windows で動作し、許可が必要な手順では勝手に進めずに停止します。ただし、アシスタントはシェルコマンドを実行できる必要があります。一部の IDE 統合では実行できません。
+この prompt にベンダー固有の要素はありません。このページで説明するコマンドと通常の指示だけです。macOS、Linux、Windows で動作し、許可が必要な手順では勝手に進めずに停止します。ただし、アシスタントはシェルコマンドを実行できる必要があります。一部の IDE 統合では実行できません。
 
 ## パッケージマネージャー
 
@@ -176,7 +176,7 @@ bun add -g @fission-ai/openspec@latest
 nix run github:Fission-AI/OpenSpec -- init
 ```
 
-または、プロファイルにインストールします。
+または、profile にインストールします。
 
 ```bash
 nix profile install github:Fission-AI/OpenSpec

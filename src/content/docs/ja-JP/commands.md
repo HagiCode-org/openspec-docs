@@ -10,7 +10,7 @@ OpenSpec のスラッシュコマンドのリファレンスです。これら�
 
 ## クイックリファレンス
 
-### 既定の簡易フロー（`core` プロファイル）
+### 既定の簡易フロー（`core` profile）
 
 | コマンド | 目的 |
 |---------|---------|
@@ -32,7 +32,7 @@ OpenSpec のスラッシュコマンドのリファレンスです。これら�
 | `/opsx:bulk-archive` | 複数の change を一度にアーカイブ |
 | `/opsx:onboard` | ワークフロー全体をガイド付きで学ぶ |
 
-既定のグローバルプロファイルは `core` です。拡張ワークフローコマンドを有効にするには、`openspec config profile` を実行してワークフローを選択し、プロジェクト内で `openspec update` を実行します。
+既定のグローバル profile は `core` です。拡張ワークフローコマンドを有効にするには、`openspec config profile` を実行してワークフローを選択し、プロジェクト内で `openspec update` を実行します。
 
 ---
 
@@ -40,7 +40,7 @@ OpenSpec のスラッシュコマンドのリファレンスです。これら�
 
 ### `/opsx:propose`
 
-新しい change を作成し、計画成果物を一度に生成します。`core` プロファイルの既定の開始コマンドです。
+新しい change を作成し、計画成果物を一度に生成します。`core` profile の既定の開始コマンドです。
 
 **構文:**
 ```text
@@ -77,7 +77,7 @@ AI:  openspec/changes/add-dark-mode/ を作成しました
 
 ### `/opsx:explore`
 
-> **迷っている場合はここから始めましょう。** explore はリスクのない思考パートナーです。コードを書く前にコードベースを読み、選択肢を比較し、曖昧なアイデアを具体的な計画にします。既定のプロファイルに含まれます。詳しい説明とその他の例は[まず Explore](/ja-JP/explore/)ガイドを参照してください。
+> **迷っている場合はここから始めましょう。** explore はリスクのない思考パートナーです。コードを書く前にコードベースを読み、選択肢を比較し、曖昧なアイデアを具体的な計画にします。既定の profile に含まれます。詳しい説明とその他の例は[まず Explore](/ja-JP/explore/)ガイドを参照してください。
 
 change に着手する前にアイデアを検討し、問題を調査し、要件を明確にします。
 
@@ -144,7 +144,7 @@ AI:  openspec/changes/add-jwt-auth/ を開始しました。
 
 新しい change のひな型を作成します。change フォルダーを作り、`/opsx:continue` または `/opsx:ff` で成果物が生成されるのを待ちます。
 
-このコマンドは拡張ワークフローセットの一部です（既定の `core` プロファイルには含まれません）。
+このコマンドは拡張ワークフローセットの一部です（既定の `core` profile には含まれません）。
 
 **構文:**
 ```
@@ -613,7 +613,7 @@ AI:  ✓ add-dark-mode をアーカイブしました
 
 **ヒント:**
 - 並行作業に適しています。
-- エージェントがコードベースを確認して競合を解決します。
+- agent がコードベースを確認して競合を解決します。
 - change は作成順にアーカイブされます。
 - 仕様内容を上書きする前に確認を求めます。
 
@@ -694,11 +694,11 @@ AI ツールによってコマンド構文が少しずつ異なります。使�
 > **Devin Desktop と Devin Local:** `.devin/workflows/opsx-*.md` ファイルを使うと
 > Devin Desktop では `/opsx-propose` を実行できます。Devin Local はワークフローに
 > 対応しないため、OpenSpec が `.devin/skills/` に作成するスキル（例: `/openspec-propose`）を
-> 使用してください。これらは両方のエージェントで使えます。
+> 使用してください。これらは両方の agent で使えます。
 
 意図はどのツールでも同じですが、コマンドの表示方法は統合によって異なる場合があります。[呼び出し方法](/ja-JP/supported-tools/#呼び出し方法)に対応するすべてのツールを記載しています。この表は各形式の例のみを示します。
 
-> **注:** GitHub Copilot のコマンド（`.github/prompts/*.prompt.md`）は IDE 拡張機能（VS Code、JetBrains、Visual Studio）でのみ利用できます。現在 GitHub Copilot CLI はカスタムプロンプトファイルに対応していません。詳細と回避策は[対応ツール](/ja-JP/supported-tools/)を参照してください。
+> **注:** GitHub Copilot のコマンド（`.github/prompts/*.prompt.md`）は IDE 拡張機能（VS Code、JetBrains、Visual Studio）でのみ利用できます。現在 GitHub Copilot CLI はカスタム prompt ファイルに対応していません。詳細と回避策は[対応ツール](/ja-JP/supported-tools/)を参照してください。
 
 ---
 

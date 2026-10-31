@@ -17,7 +17,7 @@ openspec --version
 
 Si l'installation a réussi mais que la commande reste introuvable, le répertoire global `bin` de npm n'est probablement pas dans votre `PATH`. Exécutez `npm prefix -g` pour connaître l'emplacement des paquets globaux : sous macOS et Linux, les exécutables sont dans le sous-répertoire `bin/` ; sous Windows, ils se trouvent directement dans ce répertoire. Vérifiez que le chemin correspondant figure dans votre `PATH`. (`npm bin -g` a été supprimé dans npm 9.)
 
-Si vous avez utilisé l'[installation assistée par IA](/fr-FR/installation/#installer-avec-votre-assistant-ia), cet arrêt est prévu : l'instruction demande à l'assistant de vous montrer comment modifier le `PATH` sans toucher lui-même aux fichiers de démarrage du shell.
+Si vous avez utilisé l'[installation assistée par IA](/fr-FR/installation/#installer-avec-votre-assistant-ia), cet arrêt est prévu : le prompt demande à l'assistant de vous montrer comment modifier le `PATH` sans toucher lui-même aux fichiers de démarrage du shell.
 
 ### « Requires Node.js 20.19.0 or higher »
 
@@ -134,7 +134,7 @@ openspec archive <change-name> --yes
 
 Conservez les éventuelles autres options déjà utilisées : `--skip-specs` et `--no-validate` modifient le comportement de l'archivage ; une nouvelle exécution avec `--yes` seul n'est donc pas équivalente. Les versions récentes indiquent le nom de l'option et affichent une ligne `Fix:` prête à coller. Si vous vouliez choisir dans une liste, indiquez explicitement le nom du changement : le sélecteur nécessite lui aussi une réponse.
 
-Si vous avez redirigé ou capturé la sortie d'archive dans un fichier avec une ancienne version et fourni une réponse par tube (`printf 'y\n' | openspec archive …`), l'affichage de l'invite pouvait écrire des codes d'échappement du terminal dans le fichier capturé — au point parfois de le faire grossir considérablement. Les versions récentes lisent les confirmations en texte brut lorsque stdout n'est pas un terminal. De plus, `openspec archive` sans argument (qui afficherait autrement un sélecteur interactif) demande désormais un nom explicite au lieu d'afficher un menu dans la capture. Ainsi, les exécutions redirigées ou par agent restent propres ; l'option `--yes` avec le nom du changement supprime entièrement les invites.
+Si vous avez redirigé ou capturé la sortie d'archive dans un fichier avec une ancienne version et fourni une réponse par tube (`printf 'y\n' | openspec archive …`), l'affichage du prompt pouvait écrire des codes d'échappement du terminal dans le fichier capturé — au point parfois de le faire grossir considérablement. Les versions récentes lisent les confirmations en texte brut lorsque stdout n'est pas un terminal. De plus, `openspec archive` sans argument (qui afficherait autrement un sélecteur interactif) demande désormais un nom explicite au lieu d'afficher un menu dans la capture. Ainsi, les exécutions redirigées ou par agent restent propres ; l'option `--yes` avec le nom du changement supprime entièrement les prompts.
 
 ## Configuration
 
@@ -180,7 +180,7 @@ Vous êtes en CI ou dans un shell non interactif. OpenSpec a trouvé d'anciens f
 openspec init --force
 ```
 
-Avec Codex, OpenSpec peut détecter d'anciens fichiers d'invite gérés dans `$CODEX_HOME/prompts` ou `~/.codex/prompts`. Le nettoyage est limité aux noms de fichiers d'invite Codex obsolètes explicitement autorisés par OpenSpec. En mode non interactif, `openspec init` ne supprime que les fichiers remplacés par des skills `.agents/skills/openspec-*` existants. En mode non interactif, `openspec update` ne touche pas aux anciens fichiers, sauf si vous lui transmettez `--force`.
+Avec Codex, OpenSpec peut détecter d'anciens fichiers prompt gérés dans `$CODEX_HOME/prompts` ou `~/.codex/prompts`. Le nettoyage est limité aux noms de fichiers prompt Codex obsolètes explicitement autorisés par OpenSpec. En mode non interactif, `openspec init` ne supprime que les fichiers remplacés par des skills `.agents/skills/openspec-*` existants. En mode non interactif, `openspec update` ne touche pas aux anciens fichiers, sauf si vous lui transmettez `--force`.
 
 ### Les commandes ne sont pas apparues après la migration
 
@@ -188,7 +188,7 @@ Redémarrez votre IDE : les skills sont détectés au démarrage. S'ils n'appara
 
 ### Mon ancien fichier `project.md` n'a pas été migré
 
-C'est voulu. OpenSpec ne supprime jamais automatiquement `project.md`, car il peut contenir du contexte que vous avez écrit. Déplacez les informations utiles dans le champ `context:` de `config.yaml`, puis supprimez vous-même l'ancien fichier. Le [Guide de migration](/fr-FR/migration-guide/#migrer-projectmd-vers-configyaml) explique la marche à suivre et propose une consigne à transmettre à l'IA pour en extraire les informations utiles.
+C'est voulu. OpenSpec ne supprime jamais automatiquement `project.md`, car il peut contenir du contexte que vous avez écrit. Déplacez les informations utiles dans le champ `context:` de `config.yaml`, puis supprimez vous-même l'ancien fichier. Le [Guide de migration](/fr-FR/migration-guide/#migrer-projectmd-vers-configyaml) explique la marche à suivre et propose un prompt à transmettre à l'IA pour en extraire les informations utiles.
 
 ## Toujours bloqué ?
 

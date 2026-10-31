@@ -42,7 +42,7 @@ C'est tout l'intérêt de la commande. Explorer ne coûte rien et ne vous engage
 
 ## Déjà installé
 
-Bonne nouvelle : `/opsx:explore` fait partie du profil **core** par défaut, avec `propose`, `apply`, `update`, `sync` et `archive`. Rien à activer. Si OpenSpec est configuré dans votre projet, Explore est prête dans votre conversation avec l'IA. (Comme toutes les commandes `/opsx:*`, saisissez-la dans la conversation de l'assistant, pas dans le terminal. Voir [Fonctionnement des commandes](/fr-FR/how-commands-work/).)
+Bonne nouvelle : `/opsx:explore` fait partie du profile **core** par défaut, avec `propose`, `apply`, `update`, `sync` et `archive`. Rien à activer. Si OpenSpec est configuré dans votre projet, Explore est prête dans votre conversation avec l'IA. (Comme toutes les commandes `/opsx:*`, saisissez-la dans la conversation de l'assistant, pas dans le terminal. Voir [Fonctionnement des commandes](/fr-FR/how-commands-work/).)
 
 ## Exemple complet
 

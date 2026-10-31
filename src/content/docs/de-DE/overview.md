@@ -23,7 +23,7 @@ proposal ──► specs ──► design ──► tasks ──► implement
    why        what       how       steps      do it
 ```
 
-Sie können jederzeit zu jedem dieser Dokumente zurückkehren. Sie ermöglichen den nächsten Schritt, statt ihn zu erzwingen. (Weiter unten erfahren Sie mehr dazu.)
+Sie können jederzeit zu jedem dieser Dokumente zurückkehren. Sie ermöglichen den nächsten Schritt, statt gates zu sein. (Weiter unten erfahren Sie mehr dazu.)
 
 **5. Beim Archivieren fließt die Änderung zurück in die maßgebliche Spezifikation.** Wenn die Arbeit abgeschlossen ist, archivieren Sie die Änderung. Ihre Delta-Spezifikationen werden mit den Hauptspezifikationen zusammengeführt, und der Änderungsordner wird mit Datumsstempel nach `changes/archive/` verschoben. Nun beschreiben Ihre Spezifikationen die neue Realität, und Sie können mit der nächsten Änderung beginnen. Der Kreislauf ist geschlossen.
 
@@ -58,7 +58,7 @@ In der Standardeinrichtung sieht Ihr Ablauf so aus. Denken Sie optional zuerst d
 /opsx:archive                   →  specs updated, change archived
 ```
 
-**Beginnen Sie im Zweifel mit dem Erkunden.** `/opsx:explore` ist ein Denkpartner ohne Verpflichtungen: Der Befehl liest Ihren Code, zeigt Optionen auf und wandelt eine vage Idee in einen konkreten Plan um, bevor Code geschrieben wird. Das ist das beste Gegenmittel gegen eine KI, die sonst aufgrund einer ungenauen Eingabe einfach *irgendetwas* baut. Wissen Sie bereits genau, was Sie möchten? Dann fahren Sie direkt mit `/opsx:propose` fort. In jedem Fall ist „Explore“ im Standardprofil enthalten und immer verfügbar. Siehe den [Leitfaden zum Erkunden](/de-DE/explore/).
+**Beginnen Sie im Zweifel mit dem Erkunden.** `/opsx:explore` ist ein Denkpartner ohne Verpflichtungen: Der Befehl liest Ihren Code, zeigt Optionen auf und wandelt eine vage Idee in einen konkreten Plan um, bevor Code geschrieben wird. Das ist das beste Gegenmittel gegen eine KI, die sonst bei einem ungenauen prompt einfach *irgendetwas* baut. Wissen Sie bereits genau, was Sie möchten? Dann fahren Sie direkt mit `/opsx:propose` fort. In jedem Fall ist „Explore“ im Standard profile enthalten und immer verfügbar. Siehe den [Leitfaden zum Erkunden](/de-DE/explore/).
 
 Das sind Slash-Befehle, die Sie im Chat Ihres KI-Assistenten eingeben. Die Einrichtung (`openspec init`) erfolgt im Terminal. Wenn diese Trennung neu für Sie ist, lesen Sie zuerst [So funktionieren Befehle](/de-DE/how-commands-work/); sie ist die häufigste Ursache für Verwirrung.
 

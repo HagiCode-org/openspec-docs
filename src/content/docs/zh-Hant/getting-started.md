@@ -26,7 +26,7 @@ AI CHAT      /opsx:archive                    (specs updated, change filed away)
 
 設定只需在終端中執行兩步，之後就在聊天中完成操作。（Windows、npm 及其他安裝方式請參閱[安裝指南](/zh-Hant/installation/)。）本指南餘下部分將逐一介紹每一步的作用以及你會看到的內容。
 
-**不想自己在終端中操作？** 將[設定提示詞](/zh-Hant/installation/#使用-ai-助手安裝)貼上給助手，它會處理這兩行命令，並報告建立了什麼。
+**不想自己在終端中操作？** 將[設定 prompt](/zh-Hant/installation/#使用-ai-助手安裝)貼上給助手，它會處理這兩行命令，並報告建立了什麼。
 
 > **還不確定要建置什麼？從 `/opsx:explore` 開始。** 它是一位沒有壓力的思考夥伴，會讀取程式碼庫、權衡選項，並在編寫任何程式碼之前，把模糊想法整理成具體計畫。思路明確後，它會交由 `/opsx:propose` 繼續。這是與 AI 合作時最值得養成的習慣，因為 AI 否則可能會自信地建置出錯誤的內容。參閱[探索指南](/zh-Hant/explore/)。
 
@@ -34,14 +34,14 @@ AI CHAT      /opsx:archive                    (specs updated, change filed away)
 
 OpenSpec 幫助你和 AI 程式設計助手在編寫程式碼之前，就要建置什麼達成一致。
 
-**預設快捷路徑（core 設定檔案）：**
+**預設快捷路徑（core profile）：**
 
 ```text
 /opsx:explore ──► /opsx:propose ──► /opsx:apply ──► /opsx:sync ──► /opsx:archive
    (optional)
 ```
 
-還在考慮該做什麼時，從 `/opsx:explore` 開始；已經清楚要做什麼時，可以直接使用 `/opsx:propose`。預設設定檔案中包含 Explore，因此需要時隨時可用。
+還在考慮該做什麼時，從 `/opsx:explore` 開始；已經清楚要做什麼時，可以直接使用 `/opsx:propose`。預設 profile 中包含 Explore，因此需要時隨時可用。
 
 **擴充套件路徑（自訂工作流程選擇）：**
 
@@ -49,7 +49,7 @@ OpenSpec 幫助你和 AI 程式設計助手在編寫程式碼之前，就要建�
 /opsx:new ──► /opsx:ff or /opsx:continue ──► /opsx:apply ──► /opsx:verify ──► /opsx:archive
 ```
 
-預設的全域設定檔案是 `core`，其中包含 `propose`、`explore`、`apply`、`update`、`sync` 和 `archive`。你可以透過 `openspec config profile` 啟用擴充套件工作流程命令，然後執行 `openspec update`。
+預設的全域 profile 是 `core`，其中包含 `propose`、`explore`、`apply`、`update`、`sync` 和 `archive`。你可以透過 `openspec config profile` 啟用擴充套件工作流程命令，然後執行 `openspec update`。
 
 ## OpenSpec 會建立什麼
 
@@ -163,7 +163,7 @@ AI:  Created openspec/changes/add-dark-mode/
      Ready for implementation!
 ```
 
-如果你啟用了擴充套件工作流程設定檔案，也可以分兩步完成：先執行 `/opsx:new`，然後執行 `/opsx:ff`（或透過 `/opsx:continue` 逐步完成）。
+如果你啟用了擴充套件工作流程 profile，也可以分兩步完成：先執行 `/opsx:new`，然後執行 `/opsx:ff`（或透過 `/opsx:continue` 逐步完成）。
 
 ### 2. 建立的內容
 

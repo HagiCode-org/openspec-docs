@@ -18,7 +18,7 @@ já usam o formato correto.
 
 ## Referência rápida
 
-### Caminho rápido padrão (perfil `core`)
+### Caminho rápido padrão (profile `core`)
 
 | Comando | Finalidade |
 |---------|---------|
@@ -40,7 +40,7 @@ já usam o formato correto.
 | `/opsx:bulk-archive` | Arquivar várias mudanças de uma vez |
 | `/opsx:onboard` | Tutorial guiado de todo o fluxo de trabalho |
 
-O perfil global padrão é `core`. Para habilitar os comandos de fluxo de
+O profile global padrão é `core`. Para habilitar os comandos de fluxo de
 trabalho expandido, execute `openspec config profile`, selecione os fluxos e
 depois execute `openspec update` no projeto.
 
@@ -51,7 +51,7 @@ depois execute `openspec update` no projeto.
 ### `/opsx:propose`
 
 Crie uma nova mudança e gere os artefatos de planejamento em uma etapa. Este é
-o comando inicial padrão no perfil `core`.
+o comando inicial padrão no profile `core`.
 
 **Sintaxe:**
 ```text
@@ -91,7 +91,7 @@ AI:  Created openspec/changes/add-dark-mode/
 > **Comece aqui se estiver em dúvida.** Explore é um parceiro de reflexão sem
 > compromisso: lê sua base de código, compara opções e transforma uma ideia
 > vaga em um plano concreto antes que qualquer código seja escrito. Ele está
-> incluído no perfil padrão. Para saber mais e ver outros exemplos, consulte o
+> incluído no profile padrão. Para saber mais e ver outros exemplos, consulte o
 > guia [Comece explorando](/pt-BR/explore/).
 
 Reflita sobre ideias, investigue problemas e esclareça os requisitos antes de
@@ -160,7 +160,7 @@ Inicie a estrutura de uma nova mudança. Cria a pasta da mudança e aguarda que
 você gere artefatos com `/opsx:continue` ou `/opsx:ff`.
 
 Este comando faz parte do conjunto de fluxos expandidos (não está incluído no
-perfil padrão `core`).
+profile padrão `core`).
 
 **Sintaxe:**
 ```
@@ -722,7 +722,7 @@ Use o formato correspondente à sua ferramenta:
 > **Devin Desktop e Devin Local:** os arquivos
 > `.devin/workflows/opsx-*.md` fornecem `/opsx-propose` ao Devin Desktop. O
 > Devin Local não tem workflows; use as skills que o OpenSpec grava em
-> `.devin/skills/`, como `/openspec-propose`, compatíveis com os dois agentes.
+> `.devin/skills/`, como `/openspec-propose`, compatíveis com os dois agents.
 
 A intenção é a mesma em todas as ferramentas, mas a forma de apresentar os
 comandos pode variar conforme a integração. [Como invocar](/pt-BR/supported-tools/#como-invocar)

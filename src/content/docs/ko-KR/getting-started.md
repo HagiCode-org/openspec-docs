@@ -26,7 +26,7 @@ AI CHAT      /opsx:archive                    (specs updated, change filed away)
 
 터미널에서 두 단계를 설정한 뒤에는 채팅에서 작업합니다. (Windows, npm 등 다른 설치 방법은 [설치 안내서](/ko-KR/installation/)에 있습니다.) 이 안내서의 나머지 부분에서 각 단계의 기능과 예상 결과를 설명합니다.
 
-**터미널에서 직접 설정하고 싶지 않나요?** [설정 프롬프트](/ko-KR/installation/#ai-어시스턴트를-사용해-설치하기)를 어시스턴트에 붙여 넣으면 두 명령을 처리하고 생성된 내용을 알려 줍니다.
+**터미널에서 직접 설정하고 싶지 않나요?** [설정 prompt](/ko-KR/installation/#ai-어시스턴트를-사용해-설치하기)를 어시스턴트에 붙여 넣으면 두 명령을 처리하고 생성된 내용을 알려 줍니다.
 
 > **무엇을 만들지 아직 확신이 없나요? `/opsx:explore`로 시작하세요.** 코드를 작성하기 전에 코드베이스를 읽고 선택지를 비교하며 막연한 아이디어를 구체적인 계획으로 발전시키는 부담 없는 사고 파트너입니다. 방향이 명확해지면 `/opsx:propose`로 이어집니다. 엉뚱한 내용을 자신 있게 구현할 수 있는 AI와 작업할 때 꼭 익혀야 할 습관입니다. [탐색 안내서](/ko-KR/explore/)를 참조하세요.
 
@@ -34,14 +34,14 @@ AI CHAT      /opsx:archive                    (specs updated, change filed away)
 
 OpenSpec은 코드 작성 전에 사용자와 AI 코딩 어시스턴트가 무엇을 만들지 합의하도록 돕습니다.
 
-**기본 빠른 경로(core 프로필):**
+**기본 빠른 경로(core profile):**
 
 ```text
 /opsx:explore ──► /opsx:propose ──► /opsx:apply ──► /opsx:sync ──► /opsx:archive
    (optional)
 ```
 
-무엇을 할지 고민 중이라면 `/opsx:explore`부터 시작하고, 이미 알고 있다면 바로 `/opsx:propose`로 넘어가세요. 탐색 기능은 기본 프로필에 포함되어 있으므로 언제든 사용할 수 있습니다.
+무엇을 할지 고민 중이라면 `/opsx:explore`부터 시작하고, 이미 알고 있다면 바로 `/opsx:propose`로 넘어가세요. 탐색 기능은 기본 profile에 포함되어 있으므로 언제든 사용할 수 있습니다.
 
 **확장 경로(사용자 지정 워크플로 선택):**
 
@@ -49,7 +49,7 @@ OpenSpec은 코드 작성 전에 사용자와 AI 코딩 어시스턴트가 무�
 /opsx:new ──► /opsx:ff or /opsx:continue ──► /opsx:apply ──► /opsx:verify ──► /opsx:archive
 ```
 
-기본 전역 프로필은 `core`이며 `propose`, `explore`, `apply`, `update`, `sync`, `archive`가 포함됩니다. `openspec config profile`로 확장 워크플로 명령을 활성화한 뒤 `openspec update`를 실행하세요.
+기본 전역 profile은 `core`이며 `propose`, `explore`, `apply`, `update`, `sync`, `archive`가 포함됩니다. `openspec config profile`로 확장 워크플로 명령을 활성화한 뒤 `openspec update`를 실행하세요.
 
 ## OpenSpec이 생성하는 항목
 
@@ -164,7 +164,7 @@ AI:  Created openspec/changes/add-dark-mode/
      Ready for implementation!
 ```
 
-확장 워크플로 프로필을 활성화했다면 두 단계로 진행할 수도 있습니다. 먼저 `/opsx:new`를 실행한 다음 `/opsx:ff`를 실행하거나 `/opsx:continue`로 하나씩 진행하세요.
+확장 워크플로 profile을 활성화했다면 두 단계로 진행할 수도 있습니다. 먼저 `/opsx:new`를 실행한 다음 `/opsx:ff`를 실행하거나 `/opsx:continue`로 하나씩 진행하세요.
 
 ### 2. 생성되는 항목
 

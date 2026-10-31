@@ -33,7 +33,7 @@ Diese Befehle sind interaktiv und für das Terminal bestimmt:
 
 | Befehl | Zweck |
 |---------|---------|
-| `openspec init` | Projekt initialisieren (interaktive Eingabeaufforderungen) |
+| `openspec init` | Projekt initialisieren (interaktive prompts) |
 | `openspec view` | Interaktives Dashboard |
 | `openspec workset open <name>` | Gespeichertes Workset öffnen (Editorfenster oder Terminal-Agent-Sitzung) |
 | `openspec config edit` | Konfiguration im Editor öffnen |
@@ -84,7 +84,7 @@ Diese Optionen gelten für alle Befehle:
 
 Initialisiert OpenSpec in Ihrem Projekt. Erstellt die Ordnerstruktur und konfiguriert Integrationen für KI-Tools.
 
-Standardmäßig werden die globalen Konfigurationswerte verwendet: Profil `core`, Bereitstellung `both`, Workflows `propose, explore, apply, update, sync, archive`.
+Standardmäßig werden die globalen Konfigurationswerte verwendet: profile `core`, Bereitstellung `both`, Workflows `propose, explore, apply, update, sync, archive`.
 
 ```
 openspec init [path] [options]
@@ -106,11 +106,11 @@ der Konfiguration, damit OpenSpec projektspezifische Hinweise niemals überschre
 |--------|-------------|
 | `--tools <list>` | KI-Tools nicht-interaktiv konfigurieren. Verwenden Sie `all`, `none` oder eine kommagetrennte Liste. |
 | `--language <language>` | Beim Erstellen einer neuen Konfiguration Artefakte in dieser Sprache verfassen. |
-| `--force` | Alte Dateien ohne Rückfrage automatisch bereinigen. |
-| `--profile <profile>` | Das globale Profil für diesen init-Aufruf überschreiben (`core` oder `custom`). |
+| `--force` | Alte Dateien ohne prompt automatisch bereinigen. |
+| `--profile <profile>` | Das globale profile für diesen init-Aufruf überschreiben (`core` oder `custom`). |
 | `--no-animation` | Einen statischen statt des animierten Begrüßungsbildschirms anzeigen. |
-| `--copilot-cloud` | GitHub-Copilot-Dateien für den [Cloud-Codieragenten](/de-DE/supported-tools/#github-copilot-cloud-codieragent) ohne Rückfrage einrichten. |
-| `--no-copilot-cloud` | GitHub-Copilot-Dateien für den Cloud-Codieragenten ohne Rückfrage überspringen. |
+| `--copilot-cloud` | GitHub-Copilot-Dateien für den [cloud coding-agent](/de-DE/supported-tools/#github-copilot-cloud-codieragent) ohne prompt einrichten. |
+| `--no-copilot-cloud` | GitHub-Copilot-Dateien für den cloud coding-agent ohne prompt überspringen. |
 
 `--profile custom` verwendet die Workflows, die derzeit in der globalen Konfiguration ausgewählt sind (`openspec config profile`).
 
@@ -164,7 +164,7 @@ openspec/
 
 ### `openspec update`
 
-Aktualisiert die OpenSpec-Anweisungsdateien nach einem CLI-Upgrade. Generiert Konfigurationsdateien für KI-Tools anhand Ihres aktuellen globalen Profils, der ausgewählten Workflows und des Bereitstellungsmodus neu.
+Aktualisiert die OpenSpec-Anweisungsdateien nach einem CLI-Upgrade. Generiert Konfigurationsdateien für KI-Tools anhand Ihres aktuellen globalen profile, der ausgewählten Workflows und des Bereitstellungsmodus neu.
 
 ```
 openspec update [path] [options]
@@ -211,7 +211,7 @@ openspec update --dry-run --json
 }
 ```
 
-Der Plan entspricht dem, was ein nicht interaktiver Lauf tun würde, und listet jede Datei auf, die er berühren würde: Verschiebungen aus dem früheren Verzeichnis eines Tools, das globale Speichern der Konfiguration bei einer Installation von vor den Profilen, die Dateien des Copilot-Cloud-Agents und bei `--force` die Bereinigung alter Artefakte. Dateien, die zu OpenSpec selbst statt zu einem einzelnen Tool gehören, haben `tool: "openspec"`. `notes` markiert Schritte, nach denen ein Terminalnutzer gefragt würde, jeweils mit einem stabilen `code`: `legacy-tool-directories` (eine als erledigt aufgeführte Verschiebung) und `legacy-artifacts` (Dateien im alten Layout, die das Update ohne `--force` unverändert lässt). `failures` listet Tools auf, bei denen das echte Update fehlschlagen würde, einschließlich Schreibvorgängen, die es nicht ausführen kann (ein Verzeichnis an der Stelle einer Datei, fehlende Schreibberechtigung). Für dieses Tool endet der Plan dort, wo das Update enden würde, und ein kaputtes Tool kostet Sie nicht den Rest des Plans. Bei einer gewöhnlichen Aktualisierung sind beide Listen leer.
+Der Plan entspricht dem, was ein nicht interaktiver Lauf tun würde, und listet jede Datei auf, die er berühren würde: Verschiebungen aus dem früheren Verzeichnis eines Tools, das globale Speichern der Konfiguration bei einer Installation von vor den profiles, die Dateien vom Copilot-Cloud-Agent und bei `--force` die Bereinigung alter Artefakte. Dateien, die zu OpenSpec selbst statt zu einem einzelnen Tool gehören, haben `tool: "openspec"`. `notes` markiert Schritte, nach denen ein Terminalnutzer gefragt würde, jeweils mit einem stabilen `code`: `legacy-tool-directories` (eine als erledigt aufgeführte Verschiebung) und `legacy-artifacts` (Dateien im alten Layout, die das Update ohne `--force` unverändert lässt). `failures` listet Tools auf, bei denen das echte Update fehlschlagen würde, einschließlich Schreibvorgängen, die es nicht ausführen kann (ein Verzeichnis an der Stelle einer Datei, fehlende Schreibberechtigung). Für dieses Tool endet der Plan dort, wo das Update enden würde, und ein kaputtes Tool kostet Sie nicht den Rest des Plans. Bei einer gewöhnlichen Aktualisierung sind beide Listen leer.
 Die vollständige Referenz finden Sie unter [openspec.dev/docs/cli](https://openspec.dev/docs/cli).
 
 Ein `--dry-run --json`-Fehler gibt weiterhin genau ein JSON-Dokument aus, den leeren Plan mit einem Array `status`, und endet mit einem Exitcode ungleich null.
@@ -232,7 +232,7 @@ Das Angebot erscheint nur in einem interaktiven Terminal und nur, wenn npm die I
 
 | Installationsart von OpenSpec | Ausgabe |
 |---------------------------|--------------|
-| Globale npm-Installation | Die Rückfrage; in einem interaktiven Terminal wird das Upgrade für Sie ausgeführt. Bei umgeleiteter Ausgabe wird stattdessen der Befehl ausgegeben. |
+| Globale npm-Installation | Der prompt; in einem interaktiven Terminal wird das Upgrade für Sie ausgeführt. Bei umgeleiteter Ausgabe wird stattdessen der Befehl ausgegeben. |
 | Globale Installation mit pnpm, bun, yarn oder volta | Der jeweilige Befehl des Paketmanagers: `pnpm add -g …@latest`, `bun add -g …@latest`, `yarn global add …@latest` oder `volta install …@latest` |
 | Projektabhängigkeit | Ein Hinweis zum Aktualisieren der Abhängigkeit, da ihr Paketmanager die Lockdatei verwaltet |
 | `npx`-/`dlx`-Cache | `npx @fission-ai/openspec@latest update` – dieser Befehl führt die Aktualisierung selbst aus, ein zweiter Schritt ist nicht erforderlich |
@@ -278,7 +278,7 @@ openspec store setup [id] [options]
 | `--no-init-git` | Alle Git-Aktionen überspringen: keine Initialisierung, kein erster Commit |
 | `--json` | JSON ausgeben |
 
-Bei nicht-interaktiven Aufrufen (`--json`, Skripte, Agents) müssen sowohl die Store-ID als auch `--path` angegeben werden. In einem interaktiven Terminal fragt der Befehl nach dem Speicherort und schlägt einen bearbeitbaren Pfad an einem sichtbaren, benutzerverwalteten Ort vor (z. B. `~/openspec/<id>`). Das von OpenSpec verwaltete Datenverzeichnis wird niemals als Standard verwendet.
+Bei nicht-interaktiven Aufrufen (`--json`, Skripte, Agents) müssen sowohl die Store-ID als auch `--path` angegeben werden. In einem interaktiven Terminal fragt der Befehl per prompt nach dem Speicherort und schlägt einen bearbeitbaren Pfad an einem sichtbaren, benutzerverwalteten Ort vor (z. B. `~/openspec/<id>`). Das von OpenSpec verwaltete Datenverzeichnis wird niemals als Standard verwendet.
 
 Beispiele:
 
@@ -516,7 +516,7 @@ openspec show [item-name] [options]
 
 | Argument | Erforderlich | Beschreibung |
 |----------|----------|-------------|
-| `item-name` | Nein | Name der Änderung oder Spezifikation (wird abgefragt, falls nicht angegeben) |
+| `item-name` | Nein | Name der Änderung oder Spezifikation (wird per prompt abgefragt, falls nicht angegeben) |
 
 **Optionen:**
 
@@ -524,7 +524,7 @@ openspec show [item-name] [options]
 |--------|-------------|
 | `--type <type>` | Typ angeben: `change` oder `spec` (wird automatisch erkannt, wenn eindeutig) |
 | `--json` | Als JSON ausgeben |
-| `--no-interactive` | Rückfragen deaktivieren |
+| `--no-interactive` | prompts deaktivieren |
 
 **Änderungsspezifische Optionen:**
 
@@ -574,7 +574,7 @@ Eine Änderung ohne Spezifikationsdeltas besteht die Validierung nur, wenn ihre 
 
 | Argument | Erforderlich | Beschreibung |
 |----------|----------|-------------|
-| `item-name` | Nein | Bestimmtes zu validierendes Element (wird abgefragt, falls nicht angegeben) |
+| `item-name` | Nein | Bestimmtes zu validierendes Element (wird per prompt abgefragt, falls nicht angegeben) |
 
 **Optionen:**
 
@@ -588,7 +588,7 @@ Eine Änderung ohne Spezifikationsdeltas besteht die Validierung nur, wenn ihre 
 | `--strict` | Strikten Validierungsmodus aktivieren |
 | `--json` | Als JSON ausgeben |
 | `--concurrency <n>` | Maximale Anzahl paralleler Validierungen (Standard: 6 oder Umgebungsvariable `OPENSPEC_CONCURRENCY`) |
-| `--no-interactive` | Rückfragen deaktivieren |
+| `--no-interactive` | prompts deaktivieren |
 
 `--archived` ist ein eigener Prüfbereich: Er validiert keine Spezifikationsdeltas (diese wurden beim Archivieren bereits angewendet), sondern prüft, ob bei jeder Änderung unter `changes/archive/` alle Kontrollkästchen in `tasks.md` abgehakt sind. Wenn noch eines offen ist, endet der Befehl mit einem Fehlercode ungleich null. So lassen sich archivierte Änderungen mit unvollendeter Arbeit erkennen – praktisch in einem Pre-Commit-Hook.
 
@@ -663,13 +663,13 @@ openspec archive [change-name] [options]
 
 | Argument | Erforderlich | Beschreibung |
 |----------|----------|-------------|
-| `change-name` | Nein | Zu archivierende Änderung (wird abgefragt, falls nicht angegeben; erforderlich, wenn niemand auf die Rückfrage antworten kann) |
+| `change-name` | Nein | Zu archivierende Änderung (wird per prompt abgefragt, falls nicht angegeben; erforderlich, wenn niemand auf den prompt antworten kann) |
 
 **Optionen:**
 
 | Option | Beschreibung |
 |--------|-------------|
-| `-y, --yes` | Bestätigungsaufforderungen überspringen. Erforderlich, wenn niemand darauf antworten kann – bei einem KI-Agenten, CI-Job oder Aufruf mit geschlossenem stdin |
+| `-y, --yes` | confirmation prompts überspringen. Erforderlich, wenn niemand darauf antworten kann – bei KI-Agent, CI-Job oder Aufruf mit geschlossenem stdin |
 | `--skip-specs` | Spezifikationsaktualisierungen bei einem Archivierungslauf überspringen. Änderungen, die dauerhaft keine Deltas haben, sollten stattdessen `skip_specs: true` in ihrer `.openspec.yaml` deklarieren – sie werden dann ohne Flag archiviert. |
 | `--no-validate` | Validierung überspringen (erfordert Bestätigung). Deaktiviert auch das Ausmustern von Funktionen – ohne Validierungsergebnis wird nichts ausgemustert. |
 
@@ -720,7 +720,7 @@ Wenn die Änderung die letzte Anforderung einer Funktion entfernt, löscht OpenS
 **Funktion:**
 
 1. Validiert die Änderung (außer bei `--no-validate`).
-2. Fragt nach einer Bestätigung (außer bei `--yes`).
+2. Fragt per prompt nach einer Bestätigung (außer bei `--yes`).
 3. Beansprucht das Archivziel, bevor eine Hauptspezifikation geändert wird.
 4. Validiert und führt die aktiven Delta-Spezifikationen mit `openspec/specs/` zusammen. Eine Funktion, deren letzte Anforderung durch die Änderung entfernt wird, wird ausgemustert und ihre Spezifikationsdatei gelöscht – jedoch nur, wenn die `.openspec.yaml` der Änderung neben `schema:` auch `retire_capabilities: true` festlegt.
 5. Verschiebt den Änderungsordner nach `openspec/changes/archive/YYYY-MM-DD-<name>/`.
@@ -778,7 +778,7 @@ openspec status [options]
 
 | Option | Beschreibung |
 |--------|-------------|
-| `--change <id>` | Änderungsname (wird abgefragt, falls nicht angegeben) |
+| `--change <id>` | Änderungsname (wird per prompt abgefragt, falls nicht angegeben) |
 | `--schema <name>` | Schema überschreiben (wird automatisch aus der Änderungskonfiguration erkannt) |
 | `--json` | Als JSON ausgeben |
 
@@ -1012,7 +1012,7 @@ openspec schema init <name> [options]
 | `--description <text>` | Beschreibung des Schemas |
 | `--artifacts <list>` | Kommagetrennte Artefakt-IDs (Standard: `proposal,specs,design,tasks`) |
 | `--default` | Als Standardschema des Projekts festlegen |
-| `--no-default` | Nicht fragen, ob das Schema als Standard festgelegt werden soll |
+| `--no-default` | Nicht per prompt fragen, ob das Schema als Standard festgelegt werden soll |
 | `--force` | Vorhandenes Schema überschreiben |
 | `--json` | Als JSON ausgeben |
 
@@ -1171,7 +1171,7 @@ openspec config <subcommand> [options]
 | `unset <key>` | Einen Schlüssel entfernen |
 | `reset` | Auf Standardwerte zurücksetzen |
 | `edit` | In `$EDITOR` öffnen |
-| `profile [preset]` | Workflow-Profil interaktiv oder über eine Vorgabe konfigurieren |
+| `profile [preset]` | Workflow profile interaktiv oder über eine Vorgabe konfigurieren |
 
 **Beispiele:**
 
@@ -1222,10 +1222,10 @@ und ein wahrer Wert für `CI` (z. B. `true`/`1`/`yes`) deaktivieren die Telemetr
 - Nur Workflows ändern
 - Aktuelle Einstellungen beibehalten (beenden)
 
-Wenn Sie die aktuellen Einstellungen beibehalten, werden keine Änderungen geschrieben und es erscheint keine Aktualisierungsaufforderung.
-Wenn sich die Konfiguration nicht ändert, die Projektdateien aber nicht mit dem globalen Profil oder der Bereitstellung übereinstimmen, zeigt OpenSpec eine Warnung an und schlägt `openspec update` vor.
+Wenn Sie die aktuellen Einstellungen beibehalten, werden keine Änderungen geschrieben und es erscheint kein update prompt.
+Wenn sich die Konfiguration nicht ändert, die Projektdateien aber nicht mit dem globalen profile oder der Bereitstellung übereinstimmen, zeigt OpenSpec eine Warnung an und schlägt `openspec update` vor.
 Mit `Ctrl+C` wird der Vorgang sauber abgebrochen (ohne Stacktrace) und mit Code `130` beendet.
-In der Workflow-Checkliste bedeutet `[x]`, dass der Workflow in der globalen Konfiguration ausgewählt ist. Um diese Auswahl auf Projektdateien anzuwenden, führen Sie `openspec update` aus (oder wählen Sie innerhalb eines Projekts bei der entsprechenden Rückfrage `Apply changes to this project now?`).
+In der Workflow-Checkliste bedeutet `[x]`, dass der Workflow in der globalen Konfiguration ausgewählt ist. Um diese Auswahl auf Projektdateien anzuwenden, führen Sie `openspec update` aus (oder wählen Sie innerhalb eines Projekts beim entsprechenden prompt `Apply changes to this project now?`).
 
 **Interaktive Beispiele:**
 
@@ -1318,9 +1318,9 @@ openspec completion install powershell
 . $PROFILE
 ```
 
-`$env:PROFILE` teilt OpenSpec mit, welches Profil in dieser Sitzung konfiguriert werden soll. Das
-Installationsprogramm erstellt fehlende Profilverzeichnisse und fügt einen verwalteten Block hinzu, der
-`OpenSpecCompletion.ps1` lädt. Durch erneutes Laden des Profils wird die Vervollständigung sofort aktiviert.
+`$env:PROFILE` teilt OpenSpec mit, welches profile in dieser Sitzung konfiguriert werden soll. Das
+Installationsprogramm erstellt fehlende profile-Verzeichnisse und fügt einen verwalteten Block hinzu, der
+`OpenSpecCompletion.ps1` lädt. Durch erneutes Laden vom profile wird die Vervollständigung sofort aktiviert.
 
 Um die Vervollständigung für die aktuelle Instanz zu deinstallieren, führen Sie Folgendes aus:
 
@@ -1331,7 +1331,7 @@ openspec completion uninstall powershell
 
 Starten Sie PowerShell nach der Deinstallation neu, um Vervollständigungen aus der aktuellen Sitzung zu entfernen.
 
-Vervollständigungen sind optional. Die CLI weist beim ersten Befehlsaufruf in einem interaktiven Terminal einmalig
+Vervollständigungen sind opt-in. Die CLI weist beim ersten Befehlsaufruf in einem interaktiven Terminal einmalig
 über stderr darauf hin und danach nie wieder. Der Hinweis wird auch unterdrückt,
 wenn bereits Vervollständigungen installiert sind. Setzen Sie `OPENSPEC_NO_COMPLETIONS=1`, um
 den Hinweis vollständig zu unterdrücken.

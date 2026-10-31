@@ -12,7 +12,7 @@ OPSX ersetzt den alten, an Phasen gebundenen Workflow durch einen flexiblen, akt
 |--------|--------|------|
 | **Befehle** | `/openspec:proposal`, `/openspec:apply`, `/openspec:archive` | Standard: `/opsx:propose`, `/opsx:explore`, `/opsx:apply`, `/opsx:update`, `/opsx:sync`, `/opsx:archive` (erweiterte Workflow-Befehle optional) |
 | **Workflow** | Alle Artefakte auf einmal erstellen | Schrittweise oder alle auf einmal erstellen – Sie entscheiden |
-| **Zurückgehen** | Umständliche Phasensperren | Jedes Artefakt jederzeit aktualisieren |
+| **Zurückgehen** | Umständliche phase gates | Jedes Artefakt jederzeit aktualisieren |
 | **Anpassung** | Feste Struktur | Schema-gesteuert und vollständig anpassbar |
 | **Konfiguration** | `CLAUDE.md` mit Markierungen und `project.md` | Aufgeräumte Konfiguration in `openspec/config.yaml` |
 
@@ -87,8 +87,8 @@ Machen Sie sich keine Sorgen, gleich alles perfekt zu formulieren. Auch wir lern
 
 Sowohl `openspec init` als auch `openspec update` erkennen alte Dateien und führen Sie durch denselben Bereinigungsprozess. Verwenden Sie den Befehl, der zu Ihrer Situation passt:
 
-- Neue Installationen verwenden standardmäßig das Profil `core` (`propose`, `explore`, `apply`, `update`, `sync`, `archive`).
-- Migrierte Installationen behalten zuvor installierte Workflows bei und schreiben bei Bedarf ein Profil `custom`.
+- Neue Installationen verwenden standardmäßig das profile `core` (`propose`, `explore`, `apply`, `update`, `sync`, `archive`).
+- Migrierte Installationen behalten zuvor installierte Workflows bei und schreiben bei Bedarf ein profile `custom`.
 
 ### `openspec init` verwenden
 
@@ -147,7 +147,7 @@ Führen Sie den Befehl aus, wenn Sie lediglich migrieren und Ihre vorhandenen To
 openspec update
 ```
 
-Auch der Befehl `update` erkennt alte Artefakte und bereinigt sie. Anschließend aktualisiert er generierte Skills und Befehle entsprechend Ihrem aktuellen Profil und Ihren Bereitstellungseinstellungen.
+Auch der Befehl `update` erkennt alte Artefakte und bereinigt sie. Anschließend aktualisiert er generierte Skills und Befehle entsprechend Ihrem aktuellen profile und Ihren Bereitstellungseinstellungen.
 
 ### Nicht-interaktive Umgebungen und CI
 
@@ -157,7 +157,7 @@ Für skriptgesteuerte Migrationen:
 openspec init --force --tools claude
 ```
 
-Das Flag `--force` überspringt Rückfragen und bestätigt die Bereinigung automatisch.
+Das Flag `--force` überspringt prompts und bestätigt die Bereinigung automatisch.
 
 Dies umfasst auch die Bereinigung von OpenSpec-verwalteten Codex-Prompt-Dateien im globalen Codex-Prompt-Verzeichnis. Dabei werden nur die zugelassenen alten Codex-Prompt-Dateinamen von OpenSpec berücksichtigt. Sie werden erst entfernt, wenn entsprechende Ersatz-Skills unter `.agents/skills/openspec-*` vorhanden sind. Alle anderen Dateien bleiben erhalten.
 
@@ -260,7 +260,7 @@ Gehen Sie bei der Migration gezielt vor. Fragen Sie sich: „Benötigt die KI di
 
 **Machen Sie es nicht komplizierter als nötig.** Beginnen Sie mit dem Wesentlichen und verfeinern Sie es schrittweise. Wenn die KI etwas Wichtiges übersieht, ergänzen Sie es. Wenn der Kontext zu umfangreich wirkt, kürzen Sie ihn. Dies ist ein lebendiges Dokument.
 
-### Brauchen Sie Hilfe? Verwenden Sie diese Eingabe
+### Brauchen Sie Hilfe? Verwenden Sie diesen prompt
 
 Wenn Sie unsicher sind, wie Sie den Inhalt von `project.md` zusammenfassen sollen, bitten Sie Ihren KI-Assistenten:
 
@@ -283,9 +283,9 @@ Die KI hilft Ihnen dabei, Wesentliches von Kürzbarem zu unterscheiden.
 
 ## Die neuen Befehle
 
-Die verfügbaren Befehle hängen vom Profil ab:
+Die verfügbaren Befehle hängen vom profile ab:
 
-**Standardprofil (`core`):**
+**Standard profile (`core`):**
 
 | Befehl | Zweck |
 |---------|---------|
@@ -366,7 +366,7 @@ OPSX arbeitet mit Aktionen statt Phasen:
 
 ### Abhängigkeitsgraph
 
-Artefakte bilden einen gerichteten Graphen. Abhängigkeiten ermöglichen Schritte, statt sie zu blockieren:
+Artefakte bilden einen gerichteten Graphen. Abhängigkeiten ermöglichen Schritte, statt gates zu sein:
 
 ```
                         proposal
@@ -549,7 +549,7 @@ Das System bewahrt `project.md` absichtlich auf, da sie benutzerdefinierte Inhal
 
 ### Möchten Sie sehen, was bereinigt würde?
 
-Führen Sie `init` aus und lehnen Sie die Bereinigungsaufforderung ab. Sie sehen dann die vollständige Erkennungsübersicht, ohne dass Änderungen vorgenommen werden.
+Führen Sie `init` aus und lehnen Sie den cleanup prompt ab. Sie sehen dann die vollständige Erkennungsübersicht, ohne dass Änderungen vorgenommen werden.
 
 ---
 

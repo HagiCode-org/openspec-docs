@@ -122,7 +122,7 @@ AI:  Verifying add-dark-mode...
 
 La commande signale les problèmes comme CRITICAL, WARNING ou SUGGESTION et **n'empêche pas l'archivage** : elle expose les lacunes et vous laisse décider. Voilà la différence entre « l'IA a écrit du code » et « elle a construit ce dont nous étions convenus ».
 
-`/opsx:verify` fait partie du profil étendu. Si elle n'est pas disponible, activez ce profil avec `openspec config profile` (puis `openspec update`), ou relisez vous-même le changement et son diff.
+`/opsx:verify` fait partie du profile étendu. Si elle n'est pas disponible, activez ce profile avec `openspec config profile` (puis `openspec update`), ou relisez vous-même le changement et son diff.
 
 ## Adapter la revue à l'ampleur du changement
 

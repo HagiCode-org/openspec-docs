@@ -13,7 +13,7 @@ pour votre outil. Les fichiers générés par OpenSpec utilisent déjà la forme
 
 ## Référence rapide
 
-### Parcours rapide par défaut (profil `core`)
+### Parcours rapide par défaut (profile `core`)
 
 | Commande | Rôle |
 |---------|---------|
@@ -35,7 +35,7 @@ pour votre outil. Les fichiers générés par OpenSpec utilisent déjà la forme
 | `/opsx:bulk-archive` | Archiver plusieurs changements en une fois |
 | `/opsx:onboard` | Parcours guidé du workflow complet |
 
-Le profil global par défaut est `core`. Pour activer les commandes étendues, exécutez `openspec config profile`, sélectionnez les workflows, puis lancez `openspec update` dans votre projet.
+Le profile global par défaut est `core`. Pour activer les commandes étendues, exécutez `openspec config profile`, sélectionnez les workflows, puis lancez `openspec update` dans votre projet.
 
 ---
 
@@ -43,7 +43,7 @@ Le profil global par défaut est `core`. Pour activer les commandes étendues, e
 
 ### `/opsx:propose`
 
-Créer un changement et générer ses artefacts de planification en une étape. C’est la commande de démarrage par défaut du profil `core`.
+Créer un changement et générer ses artefacts de planification en une étape. C’est la commande de démarrage par défaut du profile `core`.
 
 **Syntaxe :**
 ```text
@@ -80,7 +80,7 @@ AI:  Created openspec/changes/add-dark-mode/
 
 ### `/opsx:explore`
 
-> **Commencez ici en cas d’incertitude.** Explore est un partenaire de réflexion sans engagement : il lit votre base de code, compare les options et transforme une idée vague en plan concret avant toute écriture de code. La commande fait partie du profil par défaut. Pour en savoir plus et voir d’autres exemples, consultez le guide [Commencer par explorer](/fr-FR/explore/).
+> **Commencez ici en cas d’incertitude.** Explore est un partenaire de réflexion sans engagement : il lit votre base de code, compare les options et transforme une idée vague en plan concret avant toute écriture de code. La commande fait partie du profile par défaut. Pour en savoir plus et voir d’autres exemples, consultez le guide [Commencer par explorer](/fr-FR/explore/).
 
 Réfléchir à des idées, étudier des problèmes et clarifier les exigences avant de s’engager dans un changement.
 
@@ -145,7 +145,7 @@ AI:  Started openspec/changes/add-jwt-auth/. Say the word and I'll
 
 Créer la structure d’un nouveau changement. Crée son dossier puis attend que vous génériez les artefacts avec `/opsx:continue` ou `/opsx:ff`.
 
-Cette commande fait partie du jeu de workflows étendu (elle n’est pas incluse dans le profil `core` par défaut).
+Cette commande fait partie du jeu de workflows étendu (elle n’est pas incluse dans le profile `core` par défaut).
 
 **Syntaxe :**
 ```
@@ -155,7 +155,7 @@ Cette commande fait partie du jeu de workflows étendu (elle n’est pas incluse
 **Arguments :**
 | Argument | Obligatoire | Description |
 |----------|----------|-------------|
-| `change-name` | Non | Nom du dossier de changement (demandé s’il n’est pas fourni) |
+| `change-name` | Non | Nom du dossier de changement (prompt s’il n’est pas fourni) |
 | `--schema` | Non | Schéma de workflow à utiliser (par défaut : configuration ou `spec-driven`) |
 
 **Fonctionnement :**
@@ -616,7 +616,7 @@ AI:  ✓ Archived add-dark-mode
 - Utile pour les travaux en parallèle.
 - La résolution des conflits est confiée à l’agent (qui examine la base de code).
 - Les changements sont archivés dans l’ordre de leur création.
-- Demande confirmation avant d’écraser le contenu d’une spécification.
+- Prompt de confirmation avant d’écraser le contenu d’une spécification.
 
 ---
 

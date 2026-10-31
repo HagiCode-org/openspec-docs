@@ -12,7 +12,7 @@ OPSX remplace l’ancien workflow à phases verrouillées par une approche fluid
 |--------|--------|------|
 | **Commandes** | `/openspec:proposal`, `/openspec:apply`, `/openspec:archive` | Par défaut : `/opsx:propose`, `/opsx:explore`, `/opsx:apply`, `/opsx:update`, `/opsx:sync`, `/opsx:archive` (commandes du workflow étendu facultatives) |
 | **Workflow** | Créer tous les artefacts d’un coup | Créer progressivement ou tout d’un coup, selon votre choix |
-| **Revenir en arrière** | Étapes de phase contraignantes | Naturel : modifier n’importe quel artefact à tout moment |
+| **Revenir en arrière** | Phase gates contraignantes | Naturel : modifier n’importe quel artefact à tout moment |
 | **Personnalisation** | Structure fixe | Piloté par des schémas, entièrement adaptable |
 | **Configuration** | `CLAUDE.md` avec marqueurs + `project.md` | Configuration claire dans `openspec/config.yaml` |
 
@@ -49,7 +49,7 @@ Seuls les fichiers gérés par OpenSpec et remplacés par la nouvelle version :
 - Cline: `.clinerules/workflows/openspec-*.md`
 - Roo: `.roo/commands/openspec-*.md`
 - GitHub Copilot : `.github/prompts/openspec-*.prompt.md` (extensions IDE uniquement ; non pris en charge par Copilot CLI)
-- Codex : OpenSpec utilise désormais le chemin canonique `.agents/skills/openspec-*`. Les fichiers `SKILL.md` gérés par OpenSpec dans l’ancien chemin `.codex/skills` ne sont rapprochés qu’après la création de leurs remplacements ; les fichiers personnalisés et copies divergentes sont conservés. Si une arborescence `.agents` sans marqueur contient déjà des skills OpenSpec, OpenSpec conserve la forme Codex (`$openspec-*`) ou générique (`/openspec-*`) existante au lieu de la déduire de l’ancien répertoire. Pour lui en transférer explicitement la gestion, choisissez `codex` avec `openspec init`. Le nettoyage des anciennes invites cible toujours uniquement les noms de fichiers Codex autorisés par OpenSpec dans `$CODEX_HOME/prompts` ou `~/.codex/prompts`.
+- Codex : OpenSpec utilise désormais le chemin canonique `.agents/skills/openspec-*`. Les fichiers `SKILL.md` gérés par OpenSpec dans l’ancien chemin `.codex/skills` ne sont rapprochés qu’après la création de leurs remplacements ; les fichiers personnalisés et copies divergentes sont conservés. Si une arborescence `.agents` sans marqueur contient déjà des skills OpenSpec, OpenSpec conserve la forme Codex (`$openspec-*`) ou générique (`/openspec-*`) existante au lieu de la déduire de l’ancien répertoire. Pour lui en transférer explicitement la gestion, choisissez `codex` avec `openspec init`. Le nettoyage des anciens prompts cible toujours uniquement les noms de fichiers Codex autorisés par OpenSpec dans `$CODEX_HOME/prompts` ou `~/.codex/prompts`.
 - Et d’autres outils (Augment, Continue, Amazon Q, etc.)
 
 La migration détecte les outils que vous avez configurés et nettoie leurs anciens fichiers.
@@ -87,8 +87,8 @@ Ne cherchez pas la perfection dès le début. Nous découvrons encore ce qui fon
 
 `openspec init` et `openspec update` détectent les anciens fichiers et vous guident dans le même processus de nettoyage. Choisissez la commande adaptée à votre situation :
 
-- Les nouvelles installations utilisent par défaut le profil `core` (`propose`, `explore`, `apply`, `update`, `sync`, `archive`).
-- Les installations migrées préservent les workflows précédemment installés et créent un profil `custom` au besoin.
+- Les nouvelles installations utilisent par défaut le profile `core` (`propose`, `explore`, `apply`, `update`, `sync`, `archive`).
+- Les installations migrées préservent les workflows précédemment installés et créent un profile `custom` au besoin.
 
 ### Utiliser `openspec init`
 
@@ -147,7 +147,7 @@ Exécutez cette commande pour migrer et actualiser vos outils existants vers la 
 openspec update
 ```
 
-La commande update détecte et nettoie aussi les anciens artefacts, puis actualise les skills et commandes générés selon le profil et les paramètres de distribution actuels.
+La commande update détecte et nettoie aussi les anciens artefacts, puis actualise les skills et commandes générés selon le profile et les paramètres de distribution actuels.
 
 ### Environnements non interactifs et CI
 
@@ -157,9 +157,9 @@ Pour effectuer la migration avec un script :
 openspec init --force --tools claude
 ```
 
-L’option `--force` ignore les invites et accepte automatiquement le nettoyage.
+L’option `--force` ignore les prompts et accepte automatiquement le nettoyage.
 
-Cela comprend le nettoyage des fichiers d’invite Codex gérés par OpenSpec dans le répertoire global correspondant. Seuls les anciens noms autorisés par OpenSpec sont ciblés ; les fichiers ne sont supprimés qu’après la création de leurs remplacements `.agents/skills/openspec-*`, et tous les autres fichiers sont préservés.
+Cela comprend le nettoyage des fichiers prompt Codex gérés par OpenSpec dans le répertoire global correspondant. Seuls les anciens noms autorisés par OpenSpec sont ciblés ; les fichiers ne sont supprimés qu’après la création de leurs remplacements `.agents/skills/openspec-*`, et tous les autres fichiers sont préservés.
 
 ---
 
@@ -262,7 +262,7 @@ Lors de la migration, faites le tri. Demandez-vous : « L’IA a-t-elle besoin d
 
 **Ne vous compliquez pas la tâche.** Commencez par l’essentiel et améliorez le document au fil du temps. Ajoutez les informations importantes que l’IA oublie et supprimez celles qui l’alourdissent. C’est un document évolutif.
 
-### Besoin d’aide ? Utilisez cette consigne
+### Besoin d’aide ? Utilisez ce prompt
 
 Si vous ne savez pas comment condenser votre project.md, demandez à votre assistant IA :
 
@@ -285,9 +285,9 @@ L’IA vous aidera à distinguer l’essentiel de ce qui peut être supprimé.
 
 ## Nouvelles commandes
 
-La disponibilité des commandes dépend du profil :
+La disponibilité des commandes dépend du profile :
 
-**Par défaut (profil `core`) :**
+**Par défaut (profile `core`) :**
 
 | Commande | Rôle |
 |---------|---------|
@@ -368,7 +368,7 @@ OPSX utilise des actions, pas des phases :
 
 ### Graphe de dépendances
 
-Les artefacts forment un graphe orienté. Les dépendances facilitent le travail, elles ne le bloquent pas :
+Les artefacts forment un graphe orienté. Les dépendances facilitent le travail, elles ne sont pas des gates :
 
 ```
                         proposal

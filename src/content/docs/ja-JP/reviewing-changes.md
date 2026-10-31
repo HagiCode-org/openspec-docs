@@ -120,7 +120,7 @@ AI:  add-dark-mode を検証しています...
 
 問題を CRITICAL、WARNING、SUGGESTION として示しますが、アーカイブを妨げることは **ありません**。不足を示して、判断はあなたに委ねます。これによって「AI がコードを書いたか」と「合意したものを実装したか」の違いが分かります。
 
-`/opsx:verify` は expanded プロファイルに含まれています。使えない場合は、`openspec config profile` で有効にしてから `openspec update` を実行するか、自分で change と差分を読み直してください。
+`/opsx:verify` は expanded profile に含まれています。使えない場合は、`openspec config profile` で有効にしてから `openspec update` を実行するか、自分で change と差分を読み直してください。
 
 ## レビューの規模を適切にする
 

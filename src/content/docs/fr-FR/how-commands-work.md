@@ -15,7 +15,7 @@ Cette distinction est le principal obstacle rencontré par les personnes qui dé
 
 OpenSpec est un seul projet qui remplit deux rôles.
 
-**La CLI (côté terminal).** Programme nommé `openspec`, que vous installez et lancez depuis votre shell. Il configure votre projet, répertorie et valide les changements, affiche un tableau de bord et archive les travaux terminés. Saisissez ces commandes dans iTerm, le terminal VS Code, PowerShell ou n'importe quel endroit où vous utiliseriez `git` ou `npm`.
+**La CLI (côté terminal).** Programme nommé `openspec`, que vous installez et lancez depuis votre shell. Il configure votre projet, répertorie et valide les changements, affiche un dashboard et archive les travaux terminés. Saisissez ces commandes dans iTerm, le terminal VS Code, PowerShell ou n'importe quel endroit où vous utiliseriez `git` ou `npm`.
 
 ```bash
 openspec init        # set up OpenSpec in this project
@@ -59,7 +59,7 @@ En pratique :
 
 C'est tout. Aucun mode à activer, aucun démon à lancer, aucune fenêtre séparée.
 
-Il existe bien une fonction interactive dans le terminal : `openspec view`. Elle ouvre un tableau de bord pour parcourir vos spécifications et changements. Mais c'est un outil de consultation, pas celui qui sert à proposer et réaliser des changements. Leur réalisation se fait à l'aide des commandes slash dans la conversation.
+Il existe bien une fonction interactive dans le terminal : `openspec view`. Elle ouvre un dashboard pour parcourir vos spécifications et changements. Mais c'est un outil de consultation, pas celui qui sert à proposer et réaliser des changements. Leur réalisation se fait à l'aide des commandes slash dans la conversation.
 
 ## Pourquoi cette séparation ?
 

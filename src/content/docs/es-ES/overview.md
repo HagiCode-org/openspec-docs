@@ -23,7 +23,7 @@ proposal ──► specs ──► design ──► tasks ──► implement
    why        what       how       steps      do it
 ```
 
-Puedes volver a cualquiera de ellos cuando quieras. Son facilitadores, no barreras. (Más adelante se explica.)
+Puedes volver a cualquiera de ellos cuando quieras. Son facilitadores, no gates. (Más adelante se explica.)
 
 **5. Archivar reincorpora el cambio a la verdad.** Cuando terminas el trabajo, archivas el cambio. Sus especificaciones delta se integran en las especificaciones principales y la carpeta del cambio se traslada a `changes/archive/` con una fecha. Ahora tus especificaciones describen la nueva realidad y estás listo para el siguiente cambio. El ciclo se cierra.
 
@@ -58,7 +58,7 @@ En la configuración predeterminada, tu jornada se parece a esto. Si quieres, pr
 /opsx:archive                   →  specs updated, change archived
 ```
 
-**Si tienes dudas, empieza explorando.** `/opsx:explore` es un compañero de reflexión sin compromiso: lee tu código, presenta opciones y convierte una idea imprecisa en un plan concreto antes de escribir código. Es el mejor antídoto contra una IA que, de otro modo, construirá *algo* a partir de una petición vaga. ¿Ya sabes exactamente lo que quieres? Ve directamente a `/opsx:propose`. En cualquier caso, explore está incluido en el perfil predeterminado y siempre está disponible. Consulta la [guía de Explore](/es-ES/explore/).
+**Si tienes dudas, empieza explorando.** `/opsx:explore` es un compañero de reflexión sin compromiso: lee tu código, presenta opciones y convierte una idea imprecisa en un plan concreto antes de escribir código. Es el mejor antídoto contra una IA que, de otro modo, construirá *algo* a partir de un prompt vago. ¿Ya sabes exactamente lo que quieres? Ve directamente a `/opsx:propose`. En cualquier caso, explore está incluido en el profile predeterminado y siempre está disponible. Consulta la [guía de Explore](/es-ES/explore/).
 
 Esos son comandos de barra, que se escriben en el chat de tu asistente de IA. La configuración (`openspec init`) se hace en el terminal. Si no conocías esa distinción, lee primero [Cómo funcionan los comandos](/es-ES/how-commands-work/); es el punto que suele causar más confusión.
 

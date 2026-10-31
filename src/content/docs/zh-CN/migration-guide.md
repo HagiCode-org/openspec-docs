@@ -12,7 +12,7 @@ OPSX 以灵活、基于操作的方式取代了旧版受阶段限制的工作流
 |--------|--------|------|
 | **命令** | `/openspec:proposal`、`/openspec:apply`、`/openspec:archive` | 默认：`/opsx:propose`、`/opsx:explore`、`/opsx:apply`、`/opsx:update`、`/opsx:sync`、`/opsx:archive`（可选扩展工作流命令） |
 | **工作流** | 一次创建全部产物 | 可以逐步创建，也可以一次创建——由你决定 |
-| **返回修改** | 阶段关卡让返回很不方便 | 随时自然更新任何产物 |
+| **返回修改** | 阶段 gates 让返回很不方便 | 随时自然更新任何产物 |
 | **自定义** | 固定结构 | 由模式驱动，可充分修改 |
 | **配置** | 带标记的 `CLAUDE.md` + `project.md` | 使用 `openspec/config.yaml` 中的清晰配置 |
 
@@ -49,7 +49,7 @@ OPSX 以灵活、基于操作的方式取代了旧版受阶段限制的工作流
 - Cline：`.clinerules/workflows/openspec-*.md`
 - Roo：`.roo/commands/openspec-*.md`
 - GitHub Copilot：`.github/prompts/openspec-*.prompt.md`（仅适用于 IDE 扩展；Copilot CLI 不支持）
-- Codex：OpenSpec 现在使用规范的 `.agents/skills/openspec-*` 路径。只有在替代文件已存在后，才会协调旧版 `.codex/skills` 路径下由 OpenSpec 管理的 `SKILL.md` 文件；自定义文件和不一致的副本会保留。如果未标记的 `.agents` 技能树中已有 OpenSpec 技能，OpenSpec 会保留现有的 Codex (`$openspec-*`) 或通用 (`/openspec-*`) 调用形式，而不会根据旧目录猜测。运行 `openspec init` 时显式选择 `codex` 可切换所有权。清理旧版提示词时，也只会处理 OpenSpec 允许列表中位于 `$CODEX_HOME/prompts` 或 `~/.codex/prompts` 的文件名。
+- Codex：OpenSpec 现在使用规范的 `.agents/skills/openspec-*` 路径。只有在替代文件已存在后，才会协调旧版 `.codex/skills` 路径下由 OpenSpec 管理的 `SKILL.md` 文件；自定义文件和不一致的副本会保留。如果未标记的 `.agents` 技能树中已有 OpenSpec 技能，OpenSpec 会保留现有的 Codex (`$openspec-*`) 或通用 (`/openspec-*`) 调用形式，而不会根据旧目录猜测。运行 `openspec init` 时显式选择 `codex` 可切换所有权。清理旧版 prompt 时，也只会处理 OpenSpec 允许列表中位于 `$CODEX_HOME/prompts` 或 `~/.codex/prompts` 的文件名。
 - 以及其他工具（Augment、Continue、Amazon Q 等）
 
 迁移会检测你已配置的工具，并清理它们的旧版文件。
@@ -68,7 +68,7 @@ OPSX 以灵活、基于操作的方式取代了旧版受阶段限制的工作流
 
 **为什么要做此更改：**
 
-旧版 `project.md` 是被动文件——智能体可能会阅读，也可能不会；即使读了，也可能忘记其中内容。我们发现这种做法的可靠性参差不齐。
+旧版 `project.md` 是被动文件——agents 可能会阅读，也可能不会；即使读了，也可能忘记其中内容。我们发现这种做法的可靠性参差不齐。
 
 新的 `config.yaml` 上下文会**主动注入每个 OpenSpec 规划请求**。这意味着 AI 创建产物时始终能获得项目约定、技术栈和规则，从而提高可靠性。
 
@@ -88,8 +88,8 @@ OPSX 以灵活、基于操作的方式取代了旧版受阶段限制的工作流
 
 `openspec init` 和 `openspec update` 都会检测旧版文件，并引导你执行相同的清理流程。根据实际情况任选其一：
 
-- 新安装默认使用 `core` 配置档案（`propose`、`explore`、`apply`、`update`、`sync`、`archive`）。
-- 迁移现有安装时，如果需要，会通过写入 `custom` 配置档案来保留你之前安装的工作流。
+- 新安装默认使用 `core` profile（`propose`、`explore`、`apply`、`update`、`sync`、`archive`）。
+- 迁移现有安装时，如果需要，会通过写入 `custom` profile 来保留你之前安装的工作流。
 
 ### 使用 `openspec init`
 
@@ -148,7 +148,7 @@ Needs your attention
 openspec update
 ```
 
-`update` 也会检测并清理旧版产物，然后刷新生成的技能/命令，使其符合当前配置档案和交付设置。
+`update` 也会检测并清理旧版产物，然后刷新生成的技能/命令，使其符合当前 profile 和交付设置。
 
 ### 非交互式/CI 环境
 
@@ -160,7 +160,7 @@ openspec init --force --tools claude
 
 `--force` 会跳过提示，并自动确认清理操作。
 
-这也包括清理全局 Codex 提示词目录中由 OpenSpec 管理的提示词文件。清理范围仅限 OpenSpec 允许列表中的旧版 Codex 提示词文件名；只有替代的 `.agents/skills/openspec-*` 技能已存在时才会删除，并保留其他所有文件。
+这也包括清理全局 Codex prompt 目录中由 OpenSpec 管理的 prompt 文件。清理范围仅限 OpenSpec 允许列表中的旧版 Codex prompt 文件名；只有替代的 `.agents/skills/openspec-*` 技能已存在时才会删除，并保留其他所有文件。
 
 ---
 
@@ -264,7 +264,7 @@ rules:
 
 **不必过度纠结。** 从必要内容开始，再逐步完善。如果发现 AI 遗漏了重要信息，就补充进去；如果上下文显得臃肿，就删减内容。这是一份持续演进的文档。
 
-### 需要帮助？使用以下提示词
+### 需要帮助？使用以下 Prompt
 
 如果你不确定如何提炼 `project.md`，可以向 AI 助手询问：
 
@@ -287,9 +287,9 @@ AI 会帮你区分哪些内容必不可少，哪些可以删减。
 
 ## 新命令
 
-命令是否可用取决于所选配置档案：
+命令是否可用取决于所选 profile：
 
-**默认（`core` 配置档案）：**
+**默认（`core` profile）：**
 
 | 命令 | 用途 |
 |---------|---------|
@@ -370,7 +370,7 @@ OPSX 使用操作，而非阶段：
 
 ### 依赖图
 
-产物构成一个有向图。依赖关系是助力，而非关卡：
+产物构成一个有向图。依赖关系是助力，而非 gates：
 
 ```
                         proposal
@@ -417,7 +417,7 @@ OPSX 使用新兴的**技能**标准：
 
 技能可被多种 AI 编程工具识别，并能提供更丰富的元数据。
 
-OPSX 中的 Codex 仅支持技能。OpenSpec 不再生成 Codex 自定义提示词文件；请改用生成的 `.agents/skills/openspec-*` 目录。
+OPSX 中的 Codex 仅支持技能。OpenSpec 不再生成 Codex 自定义 prompt 文件；请改用生成的 `.agents/skills/openspec-*` 目录。
 
 ---
 
@@ -553,7 +553,7 @@ openspec schemas --json
 
 ### 想知道哪些文件会被清理？
 
-运行 `init` 并在清理提示中选择拒绝，即可查看完整检测摘要，不会实际修改任何文件。
+运行 `init` 并在清理 prompt 中选择拒绝，即可查看完整检测摘要，不会实际修改任何文件。
 
 ---
 

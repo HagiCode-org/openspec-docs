@@ -10,7 +10,7 @@ title: "命令"
 
 ## 快速参考
 
-### 默认快捷路径（`core` 配置档案）
+### 默认快捷路径（`core` profile）
 
 | 命令 | 用途 |
 |---------|---------|
@@ -32,7 +32,7 @@ title: "命令"
 | `/opsx:bulk-archive` | 一次性归档多个变更 |
 | `/opsx:onboard` | 通过完整工作流进行引导式教程 |
 
-默认全局配置档案为 `core`。若要启用扩展工作流命令，请运行 `openspec config profile` 并选择工作流，然后在项目中运行 `openspec update`。
+默认全局 profile 为 `core`。若要启用扩展工作流命令，请运行 `openspec config profile` 并选择工作流，然后在项目中运行 `openspec update`。
 
 ---
 
@@ -40,7 +40,7 @@ title: "命令"
 
 ### `/opsx:propose`
 
-新建变更，并在一步中生成规划产物。这是 `core` 配置档案中的默认起始命令。
+新建变更，并在一步中生成规划产物。这是 `core` profile 中的默认起始命令。
 
 **语法：**
 ```text
@@ -79,7 +79,7 @@ AI:  Created openspec/changes/add-dark-mode/
 
 ### `/opsx:explore`
 
-> **拿不准时从这里开始。** Explore 是一位没有压力的思考伙伴：它会读取代码库、比较方案，并在编写任何代码之前，把模糊想法整理成具体计划。它已包含在默认配置档案中。完整说明和更多示例请参阅[先探索](/zh-CN/explore/)指南。
+> **拿不准时从这里开始。** Explore 是一位没有压力的思考伙伴：它会读取代码库、比较方案，并在编写任何代码之前，把模糊想法整理成具体计划。它已包含在默认 profile 中。完整说明和更多示例请参阅[先探索](/zh-CN/explore/)指南。
 
 在确定变更方案之前梳理想法、调查问题并明确需求。
 
@@ -146,7 +146,7 @@ AI:  Started openspec/changes/add-jwt-auth/. Say the word and I'll
 
 创建新的变更脚手架。此命令会创建变更文件夹，随后等待你使用 `/opsx:continue` 或 `/opsx:ff` 生成产物。
 
-此命令属于扩展工作流集（默认的 `core` 配置档案不包含）。
+此命令属于扩展工作流集（默认的 `core` profile 不包含）。
 
 **语法：**
 ```
@@ -631,7 +631,7 @@ AI:  ✓ Archived add-dark-mode
 **提示：**
 
 - 适用于并行工作流。
-- 冲突解决由智能体完成（会检查代码库）。
+- 冲突解决由 agent 完成（会检查代码库）。
 - 按创建顺序归档变更。
 - 覆盖规格内容前会提示。
 
@@ -712,11 +712,11 @@ AI:  Welcome to OpenSpec!
 | 无——Kimi Code | `/skill:openspec-propose` | Kimi Code |
 | 无——Codex CLI | `$openspec-propose` | Codex |
 
-> **Devin Desktop 与 Devin Local：** `.devin/workflows/opsx-*.md` 文件会为 Devin Desktop 提供 `/opsx-propose`。Devin Local 没有工作流——请使用 OpenSpec 写入 `.devin/skills/` 的技能，例如 `/openspec-propose`；两种智能体均可使用这些技能。
+> **Devin Desktop 与 Devin Local：** `.devin/workflows/opsx-*.md` 文件会为 Devin Desktop 提供 `/opsx-propose`。Devin Local 没有工作流——请使用 OpenSpec 写入 `.devin/skills/` 的技能，例如 `/openspec-propose`；两种 agents 均可使用这些技能。
 
 不同工具中的命令意图相同，但呈现方式可能因集成而异。[如何调用](/zh-CN/supported-tools/)列出了所有受支持的工具；此表只展示各类格式的示例。
 
-> **注意：** GitHub Copilot 命令 (`.github/prompts/*.prompt.md`) 仅适用于 IDE 扩展（VS Code、JetBrains、Visual Studio）。GitHub Copilot CLI 目前不支持自定义提示文件；详情和替代方案请参阅[支持的工具](/zh-CN/supported-tools/)。
+> **注意：** GitHub Copilot 命令 (`.github/prompts/*.prompt.md`) 仅适用于 IDE 扩展（VS Code、JetBrains、Visual Studio）。GitHub Copilot CLI 目前不支持自定义 prompt 文件；详情和替代方案请参阅[支持的工具](/zh-CN/supported-tools/)。
 
 ---
 

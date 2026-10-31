@@ -17,7 +17,7 @@ openspec --version
 
 Wenn die Installation erfolgreich war, der Befehl aber weiterhin nicht gefunden wird, fehlt wahrscheinlich das globale npm-Binärverzeichnis in Ihrem `PATH`. Führen Sie `npm prefix -g` aus, um den Speicherort globaler Pakete herauszufinden: Unter macOS und Linux liegen die ausführbaren Dateien im Unterverzeichnis `bin/`, unter Windows direkt in diesem Verzeichnis. Stellen Sie sicher, dass der Pfad in `PATH` enthalten ist. (`npm bin -g` wurde in npm 9 entfernt.)
 
-Wenn Sie die [KI-gestützte Installation](/de-DE/installation/#mit-ihrem-ki-assistenten-installieren) verwendet haben, ist dies der erwartete Punkt für die Übergabe: Die Eingabe weist Ihren Assistenten an, Ihnen die `PATH`-Änderung zu zeigen, statt Ihre Shell-Startdateien selbst zu bearbeiten.
+Wenn Sie die [KI-gestützte Installation](/de-DE/installation/#mit-ihrem-ki-assistenten-installieren) verwendet haben, ist dies der erwartete Punkt für die Übergabe: Der prompt weist Ihren Assistenten an, Ihnen die `PATH`-Änderung zu zeigen, statt Ihre Shell-Startdateien selbst zu bearbeiten.
 
 ### „Node.js 20.19.0 oder höher erforderlich“
 
@@ -122,7 +122,7 @@ Das Archivieren wird durch offene Aufgaben nicht *blockiert*, warnt aber davor, 
 
 ### „User force closed the prompt with 0 null“
 
-`openspec archive` wurde an einer Stelle ausgeführt, an der niemand eine Frage beantworten kann – etwa von einem KI-Agenten aus einem Tool, einem CI-Job oder einer Shell mit geschlossenem stdin. Beim Archivieren können bis zu drei Bestätigungen abgefragt werden. Früher schlug eine unbeantwortbare Frage mit dieser Rohmeldung fehl.
+`openspec archive` wurde an einer Stelle ausgeführt, an der niemand eine Frage beantworten kann – etwa von KI-Agent aus einem Tool, einem CI-Job oder einer Shell mit geschlossenem stdin. Beim Archivieren können bis zu drei Bestätigungen abgefragt werden. Früher schlug eine unbeantwortbare Frage mit dieser Rohmeldung fehl.
 
 Übergeben Sie `--yes`, um die Bestätigungen vorab zu beantworten:
 
@@ -132,7 +132,7 @@ openspec archive <change-name> --yes
 
 Behalten Sie alle Flags bei, die Sie bereits übergeben haben: `--skip-specs` und `--no-validate` ändern das Verhalten des Archivierungsbefehls. Ein erneuter Aufruf nur mit `--yes` ist also nicht derselbe Befehl. Aktuelle Versionen nennen das benötigte Flag und geben eine kopierbare Zeile `Fix:` aus. Wenn Sie aus einer Liste auswählen wollten, geben Sie den Namen der Änderung ausdrücklich an: Auch der Auswahlbildschirm benötigt eine Antwort.
 
-Wenn Sie die Ausgabe des Archivierungsbefehls stattdessen in eine Datei umgeleitet oder von einem Tool erfasst und *eine Antwort übergeben haben* (`printf 'y\n' | openspec archive …`), schrieben ältere Versionen beim Anzeigen der Eingabe Escape-Sequenzen des Terminals in die Ausgabe. In manchen Umgebungen konnte die Datei dadurch stark anwachsen. Aktuelle Versionen lesen Bestätigungsaufforderungen als einfachen Text, wenn stdout kein Terminal ist. Bei `openspec archive` ohne Argumente (das andernfalls eine interaktive Liste der Änderungen anzeigen würde) müssen Sie den Namen der Änderung angeben, statt ein Menü in die Erfassung schreiben zu lassen. In beiden Fällen bleiben umgeleitete und agentengesteuerte Aufrufe sauber. Mit `--yes` (und einem Änderungsnamen) überspringen Sie die Aufforderungen vollständig.
+Wenn Sie die Ausgabe des Archivierungsbefehls stattdessen in eine Datei umgeleitet oder von einem Tool erfasst und *eine Antwort übergeben haben* (`printf 'y\n' | openspec archive …`), schrieben ältere Versionen beim Anzeigen vom prompt Escape-Sequenzen des Terminals in die Ausgabe. In manchen Umgebungen konnte die Datei dadurch stark anwachsen. Aktuelle Versionen lesen confirmation prompts als einfachen Text, wenn stdout kein Terminal ist. Bei `openspec archive` ohne Argumente (das andernfalls eine interaktive Liste der Änderungen anzeigen würde) müssen Sie den Namen der Änderung angeben, statt ein Menü in die Erfassung schreiben zu lassen. In beiden Fällen bleiben umgeleitete und agent-Aufrufe sauber. Mit `--yes` (und einem Änderungsnamen) überspringen Sie die prompts vollständig.
 
 ## Konfiguration
 
@@ -172,7 +172,7 @@ Siehe [Anpassung](/de-DE/customization/#benutzerdefinierte-schemas).
 
 ### „Legacy files detected in non-interactive mode“
 
-Sie arbeiten in CI oder einer nicht-interaktiven Shell. OpenSpec hat alte Dateien gefunden, die aufgeräumt werden sollten, kann Sie aber nicht um Zustimmung bitten. Bestätigen Sie die Bereinigung automatisch:
+Sie arbeiten in CI oder einer nicht-interaktiven Shell. OpenSpec hat alte Dateien gefunden, die aufgeräumt werden sollten, kann Sie aber nicht per prompt um Zustimmung bitten. Bestätigen Sie die Bereinigung automatisch:
 
 ```bash
 openspec init --force
@@ -186,7 +186,7 @@ Starten Sie Ihre IDE neu. Skills werden beim Start erkannt. Wenn sie danach weit
 
 ### Meine alte `project.md` wurde nicht migriert
 
-Das ist beabsichtigt. OpenSpec löscht `project.md` niemals automatisch, da die Datei von Ihnen verfassten Kontext enthalten kann. Übertragen Sie die nützlichen Teile in den Abschnitt `context:` der `config.yaml` und löschen Sie die Datei anschließend selbst. Im [Migrationsleitfaden](/de-DE/migration-guide/#projectmd-zu-configyaml-migrieren) wird dies erläutert – einschließlich einer Eingabe, mit der Sie Ihre KI mit der Zusammenfassung beauftragen können.
+Das ist beabsichtigt. OpenSpec löscht `project.md` niemals automatisch, da die Datei von Ihnen verfassten Kontext enthalten kann. Übertragen Sie die nützlichen Teile in den Abschnitt `context:` der `config.yaml` und löschen Sie die Datei anschließend selbst. Im [Migrationsleitfaden](/de-DE/migration-guide/#projectmd-zu-configyaml-migrieren) wird dies erläutert – einschließlich einem prompt, mit dem Sie Ihre KI mit der Zusammenfassung beauftragen können.
 
 ## Kommen Sie weiterhin nicht weiter?
 

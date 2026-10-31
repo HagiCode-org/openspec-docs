@@ -23,9 +23,9 @@ OpenSpec CLI(`openspec`)는 프로젝트 설정, 검증, 상태 확인, 관리�
 
 ---
 
-## 사용자용 명령과 에이전트용 명령
+## 사용자용 명령과 Agent용 명령
 
-대부분의 CLI 명령은 터미널에서 **사용자가 직접 사용**하도록 설계되었습니다. 일부 명령은 JSON 출력을 통해 **에이전트/스크립트에서 사용**하는 것도 지원합니다.
+대부분의 CLI 명령은 터미널에서 **사용자가 직접 사용**하도록 설계되었습니다. 일부 명령은 JSON 출력을 통해 **agent/스크립트에서 사용**하는 것도 지원합니다.
 
 ### 사용자 전용 명령
 
@@ -33,24 +33,24 @@ OpenSpec CLI(`openspec`)는 프로젝트 설정, 검증, 상태 확인, 관리�
 
 | 명령 | 목적 |
 |---------|---------|
-| `openspec init` | 프로젝트 초기화(대화형 프롬프트) |
-| `openspec view` | 대화형 대시보드 |
-| `openspec workset open <name>` | 저장된 작업 세트 열기(편집기 창 또는 터미널 에이전트 세션) |
+| `openspec init` | 프로젝트 초기화(대화형 prompts) |
+| `openspec view` | 대화형 dashboard |
+| `openspec workset open <name>` | 저장된 작업 세트 열기(편집기 창 또는 터미널 agent 세션) |
 | `openspec config edit` | 편집기에서 구성 열기 |
 | `openspec feedback` | GitHub를 통해 피드백 제출 |
 | `openspec completion install` | 셸 자동 완성 설치 |
 
-### 에이전트 호환 명령
+### Agent 호환 명령
 
-다음 명령은 AI 에이전트와 스크립트에서 사용할 수 있도록 `--json` 출력을 지원합니다.
+다음 명령은 AI agents와 스크립트에서 사용할 수 있도록 `--json` 출력을 지원합니다.
 
-| 명령 | 사용자 사용 | 에이전트 사용 |
+| 명령 | 사용자 사용 | Agent 사용 |
 |---------|-----------|-----------|
 | `openspec list` | 변경 사항/사양 탐색 | 구조화된 데이터에는 `--json` |
 | `openspec show <item>` | 내용 읽기 | 파싱에는 `--json` |
 | `openspec validate` | 문제 확인 | 일괄 검증에는 `--all --json` |
 | `openspec status` | 산출물 진행 상태 확인 | 구조화된 상태에는 `--json` |
-| `openspec instructions` | 다음 단계 확인 | 에이전트 지침에는 `--json` |
+| `openspec instructions` | 다음 단계 확인 | agent 지침에는 `--json` |
 | `openspec templates` | 템플릿 경로 확인 | 경로 확인에는 `--json` |
 | `openspec schemas` | 사용 가능한 스키마 나열 | 스키마 탐색에는 `--json`, 등록된 루트 선택에는 `--store <id>` |
 | `openspec store setup <id>` | 로컬 store 생성 및 등록 | 구조화된 설정 결과에는 명시적 입력과 함께 `--json` |
@@ -105,10 +105,10 @@ openspec init [path] [options]
 | `--tools <list>` | AI 도구를 비대화형으로 구성합니다. `all`, `none` 또는 쉼표로 구분된 목록 사용 |
 | `--language <language>` | 새 구성을 만들 때 이 언어로 산출물을 작성합니다. |
 | `--force` | 확인 없이 기존 파일을 자동 정리합니다. |
-| `--profile <profile>` | 이 초기화 실행에서 전역 프로필 재정의(`core` 또는 `custom`) |
+| `--profile <profile>` | 이 초기화 실행에서 전역 profile 재정의(`core` 또는 `custom`) |
 | `--no-animation` | 애니메이션 대신 정적인 시작 화면을 표시합니다. |
-| `--copilot-cloud` | 확인 없이 GitHub Copilot [클라우드 코딩 에이전트 파일](/ko-KR/supported-tools/#github-copilot-클라우드-코딩-에이전트)을 설정합니다. |
-| `--no-copilot-cloud` | 확인 없이 GitHub Copilot 클라우드 코딩 에이전트 파일 설정을 건너뜁니다. |
+| `--copilot-cloud` | 확인 없이 GitHub Copilot [클라우드 coding agent 파일](/ko-KR/supported-tools/#github-copilot-클라우드-코딩-에이전트)을 설정합니다. |
+| `--no-copilot-cloud` | 확인 없이 GitHub Copilot 클라우드 coding agent 파일 설정을 건너뜁니다. |
 
 `--profile custom`은 전역 구성에서 현재 선택된 워크플로를 사용합니다(`openspec config profile`).
 
@@ -162,7 +162,7 @@ openspec/
 
 ### `openspec update`
 
-CLI 업그레이드 후 OpenSpec 지침 파일을 업데이트합니다. 현재 전역 프로필, 선택한 워크플로, 전달 모드에 따라 AI 도구 구성 파일을 다시 생성합니다.
+CLI 업그레이드 후 OpenSpec 지침 파일을 업데이트합니다. 현재 전역 profile, 선택한 워크플로, 전달 모드에 따라 AI 도구 구성 파일을 다시 생성합니다.
 
 ```
 openspec update [path] [options]
@@ -209,7 +209,7 @@ openspec update --dry-run --json
 }
 ```
 
-계획은 대화형 실행이 아닌 비대화형 실행이 수행할 작업과 같으며, 건드릴 모든 파일을 나열합니다. 도구의 이전 디렉터리에서 옮기는 작업, 프로필 도입 이전 설치의 전역 구성 저장, Copilot 클라우드 코딩 에이전트 파일, 그리고 `--force`를 사용할 때는 이전 형식 산출물 정리가 포함됩니다. 특정 도구가 아니라 OpenSpec 자체에 속한 파일은 `tool: "openspec"`을 가집니다. `notes`는 터미널 사용자에게 확인을 요청할 단계를 표시하며, 각 항목에는 안정적인 `code`가 있습니다. `legacy-tool-directories`는 완료된 것으로 표시된 이동을, `legacy-artifacts`는 `--force` 없이 업데이트가 그대로 두는 이전 형식 파일을 가리킵니다. `failures`는 실제 업데이트가 실패할 도구를 나열하며, 파일이 있어야 할 자리에 디렉터리가 있거나 쓰기 권한이 없는 경우처럼 업데이트가 쓸 수 없는 항목도 포함합니다. 해당 도구에서는 계획이 실제 업데이트가 멈추는 지점에서 멈추지만, 한 도구가 실패해도 나머지 계획은 계속 표시됩니다. 일반적인 새로 고침에서는 두 목록 모두 비어 있습니다.
+계획은 대화형 실행이 아닌 비대화형 실행이 수행할 작업과 같으며, 건드릴 모든 파일을 나열합니다. 도구의 이전 디렉터리에서 옮기는 작업, profile 도입 이전 설치의 전역 구성 저장, Copilot 클라우드 coding agent 파일, 그리고 `--force`를 사용할 때는 이전 형식 산출물 정리가 포함됩니다. 특정 도구가 아니라 OpenSpec 자체에 속한 파일은 `tool: "openspec"`을 가집니다. `notes`는 터미널 사용자에게 확인을 요청할 단계를 표시하며, 각 항목에는 안정적인 `code`가 있습니다. `legacy-tool-directories`는 완료된 것으로 표시된 이동을, `legacy-artifacts`는 `--force` 없이 업데이트가 그대로 두는 이전 형식 파일을 가리킵니다. `failures`는 실제 업데이트가 실패할 도구를 나열하며, 파일이 있어야 할 자리에 디렉터리가 있거나 쓰기 권한이 없는 경우처럼 업데이트가 쓸 수 없는 항목도 포함합니다. 해당 도구에서는 계획이 실제 업데이트가 멈추는 지점에서 멈추지만, 한 도구가 실패해도 나머지 계획은 계속 표시됩니다. 일반적인 새로 고침에서는 두 목록 모두 비어 있습니다.
 전체 참조는 [openspec.dev/docs/cli](https://openspec.dev/docs/cli)에서 확인할 수 있습니다.
 
 `--dry-run --json` 실패 시에도 빈 계획과 `status` 배열을 담은 JSON 문서가 정확히 하나 출력되며, 0이 아닌 종료 코드로 끝납니다.
@@ -230,7 +230,7 @@ A newer OpenSpec CLI is available (v1.6.0 → v1.7.0).
 
 | OpenSpec 설치 방식 | 표시되는 내용 |
 |---------------------------|--------------|
-| 전역 npm 설치 | 대화형 터미널에서는 확인 프롬프트와 자동 업그레이드가 제공됩니다. 출력을 파이프로 연결하면 명령만 표시됩니다. |
+| 전역 npm 설치 | 대화형 터미널에서는 확인 prompt와 자동 업그레이드가 제공됩니다. 출력을 파이프로 연결하면 명령만 표시됩니다. |
 | 전역 pnpm, bun, yarn, volta 설치 | 해당 패키지 관리자의 명령: `pnpm add -g …@latest`, `bun add -g …@latest`, `yarn global add …@latest` 또는 `volta install …@latest` |
 | 프로젝트 종속성 | 잠금 파일을 소유한 패키지 관리자에서 종속성을 업데이트하라는 안내 |
 | `npx` / `dlx` 캐시 | `npx @fission-ai/openspec@latest update` — 이 명령 자체가 업데이트이므로 별도 단계가 없습니다. |
@@ -258,7 +258,7 @@ store는 이 컴퓨터에 등록한 독립 OpenSpec 저장소입니다(예: 계�
 
 ### `openspec store setup`
 
-로컬 store를 만들고 등록합니다. 터미널에서 인수 없이 실행하면 OpenSpec이 설정 과정을 안내합니다. 에이전트와 스크립트에서는 입력을 명시하고 `--json`을 사용해야 합니다.
+로컬 store를 만들고 등록합니다. 터미널에서 인수 없이 실행하면 OpenSpec이 설정 과정을 안내합니다. agents와 스크립트에서는 입력을 명시하고 `--json`을 사용해야 합니다.
 
 ```bash
 openspec store setup [id] [options]
@@ -274,7 +274,7 @@ openspec store setup [id] [options]
 | `--no-init-git` | Git 작업을 모두 건너뜁니다(초기화 및 초기 커밋 없음). |
 | `--json` | JSON 출력 |
 
-비대화형 실행(`--json`, 스크립트, 에이전트)에서는 store ID와 `--path`를 모두 지정해야 합니다. 대화형 터미널에서는 사용자가 볼 수 있고 직접 관리하는 위치(예: `~/openspec/<id>`)를 편집 가능한 제안값으로 보여 주며, OpenSpec이 관리하는 데이터 디렉터리를 기본값으로 사용하지 않습니다.
+비대화형 실행(`--json`, 스크립트, agents)에서는 store ID와 `--path`를 모두 지정해야 합니다. 대화형 터미널에서는 사용자가 볼 수 있고 직접 관리하는 위치(예: `~/openspec/<id>`)를 편집 가능한 제안값으로 보여 주며, OpenSpec이 관리하는 데이터 디렉터리를 기본값으로 사용하지 않습니다.
 
 예:
 
@@ -320,7 +320,7 @@ store를 이동하거나 다른 위치에 복제했거나 이 컴퓨터의 OpenS
 openspec store remove <id> [--yes] [--json]
 ```
 
-대화형 터미널에서 `remove`를 실행하면 삭제 전에 정확한 폴더를 표시합니다. 에이전트, 스크립트, JSON 호출자는 삭제를 확인하기 위해 `--yes`를 전달해야 합니다. OpenSpec은 일치하는 store 메타데이터가 없는 폴더를 삭제하지 않습니다.
+대화형 터미널에서 `remove`를 실행하면 삭제 전에 정확한 폴더를 표시합니다. Agents, 스크립트, JSON 호출자는 삭제를 확인하기 위해 `--yes`를 전달해야 합니다. OpenSpec은 일치하는 store 메타데이터가 없는 폴더를 삭제하지 않습니다.
 
 ### `openspec store list`
 
@@ -384,7 +384,7 @@ references:
 store: team-context
 ```
 
-이후 일반 명령은 선언된 store로 자동 연결됩니다. 루트 배너와 JSON `root` 블록에 store ID와 함께 `source: "declared"`가 표시되며, 출력되는 안내에는 계속 `--store <id>`가 포함됩니다. 선언은 대체 경로일 뿐 우선하지 않습니다. 명시적으로 지정한 `--store`가 항상 우선하며 실제 계획 폴더가 있는 디렉터리에서는 포인터를 무시하고 경고를 출력합니다. 포인터 저장소를 로컬 OpenSpec 루트로 바꾸려면 `store:` 줄을 제거한 다음 `openspec init`을 실행하세요. 선언이 있으면 init은 기본 구조를 만들지 않습니다.
+이후 일반 명령은 선언된 store로 자동 연결됩니다. 루트 배너와 JSON `root` 블록에 store ID와 함께 `source: "declared"`가 표시되며, 출력되는 안내에는 계속 `--store <id>`가 포함됩니다. 선언은 fallback 경로일 뿐 우선하지 않습니다. 명시적으로 지정한 `--store`가 항상 우선하며 실제 계획 폴더가 있는 디렉터리에서는 포인터를 무시하고 경고를 출력합니다. 포인터 저장소를 로컬 OpenSpec 루트로 바꾸려면 `store:` 줄을 제거한 다음 `openspec init`을 실행하세요. 선언이 있으면 init은 기본 구조를 만들지 않습니다.
 
 컴퓨터 수준 설정은 모든 저장소에 한꺼번에 적용됩니다. `openspec config set defaultStore <id>`를 사용하세요(구성 참조). `--store`, 로컬 루트, 프로젝트 포인터로 모두 루트를 확인할 수 없을 때만 사용하며 루트 배너와 JSON `root` 블록에 `source: "global_default"`가 표시됩니다.
 
@@ -396,7 +396,7 @@ store: team-context
 openspec doctor [--store <id>] [--json]
 ```
 
-보고서에서는 루트 상태, store 메타데이터 상태(기록된 원격 주소와 체크아웃 원본이 다를 때의 알림 및 store 체크아웃이 마지막으로 가져온 업스트림 추적 참조보다 뒤처졌을 때의 알림 포함), 참조 상태(지침에 표시되는 진단과 동일하며 확인할 수 없는 참조에는 복제 방법 포함)를 구분합니다. 상태 진단의 심각도와 무관하게 종료 코드 0을 반환하며 에이전트는 `status` 배열을 읽습니다. 루트 없음, 알 수 없는 store와 같은 명령 실패만 종료 코드 1을 반환합니다. Doctor는 복제, 동기화, 복구를 하지 않습니다. 상태가 아니라 전체 작업 집합을 보려면 `openspec context`를 사용하세요.
+보고서에서는 루트 상태, store 메타데이터 상태(기록된 원격 주소와 체크아웃 원본이 다를 때의 알림 및 store 체크아웃이 마지막으로 가져온 업스트림 추적 참조보다 뒤처졌을 때의 알림 포함), 참조 상태(지침에 표시되는 진단과 동일하며 확인할 수 없는 참조에는 복제 방법 포함)를 구분합니다. 상태 진단의 심각도와 무관하게 종료 코드 0을 반환하며 agents는 `status` 배열을 읽습니다. 루트 없음, 알 수 없는 store와 같은 명령 실패만 종료 코드 1을 반환합니다. Doctor는 복제, 동기화, 복구를 하지 않습니다. 상태가 아니라 전체 작업 집합을 보려면 `openspec context`를 사용하세요.
 
 ## 작업 컨텍스트(구성된 집합)
 
@@ -406,7 +406,7 @@ OpenSpec 선언을 통해 이 작업과 관련된 모든 항목, 즉 OpenSpec �
 openspec context [--store <id>] [--json] [--code-workspace <path> [--force]]
 ```
 
-JSON 요약은 에이전트에서 사용할 수 있습니다(사용 가능한 참조 store마다 가져오기 절차가 포함되며 확인할 수 없는 항목에는 동일한 해결 지침이 포함됨). `--code-workspace`를 사용하면 루트와 사용 가능한 참조 store(`ref:<id>` 폴더)가 포함된 VS Code workspace 파일도 작성합니다. 이 명령은 이 파일 하나만 작성하며 파일이 이미 있으면 `--force` 없이 거부합니다. 사용할 수 없는 항목은 임의로 추측하지 않고 보고합니다.
+JSON 요약은 agent에서 사용할 수 있습니다(사용 가능한 참조 store마다 가져오기 절차가 포함되며 확인할 수 없는 항목에는 동일한 해결 지침이 포함됨). `--code-workspace`를 사용하면 루트와 사용 가능한 참조 store(`ref:<id>` 폴더)가 포함된 VS Code workspace 파일도 작성합니다. 이 명령은 이 파일 하나만 작성하며 파일이 이미 있으면 `--force` 없이 거부합니다. 사용할 수 없는 항목은 임의로 추측하지 않고 보고합니다.
 
 "작업 컨텍스트"는 구성된 집합이며 `openspec/config.yaml`의 `context:` 필드는 지침에 삽입되는 프로젝트 배경 정보입니다. 서로 다른 개념입니다. `openspec doctor`는 집합의 상태를, `openspec context`는 집합의 구성을 보여 줍니다.
 
@@ -423,7 +423,7 @@ openspec workset open <name> [--tool <id>]
 openspec workset remove <name> [--yes] [--json]
 ```
 
-`create`는 짧은 안내 절차를 실행합니다(비대화형 모드에서는 `--member` 플래그 사용 가능. 첫 번째 구성원이 기본 항목이며 세션은 여기서 시작). `open`은 선택한 도구를 실행합니다. VS Code, Cursor와 같은 편집기는 모든 구성원이 포함된 창을 열고 반환하며, Claude Code, codex와 같은 CLI 에이전트는 모든 구성원이 연결되고 프롬프트가 미리 입력되지 않은 세션으로 현재 터미널을 사용하다가 종료 시 반환합니다. 열 때 누락된 구성원 폴더는 안내와 함께 건너뛰고 나머지는 엽니다. 저장된 도구 기본 설정은 열 때마다 `--tool`로 재정의할 수 있습니다.
+`create`는 짧은 안내 절차를 실행합니다(비대화형 모드에서는 `--member` 플래그 사용 가능. 첫 번째 구성원이 기본 항목이며 세션은 여기서 시작). `open`은 선택한 도구를 실행합니다. VS Code, Cursor와 같은 편집기는 모든 구성원이 포함된 창을 열고 반환하며, Claude Code, codex와 같은 CLI agents는 모든 구성원이 연결되고 prompt가 미리 입력되지 않은 세션으로 현재 터미널을 사용하다가 종료 시 반환합니다. 열 때 누락된 구성원 폴더는 안내와 함께 건너뛰고 나머지는 엽니다. 저장된 도구 기본 설정은 열 때마다 `--tool`로 재정의할 수 있습니다.
 
 새 도구 지원에는 코드 변경이 아니라 구성만 필요합니다. 모든 도구는 두 실행 방식 중 하나를 사용합니다. `workspace-file`(생성된 `.code-workspace` 파일로 실행) 또는 `attach-dirs`(구성원별 연결 플래그 사용)입니다. 전역 `config.json`의 `openers` 키를 사용하면 도구를 추가하거나 기본 설정의 특정 필드를 조정할 수 있습니다(`openspec config edit`로 열기).
 
@@ -483,7 +483,7 @@ Changes:
 
 ### `openspec view`
 
-사양과 변경 사항을 탐색하는 대화형 대시보드를 표시합니다.
+사양과 변경 사항을 탐색하는 대화형 dashboard를 표시합니다.
 
 ```
 openspec view
@@ -513,7 +513,7 @@ openspec show [item-name] [options]
 |--------|-------------|
 | `--type <type>` | 유형 지정: `change` 또는 `spec`(모호하지 않으면 자동 감지) |
 | `--json` | JSON 출력 |
-| `--no-interactive` | 프롬프트 비활성화 |
+| `--no-interactive` | prompts 비활성화 |
 
 **변경 사항 전용 옵션:**
 
@@ -577,7 +577,7 @@ openspec validate [item-name] [options]
 | `--strict` | 엄격한 검증 모드를 활성화합니다. |
 | `--json` | JSON 출력 |
 | `--concurrency <n>` | 병렬 검증 최대 수(기본값: 6 또는 `OPENSPEC_CONCURRENCY` 환경 변수) |
-| `--no-interactive` | 프롬프트 비활성화 |
+| `--no-interactive` | prompts 비활성화 |
 
 `--archived`는 독립된 범위입니다. 이미 보관 시 적용된 사양 델타는 검증하지 않고 `changes/archive/` 아래의 모든 변경 사항에서 `tasks.md` 체크박스가 전부 선택됐는지 확인합니다. 하나라도 선택되지 않은 경우 0이 아닌 종료 코드를 반환합니다. 미완료 작업을 남긴 채 보관한 변경 사항을 감지하므로 커밋 전 훅에 유용합니다.
 
@@ -652,13 +652,13 @@ openspec archive [change-name] [options]
 
 | 인수 | 필수 여부 | 설명 |
 |----------|----------|-------------|
-| `change-name` | 아니요 | 보관할 변경 사항(생략하면 입력 요청, 프롬프트에 응답할 수 없는 환경에서는 필수) |
+| `change-name` | 아니요 | 보관할 변경 사항(생략하면 입력 요청, prompt에 응답할 수 없는 환경에서는 필수) |
 
 **옵션:**
 
 | 옵션 | 설명 |
 |--------|-------------|
-| `-y, --yes` | 확인 프롬프트를 건너뜁니다. AI 에이전트, CI 작업 또는 표준 입력이 닫힌 실행처럼 프롬프트에 응답할 수 없는 경우 필수입니다. |
+| `-y, --yes` | 확인 prompts를 건너뜁니다. AI agent, CI 작업 또는 표준 입력이 닫힌 실행처럼 prompt에 응답할 수 없는 경우 필수입니다. |
 | `--skip-specs` | 이번 보관에서 사양 업데이트를 건너뜁니다. 사양 델타가 영구히 없는 변경 사항은 `.openspec.yaml`에 `skip_specs: true`를 선언해야 합니다. 이 경우 플래그 없이 보관할 수 있습니다. |
 | `--no-validate` | 검증을 건너뜁니다(확인 필요). 기능 폐기도 비활성화됩니다. 검증기 판단이 없으면 아무것도 폐기되지 않습니다. |
 
@@ -715,16 +715,16 @@ x-jiraKey: ABC-1
 4. 활성 델타 사양을 검증해 `openspec/specs/`에 병합합니다. 변경 사항에서 마지막 요구 사항을 제거한 기능은 폐기되고 사양 파일도 삭제되지만 변경 사항의 `.openspec.yaml`에서 `schema:`와 함께 `retire_capabilities: true`를 선언한 경우에만 해당합니다.
 5. 변경 사항 폴더를 `openspec/changes/archive/YYYY-MM-DD-<name>/`으로 이동합니다.
 6. 보관이 완료되기 전에 사양 수정 또는 마지막 이동이 실패하면 사양을 복원하고 변경 사항을 기존 활성 경로에 남기거나 되돌립니다.
-7. 확인된 대체 복사본을 만들었지만 준비된 원본 정리가 실패한 경우 복구를 위해 완전한 보관 파일과 커밋된 사양 상태를 유지합니다.
+7. 확인된 fallback 복사본을 만들었지만 준비된 원본 정리가 실패한 경우 복구를 위해 완전한 보관 파일과 커밋된 사양 상태를 유지합니다.
 
-**터미널을 사용할 수 없는 경우:** AI 에이전트, CI 작업 또는 표준 입력이 닫힌 실행은
+**터미널을 사용할 수 없는 경우:** AI agent, CI 작업 또는 표준 입력이 닫힌 실행은
 2단계에서 응답할 수 없으므로 보관은 아무것도 수정하지 않은 채 중지되고 종료 코드 1을 반환하며 재실행할 명령(`openspec archive <name> --yes`와 기존에 지정한 다른 플래그)을 안내합니다. 다시 시도하지 않으려면 처음부터 `--yes`와 변경 사항 이름을 전달하세요.
 
 ---
 
 ## 워크플로 명령
 
-이 명령은 산출물 기반 OPSX 워크플로를 지원합니다. 진행 상황을 확인하는 사용자와 다음 단계를 결정하는 에이전트 모두에게 유용합니다.
+이 명령은 산출물 기반 OPSX 워크플로를 지원합니다. 진행 상황을 확인하는 사용자와 다음 단계를 결정하는 agents 모두에게 유용합니다.
 
 ### `openspec new change`
 
@@ -826,7 +826,7 @@ Progress: 2/4 artifacts complete
 
 ### `openspec instructions`
 
-산출물 생성 또는 작업 적용을 위한 상세 지침을 가져옵니다. AI 에이전트가 다음에 생성할 내용을 파악하는 데 사용합니다.
+산출물 생성 또는 작업 적용을 위한 상세 지침을 가져옵니다. AI agents가 다음에 생성할 내용을 파악하는 데 사용합니다.
 
 ```
 openspec instructions [artifact] [options]
@@ -875,7 +875,7 @@ openspec instructions design --change add-dark-mode --json
 - 구성 파일에서 산출물별로 지정한 규칙
 - `apply`/`archive`에 대한 현재 프로젝트 컨텍스트 및 일치하는 작업 안내
 
-작업 입력은 호출할 때마다 확인된 저장소 또는 선택된 store에서 읽습니다. 프로젝트 컨텍스트는 프롬프트에 반드시 포함해야 하는 입력입니다. 에이전트는 이를 읽고 관련 프로젝트 사실, 관례, 제약 조건을 적용합니다. 작업 안내는 선택적으로 추가되는 조언입니다. 에이전트는 모든 항목을 고려하되 기본 제공 워크플로에 적용 가능하고 호환되는 항목만 따릅니다. 두 필드는 사용자가 명시적으로 선택한 내용, CLI가 관리하는 상태, 기본 지침, 산출물 규칙과 별도로 유지됩니다. 서로 충돌하는 컨텍스트는 보고하며 충돌하거나 적용할 수 없는 안내는 따르지 않고 이유를 설명합니다. 이는 생성된 에이전트의 동작 계약이며 CLI에서 강제되는 검사는 아닙니다. `instructions archive`는 선택한 변경 사항, 선택적 입력, 루트 메타데이터만 반환하며 정적인 보관 워크플로는 포함하지 않습니다.
+작업 입력은 호출할 때마다 확인된 저장소 또는 선택된 store에서 읽습니다. 프로젝트 컨텍스트는 prompt에 반드시 포함해야 하는 입력입니다. agents는 이를 읽고 관련 프로젝트 사실, 관례, 제약 조건을 적용합니다. 작업 안내는 선택적으로 추가되는 조언입니다. agents는 모든 항목을 고려하되 기본 제공 워크플로에 적용 가능하고 호환되는 항목만 따릅니다. 두 필드는 사용자가 명시적으로 선택한 내용, CLI가 관리하는 상태, 기본 지침, 산출물 규칙과 별도로 유지됩니다. 서로 충돌하는 컨텍스트는 보고하며 충돌하거나 적용할 수 없는 안내는 따르지 않고 이유를 설명합니다. 이는 생성된 agents의 동작 계약이며 CLI에서 강제되는 검사는 아닙니다. `instructions archive`는 선택한 변경 사항, 선택적 입력, 루트 메타데이터만 반환하며 정적인 보관 워크플로는 포함하지 않습니다.
 
 `skip_specs: true`로 건너뛴 산출물은 출력에 경고만 표시합니다(JSON에서는 `skipped`/`warning` 필드 추가). 해당 산출물을 만들면 안 됩니다.
 
@@ -1144,7 +1144,7 @@ openspec config <subcommand> [options]
 | `unset <key>` | 키 제거 |
 | `reset` | 기본값으로 초기화 |
 | `edit` | `$EDITOR`에서 열기 |
-| `profile [preset]` | 대화형 또는 프리셋을 통해 워크플로 프로필 구성 |
+| `profile [preset]` | 대화형 또는 프리셋을 통해 워크플로 profile 구성 |
 
 **예:**
 
@@ -1196,9 +1196,9 @@ openspec config profile core
 - 현재 설정 유지(종료)
 
 현재 설정을 유지하면 변경 사항을 기록하지 않고 업데이트 확인도 표시하지 않습니다.
-구성은 바뀌지 않았지만 현재 프로젝트 파일이 전역 프로필/전달 방식과 동기화되지 않은 경우 OpenSpec은 경고를 표시하고 `openspec update`를 제안합니다.
+구성은 바뀌지 않았지만 현재 프로젝트 파일이 전역 profile/전달 방식과 동기화되지 않은 경우 OpenSpec은 경고를 표시하고 `openspec update`를 제안합니다.
 `Ctrl+C`를 누르면 스택 추적 없이 정상적으로 흐름을 취소하고 종료 코드 `130`을 반환합니다.
-워크플로 체크리스트에서 `[x]`는 전역 구성에서 선택된 워크플로를 의미합니다. 선택 항목을 프로젝트 파일에 적용하려면 `openspec update`를 실행하거나 프로젝트 내부 프롬프트에서 `Apply changes to this project now?`를 선택하세요.
+워크플로 체크리스트에서 `[x]`는 전역 구성에서 선택된 워크플로를 의미합니다. 선택 항목을 프로젝트 파일에 적용하려면 `openspec update`를 실행하거나 프로젝트 내부 prompt에서 `Apply changes to this project now?`를 선택하세요.
 
 **대화형 예:**
 
@@ -1291,7 +1291,7 @@ openspec completion install powershell
 . $PROFILE
 ```
 
-`$env:PROFILE`은 이 세션에서 구성할 프로필을 OpenSpec에 알려 줍니다. 설치 프로그램은 누락된 프로필 디렉터리를 만들고 `OpenSpecCompletion.ps1`을 불러오는 관리 블록을 추가합니다. 프로필을 다시 불러오면 자동 완성이 즉시 활성화됩니다.
+`$env:PROFILE`은 이 세션에서 구성할 profile을 OpenSpec에 알려 줍니다. 설치 프로그램은 누락된 profile 디렉터리를 만들고 `OpenSpecCompletion.ps1`을 불러오는 관리 블록을 추가합니다. profile을 다시 불러오면 자동 완성이 즉시 활성화됩니다.
 
 현재 호스트에서 제거하려면 다음을 실행하세요.
 
@@ -1302,7 +1302,7 @@ openspec completion uninstall powershell
 
 현재 세션에서 자동 완성을 지우려면 제거한 뒤 PowerShell을 다시 시작하세요.
 
-자동 완성은 선택 사항입니다. CLI는 대화형 터미널에서 명령을 처음
+자동 완성은 opt-in입니다. CLI는 대화형 터미널에서 명령을 처음
 실행할 때 표준 오류에 한 번만 안내하며 이후에는 다시 표시하지 않습니다. 이미 자동 완성이 설치되어 있으면 안내하지 않습니다. 안내를 완전히 숨기려면 `OPENSPEC_NO_COMPLETIONS=1`을 설정하세요.
 
 ---

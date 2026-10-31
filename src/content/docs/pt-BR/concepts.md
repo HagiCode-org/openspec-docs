@@ -170,16 +170,16 @@ O OpenSpec busca evitar burocracia. Use o nível mais simples que ainda permita 
 
 A maioria das mudanças deve permanecer no modo Lite.
 
-### Colaboração entre pessoas e agentes
+### Colaboração entre pessoas e agents
 
-Em muitas equipes, pessoas exploram o problema e agentes elaboram os artefatos. O ciclo esperado é:
+Em muitas equipes, pessoas exploram o problema e agents elaboram os artefatos. O ciclo esperado é:
 
 1. A pessoa fornece a intenção, o contexto e as restrições.
-2. O agente transforma essas informações em requisitos e cenários centrados no comportamento.
-3. O agente mantém os detalhes de implementação em `design.md` e `tasks.md`, não em `spec.md`.
+2. O agent transforma essas informações em requisitos e cenários centrados no comportamento.
+3. O agent mantém os detalhes de implementação em `design.md` e `tasks.md`, não em `spec.md`.
 4. A validação confirma a estrutura e a clareza antes da implementação.
 
-Isso mantém as especificações legíveis para pessoas e consistentes para agentes.
+Isso mantém as especificações legíveis para pessoas e consistentes para agents.
 
 ## Mudanças
 
@@ -457,7 +457,7 @@ artifacts:
                 specs, design)
 ```
 
-**As dependências viabilizam o trabalho, não são barreiras.** Elas mostram o que pode ser criado, não o que você precisa criar em seguida. Você pode pular o projeto se não precisar dele. Pode criar as especificações antes ou depois do projeto: ambos dependem apenas da proposta.
+**As dependências viabilizam o trabalho, não são gates.** Elas mostram o que pode ser criado, não o que você precisa criar em seguida. Você pode pular o projeto se não precisar dele. Pode criar as especificações antes ou depois do projeto: ambos dependem apenas da proposta.
 
 ### Schemas integrados
 

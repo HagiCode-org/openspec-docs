@@ -2,7 +2,7 @@
 title: "Unterstützte Tools"
 ---
 
-OpenSpec funktioniert mit vielen KI-Codierassistenten. Wenn Sie `openspec init` ausführen, konfiguriert OpenSpec die ausgewählten Tools entsprechend Ihrem aktiven Profil, Ihrer Workflow-Auswahl und Ihrem Bereitstellungsmodus.
+OpenSpec funktioniert mit vielen KI-Codierassistenten. Wenn Sie `openspec init` ausführen, konfiguriert OpenSpec die ausgewählten Tools entsprechend Ihrem aktiven profile, Ihrer Workflow-Auswahl und Ihrem Bereitstellungsmodus.
 
 ## So funktioniert es
 
@@ -13,7 +13,7 @@ Für jedes ausgewählte Tool kann OpenSpec Folgendes installieren:
 
 Codex verwendet ausschließlich Skills: OpenSpec installiert für Codex `.agents/skills/openspec-*/SKILL.md`, selbst wenn der Bereitstellungsmodus auf `commands` gesetzt ist, und generiert keine benutzerdefinierten Codex-Prompt-Dateien. Vorhandene, von OpenSpec verwaltete Skills unter dem älteren Pfad `.codex/skills` werden nach dem Schreiben ihrer Ersatzdateien abgeglichen. Benutzerdefinierte und abweichende Dateien bleiben erhalten.
 
-Standardmäßig verwendet OpenSpec das Profil `core`, das Folgendes umfasst:
+Standardmäßig verwendet OpenSpec das profile `core`, das Folgendes umfasst:
 - `propose`
 - `explore`
 - `apply`
@@ -105,7 +105,7 @@ indem Sie den Hinweis lesen.
 | ZCode (`zcode`) | `.zcode/skills/openspec-*/SKILL.md` | `.zcode/commands/opsx/<id>.md` |
 | Gemeinsame `.agents`-Skills (`agents`) | `.agents/skills/openspec-*/SKILL.md` | Nicht generiert (kein Befehlsadapter; verwenden Sie Skill-Aufrufe wie `/openspec-*`) |
 
-\*\* GitHub-Copilot-Prompt-Dateien werden von IDE-Erweiterungen (VS Code, JetBrains, Visual Studio) als benutzerdefinierte Slash-Befehle erkannt. Copilot CLI verarbeitet `.github/prompts/*.prompt.md` derzeit nicht direkt. Wenn Sie `github-copilot` auswählen, kann außerdem der von GitHub gehostete **Cloud-Codieragent** eingerichtet werden. Siehe weiter unten [GitHub Copilot Cloud-Codieragent](#github-copilot-cloud-codieragent).
+\*\* GitHub-Copilot-Prompt-Dateien werden von IDE-Erweiterungen (VS Code, JetBrains, Visual Studio) als benutzerdefinierte Slash-Befehle erkannt. Copilot CLI verarbeitet `.github/prompts/*.prompt.md` derzeit nicht direkt. Wenn Sie `github-copilot` auswählen, kann außerdem der von GitHub gehostete **cloud coding agent** eingerichtet werden. Siehe weiter unten [GitHub Copilot cloud coding agent](#github-copilot-cloud-codieragent).
 
 \*\*\* Hermes lädt Skills standardmäßig aus `~/.hermes/skills/`. Um lokale OpenSpec-Skills eines Projekts zu verwenden, fügen Sie das Projektverzeichnis `.hermes/skills/` in `~/.hermes/config.yaml` zu `skills.external_dirs` hinzu. Hermes stellt die Skills dann mit benutzerseitigen Slash-Aufrufen wie `/openspec-propose` bereit.
 
@@ -121,19 +121,19 @@ Verzeichnisse unter `~/.minimax/skills/`. Lokale `.minimax`- oder `.mavis`-Verze
 
 ### GitHub Copilot Cloud-Codieragent
 
-Der [Copilot-Codieragent](https://docs.github.com/en/copilot/using-github-copilot/coding-agent) von GitHub wird auf GitHub in einer GitHub-Actions-Umgebung ausgeführt – getrennt von Copilot in Ihrem Editor. OpenSpec kann ihn so einrichten, dass er die OpenSpec-CLI verwendet. Dazu werden zwei Dateien generiert:
+Der [Copilot coding agent](https://docs.github.com/en/copilot/using-github-copilot/coding-agent) von GitHub wird auf GitHub in einer GitHub-Actions-Umgebung ausgeführt – getrennt von Copilot in Ihrem Editor. OpenSpec kann ihn so einrichten, dass er die OpenSpec-CLI verwendet. Dazu werden zwei Dateien generiert:
 
-- `.github/workflows/copilot-setup-steps.yml` – installiert `@fission-ai/openspec` in der Umgebung des Agents
+- `.github/workflows/copilot-setup-steps.yml` – installiert `@fission-ai/openspec` in der Umgebung vom agent
 - `.github/agents/openspec.agent.md` – weist den Agent an, wie OpenSpec zu verwenden ist
 
-Da damit ein GitHub-Actions-Workflow in Ihr Repository geschrieben wird, ist die Einrichtung **optional**:
+Da damit ein GitHub-Actions-Workflow in Ihr Repository geschrieben wird, ist die Einrichtung **opt-in**:
 
 | Vorgehen | Verhalten |
 |-----|----------|
 | `openspec init` (interaktiv) | Fragt, ob Cloud-Dateien eingerichtet werden sollen. Standard ist **Nein**. |
-| `openspec init --copilot-cloud` | Richtet sie ohne Rückfrage ein (für Skripte/CI). |
-| `openspec init --no-copilot-cloud` | Überspringt sie ohne Rückfrage und entfernt zuvor generierte Dateien. |
-| `openspec update` | Fragt nie nach. Aktualisiert Dateien nur, wenn Sie zugestimmt haben (oder das Projekt sie bereits enthält). Wenn Sie abgelehnt haben, werden von OpenSpec verwaltete Cloud-Dateien entfernt. |
+| `openspec init --copilot-cloud` | Richtet sie ohne prompt ein (für Skripte/CI). |
+| `openspec init --no-copilot-cloud` | Überspringt sie ohne prompt und entfernt zuvor generierte Dateien. |
+| `openspec update` | Fragt nie per prompt nach. Aktualisiert Dateien nur, wenn Sie zugestimmt haben (oder das Projekt sie bereits enthält). Wenn Sie abgelehnt haben, werden von OpenSpec verwaltete Cloud-Dateien entfernt. |
 
 Ihre Auswahl wird als `githubCopilot.cloudAgent: true|false` in `openspec/config.yaml` gespeichert, sodass nicht-interaktive Aktualisierungen sie berücksichtigen. OpenSpec schreibt und entfernt ausschließlich Dateien, deren Inhalt es selbst generiert hat. Wenn Sie `copilot-setup-steps.yml` oder `openspec.agent.md` angepasst oder bereits eigene Dateien angelegt haben, bleiben diese unangetastet (und `init`/`update` weisen Sie darauf hin).
 
@@ -211,15 +211,15 @@ openspec init --profile core
 
 OpenSpec installiert Workflow-Artefakte entsprechend den ausgewählten Workflows:
 
-- **Core-Profil (Standard):** `propose`, `explore`, `apply`, `update`, `sync`, `archive`
+- **Core profile (Standard):** `propose`, `explore`, `apply`, `update`, `sync`, `archive`
 - **Benutzerdefinierte Auswahl:** eine beliebige Teilmenge aller Workflow-IDs:
   `propose`, `explore`, `new`, `continue`, `apply`, `update`, `ff`, `sync`, `archive`, `bulk-archive`, `verify`, `onboard`
 
-Mit anderen Worten: Die Anzahl der Skills und Befehle hängt vom Profil und vom Bereitstellungsmodus ab und ist nicht fest vorgegeben.
+Mit anderen Worten: Die Anzahl der Skills und Befehle hängt vom profile und vom Bereitstellungsmodus ab und ist nicht fest vorgegeben.
 
 ## Generierte Skill-Namen
 
-Wenn sie im Profil oder in der Workflow-Konfiguration ausgewählt sind, generiert OpenSpec die folgenden Skills:
+Wenn sie im profile oder in der Workflow-Konfiguration ausgewählt sind, generiert OpenSpec die folgenden Skills:
 
 - `openspec-propose`
 - `openspec-explore`

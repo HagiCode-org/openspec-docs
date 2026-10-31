@@ -457,7 +457,7 @@ artifacts:
                 specs, design)
 ```
 
-**Les dépendances facilitent le travail, elles ne le bloquent pas.** Elles indiquent ce qu’il est possible de créer, pas ce que vous devez créer ensuite. Vous pouvez omettre la conception si elle est inutile, et rédiger les spécifications avant ou après celle-ci : les deux ne dépendent que de la proposition.
+**Les dépendances facilitent le travail, elles ne sont pas des gates.** Elles indiquent ce qu’il est possible de créer, pas ce que vous devez créer ensuite. Vous pouvez omettre la conception si elle est inutile, et rédiger les spécifications avant ou après celle-ci : les deux ne dépendent que de la proposition.
 
 ### Schémas intégrés
 

@@ -22,7 +22,7 @@ repositório:
 - Sua equipe planeja antes da existência do código ou planeja algo que nunca
   se tornará código *neste* repositório.
 - Uma equipe é responsável pelos requisitos, mas outras os consomem. A versão
-  na wiki fica desatualizada e, de qualquer forma, seu agente de programação
+  na wiki fica desatualizada e, de qualquer forma, seu coding agent
   não consegue lê-la.
 
 Uma **store** é a solução: um repositório independente dedicado ao
@@ -153,7 +153,7 @@ Using OpenSpec root: team-plans (/Users/you/openspec/team-plans)
 ...
 ```
 
-O ponteiro é uma alternativa, nunca uma substituição: uma opção `--store`
+O ponteiro é um fallback, nunca uma substituição: uma opção `--store`
 explícita sempre prevalece. Se o repositório ganhar pastas de planejamento
 próprias, elas prevalecem (e um aviso recomendará remover o ponteiro obsoleto).
 
@@ -206,8 +206,8 @@ no repositório da store como faria com qualquer outra branch ou pull request.
 Selecionar uma store altera a raiz do OpenSpec; não faz com que ele descubra
 ou leia todos os repositórios de código que usam essa store. As instruções da
 store veem os artefatos e o contexto configurado nela. O código dos componentes
-só fica disponível quando essas pastas também estão acessíveis ao agente ou
-editor e são lidas pelo agente.
+só fica disponível quando essas pastas também estão acessíveis ao agent ou
+editor e são lidas pelo agent.
 
 Um workset é uma forma prática de abrir juntos a store de planejamento e os
 dois repositórios de código:
@@ -223,8 +223,8 @@ openspec workset open checkout-promo
 
 Isso torna as pastas visíveis em um único workspace do IDE. Não copia o
 contexto das fontes para a store, não seleciona os repositórios afetados nem
-autoriza um agente a editá-los. Registre fatos duradouros entre componentes
-nas especificações compartilhadas; não dependa de que o agente se lembre de
+autoriza um agent a editá-los. Registre fatos duradouros entre componentes
+nas especificações compartilhadas; não dependa de que o agent se lembre de
 uma fonte que tenha consultado por acaso.
 
 ### Como a implementação começa em cada repositório?
@@ -311,7 +311,7 @@ própria raiz `openspec/`, e o trabalho continua nela. A diferença é que
 `openspec instructions`, nesse repositório, passa a incluir um índice das
 especificações da store referenciada — cada uma com um resumo de uma linha e o
 comando exato para consultá-la (`openspec show <spec-id> --type spec --store
-platform-reqs`). Um agente que trabalha em `api-server` consegue encontrar e
+platform-reqs`). Um agent que trabalha em `api-server` consegue encontrar e
 citar os requisitos de pagamento upstream e escrever seu projeto detalhado na
 raiz local do repositório, sem que ninguém precise copiar o contexto para lá.
 
@@ -371,7 +371,7 @@ Referenced stores
     Fetch: openspec show <spec-id> --type spec --store platform-reqs
 ```
 
-Ambos aceitam `--json` para uso por agentes. Além disso,
+Ambos aceitam `--json` para uso por agents. Além disso,
 `openspec context --code-workspace <path>` grava um arquivo de workspace do VS
 Code com todo o conjunto — a única gravação feita por esse comando.
 
@@ -468,10 +468,10 @@ qual caso se aplica.
 - **Há dois estilos de inicialização para worksets.** Uma ferramenta que não
   possa ser iniciada com um arquivo de workspace ou opções para anexar pastas
   não pode ser adicionada como iniciador.
-- **O JSON do agente tem diferenças conhecidas no uso de maiúsculas e
+- **O JSON do agent tem diferenças conhecidas no uso de maiúsculas e
   minúsculas** (chaves da família store usam `snake_case`; as da família de
   fluxos de trabalho usam `camelCase`). Consulte o
-  [contrato do agente](/pt-BR/agent-contract/); a unificação foi adiada para
+  [contrato do agent](/pt-BR/agent-contract/); a unificação foi adiada para
   uma versão futura.
 
 ## Onde ficam os arquivos
@@ -491,4 +491,4 @@ qual caso se aplica.
 
 Opções e estruturas JSON exatas de cada comando desta página:
 [referência da CLI](/pt-BR/cli/) (stores, doctor, contexto de trabalho e
-worksets pessoais) e [contrato do agente](/pt-BR/agent-contract/).
+worksets pessoais) e [contrato do agent](/pt-BR/agent-contract/).

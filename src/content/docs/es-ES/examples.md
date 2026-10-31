@@ -5,7 +5,7 @@ title: "Ejemplos y recetas"
 Cambios reales, de principio a fin. Cada receta muestra los comandos que
 escribirías y la respuesta que recibirías, para que puedas identificar el patrón
 que se ajusta a tu situación y copiarlo. Se usan los comandos predeterminados del
-perfil **core** (`propose`, `explore`, `apply`, `update`, `sync`, `archive`); se
+profile **core** (`propose`, `explore`, `apply`, `update`, `sync`, `archive`); se
 indica cuándo conviene usar el conjunto ampliado.
 
 Antes de empezar, recuerda que los comandos de barra, como `/opsx:propose`, se
@@ -89,7 +89,7 @@ también qué significa «correcto». Después, usa `/opsx:apply` y
 
 Consejo: en una corrección, un buen escenario describe la prueba de regresión.
 «DADO un usuario que ha cerrado sesión, CUANDO envía credenciales válidas,
-ENTONCES llega al panel y no se le redirige de nuevo». Escríbelo y la
+ENTONCES llega al dashboard y no se le redirige de nuevo». Escríbelo y la
 implementación tendrá un objetivo claro.
 
 ## Receta 3: Explorar antes de decidir

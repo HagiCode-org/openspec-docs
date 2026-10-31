@@ -17,7 +17,7 @@ OPSX 现已成为 OpenSpec 的标准工作流。
 - **指令是硬编码的**——埋在 TypeScript 代码中，无法修改
 - **要么全做，要么不做**——一个大型命令一次创建所有内容，无法单独测试各个部分
 - **结构固定**——每个人都使用同一种工作流，无法定制
-- **黑盒**——AI 输出不理想时，无法调整提示词
+- **黑盒**——AI 输出不理想时，无法调整 prompt
 
 **OPSX 打开了这扇门。**现在任何人都可以：
 
@@ -40,7 +40,7 @@ Legacy workflow:                      OPSX:
 
 **OPSX 面向所有人：**
 - **团队**——创建符合实际工作方式的工作流
-- **高级用户**——调整提示词，让 AI 更好地理解你的代码库
+- **高级用户**——调整 prompt，让 AI 更好地理解你的代码库
 - **OpenSpec 贡献者**——无需发布新版本即可试验新方法
 
 我们仍在共同探索什么方法最有效。OPSX 让大家能够一起学习。
@@ -67,7 +67,7 @@ openspec init
 
 这会在 `.claude/skills/`（或对应目录）中创建 skills，AI 编码助手可自动检测它们。
 
-默认情况下，OpenSpec 使用 `core` 工作流配置（`propose`、`explore`、`apply`、`update`、`sync`、`archive`）。如果需要扩展工作流命令（`new`、`continue`、`ff`、`verify`、`bulk-archive`、`onboard`），请使用 `openspec config profile` 配置，并通过 `openspec update` 应用。
+默认情况下，OpenSpec 使用 `core` workflow profile（`propose`、`explore`、`apply`、`update`、`sync`、`archive`）。如果需要扩展工作流命令（`new`、`continue`、`ff`、`verify`、`bulk-archive`、`onboard`），请使用 `openspec config profile` 配置，并通过 `openspec update` 应用。
 
 设置期间，系统会提示你创建**项目配置**（`openspec/config.yaml`）。此配置可选，但建议创建。
 
@@ -438,7 +438,7 @@ rules:
 
 ### 依赖图模型
 
-产物构成有向无环图（DAG）。依赖关系是**启用条件**，而非关卡：
+产物构成有向无环图（DAG）。依赖关系是**启用条件**，而非 gates：
 
 ```
                               proposal
@@ -477,7 +477,7 @@ rules:
 
 ### 信息流
 
-**旧版工作流**——代理收到静态指令：
+**旧版工作流**——agent 收到静态指令：
 
 ```
   User: "/openspec:proposal"
@@ -498,7 +498,7 @@ rules:
   Agent creates ALL artifacts in one go
 ```
 
-**OPSX**——代理查询丰富的上下文：
+**OPSX**——agent 查询丰富的上下文：
 
 ```
   User: "/opsx:continue"

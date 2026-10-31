@@ -120,7 +120,7 @@ AI:  Verifying add-dark-mode...
 
 Clasifica los problemas como CRITICAL, WARNING o SUGGESTION, y **no** bloquea el archivado: muestra las carencias y deja la decisión en tus manos. Esa es la diferencia entre «¿la IA escribió código?» y «¿construyó lo que acordamos?».
 
-`/opsx:verify` forma parte del perfil ampliado. Si no lo tienes, habilítalo con `openspec config profile` (y después `openspec update`) o vuelve a leer el cambio y el diff por tu cuenta.
+`/opsx:verify` forma parte del profile ampliado. Si no lo tienes, habilítalo con `openspec config profile` (y después `openspec update`) o vuelve a leer el cambio y el diff por tu cuenta.
 
 ## Ajusta la revisión al tamaño del cambio
 

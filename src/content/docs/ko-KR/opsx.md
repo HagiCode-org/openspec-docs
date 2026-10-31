@@ -17,7 +17,7 @@ OpenSpec 변경 사항을 위한 **유연하고 반복적인 워크플로**입�
 - **지침이 하드코딩됨** — TypeScript 내부에 숨겨져 있어 수정할 수 없습니다.
 - **전부 아니면 전무** — 큰 명령 하나로 모든 내용을 만들며 개별 부분을 테스트할 수 없습니다.
 - **고정된 구조** — 모두가 같은 워크플로를 사용하며 사용자 지정할 수 없습니다.
-- **블랙박스** — AI 출력이 좋지 않아도 프롬프트를 조정할 수 없습니다.
+- **블랙박스** — AI 출력이 좋지 않아도 prompt를 조정할 수 없습니다.
 
 **OPSX는 이를 개방합니다.** 이제 누구나 다음 작업을 할 수 있습니다.
 
@@ -40,7 +40,7 @@ Legacy workflow:                      OPSX:
 
 **누구나 사용할 수 있습니다.**
 - **팀** — 실제 작업 방식에 맞는 워크플로 생성
-- **고급 사용자** — 코드베이스에 맞게 프롬프트를 조정해 AI 출력 개선
+- **고급 사용자** — 코드베이스에 맞게 prompt를 조정해 AI 출력 개선
 - **OpenSpec 기여자** — 릴리스 없이 새로운 접근 방식 실험
 
 모두가 아직 최선의 방법을 찾아가는 중입니다. OPSX를 통해 함께 배울 수 있습니다.
@@ -67,7 +67,7 @@ openspec init
 
 AI 코딩 어시스턴트가 자동으로 검색하는 스킬을 `.claude/skills/`(또는 이에 해당하는 위치)에 생성합니다.
 
-기본적으로 OpenSpec은 `core` 워크플로 프로필(`propose`, `explore`, `apply`, `update`, `sync`, `archive`)을 사용합니다. 확장 워크플로 명령(`new`, `continue`, `ff`, `verify`, `bulk-archive`, `onboard)을 사용하려면 `openspec config profile`로 구성하고 `openspec update`를 실행해 적용하세요.
+기본적으로 OpenSpec은 `core` 워크플로 profile(`propose`, `explore`, `apply`, `update`, `sync`, `archive`)을 사용합니다. 확장 워크플로 명령(`new`, `continue`, `ff`, `verify`, `bulk-archive`, `onboard)을 사용하려면 `openspec config profile`로 구성하고 `openspec update`를 실행해 적용하세요.
 
 설정 과정에서 **프로젝트 구성**(`openspec/config.yaml`)을 만들지 묻습니다. 선택 사항이지만 권장합니다.
 
@@ -438,7 +438,7 @@ git 브랜치와 비슷하게 생각하세요.
 
 ### 의존성 그래프 모델
 
-산출물은 방향성 비순환 그래프(DAG)를 구성합니다. 의존성은 관문이 아니라 **촉진 요소**입니다.
+산출물은 방향성 비순환 그래프(DAG)를 구성합니다. 의존성은 gates가 아니라 **촉진 요소**입니다.
 
 ```
                               proposal
@@ -477,7 +477,7 @@ git 브랜치와 비슷하게 생각하세요.
 
 ### 정보 흐름
 
-**기존 워크플로** — 에이전트가 정적 지침을 받습니다.
+**기존 워크플로** — agent가 정적 지침을 받습니다.
 
 ```
   User: "/openspec:proposal"
@@ -498,7 +498,7 @@ git 브랜치와 비슷하게 생각하세요.
   Agent creates ALL artifacts in one go
 ```
 
-**OPSX** — 에이전트가 풍부한 컨텍스트를 조회합니다.
+**OPSX** — agent가 풍부한 컨텍스트를 조회합니다.
 
 ```
   User: "/opsx:continue"

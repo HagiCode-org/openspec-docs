@@ -20,7 +20,7 @@ OpenSpec 提供三个层次的自定义方式：
 - **注入项目上下文**——让 AI 了解你的技术栈、约定等
 - **添加产物级规则**——为特定产物添加自定义规则
 - **添加操作指引**——为 apply 和 archive 操作提供建议
-- **记住集成选项**——例如选择是否启用 [GitHub Copilot 云端编码智能体](/zh-CN/supported-tools/#github-copilot-云端编码智能体)
+- **记住集成选项**——例如是否 opt-in [GitHub Copilot 云端编码智能体](/zh-CN/supported-tools/#github-copilot-云端编码智能体)
 
 ### 快速设置
 
@@ -76,7 +76,7 @@ openspec new change my-feature
 
 **上下文和规则注入：**
 
-生成任意产物时，你的上下文和规则都会注入 AI 提示词：
+生成任意产物时，你的上下文和规则都会注入 AI prompt：
 
 ```xml
 <context>
@@ -99,7 +99,7 @@ Tech stack: TypeScript, React, Node.js, PostgreSQL
 
 **操作指引：**
 
-`operations.apply.guidance` 和 `operations.archive.guidance` 是可选数组，用于提供智能体执行这些操作时的建议。它们与 `rules` 相互独立：操作指引不会限制产物内容，产物规则也不会被重新归类为操作指引。
+`operations.apply.guidance` 和 `operations.archive.guidance` 是可选数组，用于提供 agent 执行这些操作时的建议。它们与 `rules` 相互独立：操作指引不会限制产物内容，产物规则也不会被重新归类为操作指引。
 
 Apply 和 archive 会在执行时获取这些输入：
 
@@ -110,7 +110,7 @@ openspec instructions archive --change my-feature --json
 
 这两个接口会将当前项目的 `context` 和匹配的 `operationGuidance` 作为独立的可选字段返回。每次调用都会从已解析的根目录读取最新快照。使用 `--store <id>` 时，变更、上下文和指引均来自该存储库，而非当前代码仓库。Archive 指令命令是只读的：它不会检查或合并差异规格说明、写入主规格说明、移动变更，也不会执行静态归档工作流。
 
-项目上下文是提示词层面的必需输入。生成的工作流会读取它，并应用相关的项目事实、约定和限制。操作指引是可选的补充建议：工作流会考虑所有条目，并遵循适用且与内置工作流兼容的内容。
+项目上下文是 prompt 层面的必需输入。生成的工作流会读取它，并应用相关的项目事实、约定和限制。操作指引是可选的补充建议：工作流会考虑所有条目，并遵循适用且与内置工作流兼容的内容。
 
 这两个字段都与 CLI 控制的状态、已解析路径、内置步骤、明确的用户选择以及产物规则相互独立。工作流会报告上下文冲突，同时保留具有控制效力的值。它不会遵循不适用或相互冲突的指引，并会说明原因。这两个字段都不是可强制执行的检查；除非用户另行要求，否则工作流不会将它们复制到实现文件、规格说明、变更产物或摘要中。
 
@@ -120,7 +120,7 @@ Archive、bulk archive 和独立的 sync 会将 `openspec status --json` 输出�
 
 语义合并写入主规格说明之前，工作流会读取当前的 `openspec instructions specs --change <name> --json` 输出。返回的 `specs` 规则仅约束此次合并所生成的主规格说明。单项 archive 会将该快照传给内部 sync；单独运行 sync 时会直接获取快照；bulk archive 则会在首次写入规格说明之前，先获取所有必需快照。如果 archive/specs 指令请求返回非零退出码或无效 JSON，这是查找失败，而非输入为空：工作流会在受影响的规格写入或变更移动之前停止（bulk archive 会在任何批量写入或移动之前停止）。
 
-此配置不会改变归档执行阶段、用户提示、文件系统操作、语义合并的责任归属、直接的 `openspec archive` 命令，也不会改变产物 `rules` 的结构和输出。
+此配置不会改变归档执行阶段、用户 prompts、文件系统操作、语义合并的责任归属、直接的 `openspec archive` 命令，也不会改变产物 `rules` 的结构和输出。
 
 ### 模式解析顺序
 
@@ -243,7 +243,7 @@ apply:
 
 ### 模板
 
-模板是用于指导 AI 的 Markdown 文件。创建相应产物时，模板会注入提示词中。
+模板是用于指导 AI 的 Markdown 文件。创建相应产物时，模板会注入 prompt 中。
 
 ```markdown
 <!-- templates/proposal.md -->
@@ -391,11 +391,11 @@ OpenSpec 也支持通过独立仓库分发、由社区维护的模式。这些�
 
 | 模式 | 维护者 | 仓库 | 说明 |
 |--------|-----------|-----------|-------------|
-| `intent-driven` | @harikrishnan83 | [intent-driven-dev/openspec-schemas](https://github.com/intent-driven-dev/openspec-schemas/tree/main/openspec/schemas/intent-driven) | 在实现前记录变更意图、可观察行为、技术设计和长期架构决策。新增与变更关联的 ADR 审查清单，并将符合条件的长期决策写为不可变、可被后续 ADR 取代的记录。 |
-| `superpowers-bridge` | @JiangWay | [JiangWay/openspec-schemas](https://github.com/JiangWay/openspec-schemas/tree/main/superpowers-bridge) | 将 OpenSpec 的产物治理与 [obra/superpowers](https://github.com/obra/superpowers) 执行技能（头脑风暴、编写计划、通过子智能体进行 TDD、代码审查、收尾）集成。添加以证据为先的 `retrospective` 产物，补足 Superpowers 原生流程未覆盖的环节。 |
+| `intent-driven` | @harikrishnan83 | [intent-driven-dev/openspec-schemas](https://github.com/intent-driven-dev/openspec-schemas/tree/main/openspec/schemas/intent-driven) | 在实现前记录变更意图、可观察行为、技术设计和长期架构决策。新增与变更关联的 ADR 审查 manifest，并将符合条件的长期决策写为不可变、可被后续 ADR 取代的记录。 |
+| `superpowers-bridge` | @JiangWay | [JiangWay/openspec-schemas](https://github.com/JiangWay/openspec-schemas/tree/main/superpowers-bridge) | 将 OpenSpec 的产物治理与 [obra/superpowers](https://github.com/obra/superpowers) 执行技能（头脑风暴、编写计划、通过 subagents 进行 TDD、代码审查、收尾）集成。添加以证据为先的 `retrospective` 产物，补足 Superpowers 原生流程未覆盖的环节。 |
 | `nanopm` | @nmrtn | [nmrtn/nanopm](https://github.com/nmrtn/nanopm/tree/main/openspec-schema) | 以产品管理为先的工作流。先运行 [nanopm](https://github.com/nmrtn/nanopm) 规划流水线（审计 → 策略 → 路线图 → PRD），再进入实现阶段。将产品规划衔接到 OpenSpec 的规格驱动工程工作流。如果存在 `.nanopm/`，产物会读取其中内容：提案引用审计，设计引用策略，任务引用 PRD 分解。 |
 | `e2e-runbooks` | @Lukk17 | [Lukk17/openspec-schemas](https://github.com/Lukk17/openspec-schemas/tree/master/openspec/schemas/e2e-runbooks) | 面向能力的端到端测试手册。每项能力都有不可变规格说明、不可变任务模板，并为每次执行生成带时间戳的运行记录。断言只关注可观察行为（HTTP 状态、响应正文、持久化状态，不检查日志片段）；每次运行都会记录 UTC 开始/结束时间、持续时间，以及估算的 LLM token 消耗量。 |
-| `anvil` | @jikkujoyce | [jikkujoyce/openspec-schemas](https://github.com/jikkujoyce/openspec-schemas/tree/main/schemas/anvil) | 遵循 TDD 并包含对抗式审查步骤的规格驱动工作流。流程：`proposal` → `specs` → `design` → `review` → `test-plan` → `tasks` → `apply` → `verify`。`review` 由具备全新上下文的只读审查者编写（如有条件则使用第二个模型），并输出 `VERDICT:` 行，指示智能体阻止 `test-plan`、`tasks` 和 `apply` 直至通过审查；OpenSpec 只检查产物是否存在，因此需通过自己的 CI 或钩子实施此关卡。`test-plan` 会将每个规格场景映射到具名测试，同时作为由 `verify` 审计的红/绿进度记录。 |
+| `anvil` | @jikkujoyce | [jikkujoyce/openspec-schemas](https://github.com/jikkujoyce/openspec-schemas/tree/main/schemas/anvil) | 遵循 TDD 并包含对抗式审查步骤的规格驱动工作流。流程：`proposal` → `specs` → `design` → `review` → `test-plan` → `tasks` → `apply` → `verify`。`review` 由具备全新上下文的只读审查者编写（如有条件则使用第二个模型），并输出 `VERDICT:` 行，指示 agent gate `test-plan`、`tasks` 和 `apply` 直至通过审查；OpenSpec 只检查产物是否存在，因此需通过自己的 CI 或钩子实施此 gate。`test-plan` 会将每个规格场景映射到具名测试，同时作为由 `verify` 审计的红/绿进度记录。 |
 | `ml-research` | @tsenst | [idealo/openspec-schemas](https://github.com/idealo/openspec-schemas/tree/main/openspec/schemas/ml-research) | 机器学习实验工作流。流程：`proposal` → `design` → `evaluation` → `tasks` → `apply` → `specs`。`evaluation` 在实验运行前确定指标、成功标准和证伪条件；`apply` 写入 `results.md`；`specs` 仅将有证据支持的发现（包括被证伪的假设）记录为带有链接 `Evidence:` 块的 `Finding:` 需求。 |
 | `epic-driven` | @ivanferic| [IvanFeric/openspec-epic-driven](https://github.com/IvanFeric/openspec-epic-driven/tree/main/openspec/schemas/epic-driven) | Epic 驱动的工作流。流程：`explore`（可选）→ `epic-propose` → `epic-next` 选择子故事 → 子故事的 `apply` → 子故事的 `archive` → `epic-sync`。Epic 没有 `apply` 阶段，只有在其所有故事完成后才会归档。`epic-propose` 创建愿景、故事和路线图；`epic-next` 推荐一个子故事，`epic-next <story> start` 会将子故事的规划委托给常规的 `openspec-propose` 工作流；`epic-status` 显示该 Epic 中所有故事的当前状态；`epic-replan` 可以修改计划，同时保留当前进行中或已完成的故事；`epic-sync` 更新故事的完成标记。 |
 

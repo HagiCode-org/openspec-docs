@@ -50,13 +50,13 @@ Les termes sont regroupés par thème, puis classés par ordre alphabétique dan
 
 **Explore (`/opsx:explore`).** Commande qui sert de partenaire de réflexion. Elle lit votre base de code, compare les options et transforme une idée vague en plan concret. Elle n'écrit jamais de code ni quoi que ce soit d'autre, sauf si vous lui demandez de consigner l'exploration comme changement ou acceptez sa proposition. C'est le point de départ recommandé lorsqu'un problème est identifié mais que le plan reste à définir. Voir [Commencer par explorer](/fr-FR/explore/).
 
-**CLI.** Programme `openspec` exécuté dans votre terminal. Il configure les projets, répertorie et valide les changements, ouvre le tableau de bord et archive les changements. C'est la partie terminal d'OpenSpec. Voir [CLI](/fr-FR/cli/).
+**CLI.** Programme `openspec` exécuté dans votre terminal. Il configure les projets, répertorie et valide les changements, ouvre le dashboard et archive les changements. C'est la partie terminal d'OpenSpec. Voir [CLI](/fr-FR/cli/).
 
 **Skill.** Répertoire d'instructions (`.../skills/openspec-*/SKILL.md`) que votre assistant IA détecte et suit automatiquement. Les skills sont la norme multiplateforme émergente pour fournir le workflow OpenSpec aux assistants.
 
 **Fichier de commande.** Fichier de commande slash propre à un outil (`.../commands/opsx-*`). C'est l'ancien mécanisme de distribution, toujours pris en charge avec les skills. Vous aurez rarement besoin de modifier ces fichiers directement.
 
-**Profil.** Ensemble des commandes slash installées dans votre projet. Le profil **core** (par défaut) contient `propose`, `explore`, `apply`, `update`, `sync` et `archive`. Le profil **expanded** y ajoute `new`, `continue`, `ff`, `verify`, `bulk-archive` et `onboard`. Modifiez-le avec `openspec config profile`.
+**Profile.** Ensemble des commandes slash installées dans votre projet. Le profile **core** (par défaut) contient `propose`, `explore`, `apply`, `update`, `sync` et `archive`. Le profile **expanded** y ajoute `new`, `continue`, `ff`, `verify`, `bulk-archive` et `onboard`. Modifiez-le avec `openspec config profile`.
 
 **Distribution (delivery).** Détermine si OpenSpec installe des skills, des fichiers de commande ou les deux pour vos outils. Elle se configure globalement et s'applique avec `openspec update`.
 

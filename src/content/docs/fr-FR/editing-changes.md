@@ -2,7 +2,7 @@
 title: "Modifier et faire évoluer un changement"
 ---
 
-**Chaque artefact d'un changement est un simple fichier Markdown que vous pouvez modifier à tout moment.** Il n'y a ni « phase de planification » verrouillée, ni étape d'approbation, ni mode d'édition spécial à activer. Vous voulez modifier la proposition après avoir commencé à construire ? Ouvrez `proposal.md` et modifiez-la. Vous découvrez en cours d'implémentation que la conception est mauvaise ? Corrigez `design.md` et continuez. C'est aussi simple que cela, et c'est voulu.
+**Chaque artefact d'un changement est un simple fichier Markdown que vous pouvez modifier à tout moment.** Il n'y a ni « phase de planification » verrouillée, ni gate d'approbation, ni mode d'édition spécial à activer. Vous voulez modifier la proposition après avoir commencé à construire ? Ouvrez `proposal.md` et modifiez-la. Vous découvrez en cours d'implémentation que la conception est mauvaise ? Corrigez `design.md` et continuez. C'est aussi simple que cela, et c'est voulu.
 
 Cette page répond à la question « Attendez, puis-je revenir en arrière et modifier cela ? » Oui. Voici comment procéder dans les situations courantes.
 

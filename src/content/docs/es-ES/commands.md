@@ -18,7 +18,7 @@ utilizan el formato adecuado.
 
 ## Referencia rápida
 
-### Ruta rápida predeterminada (perfil `core`)
+### Ruta rápida predeterminada (profile `core`)
 
 | Comando | Función |
 |---------|---------|
@@ -40,7 +40,7 @@ utilizan el formato adecuado.
 | `/opsx:bulk-archive` | Archivar varios cambios a la vez |
 | `/opsx:onboard` | Tutorial guiado por todo el flujo de trabajo |
 
-El perfil global predeterminado es `core`. Para activar los comandos ampliados,
+El profile global predeterminado es `core`. Para activar los comandos ampliados,
 ejecuta `openspec config profile`, selecciona los flujos de trabajo y luego
 ejecuta `openspec update` en el proyecto.
 
@@ -51,7 +51,7 @@ ejecuta `openspec update` en el proyecto.
 ### `/opsx:propose`
 
 Crea un cambio nuevo y genera los artefactos de planificación en un solo paso.
-Es el comando de inicio predeterminado del perfil `core`.
+Es el comando de inicio predeterminado del profile `core`.
 
 **Sintaxis:**
 ```text
@@ -91,7 +91,7 @@ AI:  Created openspec/changes/add-dark-mode/
 > **Empieza aquí si tienes dudas.** Explore es un compañero de reflexión sin
 > compromiso: lee tu base de código, compara opciones y convierte una idea
 > imprecisa en un plan concreto antes de escribir código. Se incluye en el
-> perfil predeterminado. Para conocer el enfoque completo y ver más ejemplos,
+> profile predeterminado. Para conocer el enfoque completo y ver más ejemplos,
 > consulta la guía [Empieza por explorar](/es-ES/explore/).
 
 Analiza ideas, investiga problemas y aclara los requisitos antes de decidirte
@@ -160,7 +160,7 @@ Inicia la estructura de un cambio nuevo. Crea su carpeta y espera a que
 generes artefactos con `/opsx:continue` o `/opsx:ff`.
 
 Este comando forma parte del conjunto de flujos ampliados (no se incluye en el
-perfil predeterminado `core`).
+profile predeterminado `core`).
 
 **Sintaxis:**
 ```
@@ -170,7 +170,7 @@ perfil predeterminado `core`).
 **Argumentos:**
 | Argumento | Obligatorio | Descripción |
 |----------|----------|-------------|
-| `change-name` | No | Nombre de la carpeta del cambio (pregunta si se omite) |
+| `change-name` | No | Nombre de la carpeta del cambio (prompts si se omite) |
 | `--schema` | No | Esquema de flujo que se usará (predeterminado: el de la configuración o `spec-driven`) |
 
 **Qué hace:**
@@ -599,7 +599,7 @@ especificaciones.
 **Argumentos:**
 | Argumento | Obligatorio | Descripción |
 |----------|----------|-------------|
-| `change-names` | No | Cambios concretos que se archivarán (pregunta cuáles seleccionar si se omite) |
+| `change-names` | No | Cambios concretos que se archivarán (prompts sobre cuáles seleccionar si se omite) |
 
 **Qué hace:**
 - Enumera todos los cambios completados.
@@ -720,7 +720,7 @@ formato correspondiente a tu herramienta:
 > **Devin Desktop y Devin Local:** los archivos `.devin/workflows/opsx-*.md`
 > permiten usar `/opsx-propose` en Devin Desktop. Devin Local no admite flujos
 > de trabajo; usa las habilidades que OpenSpec escribe en `.devin/skills/`,
-> como `/openspec-propose`, que funcionan en ambos agentes.
+> como `/openspec-propose`, que funcionan en ambos agents.
 
 La intención es la misma en todas las herramientas, pero la forma de invocar
 los comandos puede variar según la integración. [Cómo invocarlos](/es-ES/supported-tools/#cómo-invocarlos)
@@ -729,7 +729,7 @@ de cada formato.
 
 > **Nota:** los comandos de GitHub Copilot (`.github/prompts/*.prompt.md`) solo
 > están disponibles en las extensiones de IDE (VS Code, JetBrains y Visual
-> Studio). GitHub Copilot CLI todavía no admite archivos de instrucciones
+> Studio). GitHub Copilot CLI todavía no admite archivos de prompts
 > personalizados; consulta [Herramientas compatibles](/es-ES/supported-tools/)
 > para obtener información y alternativas.
 

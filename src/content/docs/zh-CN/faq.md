@@ -34,7 +34,7 @@ OpenSpec 是一个轻量级约定层，让你和 AI 编程助手在编写任何�
 
 ### 如何“启动交互模式”？
 
-没有单独需要启动的模式。像平常一样打开 AI 助手，在聊天中输入斜杠命令即可。输入斜杠命令就是“进入”OpenSpec 的方式。（真正具有交互性的终端功能是 `openspec view`，它提供浏览规格说明和变更的仪表板。）详情见[命令的工作方式](/zh-CN/how-commands-work/)。
+没有单独需要启动的模式。像平常一样打开 AI 助手，在聊天中输入斜杠命令即可。输入斜杠命令就是“进入”OpenSpec 的方式。（真正具有交互性的终端功能是 `openspec view`，它提供浏览规格说明和变更的 dashboard。）详情见[命令的工作方式](/zh-CN/how-commands-work/)。
 
 ### 我输入了斜杠命令，却什么也没发生。为什么？
 
@@ -52,7 +52,7 @@ OpenSpec 是一个轻量级约定层，让你和 AI 编程助手在编写任何�
 
 ### 还不确定要构建什么时，应该从哪里开始？
 
-从 `/opsx:explore` 开始。它是一位没有压力的思考伙伴，会读取代码库、列出选项，并在编写代码之前把模糊的问题梳理成具体计划。它包含在默认配置档案中，随时可用。计划清晰后，再转交 `/opsx:propose`。这是最值得养成的习惯，因为它能阻止跃跃欲试的 AI 自信地构建错误的内容。参阅[先探索](/zh-CN/explore/)。
+从 `/opsx:explore` 开始。它是一位没有压力的思考伙伴，会读取代码库、列出选项，并在编写代码之前把模糊的问题梳理成具体计划。它包含在默认 profile 中，随时可用。计划清晰后，再转交 `/opsx:propose`。这是最值得养成的习惯，因为它能阻止跃跃欲试的 AI 自信地构建错误的内容。参阅[先探索](/zh-CN/explore/)。
 
 ### 最简单的流程是什么？
 
@@ -66,9 +66,9 @@ OpenSpec 是一个轻量级约定层，让你和 AI 编程助手在编写任何�
 
 `/opsx:propose` 是默认的单步命令：它会创建变更并一次性起草所有规划产物。`/opsx:new` 属于扩展命令集，只搭建空的变更框架，然后由你通过 `/opsx:continue` 一次创建一个产物（或使用 `/opsx:ff` 一次创建全部产物）。除非你需要逐步控制，否则使用 propose 即可。参阅[命令](/zh-CN/commands/)。
 
-### `core` 和 expanded 配置档案是什么？
+### `core` 和 expanded profile 是什么？
 
-配置档案决定安装哪些斜杠命令。默认的 **Core** 包含 `propose`、`explore`、`apply`、`update`、`sync` 和 `archive`。**expanded** 集合还增加 `new`、`continue`、`ff`、`verify`、`bulk-archive` 和 `onboard`，提供更细致的控制。使用 `openspec config profile` 切换，然后运行 `openspec update` 应用设置。
+profile 决定安装哪些斜杠命令。默认的 **Core** 包含 `propose`、`explore`、`apply`、`update`、`sync` 和 `archive`。**expanded** 集合还增加 `new`、`continue`、`ff`、`verify`、`bulk-archive` 和 `onboard`，提供更细致的控制。使用 `openspec config profile` 切换，然后运行 `openspec update` 应用设置。
 
 ### 我需要运行 `/opsx:sync` 吗？
 

@@ -13,7 +13,7 @@ die Form für Ihr Tool. Die von OpenSpec generierten Dateien verwenden bereits d
 
 ## Schnellreferenz
 
-### Schneller Standardablauf (Profil `core`)
+### Schneller Standardablauf (profile `core`)
 
 | Befehl | Zweck |
 |---------|---------|
@@ -35,7 +35,7 @@ die Form für Ihr Tool. Die von OpenSpec generierten Dateien verwenden bereits d
 | `/opsx:bulk-archive` | Mehrere Änderungen auf einmal archivieren |
 | `/opsx:onboard` | Geführte Anleitung durch den gesamten Workflow |
 
-Das globale Standardprofil ist `core`. Um erweiterte Workflow-Befehle zu aktivieren, führen Sie `openspec config profile` aus, wählen Sie die Workflows aus und führen Sie anschließend `openspec update` in Ihrem Projekt aus.
+Das globale Standard profile ist `core`. Um erweiterte Workflow-Befehle zu aktivieren, führen Sie `openspec config profile` aus, wählen Sie die Workflows aus und führen Sie anschließend `openspec update` in Ihrem Projekt aus.
 
 ---
 
@@ -43,7 +43,7 @@ Das globale Standardprofil ist `core`. Um erweiterte Workflow-Befehle zu aktivie
 
 ### `/opsx:propose`
 
-Erstellt eine neue Änderung und generiert in einem Schritt die Planungsartefakte. Dies ist der standardmäßige Startbefehl im Profil `core`.
+Erstellt eine neue Änderung und generiert in einem Schritt die Planungsartefakte. Dies ist der standardmäßige Startbefehl im profile `core`.
 
 **Syntax:**
 ```text
@@ -80,7 +80,7 @@ AI:  Created openspec/changes/add-dark-mode/
 
 ### `/opsx:explore`
 
-> **Beginnen Sie hier, wenn Sie unsicher sind.** „Explore“ ist ein Denkpartner ohne Verpflichtungen: Der Befehl liest Ihre Codebasis, vergleicht Optionen und schärft eine vage Idee zu einem konkreten Plan, bevor Code geschrieben wird. Er ist im Standardprofil enthalten. Eine ausführliche Erläuterung und weitere Beispiele finden Sie im Leitfaden [Zuerst erkunden](/de-DE/explore/).
+> **Beginnen Sie hier, wenn Sie unsicher sind.** „Explore“ ist ein Denkpartner ohne Verpflichtungen: Der Befehl liest Ihre Codebasis, vergleicht Optionen und schärft eine vage Idee zu einem konkreten Plan, bevor Code geschrieben wird. Er ist im Standard profile enthalten. Eine ausführliche Erläuterung und weitere Beispiele finden Sie im Leitfaden [Zuerst erkunden](/de-DE/explore/).
 
 Denken Sie Ideen durch, untersuchen Sie Probleme und klären Sie Anforderungen, bevor Sie sich auf eine Änderung festlegen.
 
@@ -145,7 +145,7 @@ AI:  Started openspec/changes/add-jwt-auth/. Say the word and I'll
 
 Legt das Grundgerüst einer neuen Änderung an. Der Befehl erstellt den Änderungsordner und wartet darauf, dass Sie mit `/opsx:continue` oder `/opsx:ff` Artefakte generieren.
 
-Dieser Befehl gehört zum erweiterten Workflow-Satz und ist nicht im standardmäßigen Profil `core` enthalten.
+Dieser Befehl gehört zum erweiterten Workflow-Satz und ist nicht im standardmäßigen profile `core` enthalten.
 
 **Syntax:**
 ```
@@ -155,14 +155,14 @@ Dieser Befehl gehört zum erweiterten Workflow-Satz und ist nicht im standardmä
 **Argumente:**
 | Argument | Erforderlich | Beschreibung |
 |----------|----------|-------------|
-| `change-name` | Nein | Name des Änderungsordners (wird abgefragt, wenn nicht angegeben) |
+| `change-name` | Nein | Name des Änderungsordners (wird per prompt abgefragt, wenn nicht angegeben) |
 | `--schema` | Nein | Zu verwendendes Workflow-Schema (Standard: aus der Konfiguration oder `spec-driven`) |
 
 **Funktion:**
 - Erstellt das Verzeichnis `openspec/changes/<change-name>/`.
 - Erstellt im Änderungsordner die Metadatendatei `.openspec.yaml`.
 - Zeigt die Vorlage für das erste zur Erstellung bereite Artefakt an.
-- Fragt nach Änderungsname und Schema, falls diese nicht angegeben wurden.
+- Fragt per prompt nach Änderungsname und Schema, falls diese nicht angegeben wurden.
 
 **Erstellt folgende Struktur:**
 ```
@@ -457,7 +457,7 @@ AI:  Verifying add-dark-mode...
 
 ### `/opsx:sync`
 
-**Optionaler Befehl.** Führt Delta-Spezifikationen einer Änderung mit den Hauptspezifikationen zusammen. Falls erforderlich, bietet archive die Synchronisierung an; normalerweise müssen Sie diesen Befehl daher nicht manuell ausführen.
+**Optionaler Befehl.** Führt Delta-Spezifikationen einer Änderung mit den Hauptspezifikationen zusammen. Falls erforderlich, bietet archive per prompt die Synchronisierung an; normalerweise müssen Sie diesen Befehl daher nicht manuell ausführen.
 
 **Syntax:**
 ```
@@ -508,7 +508,7 @@ AI:  Syncing add-dark-mode delta specs...
 - Sync führt die Spezifikationen intelligent zusammen, statt sie einfach zu kopieren.
 - Der Befehl kann Szenarien zu bestehenden Anforderungen hinzufügen, ohne sie zu duplizieren.
 - Nach dem Synchronisieren bleibt die Änderung aktiv (sie wird nicht archiviert).
-- Die meisten Benutzer müssen den Befehl nie direkt aufrufen – archive fragt bei Bedarf nach.
+- Die meisten Benutzer müssen den Befehl nie direkt aufrufen – archive fragt bei Bedarf per prompt nach.
 
 ---
 
@@ -576,7 +576,7 @@ Archiviert mehrere abgeschlossene Änderungen auf einmal und behandelt Konflikte
 **Argumente:**
 | Argument | Erforderlich | Beschreibung |
 |----------|----------|-------------|
-| `change-names` | Nein | Bestimmte Änderungen, die archiviert werden sollen (wenn nicht angegeben, werden Sie zur Auswahl aufgefordert) |
+| `change-names` | Nein | Bestimmte Änderungen, die archiviert werden sollen (wenn nicht angegeben, werden Sie per prompt zur Auswahl aufgefordert) |
 
 **Funktion:**
 - Listet alle abgeschlossenen Änderungen auf.
@@ -616,7 +616,7 @@ AI:  ✓ Archived add-dark-mode
 - Eignet sich gut für parallele Arbeitsabläufe.
 - Die Konfliktlösung erfolgt agentengesteuert (die Codebasis wird geprüft).
 - Änderungen werden in der Reihenfolge ihrer Erstellung archiviert.
-- Vor dem Überschreiben von Spezifikationsinhalten wird nachgefragt.
+- Vor dem Überschreiben von Spezifikationsinhalten wird per prompt nachgefragt.
 
 ---
 

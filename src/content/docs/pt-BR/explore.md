@@ -42,7 +42,7 @@ Esse é o objetivo. Explorar não custa nada nem obriga você a nada até que de
 
 ## Já está instalado
 
-Boas notícias: `/opsx:explore` vem no perfil padrão **core**, junto com `propose`, `apply`, `update`, `sync` e `archive`. Você não precisa ativar nada. Se o OpenSpec estiver configurado no projeto, explore estará pronto no chat da IA. (Como todos os comandos `/opsx:*`, ele é digitado no chat do assistente, não no terminal. Consulte [Como os comandos funcionam](/pt-BR/how-commands-work/).)
+Boas notícias: `/opsx:explore` vem no profile padrão **core**, junto com `propose`, `apply`, `update`, `sync` e `archive`. Você não precisa ativar nada. Se o OpenSpec estiver configurado no projeto, explore estará pronto no chat da IA. (Como todos os comandos `/opsx:*`, ele é digitado no chat do assistente, não no terminal. Consulte [Como os comandos funcionam](/pt-BR/how-commands-work/).)
 
 ## Exemplo completo
 

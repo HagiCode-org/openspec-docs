@@ -120,7 +120,7 @@ AI:  Verifying add-dark-mode...
 
 문제를 CRITICAL, WARNING 또는 SUGGESTION으로 표시하며 보관을 **차단하지는 않습니다.** 격차를 알려 주고 판단은 사용자에게 맡깁니다. 이를 통해 "AI가 코드를 작성했나?"와 "합의한 내용을 구현했나?"를 구분할 수 있습니다.
 
-`/opsx:verify`는 확장 프로필에 포함되어 있습니다. 사용할 수 없다면 `openspec config profile`로 활성화한 뒤 `openspec update`를 실행하거나 변경 사항과 diff를 직접 다시 확인하세요.
+`/opsx:verify`는 확장 profile에 포함되어 있습니다. 사용할 수 없다면 `openspec config profile`로 활성화한 뒤 `openspec update`를 실행하거나 변경 사항과 diff를 직접 다시 확인하세요.
 
 ## 검토 규모 조정하기
 

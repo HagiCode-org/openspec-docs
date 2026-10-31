@@ -42,7 +42,7 @@ title: "먼저 탐색하기"
 
 ## 이미 설치되어 있습니다
 
-좋은 소식입니다. `/opsx:explore`는 `propose`, `apply`, `update`, `sync`, `archive`와 함께 기본 **core** 프로필에 포함되어 있습니다. 별도로 활성화할 필요가 없습니다. 프로젝트에 OpenSpec이 설정되어 있다면 AI 채팅에서 바로 탐색을 사용할 수 있습니다. (다른 `/opsx:*` 명령과 마찬가지로 터미널이 아니라 어시스턴트 채팅에서 입력합니다. [명령 작동 방식](/ko-KR/how-commands-work/)을 참조하세요.)
+좋은 소식입니다. `/opsx:explore`는 `propose`, `apply`, `update`, `sync`, `archive`와 함께 기본 **core** profile에 포함되어 있습니다. 별도로 활성화할 필요가 없습니다. 프로젝트에 OpenSpec이 설정되어 있다면 AI 채팅에서 바로 탐색을 사용할 수 있습니다. (다른 `/opsx:*` 명령과 마찬가지로 터미널이 아니라 어시스턴트 채팅에서 입력합니다. [명령 작동 방식](/ko-KR/how-commands-work/)을 참조하세요.)
 
 ## 전체 예제
 

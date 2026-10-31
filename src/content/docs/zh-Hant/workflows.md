@@ -99,7 +99,7 @@ sequenceDiagram
 
 ## 兩種模式
 
-### 預設快捷路徑（`core` 設定檔案）
+### 預設快捷路徑（`core` profile）
 
 新安裝預設使用 `core`，包含以下命令：
 
@@ -119,7 +119,7 @@ sequenceDiagram
 
 #### 從探索開始（值得養成的習慣）
 
-`/opsx:explore` 屬於預設設定檔案，並非高階附加功能。只要你遇到了問題但尚無計畫，就可以使用它；與 AI 助手協作時，這幾乎是大多數時候的狀態。
+`/opsx:explore` 屬於預設 profile，並非高階附加功能。只要你遇到了問題但尚無計畫，就可以使用它；與 AI 助手協作時，這幾乎是大多數時候的狀態。
 
 ```text
 You: /opsx:explore
@@ -400,7 +400,7 @@ AI:  ✓ Synced specs to openspec/specs/auth/spec.md
      Change archived successfully.
 ```
 
-如果規格說明尚未同步，Archive 會提示你。任務尚未全部完成不會阻止歸檔，但會發出警告。
+如果規格說明尚未同步，Archive 會 prompt 你。任務尚未全部完成不會阻止歸檔，但會發出警告。
 
 ## 如何選擇
 
@@ -533,7 +533,7 @@ implement-2fa                  wip
 
 | 命令 | 用途 | 適用情境 |
 |---------|---------|-------------|
-| `/opsx:propose` | 建立變更並生成規劃產物 | 快速預設路徑（`core` 設定檔案） |
+| `/opsx:propose` | 建立變更並生成規劃產物 | 快速預設路徑（`core` profile） |
 | `/opsx:explore` | 與 AI 一起梳理想法 | 不確定時從這裡開始：需求不明、需要調查或比較方案 |
 | `/opsx:new` | 建立變更腳手架 | 擴充套件模式，明確控制產物 |
 | `/opsx:continue` | 建立下一個產物 | 擴充套件模式，逐步建立產物 |

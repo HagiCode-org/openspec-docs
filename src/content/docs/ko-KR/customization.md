@@ -20,7 +20,7 @@ OpenSpec은 세 가지 수준으로 사용자 지정할 수 있습니다.
 - **프로젝트 컨텍스트 주입** — AI가 기술 스택, 관례 등을 파악
 - **산출물별 규칙 추가** — 특정 산출물에 적용할 사용자 지정 규칙
 - **작업별 지침 추가** — apply 및 archive 작업에 권고할 선호 설정
-- **통합 선택 사항 기억** — 예: [GitHub Copilot 클라우드 코딩 에이전트](/ko-KR/supported-tools/#github-copilot-클라우드-코딩-에이전트) 사용 여부
+- **통합 선택 사항 기억** — 예: [GitHub Copilot 클라우드 coding agent](/ko-KR/supported-tools/#github-copilot-클라우드-코딩-에이전트) opt-in 여부
 
 ### 빠른 설정
 
@@ -76,7 +76,7 @@ openspec new change my-feature
 
 **컨텍스트 및 규칙 주입:**
 
-산출물을 생성할 때 컨텍스트와 규칙이 AI 프롬프트에 주입됩니다.
+산출물을 생성할 때 컨텍스트와 규칙이 AI prompt에 주입됩니다.
 
 ```xml
 <context>
@@ -99,7 +99,7 @@ Tech stack: TypeScript, React, Node.js, PostgreSQL
 
 **작업 지침:**
 
-`operations.apply.guidance`와 `operations.archive.guidance`는 에이전트가 해당 작업을 수행하는 방법에 대한 선택적 권고 지침 배열입니다. `rules`와는 별개입니다. 작업 지침은 산출물 내용을 제한하지 않으며 산출물 규칙을 작업 지침으로 이름만 바꾸지 않습니다.
+`operations.apply.guidance`와 `operations.archive.guidance`는 agent가 해당 작업을 수행하는 방법에 대한 선택적 권고 지침 배열입니다. `rules`와는 별개입니다. 작업 지침은 산출물 내용을 제한하지 않으며 산출물 규칙을 작업 지침으로 이름만 바꾸지 않습니다.
 
 apply와 archive는 실행할 때 다음 입력을 가져옵니다.
 
@@ -110,7 +110,7 @@ openspec instructions archive --change my-feature --json
 
 두 인터페이스 모두 현재 프로젝트 `context`와 일치하는 `operationGuidance`를 별도의 선택 필드로 반환합니다. 호출할 때마다 확인된 루트에서 최신 스냅샷을 읽습니다. `--store <id>`를 선택하면 변경 사항, 컨텍스트, 지침은 현재 저장소가 아니라 해당 store에서 가져옵니다. archive 지침 명령은 읽기 전용이며 델타 사양을 검사하거나 병합하고, 기본 사양을 작성하거나 변경 사항을 이동하거나 정적 보관 워크플로를 실행하지 않습니다.
 
-프로젝트 컨텍스트는 프롬프트에 반드시 포함해야 하는 입력입니다. 생성된 워크플로는 컨텍스트를 읽고 관련 프로젝트 사실, 관례, 제약 조건을 적용합니다. 작업 지침은 선택적인 추가 조언입니다. 워크플로는 모든 항목을 고려하고 내장 워크플로에 적용 가능하며 호환되는 항목을 따릅니다.
+프로젝트 컨텍스트는 prompt에 반드시 포함해야 하는 입력입니다. 생성된 워크플로는 컨텍스트를 읽고 관련 프로젝트 사실, 관례, 제약 조건을 적용합니다. 작업 지침은 선택적인 추가 조언입니다. 워크플로는 모든 항목을 고려하고 내장 워크플로에 적용 가능하며 호환되는 항목을 따릅니다.
 
 두 필드는 CLI가 관리하는 상태, 확인된 경로, 내장 단계, 명시적 사용자 선택, 산출물 규칙과 별도로 유지됩니다. 워크플로는 우선 적용되는 값을 보존하면서 컨텍스트 충돌을 보고합니다. 적용할 수 없거나 충돌하는 지침은 따르지 않고 이유를 설명합니다. 두 필드 모두 강제되는 검사는 아니며 사용자가 별도로 요청하지 않는 한 워크플로가 해당 내용을 구현 파일, 사양, 변경 산출물, 요약에 복사하지 않습니다.
 
@@ -123,7 +123,7 @@ Archive, bulk archive, 독립 실행 sync는
 `openspec instructions specs --change <name> --json` output. The returned
 `specs` 규칙을 가져와 병합으로 생성되는 기본 사양에만 적용합니다. 단일 archive는 해당 스냅샷을 내부 sync에 전달하고 독립 실행 sync는 직접 가져오며 bulk archive는 첫 사양 작성 전에 필요한 모든 스냅샷을 확보합니다. archive/specs 지침 응답이 0이 아닌 종료 코드로 끝나거나 JSON이 유효하지 않으면 입력이 비어 있는 것이 아니라 조회 실패입니다. 워크플로는 영향을 받는 사양을 작성하거나 변경 사항을 이동하기 전에 중지합니다(bulk archive에서는 일괄 작성 또는 이동 전에 중지).
 
-이 구성은 archive 실행 단계, 사용자 프롬프트, 파일 시스템 작업, 의미 기반 병합의 소유권, 직접 실행하는 `openspec archive` 명령, 산출물 `rules`의 구조 및 출력을 변경하지 않습니다.
+이 구성은 archive 실행 단계, 사용자 prompts, 파일 시스템 작업, 의미 기반 병합의 소유권, 직접 실행하는 `openspec archive` 명령, 산출물 `rules`의 구조 및 출력을 변경하지 않습니다.
 
 ### 스키마 확인 순서
 
@@ -246,7 +246,7 @@ apply:
 
 ### 템플릿
 
-템플릿은 AI의 작성을 안내하는 Markdown 파일입니다. 해당 산출물을 만들 때 프롬프트에 삽입됩니다.
+템플릿은 AI의 작성을 안내하는 Markdown 파일입니다. 해당 산출물을 만들 때 prompt에 삽입됩니다.
 
 ```markdown
 <!-- templates/proposal.md -->
@@ -392,11 +392,11 @@ OpenSpec은 독립 저장소를 통해 배포되는 커뮤니티 관리 스키�
 
 | 스키마 | 관리자 | 저장소 | 설명 |
 |--------|-----------|-----------|-------------|
-| `intent-driven` | @harikrishnan83 | [intent-driven-dev/openspec-schemas](https://github.com/intent-driven-dev/openspec-schemas/tree/main/openspec/schemas/intent-driven) | 구현 전에 변경 의도, 관찰 가능한 동작, 기술 설계, 장기적인 아키텍처 결정을 기록합니다. 변경 사항별 ADR 검토 매니페스트를 추가하고, 기준을 충족하는 장기 결정은 불변이며 대체 가능한 ADR로 작성합니다. |
-| `superpowers-bridge` | @JiangWay | [JiangWay/openspec-schemas](https://github.com/JiangWay/openspec-schemas/tree/main/superpowers-bridge) | OpenSpec의 산출물 거버넌스를 [obra/superpowers](https://github.com/obra/superpowers)의 실행 스킬(브레인스토밍, 계획 작성, 하위 에이전트를 통한 TDD, 코드 검토, 마무리)과 통합합니다. Superpowers에서 기본적으로 다루지 않는 부분을 채우는 증거 우선 `retrospective` 산출물을 추가합니다. |
+| `intent-driven` | @harikrishnan83 | [intent-driven-dev/openspec-schemas](https://github.com/intent-driven-dev/openspec-schemas/tree/main/openspec/schemas/intent-driven) | 구현 전에 변경 의도, 관찰 가능한 동작, 기술 설계, 장기적인 아키텍처 결정을 기록합니다. 변경 사항별 ADR 검토 manifest를 추가하고, 기준을 충족하는 장기 결정은 불변이며 대체 가능한 ADR로 작성합니다. |
+| `superpowers-bridge` | @JiangWay | [JiangWay/openspec-schemas](https://github.com/JiangWay/openspec-schemas/tree/main/superpowers-bridge) | OpenSpec의 산출물 거버넌스를 [obra/superpowers](https://github.com/obra/superpowers)의 실행 스킬(브레인스토밍, 계획 작성, subagent를 통한 TDD, 코드 검토, 마무리)과 통합합니다. Superpowers에서 기본적으로 다루지 않는 부분을 채우는 증거 우선 `retrospective` 산출물을 추가합니다. |
 | `nanopm` | @nmrtn | [nmrtn/nanopm](https://github.com/nmrtn/nanopm/tree/main/openspec-schema) | 제품 관리 우선 워크플로입니다. [nanopm](https://github.com/nmrtn/nanopm)의 계획 파이프라인(audit → strategy → roadmap → PRD)을 구현 전에 실행합니다. 제품 계획을 OpenSpec의 사양 주도 엔지니어링 워크플로와 연결합니다. `.nanopm/`이 있으면 산출물에서 이를 읽습니다. 제안은 audit, 설계는 strategy, 작업은 PRD 분석을 기반으로 합니다. |
 | `e2e-runbooks` | @Lukk17 | [Lukk17/openspec-schemas](https://github.com/Lukk17/openspec-schemas/tree/master/openspec/schemas/e2e-runbooks) | 기능 단위의 종단 간 테스트 실행 안내서입니다. 각 기능에는 불변 사양, 불변 작업 템플릿, 실행마다 타임스탬프가 포함된 실행 기록 하나가 제공됩니다. 단언은 관찰 가능한 동작만 대상으로 합니다(HTTP 상태, 응답 본문, 저장된 상태. 로그 부분 문자열은 사용하지 않음). 각 실행에는 시작/종료 UTC 시각, 소요 시간, 추정 LLM 토큰 소비량을 기록합니다. |
-| `anvil` | @jikkujoyce | [jikkujoyce/openspec-schemas](https://github.com/jikkujoyce/openspec-schemas/tree/main/schemas/anvil) | TDD 규율과 적대적 검토 단계를 포함하는 사양 주도 워크플로입니다. 순서: `proposal` → `specs` → `design` → `review` → `test-plan` → `tasks` → `apply` → `verify`. `review`는 새 컨텍스트에서 읽기 전용으로 검토하는 담당자(가능하면 두 번째 모델)가 작성하고 에이전트에 `test-plan`, `tasks`, `apply`를 관문으로 삼으라고 지시하는 `VERDICT:` 줄을 출력합니다. OpenSpec은 산출물 존재 여부만 검사하므로 자체 CI 또는 훅에서 이 관문을 강제해야 합니다. `test-plan`은 각 사양 시나리오를 이름이 있는 테스트에 대응시키며 `verify`가 감사하는 red/green 기록 역할도 합니다. |
+| `anvil` | @jikkujoyce | [jikkujoyce/openspec-schemas](https://github.com/jikkujoyce/openspec-schemas/tree/main/schemas/anvil) | TDD 규율과 적대적 검토 단계를 포함하는 사양 주도 워크플로입니다. 순서: `proposal` → `specs` → `design` → `review` → `test-plan` → `tasks` → `apply` → `verify`. `review`는 새 컨텍스트에서 읽기 전용으로 검토하는 담당자(가능하면 두 번째 모델)가 작성하고 agent에 `test-plan`, `tasks`, `apply`를 gate로 삼으라고 지시하는 `VERDICT:` 줄을 출력합니다. OpenSpec은 산출물 존재 여부만 검사하므로 자체 CI 또는 훅에서 이 gate를 강제해야 합니다. `test-plan`은 각 사양 시나리오를 이름이 있는 테스트에 대응시키며 `verify`가 감사하는 red/green 기록 역할도 합니다. |
 | `ml-research` | @tsenst | [idealo/openspec-schemas](https://github.com/idealo/openspec-schemas/tree/main/openspec/schemas/ml-research) | 머신러닝 실험 워크플로입니다. 순서: `proposal` → `design` → `evaluation` → `tasks` → `apply` → `specs`. `evaluation`은 실행 전에 지표, 성공 기준, 반증 조건을 확정합니다. `apply`는 `results.md`를 작성하고, `specs`는 근거가 확인된 발견 사항(반증된 가설 포함)만 연결된 `Evidence:` 블록과 함께 `Finding:` 요구 사항으로 기록합니다. |
 | `epic-driven` | @ivanferic| [IvanFeric/openspec-epic-driven](https://github.com/IvanFeric/openspec-epic-driven/tree/main/openspec/schemas/epic-driven) | 에픽 중심 워크플로입니다. 순서: `explore`(선택) → `epic-propose` → `epic-next`가 하위 스토리를 선택 → 하위 `apply` → 하위 `archive` → `epic-sync`. 에픽에는 `apply` 단계가 없으며 스토리가 모두 완료된 뒤에만 보관됩니다. `epic-propose`는 비전, 스토리, 로드맵을 만들고, `epic-next`는 하위 스토리를 추천하며, `epic-next <story> start`는 하위 스토리 계획을 일반 `openspec-propose` 워크플로에 위임합니다. `epic-status`는 에픽 내 모든 스토리의 현재 상태를 보여 주고, `epic-replan`은 진행 중이거나 완료된 스토리를 유지하면서 계획을 변경할 수 있으며, `epic-sync`는 스토리 완료 표시를 갱신합니다. |
 

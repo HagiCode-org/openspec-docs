@@ -68,7 +68,7 @@ Une autre section mérite d'être connue. Lorsque le delta crée une nouvelle fo
 
 L'erreur de rédaction la plus courante n'est pas une exigence mal formulée : c'est un changement qui essaie d'en couvrir trois.
 
-**Un bon changement a une intention qu'on peut résumer en une phrase.** « Ajouter un bouton de mode sombre. » « Limiter le débit du point de terminaison de connexion. » « Remplacer les cookies pour les sessions. » Si vous devez multiplier les « et aussi » pour décrire le changement, il faut probablement le scinder.
+**Un bon changement a une intention qu'on peut résumer en une phrase.** « Ajouter un bouton de mode sombre. » « Limiter le débit du endpoint de connexion. » « Remplacer les cookies pour les sessions. » Si vous devez multiplier les « et aussi » pour décrire le changement, il faut probablement le scinder.
 
 Signes qu'un changement est trop vaste :
 

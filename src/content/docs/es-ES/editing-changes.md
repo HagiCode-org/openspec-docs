@@ -2,7 +2,7 @@
 title: "Edición e iteración de cambios"
 ---
 
-**Cada artefacto de un cambio es simplemente un archivo Markdown que puedes editar en cualquier momento.** No hay una «fase de planificación» bloqueada, una instancia de aprobación ni un modo de edición especial. ¿Quieres cambiar la propuesta después de empezar a construir? Abre `proposal.md` y modifícala. ¿Te das cuenta a mitad de la implementación de que el diseño está mal? Corrige `design.md` y sigue adelante. Esa es toda la respuesta, y está pensado así.
+**Cada artefacto de un cambio es simplemente un archivo Markdown que puedes editar en cualquier momento.** No hay una «fase de planificación» bloqueada, un gate de aprobación ni un modo de edición especial. ¿Quieres cambiar la propuesta después de empezar a construir? Abre `proposal.md` y modifícala. ¿Te das cuenta a mitad de la implementación de que el diseño está mal? Corrige `design.md` y sigue adelante. Esa es toda la respuesta, y está pensado así.
 
 Esta página es para ese momento en que piensas «espera, ¿puedo volver atrás y cambiarlo?». Sí. Aquí se explica cómo hacerlo en cada caso habitual.
 

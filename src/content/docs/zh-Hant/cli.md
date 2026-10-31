@@ -23,9 +23,9 @@ OpenSpec CLI（`openspec`）提供用於專案設定、驗證、狀態檢查和�
 
 ---
 
-## 面向使用者與代理的命令
+## 面向使用者與 agent 的命令
 
-大多數 CLI 命令面向終端中的**使用者**。部分命令也可透過 JSON 輸出供**代理或指令碼使用**。
+大多數 CLI 命令面向終端中的**使用者**。部分命令也可透過 JSON 輸出供 **agent 或指令碼使用**。
 
 ### 僅供使用者使用的命令
 
@@ -33,24 +33,24 @@ OpenSpec CLI（`openspec`）提供用於專案設定、驗證、狀態檢查和�
 
 | 命令 | 用途 |
 |---------|---------|
-| `openspec init` | 初始化專案（互動式提示） |
-| `openspec view` | 互動式儀表板 |
-| `openspec workset open <name>` | 開啟已儲存的工作集（編輯器視窗或終端代理會話） |
+| `openspec init` | 初始化專案（互動式 prompt） |
+| `openspec view` | 互動式 dashboard |
+| `openspec workset open <name>` | 開啟已儲存的工作集（編輯器視窗或終端 agent 會話） |
 | `openspec config edit` | 在編輯器中開啟設定 |
 | `openspec feedback` | 透過 GitHub 提交回饋 |
 | `openspec completion install` | 安裝 shell 補全 |
 
-### 相容代理的命令
+### 相容 agent 的命令
 
-這些命令支援 `--json` 輸出，供 AI 代理和指令碼以程式設計方式使用：
+這些命令支援 `--json` 輸出，供 AI agent 和指令碼以程式設計方式使用：
 
-| 命令 | 使用者用法 | 代理用法 |
+| 命令 | 使用者用法 | agent 用法 |
 |---------|-----------|-----------|
 | `openspec list` | 瀏覽變更/規範 | 使用 `--json` 獲取結構化資料 |
 | `openspec show <item>` | 閱讀內容 | 使用 `--json` 進行解析 |
 | `openspec validate` | 檢查問題 | 使用 `--all --json` 批次驗證 |
 | `openspec status` | 檢視產物進度 | 使用 `--json` 獲取結構化狀態 |
-| `openspec instructions` | 獲取後續步驟 | 使用 `--json` 獲取代理指令 |
+| `openspec instructions` | 獲取後續步驟 | 使用 `--json` 獲取 agent 指令 |
 | `openspec templates` | 查詢模板路徑 | 使用 `--json` 解析路徑 |
 | `openspec schemas` | 列出可用 schema | 使用 `--json` 發現 schema；使用 `--store <id>` 選擇已註冊的根目錄 |
 | `openspec store setup <id>` | 建立並註冊本地 store | 提供顯式輸入並使用 `--json` 獲取結構化設定結果 |
@@ -84,7 +84,7 @@ OpenSpec CLI（`openspec`）提供用於專案設定、驗證、狀態檢查和�
 
 在專案中初始化 OpenSpec。建立目錄結構並設定 AI 工具整合。
 
-預設行為使用全域設定：設定 `core`、交付模式 `both`，工作流程為 `propose, explore, apply, update, sync, archive`。
+預設行為使用全域設定：profile `core`、交付模式 `both`，工作流程為 `propose, explore, apply, update, sync, archive`。
 
 ```
 openspec init [path] [options]
@@ -105,11 +105,11 @@ openspec init [path] [options]
 |--------|-------------|
 | `--tools <list>` | 以非互動方式設定 AI 工具。可使用 `all`、`none` 或逗號分隔的列表 |
 | `--language <language>` | 建立新設定時，指定產物使用的語言 |
-| `--force` | 不提示，自動清理舊檔案 |
-| `--profile <profile>` | 覆蓋本次初始化使用的全域設定（`core` 或 `custom`） |
+| `--force` | 不 prompt，自動清理舊檔案 |
+| `--profile <profile>` | 覆蓋本次初始化使用的全域 profile（`core` 或 `custom`） |
 | `--no-animation` | 顯示靜態歡迎介面，不播放動畫 |
-| `--copilot-cloud` | 不提示，設定 GitHub Copilot [雲編碼代理檔案](/zh-Hant/supported-tools/#github-copilot-雲端編碼智慧代理程式) |
-| `--no-copilot-cloud` | 不提示，跳過 GitHub Copilot 雲編碼代理檔案 |
+| `--copilot-cloud` | 不 prompt，設定 GitHub Copilot [雲端 coding agent 檔案](/zh-Hant/supported-tools/#github-copilot-雲端編碼智慧代理程式) |
+| `--no-copilot-cloud` | 不 prompt，跳過 GitHub Copilot 雲端 coding agent 檔案 |
 
 `--profile custom` 使用全域設定中當前選定的工作流程（`openspec config profile`）。
 
@@ -163,7 +163,7 @@ openspec/
 
 ### `openspec update`
 
-升級 CLI 後更新 OpenSpec 指令檔案。根據當前全域設定、所選工作流程和交付模式重新生成 AI 工具設定檔案。
+升級 CLI 後更新 OpenSpec 指令檔案。根據當前全域 profile、所選工作流程和交付模式重新生成 AI 工具設定檔案。
 
 ```
 openspec update [path] [options]
@@ -210,7 +210,7 @@ openspec update --dry-run --json
 }
 ```
 
-計劃即非互動式執行所做的事，並列出它會觸及的每個檔案：從工具舊目錄的移動、針對早於設定檔案版本之安裝的全域設定儲存、Copilot 雲端智慧代理程式的檔案，以及使用 `--force` 時的舊版產物清理。屬於 OpenSpec 本身而非某個工具的檔案會標示為 `tool: "openspec"`。`notes` 會標示終端使用者會被詢問的步驟，每項都帶有穩定的 `code`：`legacy-tool-directories`（已列為完成的移動）和 `legacy-artifacts`（舊版佈局中的檔案，未使用 `--force` 時更新會保留它們）。`failures` 列出真正的更新會失敗的工具，包括它無法完成的寫入（例如檔案所在位置存在目錄、沒有寫入權限）；對於該工具，計劃會在更新將停止之處停止，且單一損壞的工具不會影響計劃的其餘部分。普通的重新整理中兩者都為空。
+計劃即非互動式執行所做的事，並列出它會觸及的每個檔案：從工具舊目錄的移動、針對早於 profile 版本之安裝的全域設定儲存、Copilot cloud agent 的檔案，以及使用 `--force` 時的舊版產物清理。屬於 OpenSpec 本身而非某個工具的檔案會標示為 `tool: "openspec"`。`notes` 會標示終端使用者會被詢問的步驟，每項都帶有穩定的 `code`：`legacy-tool-directories`（已列為完成的移動）和 `legacy-artifacts`（舊版佈局中的檔案，未使用 `--force` 時更新會保留它們）。`failures` 列出真正的更新會失敗的工具，包括它無法完成的寫入（例如檔案所在位置存在目錄、沒有寫入權限）；對於該工具，計劃會在更新將停止之處停止，且單一損壞的工具不會影響計劃的其餘部分。普通的重新整理中兩者都為空。
 完整參考請見 [openspec.dev/docs/cli](https://openspec.dev/docs/cli)。
 
 `--dry-run --json` 失敗時仍只會輸出一個 JSON 文件，即空計劃加上 `status` 陣列，並以非零值退出。
@@ -231,7 +231,7 @@ A newer OpenSpec CLI is available (v1.6.0 → v1.7.0).
 
 | OpenSpec 的安裝方式 | 顯示內容 |
 |---------------------------|--------------|
-| 全域 npm 套件安裝 | 在互動式終端中顯示提示並代為升級；如果輸出被重定向，則改為列印升級命令 |
+| 全域 npm 套件安裝 | 在互動式終端中顯示 prompt 並代為升級；如果輸出被重定向，則改為列印升級命令 |
 | 全域 pnpm、bun、yarn 或 volta 安裝 | 顯示對應包管理器的命令：`pnpm add -g …@latest`、`bun add -g …@latest`、`yarn global add …@latest` 或 `volta install …@latest` |
 | 作為專案依賴安裝 | 提示更新該依賴，因為鎖檔案由專案的包管理器管理 |
 | `npx` / `dlx` 快取 | 顯示 `npx @fission-ai/openspec@latest update`——該命令本身就是更新操作，無需第二步 |
@@ -253,7 +253,7 @@ Store 是你在此計算機上註冊的獨立 OpenSpec 儲存庫，例如規劃�
 
 ### `openspec store setup`
 
-建立並註冊本地 store。在終端中不帶引數執行時，OpenSpec 會引導使用者完成設定。代理和指令碼應傳入明確的輸入，並使用 `--json`。
+建立並註冊本地 store。在終端中不帶引數執行時，OpenSpec 會引導使用者完成設定。agent 和指令碼應傳入明確的輸入，並使用 `--json`。
 
 ```bash
 openspec store setup [id] [options]
@@ -269,7 +269,7 @@ openspec store setup [id] [options]
 | `--no-init-git` | 跳過所有 Git 操作：不初始化儲存庫，也不建立初始提交 |
 | `--json` | 輸出 JSON |
 
-非互動執行（`--json`、指令碼、代理）必須同時傳入 store ID 和 `--path`。在互動式終端中，設定流程會詢問存放位置，並提供一個位於使用者可見、可自行管理位置的可編輯建議路徑（例如 `~/openspec/<id>`）；絕不會預設使用 OpenSpec 管理的資料目錄。
+非互動執行（`--json`、指令碼、agent）必須同時傳入 store ID 和 `--path`。在互動式終端中，設定流程會詢問存放位置，並提供一個位於使用者可見、可自行管理位置的可編輯建議路徑（例如 `~/openspec/<id>`）；絕不會預設使用 OpenSpec 管理的資料目錄。
 
 範例：
 
@@ -316,7 +316,7 @@ openspec store remove <id> [--yes] [--json]
 ```
 
 在互動式終端中，`remove` 會在刪除前顯示確切的資料夾路徑。
-代理、指令碼和 JSON 呼叫方必須傳入 `--yes` 以確認刪除。
+agent、指令碼和 JSON 呼叫方必須傳入 `--yes` 以確認刪除。
 如果資料夾不包含匹配的 store 元資料，OpenSpec 會拒絕刪除。
 
 ### `openspec store list`
@@ -381,7 +381,7 @@ references:
 store: team-context
 ```
 
-隨後，常規命令會自動解析到宣告的 store；根目錄橫幅和 JSON `root` 塊會報告 `source: "declared"` 以及 store ID，列印的提示仍會包含 `--store <id>`。此宣告是回退選項，而不是覆蓋項：顯式指定的 `--store` 始終優先；如果目錄中存在實際規劃資料夾，則忽略該指標（併發出警告）。若要將指標儲存庫轉換為本地 OpenSpec 根目錄，請刪除 `store:` 行並執行 `openspec init`——只要宣告仍存在，init 就會拒絕建立腳手架。
+隨後，常規命令會自動解析到宣告的 store；根目錄橫幅和 JSON `root` 塊會報告 `source: "declared"` 以及 store ID，列印的提示仍會包含 `--store <id>`。此宣告是 fallback 選項，而不是覆蓋項：顯式指定的 `--store` 始終優先；如果目錄中存在實際規劃資料夾，則忽略該指標（併發出警告）。若要將指標儲存庫轉換為本地 OpenSpec 根目錄，請刪除 `store:` 行並執行 `openspec init`——只要宣告仍存在，init 就會拒絕建立腳手架。
 
 機器級設定可一次應用於所有儲存庫：`openspec config set defaultStore <id>`（參閱“設定”）。只有在 `--store`、本地根目錄和專案指標都無法解析後，才會使用此設定；屆時根目錄橫幅和 JSON `root` 塊會報告 `source: "global_default"`。
 
@@ -393,7 +393,7 @@ store: team-context
 openspec doctor [--store <id>] [--json]
 ```
 
-報告會分別列出根目錄健康狀況、store 元資料健康狀況（包括已記錄遠端與當前檢出的 origin 不一致時的提示，以及 store 檢出內容落後於上次獲取的上游追蹤引用時的提示），以及引用健康狀況（與 instructions 中顯示相同的診斷，併為無法解析的引用提供複製修復命令）。無論健康問題嚴重程度如何，退出碼均為 0——代理應讀取 `status` 陣列；只有命令本身失敗（例如沒有根目錄或 store 未知）才會以退出碼 1 結束。Doctor 不會複製、同步或修復內容。如需獲取彙總後的工作集本身而非其健康狀況，請使用 `openspec context`。
+報告會分別列出根目錄健康狀況、store 元資料健康狀況（包括已記錄遠端與當前檢出的 origin 不一致時的提示，以及 store 檢出內容落後於上次獲取的上游追蹤引用時的提示），以及引用健康狀況（與 instructions 中顯示相同的診斷，併為無法解析的引用提供複製修復命令）。無論健康問題嚴重程度如何，退出碼均為 0——agent 應讀取 `status` 陣列；只有命令本身失敗（例如沒有根目錄或 store 未知）才會以退出碼 1 結束。Doctor 不會複製、同步或修復內容。如需獲取彙總後的工作集本身而非其健康狀況，請使用 `openspec context`。
 
 ## 工作上下文（彙總集合）
 
@@ -403,7 +403,7 @@ openspec doctor [--store <id>] [--json]
 openspec context [--store <id>] [--json] [--code-workspace <path> [--force]]
 ```
 
-JSON 摘要可供代理使用（每個可用的被引用 store 都包含獲取步驟；無法解析的成員會附帶與 instructions、doctor 相同的修復說明）。`--code-workspace` 還會寫入 VS Code workspace 檔案，其中包含根目錄和可用的被引用 store（`ref:<id>` 資料夾）——這是此命令唯一執行的寫入操作；如果目標檔案已存在且未指定 `--force`，命令會拒絕覆蓋。對於不可用的成員，命令會報告其狀態，不會猜測路徑。
+JSON 摘要可供 agent 使用（每個可用的被引用 store 都包含獲取步驟；無法解析的成員會附帶與 instructions、doctor 相同的修復說明）。`--code-workspace` 還會寫入 VS Code workspace 檔案，其中包含根目錄和可用的被引用 store（`ref:<id>` 資料夾）——這是此命令唯一執行的寫入操作；如果目標檔案已存在且未指定 `--force`，命令會拒絕覆蓋。對於不可用的成員，命令會報告其狀態，不會猜測路徑。
 
 “工作上下文”指彙總後的集合；`openspec/config.yaml` 中的 `context:` 欄位則是注入指令的專案背景，兩者含義不同。`openspec doctor` 用於判斷集合是否健康；`openspec context` 用於檢視集合包含哪些內容。
 
@@ -420,7 +420,7 @@ openspec workset open <name> [--tool <id>]
 openspec workset remove <name> [--yes] [--json]
 ```
 
-`create` 會執行簡短的引導流程（也可透過 `--member` 標誌以非互動方式建立；第一個成員是主目錄，會話會從該目錄啟動）。`open` 會啟動所選工具：編輯器（VS Code、Cursor）會開啟包含所有成員的視窗，然後返回；CLI 代理（Claude Code、codex）會接管當前終端，啟動一個附加所有成員且未預填提示詞的會話，直到你退出。開啟時缺失的成員資料夾會跳過並顯示說明，其餘成員仍會開啟。每次開啟時都可透過 `--tool` 覆蓋已儲存的工具偏好。
+`create` 會執行簡短的引導流程（也可透過 `--member` 標誌以非互動方式建立；第一個成員是主目錄，會話會從該目錄啟動）。`open` 會啟動所選工具：編輯器（VS Code、Cursor）會開啟包含所有成員的視窗，然後返回；CLI agent（Claude Code、codex）會接管當前終端，啟動一個附加所有成員且未預填 prompt 的會話，直到你退出。開啟時缺失的成員資料夾會跳過並顯示說明，其餘成員仍會開啟。每次開啟時都可透過 `--tool` 覆蓋已儲存的工具偏好。
 
 支援新工具只需設定，無需編寫程式碼。每個工具都使用兩種啟動方式之一：`workspace-file`（透過生成的 `.code-workspace` 啟動）或 `attach-dirs`（每個成員使用一個附加目錄標誌）。全域 `config.json` 中的 `openers` 鍵（使用 `openspec config edit` 開啟）可新增工具，或按欄位調整內建設定：
 
@@ -480,7 +480,7 @@ Changes:
 
 ### `openspec view`
 
-顯示互動式儀表板，用於瀏覽規範和變更。
+顯示互動式 dashboard，用於瀏覽規範和變更。
 
 ```
 openspec view
@@ -502,7 +502,7 @@ openspec show [item-name] [options]
 
 | 引數 | 必填 | 說明 |
 |----------|----------|-------------|
-| `item-name` | 否 | 變更或規範名稱（省略時會提示輸入） |
+| `item-name` | 否 | 變更或規範名稱（省略時會 prompt 輸入） |
 
 **選項：**
 
@@ -510,7 +510,7 @@ openspec show [item-name] [options]
 |--------|-------------|
 | `--type <type>` | 指定型別：`change` 或 `spec`（名稱明確時會自動檢測） |
 | `--json` | 以 JSON 格式輸出 |
-| `--no-interactive` | 停用提示 |
+| `--no-interactive` | 停用 prompt |
 
 **變更專用選項：**
 
@@ -560,7 +560,7 @@ openspec validate [item-name] [options]
 
 | 引數 | 必填 | 說明 |
 |----------|----------|-------------|
-| `item-name` | 否 | 要驗證的指定專案（省略時會提示輸入） |
+| `item-name` | 否 | 要驗證的指定專案（省略時會 prompt 輸入） |
 
 **選項：**
 
@@ -574,7 +574,7 @@ openspec validate [item-name] [options]
 | `--strict` | 啟用嚴格驗證模式 |
 | `--json` | 以 JSON 格式輸出 |
 | `--concurrency <n>` | 最大並行驗證數（預設為 6，也可透過 `OPENSPEC_CONCURRENCY` 環境變數設定） |
-| `--no-interactive` | 停用提示 |
+| `--no-interactive` | 停用 prompt |
 
 `--archived` 是獨立的驗證範圍：它不會驗證規範增量（歸檔時已應用），而是檢查 `changes/archive/` 下每個變更的 `tasks.md` 複選框是否全部勾選；只要存在未勾選項，就會以非零狀態碼退出。此選項可發現歸檔時仍有未完成工作的變更，適合用於 pre-commit hook。
 
@@ -649,13 +649,13 @@ openspec archive [change-name] [options]
 
 | 引數 | 必填 | 說明 |
 |----------|----------|-------------|
-| `change-name` | 否 | 要歸檔的變更（省略時會提示輸入；如果無法響應提示，則必須提供） |
+| `change-name` | 否 | 要歸檔的變更（省略時會 prompt 輸入；如果無法響應 prompt，則必須提供） |
 
 **選項：**
 
 | 選項 | 說明 |
 |--------|-------------|
-| `-y, --yes` | 跳過確認提示。當無法響應提示時必須使用——例如由 AI 代理、CI 任務或標準輸入已關閉的執行呼叫 |
+| `-y, --yes` | 跳過確認 prompt。當無法響應 prompt 時必須使用——例如由 AI agent、CI 任務或標準輸入已關閉的執行呼叫 |
 | `--skip-specs` | 本次歸檔跳過規範更新。永久沒有規範增量的變更應在 `.openspec.yaml` 中宣告 `skip_specs: true`，而非每次使用此標誌——此時無需標誌即可歸檔 |
 | `--no-validate` | 跳過驗證（需要確認）。同時停用 capability 退役——沒有驗證器的結論，就不會退役任何 capability |
 
@@ -706,20 +706,20 @@ x-jiraKey: ABC-1
 **執行內容：**
 
 1. 驗證變更（除非指定 `--no-validate`）
-2. 提示確認（除非指定 `--yes`）
+2. Prompt 確認（除非指定 `--yes`）
 3. 在修改任何主規範前先佔用歸檔目標位置
 4. 驗證活動增量規範並將其合併到 `openspec/specs/`——如果變更移除了某項 capability 的最後一個需求，則該 capability 會退役且其規範檔案會被刪除；但只有當變更的 `.openspec.yaml` 在 `schema:` 旁宣告 `retire_capabilities: true` 時才會如此
 5. 將變更資料夾移動到 `openspec/changes/archive/YYYY-MM-DD-<name>/`
 6. 如果規範修改或最終移動在完整歸檔安全寫入前失敗，則恢復規範，並將變更保留或移回活動路徑
 7. 如果已驗證的備用副本建立成功，但暫存源清理失敗，則保留完整歸檔和已提交的規範狀態，供後續恢復
 
-**沒有終端時：**AI 代理、CI 任務或任何標準輸入已關閉的執行都無法響應第 2 步，因此歸檔會在觸碰任何內容前停止，以狀態碼 1 退出，並指出要重新執行的命令——`openspec archive <name> --yes`，同時保留你傳入的其他標誌。預先傳入 `--yes`（以及變更名稱）即可避免這次往返。
+**沒有終端時：**AI agent、CI 任務或任何標準輸入已關閉的執行都無法響應第 2 步，因此歸檔會在觸碰任何內容前停止，以狀態碼 1 退出，並指出要重新執行的命令——`openspec archive <name> --yes`，同時保留你傳入的其他標誌。預先傳入 `--yes`（以及變更名稱）即可避免這次往返。
 
 ---
 
 ## 工作流程命令
 
-這些命令支援基於產物的 OPSX 工作流程，既可供使用者檢查進度，也可供代理確定後續步驟。
+這些命令支援基於產物的 OPSX 工作流程，既可供使用者檢查進度，也可供 agent 確定後續步驟。
 
 ### `openspec new change`
 
@@ -760,7 +760,7 @@ openspec status [options]
 
 | 選項 | 說明 |
 |--------|-------------|
-| `--change <id>` | 變更名稱（省略時會提示輸入） |
+| `--change <id>` | 變更名稱（省略時會 prompt 輸入） |
 | `--schema <name>` | 覆蓋 schema（從變更設定自動檢測） |
 | `--json` | 以 JSON 格式輸出 |
 
@@ -818,7 +818,7 @@ Progress: 2/4 artifacts complete
 
 ### `openspec instructions`
 
-獲取用於建立產物或執行任務的擴充套件指令。AI 代理可據此瞭解接下來應建立什麼。
+獲取用於建立產物或執行任務的擴充套件指令。AI agent 可據此瞭解接下來應建立什麼。
 
 ```
 openspec instructions [artifact] [options]
@@ -867,7 +867,7 @@ openspec instructions design --change add-dark-mode --json
 - 設定中的產物級規則
 - `apply`/`archive` 當前專案上下文及匹配的操作指南
 
-每次呼叫都會從已解析的儲存庫或選定的 store 讀取操作輸入。專案上下文是提示詞層面的必需輸入：代理會讀取它，並應用相關專案事實、約定和限制。操作指南則是可選的補充建議：代理會考慮每一項，只遵循適用且與內建工作流程相容的內容。這兩個欄位都與明確的使用者選擇、CLI 控制的狀態、內建指令和產物規則彼此獨立。若上下文衝突，會報告衝突；若指南衝突或不適用，則不會遵循，並會說明原因。這些是針對生成式代理的行為約定，並非 CLI 可強制執行的檢查。`instructions archive` 只返回選定變更、可選輸入和根目錄元資料，不包含靜態歸檔工作流程。
+每次呼叫都會從已解析的儲存庫或選定的 store 讀取操作輸入。專案上下文是 prompt 層面的必需輸入：agent 會讀取它，並應用相關專案事實、約定和限制。操作指南則是可選的補充建議：agent 會考慮每一項，只遵循適用且與內建工作流程相容的內容。這兩個欄位都與明確的使用者選擇、CLI 控制的狀態、內建指令和產物規則彼此獨立。若上下文衝突，會報告衝突；若指南衝突或不適用，則不會遵循，並會說明原因。這些是針對生成式 agent 的行為約定，並非 CLI 可強制執行的檢查。`instructions archive` 只返回選定變更、可選輸入和根目錄元資料，不包含靜態歸檔工作流程。
 
 透過 `skip_specs: true` 跳過的產物只會產生警告（JSON 會增加 `skipped`/`warning` 欄位）——不得建立該產物。
 
@@ -977,7 +977,7 @@ openspec schema init <name> [options]
 | `--description <text>` | Schema 說明 |
 | `--artifacts <list>` | 逗號分隔的產物 ID 列表（預設為 `proposal,specs,design,tasks`） |
 | `--default` | 設為專案預設 schema |
-| `--no-default` | 不提示是否設為預設值 |
+| `--no-default` | 不 prompt 是否設為預設值 |
 | `--force` | 覆蓋現有 schema |
 | `--json` | 以 JSON 格式輸出 |
 
@@ -1136,7 +1136,7 @@ openspec config <subcommand> [options]
 | `unset <key>` | 刪除鍵 |
 | `reset` | 重置為預設值 |
 | `edit` | 使用 `$EDITOR` 開啟 |
-| `profile [preset]` | 透過互動方式或預設設定工作流程設定 |
+| `profile [preset]` | 透過互動方式或預設設定工作流程 profile |
 
 **範例：**
 
@@ -1187,10 +1187,10 @@ openspec config profile core
 - 僅更改工作流程
 - 保持當前設定（退出）
 
-如果保留當前設定，不會寫入更改，也不會顯示更新提示。
+如果保留當前設定，不會寫入更改，也不會顯示更新 prompt。
 如果設定沒有變化，但當前專案檔案與全域設定的 profile/交付模式不同步，OpenSpec 會顯示警告並建議執行 `openspec update`。
 按 `Ctrl+C` 也會乾淨地取消流程（不顯示堆疊追蹤），並以退出碼 `130` 結束。
-在工作流程清單中，`[x]` 表示該工作流程已在全域設定中選中。要將這些選擇應用到專案檔案，請執行 `openspec update`（或在專案內提示時選擇 `Apply changes to this project now?`）。
+在工作流程清單中，`[x]` 表示該工作流程已在全域設定中選中。要將這些選擇應用到專案檔案，請執行 `openspec update`（或在專案內 prompt 時選擇 `Apply changes to this project now?`）。
 
 **互動範例：**
 
@@ -1296,7 +1296,7 @@ openspec completion uninstall powershell
 
 解除安裝後請重啟 PowerShell，以清除當前會話中的補全。
 
-補全需要選擇啟用。首次在互動式終端執行命令時，CLI 會在 stderr 上提示一次，之後不再提示；如果已安裝補全，也不會顯示提示。設定 `OPENSPEC_NO_COMPLETIONS=1` 可完全停用此提示。
+補全需要 opt-in。首次在互動式終端執行命令時，CLI 會在 stderr 上提示一次，之後不再提示；如果已安裝補全，也不會顯示提示。設定 `OPENSPEC_NO_COMPLETIONS=1` 可完全停用此提示。
 
 ---
 
@@ -1321,7 +1321,7 @@ openspec completion uninstall powershell
 | `OPENSPEC_NO_ANIMATION` | 設定後停用 `openspec init` 歡迎動畫 |
 | `OPENSPEC_NO_COMPLETIONS` | 設為 `1` 可禁止一次性的 shell 補全提示 |
 | `OPENSPEC_NO_UPDATE_CHECK` | 設定後停用 `openspec update` 對新版 CLI 的檢查（任何值，包括空值）。當 `CI` 已設定（除非值為 `false`/`0`/`no`/`off`）或 `NODE_ENV=test` 時也會跳過檢查 |
-| `npm_config_registry` | `openspec update` 版本檢查所查詢的 registry。必須是 `http(s)` URL，否則回退至 `https://registry.npmjs.org`。不會讀取 `.npmrc` 檔案 |
+| `npm_config_registry` | `openspec update` 版本檢查所查詢的 registry。必須是 `http(s)` URL，否則 fallback 至 `https://registry.npmjs.org`。不會讀取 `.npmrc` 檔案 |
 
 ---
 

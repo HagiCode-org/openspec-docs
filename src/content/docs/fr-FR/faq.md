@@ -34,7 +34,7 @@ Dans la conversation de votre assistant IA, pas dans le terminal. C'est la confu
 
 ### Comment « démarrer le mode interactif » ?
 
-Il n'y a aucun mode distinct à démarrer. Ouvrez votre assistant IA comme d'habitude et saisissez une commande slash dans sa conversation. La commande slash permet d'« entrer » dans OpenSpec. (La seule fonction vraiment interactive du terminal est `openspec view`, un tableau de bord pour parcourir les spécifications et les changements.) Consultez [Fonctionnement des commandes](/fr-FR/how-commands-work/) pour en savoir plus.
+Il n'y a aucun mode distinct à démarrer. Ouvrez votre assistant IA comme d'habitude et saisissez une commande slash dans sa conversation. La commande slash permet d'« entrer » dans OpenSpec. (La seule fonction vraiment interactive du terminal est `openspec view`, un dashboard pour parcourir les spécifications et les changements.) Consultez [Fonctionnement des commandes](/fr-FR/how-commands-work/) pour en savoir plus.
 
 ### J'ai saisi une commande slash, mais rien ne s'est passé. Pourquoi ?
 
@@ -52,7 +52,7 @@ Ce sont deux types de fichiers qu'OpenSpec écrit pour que votre assistant puiss
 
 ### Par où commencer si je ne sais pas quoi construire ?
 
-Avec `/opsx:explore`. C'est un partenaire de réflexion sans engagement : il lit votre base de code, expose les options et transforme un problème vague en plan concret, avant toute écriture de code. Cette commande appartient au profil par défaut et reste toujours disponible. Une fois le plan clair, elle passe le relais à `/opsx:propose`. C'est la meilleure habitude à prendre : elle empêche une IA enthousiaste de construire avec assurance la mauvaise chose. Voir [Commencer par explorer](/fr-FR/explore/).
+Avec `/opsx:explore`. C'est un partenaire de réflexion sans engagement : il lit votre base de code, expose les options et transforme un problème vague en plan concret, avant toute écriture de code. Cette commande appartient au profile par défaut et reste toujours disponible. Une fois le plan clair, elle passe le relais à `/opsx:propose`. C'est la meilleure habitude à prendre : elle empêche une IA enthousiaste de construire avec assurance la mauvaise chose. Voir [Commencer par explorer](/fr-FR/explore/).
 
 ### Quel est le workflow le plus simple ?
 
@@ -66,9 +66,9 @@ Explore pour réfléchir, propose pour rédiger le plan, apply pour le réaliser
 
 `/opsx:propose` est la commande par défaut en une étape : elle crée le changement et rédige tous les artefacts de planification d'un coup. `/opsx:new` fait partie du jeu étendu et ne crée que la structure d'un changement vide ; vous rédigez les artefacts un par un avec `/opsx:continue` (ou tous à la fois avec `/opsx:ff`). Utilisez propose, sauf si vous souhaitez avancer étape par étape. Voir [Commandes](/fr-FR/commands/).
 
-### Que sont les profils `core` et étendu ?
+### Que sont les profiles `core` et étendu ?
 
-Un profil détermine les commandes slash installées. Le profil **core** (par défaut) fournit `propose`, `explore`, `apply`, `update`, `sync` et `archive`. Le jeu **étendu** ajoute `new`, `continue`, `ff`, `verify`, `bulk-archive` et `onboard` pour un contrôle plus fin. Changez de profil avec `openspec config profile`, puis appliquez-le avec `openspec update`.
+Un profile détermine les commandes slash installées. Le profile **core** (par défaut) fournit `propose`, `explore`, `apply`, `update`, `sync` et `archive`. Le jeu **étendu** ajoute `new`, `continue`, `ff`, `verify`, `bulk-archive` et `onboard` pour un contrôle plus fin. Changez de profile avec `openspec config profile`, puis appliquez-le avec `openspec update`.
 
 ### Dois-je exécuter `/opsx:sync` ?
 

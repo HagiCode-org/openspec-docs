@@ -50,13 +50,13 @@ Os termos são agrupados por assunto e ordenados alfabeticamente dentro de cada 
 
 **Explorar (`/opsx:explore`).** O comando que atua como parceiro de reflexão. Ele lê sua base de código, compara opções e transforma uma ideia vaga em um plano concreto. Nunca escreve código nem cria outros arquivos, a menos que você peça para registrar a exploração como uma mudança ou aceite quando ele oferecer essa opção. É o ponto de partida recomendado quando você tem um problema, mas ainda não tem um plano. Consulte [Comece explorando](/pt-BR/explore/).
 
-**CLI.** O programa `openspec` que você executa no terminal. Ele configura projetos, lista e valida mudanças, abre o painel e arquiva. É a metade do terminal do OpenSpec. Consulte [CLI](/pt-BR/cli/).
+**CLI.** O programa `openspec` que você executa no terminal. Ele configura projetos, lista e valida mudanças, abre o dashboard e arquiva. É a metade do terminal do OpenSpec. Consulte [CLI](/pt-BR/cli/).
 
 **Skill.** Uma pasta de instruções (`.../skills/openspec-*/SKILL.md`) que seu assistente de IA detecta e segue automaticamente. Skills são o padrão multiplataforma emergente para disponibilizar o fluxo de trabalho do OpenSpec ao assistente.
 
 **Arquivo de comando.** Arquivo de comando de barra específico de uma ferramenta (`.../commands/opsx-*`). É o mecanismo de distribuição mais antigo, ainda compatível com as skills. Raramente é necessário editá-lo diretamente.
 
-**Perfil.** O conjunto de comandos de barra instalado no projeto. O perfil **core** (padrão) contém `propose`, `explore`, `apply`, `update`, `sync` e `archive`. O conjunto **expanded** adiciona `new`, `continue`, `ff`, `verify`, `bulk-archive` e `onboard`. Altere-o com `openspec config profile`.
+**Profile.** O conjunto de comandos de barra instalado no projeto. O profile **core** (padrão) contém `propose`, `explore`, `apply`, `update`, `sync` e `archive`. O conjunto **expanded** adiciona `new`, `continue`, `ff`, `verify`, `bulk-archive` e `onboard`. Altere-o com `openspec config profile`.
 
 **Distribuição.** Define se o OpenSpec instala skills, arquivos de comando ou ambos para suas ferramentas. É configurada globalmente e aplicada com `openspec update`.
 

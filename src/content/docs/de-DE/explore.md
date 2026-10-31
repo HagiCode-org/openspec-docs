@@ -42,7 +42,7 @@ Genau darum geht es: Erkunden kostet Sie nichts und verpflichtet Sie zu nichts, 
 
 ## Der Befehl ist bereits verfügbar
 
-Gute Nachrichten: `/opsx:explore` ist bereits im standardmäßigen **core**-Profil enthalten – zusammen mit `propose`, `apply`, `update`, `sync` und `archive`. Sie müssen nichts aktivieren. Wenn OpenSpec in Ihrem Projekt eingerichtet ist, können Sie den Befehl im KI-Chat verwenden. (Wie alle `/opsx:*`-Befehle wird er im Chat Ihres Assistenten eingegeben, nicht im Terminal. Siehe [So funktionieren Befehle](/de-DE/how-commands-work/).)
+Gute Nachrichten: `/opsx:explore` ist bereits im standardmäßigen **core** profile enthalten – zusammen mit `propose`, `apply`, `update`, `sync` und `archive`. Sie müssen nichts aktivieren. Wenn OpenSpec in Ihrem Projekt eingerichtet ist, können Sie den Befehl im KI-Chat verwenden. (Wie alle `/opsx:*`-Befehle wird er im Chat Ihres Assistenten eingegeben, nicht im Terminal. Siehe [So funktionieren Befehle](/de-DE/how-commands-work/).)
 
 ## Ein vollständiges Beispiel
 

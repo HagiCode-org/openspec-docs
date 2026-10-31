@@ -26,10 +26,10 @@ descritos em [Comandos](/pt-BR/commands/).
 
 ---
 
-## Comandos para pessoas e agentes
+## Comandos para pessoas e agents
 
 A maioria dos comandos da CLI foi projetada para **uso por pessoas** no
-terminal. Alguns também aceitam **uso por agentes/scripts**, por meio de saída
+terminal. Alguns também aceitam **uso por agents/scripts**, por meio de saída
 JSON.
 
 ### Comandos somente para pessoas
@@ -39,23 +39,23 @@ Estes comandos são interativos e foram projetados para uso no terminal:
 | Comando | Finalidade |
 |---------|---------|
 | `openspec init` | Inicializar o projeto (prompts interativos) |
-| `openspec view` | Abrir painel interativo |
-| `openspec workset open <name>` | Abrir um workset salvo (janela do editor ou sessão de agente no terminal) |
+| `openspec view` | Abrir dashboard interativo |
+| `openspec workset open <name>` | Abrir um workset salvo (janela do editor ou sessão de agent no terminal) |
 | `openspec config edit` | Abrir a configuração no editor |
 | `openspec feedback` | Enviar comentários pelo GitHub |
 | `openspec completion install` | Instalar conclusões de comando no shell |
 
-### Comandos compatíveis com agentes
+### Comandos compatíveis com agents
 
-Estes comandos aceitam a saída `--json` para uso programático por agentes de IA e scripts:
+Estes comandos aceitam a saída `--json` para uso programático por AI agents e scripts:
 
-| Comando | Uso por pessoas | Uso por agentes |
+| Comando | Uso por pessoas | Uso por agents |
 |---------|-----------|-----------|
 | `openspec list` | Navegar por mudanças/especificações | `--json` para dados estruturados |
 | `openspec show <item>` | Ler conteúdo | `--json` para análise |
 | `openspec validate` | Verificar problemas | `--all --json` para validação em lote |
 | `openspec status` | Consultar o progresso dos artefatos | `--json` para um status estruturado |
-| `openspec instructions` | Obter as próximas etapas | `--json` para instruções do agente |
+| `openspec instructions` | Obter as próximas etapas | `--json` para instruções do agent |
 | `openspec templates` | Localizar caminhos dos templates | `--json` para resolver caminhos |
 | `openspec schemas` | Listar schemas disponíveis | `--json` para descobrir schemas; `--store <id>` para selecionar uma raiz registrada |
 | `openspec store setup <id>` | Criar e registrar uma store local | `--json` com entradas explícitas para uma saída estruturada |
@@ -90,7 +90,7 @@ Estas opções funcionam com todos os comandos:
 Inicialize o OpenSpec no projeto. Cria a estrutura de pastas e configura as
 integrações com ferramentas de IA.
 
-Por padrão, usa os valores globais: perfil `core`, distribuição `both` e fluxos
+Por padrão, usa os valores globais: profile `core`, distribuição `both` e fluxos
 de trabalho `propose, explore, apply, update, sync, archive`.
 
 ```
@@ -115,10 +115,10 @@ orientações específicas do projeto.
 | `--tools <list>` | Configurar ferramentas de IA sem interação. Use `all`, `none` ou uma lista separada por vírgulas |
 | `--language <language>` | Usar este idioma nos artefatos ao criar uma nova configuração |
 | `--force` | Limpar arquivos legados automaticamente, sem perguntar |
-| `--profile <profile>` | Substituir o perfil global nesta execução de init (`core` ou `custom`) |
+| `--profile <profile>` | Substituir o profile global nesta execução de init (`core` ou `custom`) |
 | `--no-animation` | Exibir uma tela de boas-vindas estática em vez da animada |
-| `--copilot-cloud` | Configurar, sem perguntar, os [arquivos do agente de codificação na nuvem](/pt-BR/supported-tools/#agente-de-codificação-na-nuvem-do-github-copilot) do GitHub Copilot |
-| `--no-copilot-cloud` | Ignorar, sem perguntar, os arquivos do agente de codificação na nuvem do GitHub Copilot |
+| `--copilot-cloud` | Configurar, sem perguntar, os [arquivos do coding agent na nuvem](/pt-BR/supported-tools/#agente-de-codificação-na-nuvem-do-github-copilot) do GitHub Copilot |
+| `--no-copilot-cloud` | Ignorar, sem perguntar, os arquivos do coding agent na nuvem do GitHub Copilot |
 
 `--profile custom` usa os fluxos de trabalho selecionados atualmente na configuração global (`openspec config profile`).
 
@@ -180,7 +180,7 @@ openspec/
 
 Atualize os arquivos de instruções do OpenSpec depois de atualizar a CLI. O
 comando gera novamente os arquivos de configuração das ferramentas de IA com
-base no perfil global, nos fluxos de trabalho selecionados e no modo de
+base no profile global, nos fluxos de trabalho selecionados e no modo de
 distribuição atuais.
 
 ```
@@ -228,7 +228,7 @@ openspec update --dry-run --json
 }
 ```
 
-O plano é o que uma execução não interativa faz e lista todos os arquivos que ela tocaria: movimentações para fora do diretório anterior de uma ferramenta, o salvamento da configuração global em uma instalação anterior aos perfis, os arquivos do agente de nuvem do Copilot e, com `--force`, a limpeza de artefatos legados. Arquivos que pertencem ao próprio OpenSpec, e não a uma ferramenta, têm `tool: "openspec"`. `notes` sinaliza etapas sobre as quais um usuário de terminal seria consultado, cada uma com um `code` estável: `legacy-tool-directories` (uma movimentação listada como feita) e `legacy-artifacts` (arquivos do layout antigo que a atualização mantém sem `--force`). `failures` lista as ferramentas nas quais a atualização real falharia, incluindo gravações que ela não consegue fazer (um diretório no lugar de um arquivo, sem permissão de gravação); para essa ferramenta, o plano para no ponto em que a atualização pararia, e uma ferramenta com problema não compromete o restante do plano. Ambos ficam vazios em uma atualização comum.
+O plano é o que uma execução não interativa faz e lista todos os arquivos que ela tocaria: movimentações para fora do diretório anterior de uma ferramenta, o salvamento da configuração global em uma instalação anterior aos profiles, os arquivos do cloud agent do Copilot e, com `--force`, a limpeza de artefatos legados. Arquivos que pertencem ao próprio OpenSpec, e não a uma ferramenta, têm `tool: "openspec"`. `notes` sinaliza etapas sobre as quais um usuário de terminal seria consultado, cada uma com um `code` estável: `legacy-tool-directories` (uma movimentação listada como feita) e `legacy-artifacts` (arquivos do layout antigo que a atualização mantém sem `--force`). `failures` lista as ferramentas nas quais a atualização real falharia, incluindo gravações que ela não consegue fazer (um diretório no lugar de um arquivo, sem permissão de gravação); para essa ferramenta, o plano para no ponto em que a atualização pararia, e uma ferramenta com problema não compromete o restante do plano. Ambos ficam vazios em uma atualização comum.
 O guia completo está em [openspec.dev/docs/cli](https://openspec.dev/docs/cli).
 
 Um fracasso de `--dry-run --json` ainda imprime exatamente um documento JSON, o plano vazio mais um array `status`, e termina com código diferente de zero.
@@ -316,7 +316,7 @@ store, os comandos normais (`list`, `show`, `status`, `validate`, `new change`,
 
 Crie e registre uma store local. Se não forem fornecidos argumentos no
 terminal, o OpenSpec orientará a pessoa usuária durante a configuração.
-Agentes e scripts devem fornecer entradas explícitas e usar `--json`.
+Agents e scripts devem fornecer entradas explícitas e usar `--json`.
 
 ```bash
 openspec store setup [id] [options]
@@ -332,7 +332,7 @@ openspec store setup [id] [options]
 | `--no-init-git` | Ignorar todas as ações do Git: sem init e sem commit inicial |
 | `--json` | Gerar saída JSON |
 
-Execuções não interativas (`--json`, scripts, agentes) precisam receber o ID
+Execuções não interativas (`--json`, scripts, agents) precisam receber o ID
 da store e `--path`. Em um terminal interativo, setup pergunta o local e
 sugere um caminho editável em um diretório visível e pertencente à pessoa
 usuária (por exemplo, `~/openspec/<id>`); nunca usa como padrão o diretório de
@@ -389,7 +389,7 @@ openspec store remove <id> [--yes] [--json]
 ```
 
 Em um terminal interativo, `remove` exibe o caminho exato antes de excluir a
-pasta. Agentes, scripts e chamadas JSON precisam passar `--yes` para confirmar
+pasta. Agents, scripts e chamadas JSON precisam passar `--yes` para confirmar
 a exclusão. O OpenSpec não exclui uma pasta sem os metadados correspondentes
 da store.
 
@@ -485,7 +485,7 @@ store: team-context
 Os comandos normais passam a usar automaticamente a store declarada; o banner
 da raiz e o bloco JSON `root` informam `source: "declared"` e o ID da store,
 enquanto as sugestões impressas continuam incluindo `--store <id>`. A
-declaração é uma alternativa, nunca uma substituição: `--store` explícito
+declaração é um fallback, nunca uma substituição: `--store` explícito
 sempre prevalece, e um diretório com pastas reais de planejamento ignora o
 ponteiro (com um aviso). Para converter um repositório com ponteiro em uma raiz
 local do OpenSpec, remova a linha `store:` e execute `openspec init` — init
@@ -513,7 +513,7 @@ checkout da store está atrasado em relação à sua referência de rastreamento
 upstream atualizada pela última vez) e das referências (os mesmos diagnósticos
 exibidos pelas instruções, com correções de clone para referências não
 resolvidas). Problemas de integridade de qualquer gravidade resultam em código
-de saída 0 — os agentes consultam os arrays `status`; somente falhas de comando
+de saída 0 — os agents consultam os arrays `status`; somente falhas de comando
 (raiz ausente, store desconhecida) resultam em código 1. doctor nunca clona,
 sincroniza ou corrige nada. Para obter o conjunto reunido em vez do relatório
 de integridade, use `openspec context`.
@@ -528,7 +528,7 @@ ela referencia.
 openspec context [--store <id>] [--json] [--code-workspace <path> [--force]]
 ```
 
-O resumo JSON pode ser usado por agentes (cada store referenciada disponível
+O resumo JSON pode ser usado por agents (cada store referenciada disponível
 inclui instruções para consultá-la; membros não resolvidos incluem as mesmas
 correções exibidas por instructions e doctor). `--code-workspace` também
 grava um arquivo de workspace do VS Code com a raiz e as stores referenciadas
@@ -563,7 +563,7 @@ openspec workset remove <name> [--yes] [--json]
 `create` executa um fluxo guiado breve (ou recebe opções `--member` sem
 interação; o primeiro membro é o principal e as sessões começam nele). `open`
 inicia a ferramenta escolhida: editores (VS Code, Cursor) abrem uma janela com
-todos os membros e retornam; agentes de CLI (Claude Code, codex) assumem este
+todos os membros e retornam; CLI agents (Claude Code, codex) assumem este
 terminal em uma sessão com todos os membros anexados e sem prompt pré-preenchido,
 que termina quando você sai. Uma pasta de membro que não existir ao abrir será
 ignorada, com um aviso; as demais serão abertas. A preferência de ferramenta
@@ -634,7 +634,7 @@ Changes:
 
 ### `openspec view`
 
-Exiba um painel interativo para explorar especificações e mudanças.
+Exiba um dashboard interativo para explorar especificações e mudanças.
 
 ```
 openspec view
@@ -818,7 +818,7 @@ openspec archive [change-name] [options]
 
 | Opção | Descrição |
 |--------|-------------|
-| `-y, --yes` | Ignorar prompts de confirmação. Obrigatório quando não houver quem responda — agente de IA, job de CI ou execução com stdin fechado |
+| `-y, --yes` | Ignorar prompts de confirmação. Obrigatório quando não houver quem responda — AI agent, job de CI ou execução com stdin fechado |
 | `--skip-specs` | Ignorar atualizações das especificações nesta execução de arquivamento. Uma mudança sem deltas permanentes deve declarar `skip_specs: true` no `.openspec.yaml`; assim, será arquivada sem essa opção |
 | `--no-validate` | Ignorar a validação (exige confirmação). Também desativa a descontinuação de capacidades: sem o parecer do validador, nada é descontinuado |
 
@@ -877,9 +877,9 @@ ainda atualizam suas especificações principais. Sem o marcador, o arquivamento
 4. Valida e mescla as especificações delta ativas em `openspec/specs/` — uma capacidade cujo último requisito seja removido pela mudança é descontinuada e seu arquivo de especificação é excluído, mas somente se o `.openspec.yaml` da mudança declarar `retire_capabilities: true` junto a `schema:`
 5. Move a pasta da mudança para `openspec/changes/archive/YYYY-MM-DD-<name>/`
 6. Se uma alteração de especificação ou a movimentação final falhar antes da conclusão do arquivamento, restaura as especificações e mantém ou devolve a mudança ao caminho ativo
-7. Se uma cópia alternativa verificada for concluída, mas a limpeza da origem em preparação falhar, mantém o arquivo completo e o estado confirmado das especificações para recuperação
+7. Se uma cópia fallback verificada for concluída, mas a limpeza da origem em preparação falhar, mantém o arquivo completo e o estado confirmado das especificações para recuperação
 
-**Sem um terminal:** um agente de IA, job de CI ou execução com stdin fechado
+**Sem um terminal:** um AI agent, job de CI ou execução com stdin fechado
 não consegue responder à etapa 2. Portanto, o arquivamento para antes de
 alterar qualquer coisa, termina com código 1 e informa o comando a repetir —
 `openspec archive <name> --yes`, mantendo as demais opções fornecidas. Passe
@@ -890,7 +890,7 @@ alterar qualquer coisa, termina com código 1 e informa o comando a repetir —
 ## Comandos de fluxo de trabalho
 
 Estes comandos dão suporte ao fluxo OPSX orientado por artefatos. Eles são
-úteis tanto para pessoas que verificam o progresso quanto para agentes que
+úteis tanto para pessoas que verificam o progresso quanto para agents que
 determinam as próximas etapas.
 
 ### `openspec new change`
@@ -1003,7 +1003,7 @@ primeiro item `ready` é o próximo artefato a escrever.
 ### `openspec instructions`
 
 Obtenha instruções detalhadas para criar um artefato ou executar tarefas.
-Agentes de IA usam esse comando para entender o que criar em seguida.
+AI agents usam esse comando para entender o que criar em seguida.
 
 ```
 openspec instructions [artifact] [options]
@@ -1057,15 +1057,15 @@ openspec instructions design --change add-dark-mode --json
 
 As entradas da operação são lidas do repositório resolvido ou da store
 selecionada a cada invocação. O contexto do projeto é uma entrada obrigatória
-no nível do prompt: os agentes o leem e aplicam os fatos, as convenções e as
+no nível do prompt: os agents o leem e aplicam os fatos, as convenções e as
 restrições relevantes. As orientações por operação são recomendações
-adicionais opcionais: os agentes consideram todos os itens e seguem somente
+adicionais opcionais: os agents consideram todos os itens e seguem somente
 os que forem aplicáveis e compatíveis com o fluxo integrado. Ambos os campos
 permanecem separados das escolhas explícitas da pessoa usuária, do estado
 controlado pela CLI, das instruções integradas e das regras dos artefatos.
 Conflitos no contexto são informados; orientações conflitantes ou inaplicáveis
 não são seguidas, e o motivo é explicado. Esses são contratos de
-comportamento para agentes gerados, não verificações impostas pela CLI.
+comportamento para agents gerados, não verificações impostas pela CLI.
 `instructions archive` retorna somente a mudança selecionada, entradas
 opcionais e metadados da raiz; não inclui o fluxo estático de arquivamento.
 
@@ -1339,7 +1339,7 @@ openspec config <subcommand> [options]
 | `unset <key>` | Remover uma chave |
 | `reset` | Restaurar os valores padrão |
 | `edit` | Abrir no `$EDITOR` |
-| `profile [preset]` | Configurar o perfil do fluxo de trabalho interativamente ou por predefinição |
+| `profile [preset]` | Configurar o profile do fluxo de trabalho interativamente ou por predefinição |
 
 **Exemplos:**
 
@@ -1396,7 +1396,7 @@ independentemente do valor configurado.
 Se você mantiver as configurações atuais, nenhuma alteração será gravada e
 nenhum prompt de atualização será exibido. Se não houver alterações de
 configuração, mas os arquivos atuais do projeto estiverem fora de sincronia com
-o perfil/distribuição global, o OpenSpec exibirá um aviso e sugerirá
+o profile/distribuição global, o OpenSpec exibirá um aviso e sugerirá
 `openspec update`. Pressionar `Ctrl+C` também cancela o fluxo sem problemas
 (sem stack trace) e encerra com o código `130`. Na lista de verificação dos
 fluxos, `[x]` significa que o fluxo está selecionado na configuração global.
@@ -1509,7 +1509,7 @@ openspec completion uninstall powershell
 
 Reinicie o PowerShell após a desinstalação para remover as conclusões da sessão atual.
 
-As conclusões são opcionais. A CLI as menciona uma vez em stderr, na primeira
+As conclusões são opt-in. A CLI as menciona uma vez em stderr, na primeira
 execução de um comando em um terminal interativo, e não volta a exibir essa
 mensagem — ela também permanece silenciosa se as conclusões já estiverem
 instaladas. Defina `OPENSPEC_NO_COMPLETIONS=1` para suprimir completamente essa

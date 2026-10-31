@@ -15,7 +15,7 @@ Essa distinção é o obstáculo mais comum para novos usuários; vamos deixá-l
 
 O OpenSpec é um projeto com duas funções.
 
-**A CLI (metade do terminal).** Um programa chamado `openspec` que você instala e executa pelo shell. Ele configura seu projeto, lista e valida mudanças, mostra um painel e arquiva trabalhos concluídos. Você digita esses comandos no iTerm, no terminal do VS Code, no PowerShell — onde quer que execute `git` ou `npm`.
+**A CLI (metade do terminal).** Um programa chamado `openspec` que você instala e executa pelo shell. Ele configura seu projeto, lista e valida mudanças, mostra um dashboard e arquiva trabalhos concluídos. Você digita esses comandos no iTerm, no terminal do VS Code, no PowerShell — onde quer que execute `git` ou `npm`.
 
 ```bash
 openspec init        # set up OpenSpec in this project
@@ -59,7 +59,7 @@ As instruções, na prática, são:
 
 É só isso. Não há modo para alternar, daemon para iniciar ou janela separada.
 
-Há um recurso realmente interativo no terminal: `openspec view`. Ele abre um painel para navegar pelas especificações e mudanças. Mas é um visualizador, não a ferramenta com que você prepara propostas e implementa. A construção acontece por meio dos comandos de barra no chat.
+Há um recurso realmente interativo no terminal: `openspec view`. Ele abre um dashboard para navegar pelas especificações e mudanças. Mas é um visualizador, não a ferramenta com que você prepara propostas e implementa. A construção acontece por meio dos comandos de barra no chat.
 
 ## Por que essa divisão existe
 
@@ -86,9 +86,9 @@ A intenção é a mesma em todas as ferramentas. A grafia corresponde ao arquivo
 
 Devin é a única ferramenta que aparece em duas linhas. O Devin Desktop lê
 `.devin/workflows/`, então `/opsx-propose` funciona nele; o [Devin Local não oferece
-suporte](https://docs.devin.ai/desktop/devin-local), portanto, nesse agente use a
+suporte](https://docs.devin.ai/desktop/devin-local), portanto, nesse agent use a
 skill `/openspec-propose`. As skills que o OpenSpec grava em
-`.devin/skills/` funcionam nos dois agentes, e é por isso que eles se referenciam pelo nome da skill.
+`.devin/skills/` funcionam nos dois agents, e é por isso que eles se referenciam pelo nome da skill.
 
 Todas as ferramentas estão listadas em [Como invocar](/pt-BR/supported-tools/#como-invocar) — essa
 tabela é a fonte de verdade. Duas linhas nem sequer representam comandos de barra: o Amazon Q

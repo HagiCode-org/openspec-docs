@@ -35,7 +35,7 @@ Toutes les commandes qui résolvent une racine (`list`, `show`, `validate`, `sta
 2. Sinon, ancêtre le plus proche contenant `openspec/` : structure de planification → `source: "nearest"` (un pointeur `store:` est ignoré, avec avertissement sur stderr) ; répertoire contenant uniquement une configuration et un pointeur `store:` valide → store correspondant, `source: "declared"`.
 3. Aucune racine proche, mais `defaultStore` global défini (`openspec config set defaultStore <id>`) → ce store, `source: "global_default"`. Un identifiant obsolète échoue avec l'erreur du store sous-jacent et un `fix` indiquant `openspec config unset defaultStore`.
 4. Aucune racine, aucune valeur par défaut, mais des stores enregistrés → erreur `no_root_with_registered_stores`.
-5. Aucune racine, aucune valeur par défaut, aucun store : les commandes peuvent considérer le répertoire de travail courant comme `source: "implicit"`. `doctor`, `context`, `list` et `validate` en mode groupé échouent plutôt avec `no_openspec_root`. `list` conserve le repli implicite pour les anciens projets contenant `openspec/project.md`.
+5. Aucune racine, aucune valeur par défaut, aucun store : les commandes peuvent considérer le répertoire de travail courant comme `source: "implicit"`. `doctor`, `context`, `list` et `validate` en mode groupé échouent plutôt avec `no_openspec_root`. `list` conserve le fallback implicite pour les anciens projets contenant `openspec/project.md`.
 
 Les charges utiles JSON réussies incluent généralement la racine. En revanche, `schemas --json` conserve délibérément le tableau brut documenté à la section 4.13, par souci de compatibilité :
 
@@ -87,11 +87,11 @@ Réussite : `{ "change": { "id", "path", "metadataPath", "schema" }, "root" }`. 
 
 ### 4.9 `archive <name> --json`
 
-Réussite : `{ "archive": { "change", "archivedAs": "YYYY-MM-DD-name", "path", "specsUpdated", "totals"?, "warnings"? }, "root" }`. Échec : `{ "archive": null, "root"?, "status": [d] }`, code de sortie 1. `specsUpdated` n'est vrai que si au moins un fichier de spécification a été écrit ou retiré (si le changement supprime la dernière exigence d'une fonctionnalité, sa spécification est supprimée ; `retire_capabilities: true` doit alors figurer dans le `.openspec.yaml` du changement. Chaque retrait est signalé dans `warnings`, avec une commande Git de restauration prête à coller uniquement si la spécification se trouvait dans le checkout appelant). Un changement déjà synchronisé est archivé avec des totaux nuls et les éléments ignorés indiqués dans `warnings`. Le mode JSON est strictement non interactif : chaque demande de confirmation produit un code `archive_*`.
+Réussite : `{ "archive": { "change", "archivedAs": "YYYY-MM-DD-name", "path", "specsUpdated", "totals"?, "warnings"? }, "root" }`. Échec : `{ "archive": null, "root"?, "status": [d] }`, code de sortie 1. `specsUpdated` n'est vrai que si au moins un fichier de spécification a été écrit ou retiré (si le changement supprime la dernière exigence d'une fonctionnalité, sa spécification est supprimée ; `retire_capabilities: true` doit alors figurer dans le `.openspec.yaml` du changement. Chaque retrait est signalé dans `warnings`, avec une commande Git de restauration prête à coller uniquement si la spécification se trouvait dans le checkout appelant). Un changement déjà synchronisé est archivé avec des totaux nuls et les éléments ignorés indiqués dans `warnings`. Le mode JSON est strictement non interactif : chaque point de prompt produit un code `archive_*`.
 
 - **`archive: null`** : la commande a échoué. Cela ne garantit pas que les fichiers sont restés inchangés.
-- **`archive_retirement_cleanup_failed`** : le changement a été archivé, mais la vérification de la sauvegarde du retrait ou son nettoyage a échoué. Un chemin de sauvegarde listé peut avoir changé ou disparu. Le message peut aussi signaler une source préparée, laissée par l'échec du nettoyage d'une copie de secours. Inspectez l'archive actuelle et tous les chemins de récupération signalés avant tout nettoyage. Conservez le contenu nécessaire. Relancer l'archivage ne nettoie pas ces chemins.
-- **`archive_error`** : le diagnostic de secours ne permet pas de savoir si des fichiers ont changé. Inspectez le changement, l'archive et les spécifications concernées avant de relancer la commande.
+- **`archive_retirement_cleanup_failed`** : le changement a été archivé, mais la vérification de la sauvegarde du retrait ou son nettoyage a échoué. Un chemin de sauvegarde listé peut avoir changé ou disparu. Le message peut aussi signaler une source préparée, laissée par l'échec du nettoyage d'une copie de fallback. Inspectez l'archive actuelle et tous les chemins de récupération signalés avant tout nettoyage. Conservez le contenu nécessaire. Relancer l'archivage ne nettoie pas ces chemins.
+- **`archive_error`** : le diagnostic de fallback ne permet pas de savoir si des fichiers ont changé. Inspectez le changement, l'archive et les spécifications concernées avant de relancer la commande.
 
 ### 4.10 `doctor --json`
 
@@ -103,7 +103,7 @@ Réussite : `{ "archive": { "change", "archivedAs": "YYYY-MM-DD-name", "path", "
 
 ### 4.12 `store ... --json`
 
-configuration/enregistrement : `{ "store": {id, root, metadata_path?}, "registry": {path, registered, already_registered}, "git": {is_repository, initialized, committed}, "created_files": [], "status": [] }`. Désenregistrement/suppression : `{ "store", "registry": {path, removed}, "files": {deleted, deleted_path, left_on_disk}, "status": [] }`. Liste : `{ "stores": [{id, root}], "status": [] }`. Doctor : `{ "stores": [ { id, root, metadata_path?, openspec_root: {...healthy, status}, metadata: {present, valid, id?, remote}, git: {is_repository, has_commits, has_uncommitted_changes, has_remote, origin_url}, status } ], "status": [] }` (`null` signifie inconnu/non vérifié). Les problèmes de santé n'empêchent pas une sortie 0 ; les échecs produisent une sortie 1 avec la forme nulle correspondante. L'annulation d'une invite produit le code 130.
+configuration/enregistrement : `{ "store": {id, root, metadata_path?}, "registry": {path, registered, already_registered}, "git": {is_repository, initialized, committed}, "created_files": [], "status": [] }`. Désenregistrement/suppression : `{ "store", "registry": {path, removed}, "files": {deleted, deleted_path, left_on_disk}, "status": [] }`. Liste : `{ "stores": [{id, root}], "status": [] }`. Doctor : `{ "stores": [ { id, root, metadata_path?, openspec_root: {...healthy, status}, metadata: {present, valid, id?, remote}, git: {is_repository, has_commits, has_uncommitted_changes, has_remote, origin_url}, status } ], "status": [] }` (`null` signifie inconnu/non vérifié). Les problèmes de santé n'empêchent pas une sortie 0 ; les échecs produisent une sortie 1 avec la forme nulle correspondante. L'annulation d'un prompt produit le code 130.
 
 ### 4.13 `schemas --json` / `templates --json`
 
@@ -116,7 +116,7 @@ configuration/enregistrement : `{ "store": {id, root, metadata_path?}, "registry
 | Réussite, y compris les problèmes de santé (doctor/context/store doctor) | 0 | la charge utile |
 | Échec d'une commande en mode `--json` | 1 | un document JSON avec `status: [d]` et la forme nulle de la commande |
 | Éléments en échec avec `validate` | 1 | rapport complet |
-| Annulation d'une invite (groupe `store`, mode humain) | 130 | stderr uniquement |
+| Annulation d'un prompt (groupe `store`, mode humain) | 130 | stderr uniquement |
 
 ## 6. Catalogue des codes de diagnostic
 
@@ -156,7 +156,7 @@ configuration/enregistrement : `{ "store": {id, root, metadata_path?}, "registry
 
 `context_file_exists`, `context_output_dir_missing`.
 
-### Replis
+### Fallbacks
 
 `doctor_failed`, `context_failed`, `store_error`, `change_error`, `archive_error`.
 

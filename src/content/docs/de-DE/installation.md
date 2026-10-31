@@ -33,9 +33,9 @@ Unter macOS wird eine mit einem Browser heruntergeladene Datei blockiert, bis Si
 
 ## Mit Ihrem KI-Assistenten installieren
 
-Möchten Sie die Installation nicht selbst vornehmen? Fügen Sie die folgende Eingabe in einen beliebigen Codierassistenten ein, der Shell-Befehle ausführen kann – Claude Code, Codex, Cursor, Gemini CLI, Copilot und die übrigen [unterstützten Tools](/de-DE/supported-tools/). Der Assistent installiert die CLI, initialisiert dieses Projekt und berichtet, was tatsächlich geschehen ist.
+Möchten Sie die Installation nicht selbst vornehmen? Fügen Sie den folgenden prompt in einen beliebigen Codierassistenten ein, der Shell-Befehle ausführen kann – Claude Code, Codex, Cursor, Gemini CLI, Copilot und die übrigen [unterstützten Tools](/de-DE/supported-tools/). Der Assistent installiert die CLI, initialisiert dieses Projekt und berichtet, was tatsächlich geschehen ist.
 
-Die manuellen Schritte unten sind maßgeblich – die Eingabe führt sie lediglich für Sie aus. Wenn Ihr Assistent anhält und Sie um etwas bittet, ist das beabsichtigt: Er fragt vor privilegierten Aktionen nach und bearbeitet niemals Ihre Shell-Startdateien. Erledigen Sie solche Schritte selbst anhand der Abschnitte [Installieren](#installieren) und [Fehlerbehebung](/de-DE/troubleshooting/).
+Die manuellen Schritte unten sind maßgeblich – der prompt führt sie lediglich für Sie aus. Wenn Ihr Assistent anhält und Sie um etwas bittet, ist das beabsichtigt: Er fragt vor privilegierten Aktionen nach und bearbeitet niemals Ihre Shell-Startdateien. Erledigen Sie solche Schritte selbst anhand der Abschnitte [Installieren](#installieren) und [Fehlerbehebung](/de-DE/troubleshooting/).
 
 ```text
 Install OpenSpec in this project and set it up for me. Follow these steps in
@@ -116,7 +116,7 @@ order, and stop where a step tells you to stop.
    or $openspec-propose in Codex, or /skill:openspec-propose in Kimi Code).
 ```
 
-Die Eingabe ist nicht an einen bestimmten Anbieter gebunden: Sie besteht aus einfachen Anweisungen und denselben Befehlen, die auf dieser Seite dokumentiert sind. Sie funktioniert unter macOS, Linux und Windows und hält bewusst an, statt eigenmächtig weiterzumachen, wenn für einen Schritt Ihre Zustimmung nötig ist. Ihr Assistent muss Shell-Befehle ausführen können – einige IDE-Integrationen können das nicht.
+Der prompt ist nicht an einen bestimmten Anbieter gebunden: Sie besteht aus einfachen Anweisungen und denselben Befehlen, die auf dieser Seite dokumentiert sind. Sie funktioniert unter macOS, Linux und Windows und hält bewusst an, statt eigenmächtig weiterzumachen, wenn für einen Schritt Ihre Zustimmung nötig ist. Ihr Assistent muss Shell-Befehle ausführen können – einige IDE-Integrationen können das nicht.
 
 ## Paketmanager
 
@@ -176,7 +176,7 @@ Führen Sie OpenSpec direkt aus, ohne es zu installieren:
 nix run github:Fission-AI/OpenSpec -- init
 ```
 
-Oder installieren Sie OpenSpec in Ihrem Profil:
+Oder installieren Sie OpenSpec in Ihrem profile:
 
 ```bash
 nix profile install github:Fission-AI/OpenSpec

@@ -17,7 +17,7 @@ OPSX 現已成為 OpenSpec 的標準工作流程。
 - **指令是硬編碼的**——埋在 TypeScript 程式碼中，無法修改
 - **要麼全做，要麼不做**——一個大型命令一次建立所有內容，無法單獨測試各個部分
 - **結構固定**——每個人都使用同一種工作流程，無法定製
-- **黑盒**——AI 輸出不理想時，無法調整提示詞
+- **黑盒**——AI 輸出不理想時，無法調整 prompt
 
 **OPSX 打開了這扇門。**現在任何人都可以：
 
@@ -40,7 +40,7 @@ Legacy workflow:                      OPSX:
 
 **OPSX 面向所有人：**
 - **團隊**——建立符合實際工作方式的工作流程
-- **高階使用者**——調整提示詞，讓 AI 更好地理解你的程式碼庫
+- **高階使用者**——調整 prompt，讓 AI 更好地理解你的程式碼庫
 - **OpenSpec 貢獻者**——無需釋出新版本即可試驗新方法
 
 我們仍在共同探索什麼方法最有效。OPSX 讓大家能夠一起學習。
@@ -67,9 +67,9 @@ openspec init
 
 這會在 `.claude/skills/`（或對應目錄）中建立 skills，AI 編碼助手可自動檢測它們。
 
-預設情況下，OpenSpec 使用 `core` 工作流程設定（`propose`、`explore`、`apply`、`update`、`sync`、`archive`）。如果需要擴充套件工作流程命令（`new`、`continue`、`ff`、`verify`、`bulk-archive`、`onboard`），請使用 `openspec config profile` 設定，並透過 `openspec update` 應用。
+預設情況下，OpenSpec 使用 `core` 工作流程 profile（`propose`、`explore`、`apply`、`update`、`sync`、`archive`）。如果需要擴充套件工作流程命令（`new`、`continue`、`ff`、`verify`、`bulk-archive`、`onboard`），請使用 `openspec config profile` 設定，並透過 `openspec update` 應用。
 
-設定期間，系統會提示你建立**專案設定**（`openspec/config.yaml`）。此設定可選，但建議建立。
+設定期間，系統會 prompt 你建立**專案設定**（`openspec/config.yaml`）。此設定可選，但建議建立。
 
 ## 專案設定
 
@@ -209,7 +209,7 @@ rules:
 ```
 /opsx:apply
 ```
-逐項處理任務，並在完成時勾選。如果同時處理多項變更，可以執行 `/opsx:apply <name>`；否則它會根據對話推斷目標變更，如果無法判斷則提示你選擇。
+逐項處理任務，並在完成時勾選。如果同時處理多項變更，可以執行 `/opsx:apply <name>`；否則它會根據對話推斷目標變更，如果無法判斷則 prompt 你選擇。
 
 ### 更新變更
 ```
@@ -223,7 +223,7 @@ rules:
 ```text
 /opsx:sync
 ```
-將當前變更的增量規範合併到主 `openspec/specs/` 中，但不歸檔——該變更仍保持活動狀態。此操作會應用整個增量：`## REMOVED` 下的需求會從主規範中刪除，重新命名的需求會在原位置改名，增量未提及的內容則保持不變。同步是可選的——如果尚未同步，歸檔時會提示你先同步。以下情況適合使用同步：歸檔前先更新主規範；並行變更需要基於本次新增的規範繼續工作；或你想在歸檔前檢查合併後的主規範。
+將當前變更的增量規範合併到主 `openspec/specs/` 中，但不歸檔——該變更仍保持活動狀態。此操作會應用整個增量：`## REMOVED` 下的需求會從主規範中刪除，重新命名的需求會在原位置改名，增量未提及的內容則保持不變。同步是可選的——如果尚未同步，歸檔時會 prompt 你先同步。以下情況適合使用同步：歸檔前先更新主規範；並行變更需要基於本次新增的規範繼續工作；或你想在歸檔前檢查合併後的主規範。
 
 ### 收尾
 ```
@@ -438,7 +438,7 @@ rules:
 
 ### 依賴圖模型
 
-產物構成有向無環圖（DAG）。依賴關係是**啟用條件**，而非關卡：
+產物構成有向無環圖（DAG）。依賴關係是**啟用條件**，而非 gate：
 
 ```
                               proposal
@@ -477,7 +477,7 @@ rules:
 
 ### 資訊流
 
-**舊版工作流程**——代理收到靜態指令：
+**舊版工作流程**——agent 收到靜態指令：
 
 ```
   User: "/openspec:proposal"
@@ -498,7 +498,7 @@ rules:
   Agent creates ALL artifacts in one go
 ```
 
-**OPSX**——代理查詢豐富的上下文：
+**OPSX**——agent 查詢豐富的上下文：
 
 ```
   User: "/opsx:continue"

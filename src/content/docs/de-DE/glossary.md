@@ -56,7 +56,7 @@ Die Begriffe sind thematisch gruppiert und innerhalb jeder Gruppe alphabetisch g
 
 **Befehlsdatei.** Eine Slash-Befehlsdatei für ein bestimmtes Tool (`.../commands/opsx-*`). Dies ist der ältere Bereitstellungsmechanismus, der neben Skills weiterhin unterstützt wird. Normalerweise müssen Sie diese Dateien nicht direkt bearbeiten.
 
-**Profil.** Die Gruppe der in Ihrem Projekt installierten Slash-Befehle. **Core** (Standard) umfasst `propose`, `explore`, `apply`, `update`, `sync` und `archive`. Der **erweiterte** Satz ergänzt `new`, `continue`, `ff`, `verify`, `bulk-archive` und `onboard`. Ändern Sie das Profil mit `openspec config profile`.
+**Profile.** Die Gruppe der in Ihrem Projekt installierten Slash-Befehle. **Core** (Standard) umfasst `propose`, `explore`, `apply`, `update`, `sync` und `archive`. Der **erweiterte** Satz ergänzt `new`, `continue`, `ff`, `verify`, `bulk-archive` und `onboard`. Ändern Sie das profile mit `openspec config profile`.
 
 **Bereitstellung.** Gibt an, ob OpenSpec für Ihre Tools Skills, Befehlsdateien oder beides installiert. Die Bereitstellung wird global konfiguriert und mit `openspec update` angewendet.
 
@@ -72,7 +72,7 @@ Die Begriffe sind thematisch gruppiert und innerhalb jeder Gruppe alphabetisch g
 
 **Abhängigkeitsgraph.** Der gerichtete Graph, der aus den `requires:`-Beziehungen zwischen Artefakten entsteht. Es ist ein DAG (gerichteter azyklischer Graph: Die Pfeile weisen nur nach vorn und bilden keine Schleife). OpenSpec verwendet ihn, um festzustellen, was Sie als Nächstes erstellen können.
 
-**Ermöglicher statt Schranken.** Das Prinzip, dass Artefaktabhängigkeiten zeigen, was als Nächstes *möglich* wird und nicht, was als Nächstes *erforderlich* ist. Sie können jederzeit zu jedem Artefakt zurückkehren und es bearbeiten. Siehe [Kernkonzepte im Überblick](/de-DE/overview/#ermöglicher-statt-schranken).
+**Ermöglicher statt gates.** Das Prinzip, dass Artefaktabhängigkeiten zeigen, was als Nächstes *möglich* wird und nicht, was als Nächstes *erforderlich* ist. Sie können jederzeit zu jedem Artefakt zurückkehren und es bearbeiten. Siehe [Kernkonzepte im Überblick](/de-DE/overview/#ermöglicher-statt-schranken).
 
 ## Koordination über mehrere Repositories hinweg (Beta)
 

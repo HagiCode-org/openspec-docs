@@ -2,7 +2,7 @@
 title: "Exemplos e receitas"
 ---
 
-Mudanças reais, do início ao fim. Cada receita mostra os comandos que você digitaria e as respostas que receberia, para que possa encontrar um padrão adequado à sua situação e copiá-lo. Os exemplos usam os comandos padrão do perfil **core** (`propose`, `explore`, `apply`, `update`, `sync`, `archive`); quando o conjunto expandido for útil, isso será indicado.
+Mudanças reais, do início ao fim. Cada receita mostra os comandos que você digitaria e as respostas que receberia, para que possa encontrar um padrão adequado à sua situação e copiá-lo. Os exemplos usam os comandos padrão do profile **core** (`propose`, `explore`, `apply`, `update`, `sync`, `archive`); quando o conjunto expandido for útil, isso será indicado.
 
 Antes de começar, lembre-se: comandos de barra, como `/opsx:propose`, são digitados no **chat do assistente de IA**, e comandos `openspec` são executados no **terminal**. Se isso é novidade, leia primeiro [Como os comandos funcionam](/pt-BR/how-commands-work/). Nas transcrições abaixo, `You:` e `AI:` representam o chat, e as linhas que começam com `$` representam o terminal.
 
@@ -64,7 +64,7 @@ AI:  Created openspec/changes/fix-login-redirect-loop/
 
 Como a correção é registrada como um requisito `MODIFIED` com um novo cenário, a próxima pessoa (ou sessão de IA) verá não apenas que você corrigiu o problema, mas também o que significa “correto”. Depois, execute `/opsx:apply` e `/opsx:archive` como de costume.
 
-Dica: em uma correção, um bom cenário descreve em prosa o teste de regressão. “GIVEN um usuário desconectado, WHEN ele envia credenciais válidas, THEN chega ao painel e não é redirecionado novamente.” Escreva isso para definir um objetivo claro para a implementação.
+Dica: em uma correção, um bom cenário descreve em prosa o teste de regressão. “GIVEN um usuário desconectado, WHEN ele envia credenciais válidas, THEN chega ao dashboard e não é redirecionado novamente.” Escreva isso para definir um objetivo claro para a implementação.
 
 ## Receita 3: explorando antes de se comprometer
 

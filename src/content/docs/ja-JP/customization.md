@@ -20,7 +20,7 @@ OpenSpec では、次の3つのレベルでカスタマイズできます。
 - **プロジェクトのコンテキストを注入する** — AI が技術スタックや規約などを把握する
 - **成果物ごとのルールを追加する** — 特定の成果物に独自のルールを適用する
 - **操作ごとのガイダンスを追加する** — apply や archive の作業に関する助言的な設定を行う
-- **統合に関する選択を記憶する** — 例：[GitHub Copilot クラウドコーディングエージェント](/ja-JP/supported-tools/#github-copilot-クラウドコーディングエージェント)のオプトイン
+- **統合に関する選択を記憶する** — 例：[GitHub Copilot cloud coding agent](/ja-JP/supported-tools/#github-copilot-クラウドコーディングエージェント)の opt-in
 
 ### クイックセットアップ
 
@@ -76,7 +76,7 @@ openspec new change my-feature
 
 **Context and rules injection:**
 
-成果物の生成時には、コンテキストとルールが AI プロンプトに注入されます。
+成果物の生成時には、コンテキストとルールが AI prompt に注入されます。
 
 ```xml
 <context>
@@ -99,7 +99,7 @@ Tech stack: TypeScript, React, Node.js, PostgreSQL
 
 **操作ガイダンス：**
 
-`operations.apply.guidance` と `operations.archive.guidance` は、エージェントが各操作を
+`operations.apply.guidance` と `operations.archive.guidance` は、agent が各操作を
 どのように行うかについての助言的な指示を含む任意の配列です。
 `rules` とは別の設定です。操作ガイダンスは成果物の内容を制約せず、
 成果物のルールが操作ガイダンスとして扱われることもありません。
@@ -118,7 +118,7 @@ change、コンテキスト、ガイダンスは現在のリポジトリでは�
 archive の指示コマンドは読み取り専用です。差分仕様の確認やマージ、メイン仕様への書き込み、
 change の移動、静的な archive ワークフローの実行は行いません。
 
-プロジェクトコンテキストはプロンプトレベルで必須の入力です。生成されたワークフローはそれを読み、
+プロジェクトコンテキストは prompt レベルで必須の入力です。生成されたワークフローはそれを読み、
 関連するプロジェクト情報、規約、制約を適用します。操作ガイダンスは任意の追加的な助言です。
 ワークフローはすべての項目を確認し、組み込みワークフローに適用できて矛盾しない項目に従います。
 
@@ -143,7 +143,7 @@ Archive、一括 archive、単独の sync は
 対象の仕様を書き込んだり change を移動したりする前に停止します（一括 archive では
 バッチの書き込みや移動を開始する前に停止します）。
 
-この設定によって、archive の実行フェーズ、ユーザープロンプト、ファイルシステム操作、
+この設定によって、archive の実行フェーズ、ユーザー prompt、ファイルシステム操作、
 意味的マージの所有権、`openspec archive` コマンド、成果物 `rules` の構成や出力が
 変わることはありません。
 
@@ -270,7 +270,7 @@ apply:
 
 ### テンプレート
 
-テンプレートは AI を導く Markdown ファイルです。その成果物を作成するときにプロンプトに注入されます。
+テンプレートは AI を導く Markdown ファイルです。その成果物を作成するときに prompt に注入されます。
 
 ```markdown
 <!-- templates/proposal.md -->
@@ -416,11 +416,11 @@ OpenSpec は、独立したリポジトリで配布されるコミュニティ�
 
 | スキーマ | メンテナー | リポジトリ | 説明 |
 |--------|-----------|-----------|-------------|
-| `intent-driven` | @harikrishnan83 | [intent-driven-dev/openspec-schemas](https://github.com/intent-driven-dev/openspec-schemas/tree/main/openspec/schemas/intent-driven) | 実装前に、変更の目的、観測可能な動作、技術設計、長期にわたるアーキテクチャ上の決定を記録します。change 固有の ADR レビューマニフェストを追加し、長期的に有効な決定を変更不能かつ後継版で置き換え可能な ADR として記録します。 |
-| `superpowers-bridge` | @JiangWay | [JiangWay/openspec-schemas](https://github.com/JiangWay/openspec-schemas/tree/main/superpowers-bridge) | OpenSpec の成果物ガバナンスを [obra/superpowers](https://github.com/obra/superpowers) の実行スキル（ブレインストーミング、計画の作成、サブエージェントを使った TDD、コードレビュー、仕上げ）と統合します。Superpowers が標準ではカバーしない部分を補う、証拠を重視する `retrospective` 成果物を追加します。 |
+| `intent-driven` | @harikrishnan83 | [intent-driven-dev/openspec-schemas](https://github.com/intent-driven-dev/openspec-schemas/tree/main/openspec/schemas/intent-driven) | 実装前に、変更の目的、観測可能な動作、技術設計、長期にわたるアーキテクチャ上の決定を記録します。change 固有の ADR レビュー manifest を追加し、長期的に有効な決定を変更不能かつ後継版で置き換え可能な ADR として記録します。 |
+| `superpowers-bridge` | @JiangWay | [JiangWay/openspec-schemas](https://github.com/JiangWay/openspec-schemas/tree/main/superpowers-bridge) | OpenSpec の成果物ガバナンスを [obra/superpowers](https://github.com/obra/superpowers) の実行スキル（ブレインストーミング、計画の作成、subagent を使った TDD、コードレビュー、仕上げ）と統合します。Superpowers が標準ではカバーしない部分を補う、証拠を重視する `retrospective` 成果物を追加します。 |
 | `nanopm` | @nmrtn | [nmrtn/nanopm](https://github.com/nmrtn/nanopm/tree/main/openspec-schema) | PM 主導のワークフローです。実装の前段階で [nanopm](https://github.com/nmrtn/nanopm) の計画パイプライン（監査 → 戦略 → ロードマップ → PRD）を実行します。製品計画と OpenSpec の仕様駆動エンジニアリングワークフローを橋渡しします。`.nanopm/` があれば成果物がその内容を読み込み、proposal は監査、design は戦略、tasks は PRD の分解内容を参照します。 |
 | `e2e-runbooks` | @Lukk17 | [Lukk17/openspec-schemas](https://github.com/Lukk17/openspec-schemas/tree/master/openspec/schemas/e2e-runbooks) | 機能単位のエンドツーエンドテスト用ランブックです。各機能に変更不能な仕様、変更不能なタスクテンプレート、実行ごとにタイムスタンプ付きの実行記録を用意します。アサーションは観測可能な動作のみを対象とします（HTTP ステータス、レスポンス本文、永続化された状態。ログの部分文字列は対象外）。各実行では開始/終了時刻（UTC）、所要時間、LLM トークン消費量の推定値を記録します。 |
-| `anvil` | @jikkujoyce | [jikkujoyce/openspec-schemas](https://github.com/jikkujoyce/openspec-schemas/tree/main/schemas/anvil) | TDD の規律と対立的なレビュー手順を含む仕様駆動ワークフローです。流れ：`proposal` → `specs` → `design` → `review` → `test-plan` → `tasks` → `apply` → `verify`。`review` は新しいコンテキストで読み取り専用のレビュアー（利用できる場合は2つ目のモデル）が作成し、エージェントに `test-plan`、`tasks`、`apply` の開始条件を指示する `VERDICT:` 行を出力します。OpenSpec は成果物の存在のみを確認するため、ゲートは独自の CI またはフックで強制してください。`test-plan` は各仕様シナリオを名前付きテストに対応付け、`verify` が監査する red/green 台帳としても機能します。 |
+| `anvil` | @jikkujoyce | [jikkujoyce/openspec-schemas](https://github.com/jikkujoyce/openspec-schemas/tree/main/schemas/anvil) | TDD の規律と対立的なレビュー手順を含む仕様駆動ワークフローです。流れ：`proposal` → `specs` → `design` → `review` → `test-plan` → `tasks` → `apply` → `verify`。`review` は新しいコンテキストで読み取り専用のレビュアー（利用できる場合は2つ目のモデル）が作成し、agent に `test-plan`、`tasks`、`apply` の開始条件を指示する `VERDICT:` 行を出力します。OpenSpec は成果物の存在のみを確認するため、gate は独自の CI またはフックで強制してください。`test-plan` は各仕様シナリオを名前付きテストに対応付け、`verify` が監査する red/green 台帳としても機能します。 |
 | `ml-research` | @tsenst | [idealo/openspec-schemas](https://github.com/idealo/openspec-schemas/tree/main/openspec/schemas/ml-research) | 機械学習の実験ワークフローです。流れ：`proposal` → `design` → `evaluation` → `tasks` → `apply` → `specs`。`evaluation` は実行前に評価指標、成功基準、反証条件を確定させます。`apply` は `results.md` を書き出し、`specs` は裏付けのある知見のみ（反証された仮説を含む）を、`Evidence:` ブロックを伴う `Finding:` 要件として記録します。 |
 | `epic-driven` | @ivanferic | [IvanFeric/openspec-epic-driven](https://github.com/IvanFeric/openspec-epic-driven/tree/main/openspec/schemas/epic-driven) | エピック駆動のワークフローです。流れ：`explore`（任意）→ `epic-propose` → `epic-next` が子ストーリーを選択 → 子の `apply` → 子の `archive` → `epic-sync`。エピックには `apply` 段階がなく、ストーリーがすべて完了してからアーカイブされます。`epic-propose` はビジョン、ストーリー、ロードマップを作成します。`epic-next` は子ストーリーを推奨し、`epic-next <story> start` は子の計画を通常の `openspec-propose` ワークフローに委ねます。`epic-status` はエピック内の全ストーリーの現在の状態を表示します。`epic-replan` は、進行中または完了したストーリーを残したまま計画を変更できます。`epic-sync` はストーリーの完了表示を更新します。 |
 

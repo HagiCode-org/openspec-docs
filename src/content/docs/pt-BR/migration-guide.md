@@ -71,7 +71,7 @@ Um arquivo precisa ser migrado manualmente:
 
 **Por que fizemos essa mudança:**
 
-O antigo `project.md` era passivo: os agentes podiam lê-lo ou não, e podiam esquecer o conteúdo. A confiabilidade era inconsistente.
+O antigo `project.md` era passivo: os agents podiam lê-lo ou não, e podiam esquecer o conteúdo. A confiabilidade era inconsistente.
 
 O contexto do novo `config.yaml` é **incluído ativamente em todas as solicitações de planejamento do OpenSpec**. Assim, as convenções, a pilha tecnológica e as regras do projeto estão sempre disponíveis quando a IA cria artefatos, aumentando a confiabilidade.
 
@@ -90,8 +90,8 @@ Não se preocupe em acertar tudo de primeira. Ainda estamos aprendendo o que fun
 
 `openspec init` e `openspec update` detectam arquivos legados e orientam você pelo mesmo processo de limpeza. Use o comando mais adequado à sua situação:
 
-- Novas instalações usam por padrão o perfil `core` (`propose`, `explore`, `apply`, `update`, `sync`, `archive`).
-- Instalações migradas preservam os fluxos de trabalho instalados anteriormente, criando um perfil `custom` quando necessário.
+- Novas instalações usam por padrão o profile `core` (`propose`, `explore`, `apply`, `update`, `sync`, `archive`).
+- Instalações migradas preservam os fluxos de trabalho instalados anteriormente, criando um profile `custom` quando necessário.
 
 ### Usar `openspec init`
 
@@ -150,7 +150,7 @@ Execute este comando para migrar e atualizar as ferramentas existentes para a ve
 openspec update
 ```
 
-O comando de atualização também detecta e limpa artefatos legados e, em seguida, atualiza as skills/comandos gerados para corresponder ao perfil e às configurações de distribuição atuais.
+O comando de atualização também detecta e limpa artefatos legados e, em seguida, atualiza as skills/comandos gerados para corresponder ao profile e às configurações de distribuição atuais.
 
 ### Ambientes não interativos/CI
 
@@ -286,9 +286,9 @@ A IA ajudará você a identificar o que é essencial e o que pode ser reduzido.
 
 ## Os novos comandos
 
-A disponibilidade dos comandos depende do perfil:
+A disponibilidade dos comandos depende do profile:
 
-**Padrão (perfil `core`):**
+**Padrão (profile `core`):**
 
 | Comando | Finalidade |
 |---------|---------|
@@ -369,7 +369,7 @@ O OPSX usa ações, não fases:
 
 ### Grafo de dependências
 
-Os artefatos formam um grafo direcionado. As dependências viabilizam o trabalho; não são barreiras:
+Os artefatos formam um grafo direcionado. As dependências viabilizam o trabalho; não são gates:
 
 ```
                         proposal

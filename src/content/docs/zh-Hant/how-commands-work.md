@@ -15,7 +15,7 @@ title: "命令的工作方式"
 
 OpenSpec 是一個身兼兩職的專案。
 
-**CLI（終端部分）。** 名為 `openspec` 的程式，你可以安裝後從 shell 中執行。它會設定專案、列出並驗證變更、顯示儀表板，以及歸檔已完成的工作。你可以在 iTerm、VS Code 終端、PowerShell，或任何可以執行 `git` 或 `npm` 的地方輸入命令。
+**CLI（終端部分）。** 名為 `openspec` 的程式，你可以安裝後從 shell 中執行。它會設定專案、列出並驗證變更、顯示 dashboard，以及歸檔已完成的工作。你可以在 iTerm、VS Code 終端、PowerShell，或任何可以執行 `git` 或 `npm` 的地方輸入命令。
 
 ```bash
 openspec init        # set up OpenSpec in this project
@@ -59,7 +59,7 @@ openspec view        # open the interactive dashboard
 
 就是這樣。無需切換模式、啟動守護程序或開啟單獨的視窗。
 
-終端中確實有一個互動式功能：`openspec view`。它會開啟一個儀表板，用於瀏覽規格說明和變更。但它只是檢視器，不是用於提出和實作變更的工具。真正的建置工作透過聊天中的斜槓命令進行。
+終端中確實有一個互動式功能：`openspec view`。它會開啟一個 dashboard，用於瀏覽規格說明和變更。但它只是檢視器，不是用於提出和實作變更的工具。真正的建置工作透過聊天中的斜槓命令進行。
 
 ## 為什麼要這樣劃分
 
@@ -84,9 +84,9 @@ CLI 是**引擎**。它瞭解規則：變更資料夾應是什麼樣子、各產
 | 無——Kimi Code | `/skill:openspec-propose` | Kimi Code |
 | 無——Codex CLI | `$openspec-propose` | Codex |
 
-Devin 是唯一橫跨兩行的工具。Devin Desktop 會讀取 `.devin/workflows/`，所以在那裡可以使用 `/opsx-propose`；[Devin Local 不支援](https://docs.devin.ai/desktop/devin-local)，因此在該智慧代理程式中應使用 `/openspec-propose` 技能。OpenSpec 寫入 `.devin/skills/` 的技能在兩種環境中都有效，因此它們會透過技能名稱相互引用。
+Devin 是唯一橫跨兩行的工具。Devin Desktop 會讀取 `.devin/workflows/`，所以在那裡可以使用 `/opsx-propose`；[Devin Local 不支援](https://docs.devin.ai/desktop/devin-local)，因此在該 agent 中應使用 `/openspec-propose` 技能。OpenSpec 寫入 `.devin/skills/` 的技能在兩種環境中都有效，因此它們會透過技能名稱相互引用。
 
-所有工具均列在[如何呼叫](/zh-Hant/supported-tools/)中——該表是權威參考。有兩行並非斜槓命令：Amazon Q 會把檔案載入到透過 `@` 呼叫的提示詞庫；最後三行使用的是*技能名稱*，它並非命令 ID（`/opsx:apply` 對應的技能是 `openspec-apply-change`）。
+所有工具均列在[如何呼叫](/zh-Hant/supported-tools/)中——該表是權威參考。有兩行並非斜槓命令：Amazon Q 會把檔案載入到透過 `@` 呼叫的 prompt 庫；最後三行使用的是*技能名稱*，它並非命令 ID（`/opsx:apply` 對應的技能是 `openspec-apply-change`）。
 
 拿不準時，檢視 `openspec init` 列印的“Getting started”提示，其中已經使用了工具註冊的格式。也可以輸入斜槓並檢視自動補全，但並非所有工具都提供斜槓命令。
 

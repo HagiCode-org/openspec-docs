@@ -194,17 +194,17 @@ verificar el cambio.
 
 La mayoría de los cambios deberían mantenerse en el modo ligero.
 
-### Colaboración entre personas y agentes
+### Colaboración entre personas y agents
 
-En muchos equipos, las personas exploran y los agentes redactan los artefactos.
+En muchos equipos, las personas exploran y los agents redactan los artefactos.
 El ciclo previsto es:
 
 1. La persona proporciona la intención, el contexto y las restricciones.
-2. El agente los convierte en requisitos y escenarios centrados en el comportamiento.
-3. El agente registra los detalles de implementación en `design.md` y `tasks.md`, no en `spec.md`.
+2. El agent los convierte en requisitos y escenarios centrados en el comportamiento.
+3. El agent registra los detalles de implementación en `design.md` y `tasks.md`, no en `spec.md`.
 4. La validación comprueba la estructura y claridad antes de implementar.
 
-Así, las especificaciones son legibles para las personas y coherentes para los agentes.
+Así, las especificaciones son legibles para las personas y coherentes para los agents.
 
 ## Cambios
 
@@ -497,7 +497,7 @@ artifacts:
                 specs, design)
 ```
 
-**Las dependencias habilitan el trabajo, no lo bloquean.** Indican qué se
+**Las dependencias habilitan el trabajo, no actúan como gates.** Indican qué se
 puede crear, no qué debes crear a continuación. Puedes omitir el diseño si no
 lo necesitas. Puedes crear las especificaciones antes o después del diseño:
 ambos dependen únicamente de la propuesta.

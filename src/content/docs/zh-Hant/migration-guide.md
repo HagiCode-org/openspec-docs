@@ -12,7 +12,7 @@ OPSX 以靈活、基於操作的方式取代了舊版受階段限制的工作流
 |--------|--------|------|
 | **命令** | `/openspec:proposal`、`/openspec:apply`、`/openspec:archive` | 預設：`/opsx:propose`、`/opsx:explore`、`/opsx:apply`、`/opsx:update`、`/opsx:sync`、`/opsx:archive`（可選擴充套件工作流程命令） |
 | **工作流程** | 一次建立全部產物 | 可以逐步建立，也可以一次建立——由你決定 |
-| **返回修改** | 階段關卡讓返回很不方便 | 隨時自然更新任何產物 |
+| **返回修改** | 階段 gate 讓返回很不方便 | 隨時自然更新任何產物 |
 | **自訂** | 固定結構 | 由模式驅動，可充分修改 |
 | **設定** | 帶標記的 `CLAUDE.md` + `project.md` | 使用 `openspec/config.yaml` 中的清晰設定 |
 
@@ -49,7 +49,7 @@ OPSX 以靈活、基於操作的方式取代了舊版受階段限制的工作流
 - Cline：`.clinerules/workflows/openspec-*.md`
 - Roo：`.roo/commands/openspec-*.md`
 - GitHub Copilot：`.github/prompts/openspec-*.prompt.md`（僅適用於 IDE 擴充套件；Copilot CLI 不支援）
-- Codex：OpenSpec 現在使用規範的 `.agents/skills/openspec-*` 路徑。只有在替代檔案已存在後，才會協調舊版 `.codex/skills` 路徑下由 OpenSpec 管理的 `SKILL.md` 檔案；自訂檔案和不一致的副本會保留。如果未標記的 `.agents` 技能樹中已有 OpenSpec 技能，OpenSpec 會保留現有的 Codex (`$openspec-*`) 或通用 (`/openspec-*`) 呼叫形式，而不會根據舊目錄猜測。執行 `openspec init` 時顯式選擇 `codex` 可切換所有權。清理舊版提示詞時，也只會處理 OpenSpec 允許列表中位於 `$CODEX_HOME/prompts` 或 `~/.codex/prompts` 的檔名。
+- Codex：OpenSpec 現在使用規範的 `.agents/skills/openspec-*` 路徑。只有在替代檔案已存在後，才會協調舊版 `.codex/skills` 路徑下由 OpenSpec 管理的 `SKILL.md` 檔案；自訂檔案和不一致的副本會保留。如果未標記的 `.agents` 技能樹中已有 OpenSpec 技能，OpenSpec 會保留現有的 Codex (`$openspec-*`) 或通用 (`/openspec-*`) 呼叫形式，而不會根據舊目錄猜測。執行 `openspec init` 時顯式選擇 `codex` 可切換所有權。清理舊版 prompt 時，也只會處理 OpenSpec 允許列表中位於 `$CODEX_HOME/prompts` 或 `~/.codex/prompts` 的檔名。
 - 以及其他工具（Augment、Continue、Amazon Q 等）
 
 遷移會檢測你已設定的工具，並清理它們的舊版檔案。
@@ -68,7 +68,7 @@ OPSX 以靈活、基於操作的方式取代了舊版受階段限制的工作流
 
 **為什麼要做此更改：**
 
-舊版 `project.md` 是被動檔案——智慧代理程式可能會閱讀，也可能不會；即使讀了，也可能忘記其中內容。我們發現這種做法的可靠性參差不齊。
+舊版 `project.md` 是被動檔案——agent 可能會閱讀，也可能不會；即使讀了，也可能忘記其中內容。我們發現這種做法的可靠性參差不齊。
 
 新的 `config.yaml` 上下文會**主動注入每個 OpenSpec 規劃請求**。這意味著 AI 建立產物時始終能獲得專案約定、技術棧和規則，從而提高可靠性。
 
@@ -88,8 +88,8 @@ OPSX 以靈活、基於操作的方式取代了舊版受階段限制的工作流
 
 `openspec init` 和 `openspec update` 都會檢測舊版檔案，並引導你執行相同的清理流程。根據實際情況任選其一：
 
-- 新安裝預設使用 `core` 設定檔案（`propose`、`explore`、`apply`、`update`、`sync`、`archive`）。
-- 遷移現有安裝時，如果需要，會透過寫入 `custom` 設定檔案來保留你之前安裝的工作流程。
+- 新安裝預設使用 `core` profile（`propose`、`explore`、`apply`、`update`、`sync`、`archive`）。
+- 遷移現有安裝時，如果需要，會透過寫入 `custom` profile 來保留你之前安裝的工作流程。
 
 ### 使用 `openspec init`
 
@@ -148,7 +148,7 @@ Needs your attention
 openspec update
 ```
 
-`update` 也會檢測並清理舊版產物，然後重新整理生成的技能/命令，使其符合當前設定檔案和交付設定。
+`update` 也會檢測並清理舊版產物，然後重新整理生成的技能/命令，使其符合當前 profile 和交付設定。
 
 ### 非互動式/CI 環境
 
@@ -158,9 +158,9 @@ openspec update
 openspec init --force --tools claude
 ```
 
-`--force` 會跳過提示，並自動確認清理操作。
+`--force` 會跳過 prompt，並自動確認清理操作。
 
-這也包括清理全域 Codex 提示詞目錄中由 OpenSpec 管理的提示詞檔案。清理範圍僅限 OpenSpec 允許列表中的舊版 Codex 提示詞檔名；只有替代的 `.agents/skills/openspec-*` 技能已存在時才會刪除，並保留其他所有檔案。
+這也包括清理全域 Codex prompt 目錄中由 OpenSpec 管理的 prompt 檔案。清理範圍僅限 OpenSpec 允許列表中的舊版 Codex prompt 檔名；只有替代的 `.agents/skills/openspec-*` 技能已存在時才會刪除，並保留其他所有檔案。
 
 ---
 
@@ -264,7 +264,7 @@ rules:
 
 **不必過度糾結。** 從必要內容開始，再逐步完善。如果發現 AI 遺漏了重要資訊，就補充進去；如果上下文顯得臃腫，就刪減內容。這是一份持續演進的文件。
 
-### 需要幫助？使用以下提示詞
+### 需要幫助？使用以下 prompt
 
 如果你不確定如何提煉 `project.md`，可以向 AI 助手詢問：
 
@@ -287,9 +287,9 @@ AI 會幫你區分哪些內容必不可少，哪些可以刪減。
 
 ## 新命令
 
-命令是否可用取決於所選設定檔案：
+命令是否可用取決於所選 profile：
 
-**預設（`core` 設定檔案）：**
+**預設（`core` profile）：**
 
 | 命令 | 用途 |
 |---------|---------|
@@ -370,7 +370,7 @@ OPSX 使用操作，而非階段：
 
 ### 依賴圖
 
-產物構成一個有向圖。依賴關係是助力，而非關卡：
+產物構成一個有向圖。依賴關係是助力，而非 gate：
 
 ```
                         proposal
@@ -417,7 +417,7 @@ OPSX 使用新興的**技能**標準：
 
 技能可被多種 AI 程式設計工具識別，並能提供更豐富的元資料。
 
-OPSX 中的 Codex 僅支援技能。OpenSpec 不再生成 Codex 自訂提示詞檔案；請改用生成的 `.agents/skills/openspec-*` 目錄。
+OPSX 中的 Codex 僅支援技能。OpenSpec 不再生成 Codex 自訂 prompt 檔案；請改用生成的 `.agents/skills/openspec-*` 目錄。
 
 ---
 
@@ -553,7 +553,7 @@ openspec schemas --json
 
 ### 想知道哪些檔案會被清理？
 
-執行 `init` 並在清理提示中選擇拒絕，即可檢視完整檢測摘要，不會實際修改任何檔案。
+執行 `init` 並在清理 prompt 中選擇拒絕，即可檢視完整檢測摘要，不會實際修改任何檔案。
 
 ---
 

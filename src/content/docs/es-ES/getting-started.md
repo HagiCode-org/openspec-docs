@@ -35,7 +35,7 @@ La configuración requiere dos pasos en el terminal; después, todo se hace en e
 chat. (Windows, npm y otras formas de instalación están en [Instalación](/es-ES/installation/).)
 El resto de esta guía explica cada paso y lo que verás.
 
-**¿Prefieres no usar el terminal?** Pega la [instrucción de configuración](/es-ES/installation/#instalar-con-tu-asistente-de-ia)
+**¿Prefieres no usar el terminal?** Pega el [prompt de configuración](/es-ES/installation/#instalar-con-tu-asistente-de-ia)
 en tu asistente. Este ejecutará ambos comandos y luego te dirá qué creó.
 
 > **¿Aún no sabes qué crear? Empieza con `/opsx:explore`.** Es un compañero de
@@ -50,7 +50,7 @@ en tu asistente. Este ejecutará ambos comandos y luego te dirá qué creó.
 OpenSpec te ayuda a ti y a tu asistente de programación con IA a acordar qué se
 va a construir antes de escribir código.
 
-**Ruta rápida predeterminada (perfil core):**
+**Ruta rápida predeterminada (profile core):**
 
 ```text
 /opsx:explore ──► /opsx:propose ──► /opsx:apply ──► /opsx:sync ──► /opsx:archive
@@ -59,7 +59,7 @@ va a construir antes de escribir código.
 
 Empieza con `/opsx:explore` si todavía estás decidiendo qué hacer, o ve
 directamente a `/opsx:propose` si ya lo tienes claro. Explore forma parte del
-perfil predeterminado, así que siempre está disponible.
+profile predeterminado, así que siempre está disponible.
 
 **Ruta ampliada (selección de flujos de trabajo personalizados):**
 
@@ -67,7 +67,7 @@ perfil predeterminado, así que siempre está disponible.
 /opsx:new ──► /opsx:ff or /opsx:continue ──► /opsx:apply ──► /opsx:verify ──► /opsx:archive
 ```
 
-El perfil global predeterminado es `core` e incluye `propose`, `explore`,
+El profile global predeterminado es `core` e incluye `propose`, `explore`,
 `apply`, `update`, `sync` y `archive`. Puedes activar los comandos de flujos
 ampliados con `openspec config profile` y, después, ejecutar `openspec update`.
 
@@ -187,7 +187,7 @@ AI:  Created openspec/changes/add-dark-mode/
      Ready for implementation!
 ```
 
-Si activaste el perfil de flujos ampliados, también puedes hacerlo en dos pasos:
+Si activaste el profile de flujos ampliados, también puedes hacerlo en dos pasos:
 `/opsx:new` y luego `/opsx:ff` (o avanzar gradualmente con `/opsx:continue`).
 
 ### 2. Qué se crea

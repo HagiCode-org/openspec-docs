@@ -33,9 +33,9 @@ macOS에서는 브라우저로 내려받은 파일이 `xattr -d com.apple.quaran
 
 ## AI 어시스턴트를 사용해 설치하기
 
-직접 설치하고 싶지 않나요? 셸 명령을 실행할 수 있는 Claude Code, Codex, Cursor, Gemini CLI, Copilot 등의 코딩 어시스턴트에 아래 프롬프트를 붙여 넣으세요. CLI를 설치하고 프로젝트를 초기화한 뒤 실제로 수행한 작업을 알려 줍니다. [지원 도구](/ko-KR/supported-tools/)를 참조하세요.
+직접 설치하고 싶지 않나요? 셸 명령을 실행할 수 있는 Claude Code, Codex, Cursor, Gemini CLI, Copilot 등의 코딩 어시스턴트에 아래 prompt를 붙여 넣으세요. CLI를 설치하고 프로젝트를 초기화한 뒤 실제로 수행한 작업을 알려 줍니다. [지원 도구](/ko-KR/supported-tools/)를 참조하세요.
 
-아래의 수동 단계가 기준이며 프롬프트는 해당 단계를 대신 실행할 뿐입니다. 어시스턴트가 중간에 멈추고 작업을 넘기는 것은 의도된 동작입니다. 권한이 필요한 작업은 먼저 확인을 요청하며 셸 시작 파일을 직접 수정하지 않습니다. [설치](#설치)와 [문제 해결](/ko-KR/troubleshooting/)을 참고해 남은 단계를 직접 완료하세요.
+아래의 수동 단계가 기준이며 prompt는 해당 단계를 대신 실행할 뿐입니다. 어시스턴트가 중간에 멈추고 작업을 넘기는 것은 의도된 동작입니다. 권한이 필요한 작업은 먼저 확인을 요청하며 셸 시작 파일을 직접 수정하지 않습니다. [설치](#설치)와 [문제 해결](/ko-KR/troubleshooting/)을 참고해 남은 단계를 직접 완료하세요.
 
 ```text
 Install OpenSpec in this project and set it up for me. Follow these steps in
@@ -116,7 +116,7 @@ order, and stop where a step tells you to stop.
    or $openspec-propose in Codex, or /skill:openspec-propose in Kimi Code).
 ```
 
-프롬프트는 특정 공급업체에 종속되지 않습니다. 일반적인 지침과 이 페이지에 설명된 명령만 사용합니다. macOS, Linux, Windows에서 작동하며 권한이 필요한 단계에서 임의로 진행하는 대신 의도적으로 멈춥니다. 단, 일부 IDE 통합 기능과 달리 어시스턴트에서 셸 명령을 실행할 수 있어야 합니다.
+prompt는 특정 공급업체에 종속되지 않습니다. 일반적인 지침과 이 페이지에 설명된 명령만 사용합니다. macOS, Linux, Windows에서 작동하며 권한이 필요한 단계에서 임의로 진행하는 대신 의도적으로 멈춥니다. 단, 일부 IDE 통합 기능과 달리 어시스턴트에서 셸 명령을 실행할 수 있어야 합니다.
 
 ## 패키지 관리자
 
@@ -176,7 +176,7 @@ bun add -g @fission-ai/openspec@latest
 nix run github:Fission-AI/OpenSpec -- init
 ```
 
-또는 프로필에 설치하세요:
+또는 profile에 설치하세요:
 
 ```bash
 nix profile install github:Fission-AI/OpenSpec

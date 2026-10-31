@@ -10,7 +10,7 @@ title: "명령"
 
 ## 빠른 참조
 
-### 기본 빠른 경로(`core` 프로필)
+### 기본 빠른 경로(`core` profile)
 
 | 명령 | 목적 |
 |---------|---------|
@@ -32,7 +32,7 @@ title: "명령"
 | `/opsx:bulk-archive` | 여러 변경 사항을 한 번에 보관 |
 | `/opsx:onboard` | 전체 워크플로를 안내하는 튜토리얼 |
 
-기본 전역 프로필은 `core`입니다. 확장 워크플로 명령을 사용하려면 `openspec config profile`을 실행해 워크플로를 선택한 다음 프로젝트에서 `openspec update`를 실행하세요.
+기본 전역 profile은 `core`입니다. 확장 워크플로 명령을 사용하려면 `openspec config profile`을 실행해 워크플로를 선택한 다음 프로젝트에서 `openspec update`를 실행하세요.
 
 ---
 
@@ -40,7 +40,7 @@ title: "명령"
 
 ### `/opsx:propose`
 
-변경 사항을 만들고 계획 산출물을 한 단계에서 생성합니다. `core` 프로필의 기본 시작 명령입니다.
+변경 사항을 만들고 계획 산출물을 한 단계에서 생성합니다. `core` profile의 기본 시작 명령입니다.
 
 **구문:**
 ```text
@@ -77,7 +77,7 @@ AI:  Created openspec/changes/add-dark-mode/
 
 ### `/opsx:explore`
 
-> **확신이 없을 때는 여기서 시작하세요.** 탐색은 코드를 작성하기 전에 코드베이스를 읽고 선택지를 비교하며 모호한 아이디어를 구체적인 계획으로 다듬는 부담 없는 사고 파트너입니다. 기본 프로필에 포함되어 있습니다. 자세한 설명과 추가 예제는 [먼저 탐색하기](/ko-KR/explore/)를 참조하세요.
+> **확신이 없을 때는 여기서 시작하세요.** 탐색은 코드를 작성하기 전에 코드베이스를 읽고 선택지를 비교하며 모호한 아이디어를 구체적인 계획으로 다듬는 부담 없는 사고 파트너입니다. 기본 profile에 포함되어 있습니다. 자세한 설명과 추가 예제는 [먼저 탐색하기](/ko-KR/explore/)를 참조하세요.
 
 변경 사항을 확정하기 전에 아이디어를 검토하고 문제를 조사하며 요구 사항을 명확히 합니다.
 
@@ -142,7 +142,7 @@ AI:  Started openspec/changes/add-jwt-auth/. Say the word and I'll
 
 새 변경 사항의 기본 구조를 만듭니다. 변경 사항 폴더를 생성한 뒤 `/opsx:continue` 또는 `/opsx:ff`로 산출물을 만들 때까지 대기합니다.
 
-이 명령은 확장 워크플로에 포함되며 기본 `core` 프로필에서는 사용할 수 없습니다.
+이 명령은 확장 워크플로에 포함되며 기본 `core` profile에서는 사용할 수 없습니다.
 
 **구문:**
 ```
@@ -611,7 +611,7 @@ AI:  ✓ Archived add-dark-mode
 
 **팁:**
 - 병렬 작업 흐름에 유용합니다.
-- 에이전트 방식으로 코드베이스를 확인해 충돌을 해결합니다.
+- agentic 방식으로 코드베이스를 확인해 충돌을 해결합니다.
 - 변경 사항을 생성한 순서대로 보관합니다.
 - 사양 내용을 덮어쓰기 전에 확인을 요청합니다.
 
@@ -692,11 +692,11 @@ AI 도구마다 명령 구문이 약간씩 다릅니다. 해당 도구에 맞는
 > **Devin Desktop과 Devin Local 비교:** `.devin/workflows/opsx-*.md` 파일을 사용하는
 > Devin Desktop에서는 `/opsx-propose`를 사용합니다. Devin Local은 워크플로를 지원하지 않으므로
 > OpenSpec이 `.devin/skills/`에 작성하는 스킬(예: `/openspec-propose`)을 사용하세요.
-> 이 스킬은 두 에이전트에서 모두 작동합니다.
+> 이 스킬은 두 agents에서 모두 작동합니다.
 
 모든 도구에서 명령의 의도는 같지만 통합 방식에 따라 명령을 표시하는 방법이 다를 수 있습니다. [호출 방법](/ko-KR/supported-tools/#호출-방법)에 지원 도구가 모두 나와 있으며 이 표는 각 형식의 예만 보여 줍니다.
 
-> **참고:** GitHub Copilot 명령(`.github/prompts/*.prompt.md`)은 IDE 확장(VS Code, JetBrains, Visual Studio)에서만 사용할 수 있습니다. 현재 GitHub Copilot CLI는 사용자 지정 프롬프트 파일을 지원하지 않습니다. 자세한 내용과 대안은 [지원 도구](/ko-KR/supported-tools/)를 참조하세요.
+> **참고:** GitHub Copilot 명령(`.github/prompts/*.prompt.md`)은 IDE 확장(VS Code, JetBrains, Visual Studio)에서만 사용할 수 있습니다. 현재 GitHub Copilot CLI는 사용자 지정 prompt 파일을 지원하지 않습니다. 자세한 내용과 대안은 [지원 도구](/ko-KR/supported-tools/)를 참조하세요.
 
 ---
 

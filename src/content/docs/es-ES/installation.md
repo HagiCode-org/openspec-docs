@@ -176,7 +176,7 @@ Ejecuta OpenSpec directamente sin instalarlo:
 nix run github:Fission-AI/OpenSpec -- init
 ```
 
-O instálalo en tu perfil:
+O instálalo en tu profile:
 
 ```bash
 nix profile install github:Fission-AI/OpenSpec

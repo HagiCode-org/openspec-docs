@@ -120,7 +120,7 @@ AI:  Verifying add-dark-mode...
 
 它會將問題標記為 CRITICAL、WARNING 或 SUGGESTION，但**不會**阻止歸檔——它只會指出差距，是否處理由你決定。這就是“AI 是否寫了程式碼”與“AI 是否實作了雙方約定的內容”之間的區別。
 
-`/opsx:verify` 屬於擴充套件設定檔案。如果你沒有此命令，可以用 `openspec config profile` 啟用（然後執行 `openspec update`），也可以自行重新閱讀變更和程式碼差異。
+`/opsx:verify` 屬於擴充套件 profile。如果你沒有此命令，可以用 `openspec config profile` 啟用（然後執行 `openspec update`），也可以自行重新閱讀變更和程式碼差異。
 
 ## 讓審查與變更規模相稱
 

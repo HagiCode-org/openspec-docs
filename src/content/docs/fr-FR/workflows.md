@@ -99,9 +99,9 @@ sequenceDiagram
 
 ## Deux modes
 
-### Parcours rapide par défaut (profil `core`)
+### Parcours rapide par défaut (profile `core`)
 
-Les nouvelles installations utilisent par défaut le profil `core`, qui comprend :
+Les nouvelles installations utilisent par défaut le profile `core`, qui comprend :
 - `/opsx:explore`
 - `/opsx:propose`
 - `/opsx:apply`
@@ -118,7 +118,7 @@ Parcours habituel :
 
 #### Commencer par explorer (l’habitude à prendre)
 
-`/opsx:explore` fait partie du profil par défaut, ce n’est pas une option avancée. Utilisez-la dès que vous avez un problème sans avoir encore de plan — ce qui est le cas la plupart du temps avec un assistant IA.
+`/opsx:explore` fait partie du profile par défaut, ce n’est pas une option avancée. Utilisez-la dès que vous avez un problème sans avoir encore de plan — ce qui est le cas la plupart du temps avec un assistant IA.
 
 ```text
 You: /opsx:explore
@@ -539,7 +539,7 @@ Pour le détail complet des commandes et de leurs options, consultez [Commandes]
 
 | Commande | Rôle | Quand l’utiliser |
 |---------|---------|-------------|
-| `/opsx:propose` | Créer un changement et ses artefacts de planification | Parcours rapide par défaut (profil `core`) |
+| `/opsx:propose` | Créer un changement et ses artefacts de planification | Parcours rapide par défaut (profile `core`) |
 | `/opsx:explore` | Réfléchir à des idées avec l’IA | En cas d’incertitude : exigences floues, investigation ou comparaison d’options |
 | `/opsx:new` | Créer la structure d’un changement | Mode étendu, contrôle explicite des artefacts |
 | `/opsx:continue` | Créer l’artefact suivant | Mode étendu, création pas à pas |

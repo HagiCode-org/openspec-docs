@@ -1,5 +1,5 @@
 ---
-title: "OpenSpec エージェント契約"
+title: "OpenSpec agent 契約"
 ---
 
 `openspec` CLI の機械可読インターフェイスを `src/` と照合して検証したものです（最終監査、2026-06-11）。以下の各形式は、出力元のコードに基づいて記載しています。
@@ -35,7 +35,7 @@ title: "OpenSpec エージェント契約"
 2. それ以外では、最も近い親ディレクトリにある `openspec/` を使う。計画用の構成があれば `source: "nearest"`（`store:` ポインターは無視され、stderr に警告が出る）。有効な `store:` ポインターを持つ設定のみのディレクトリなら、その store を使い `source: "declared"`。
 3. 近くにルートがなく、グローバル `defaultStore` が設定されている（`openspec config set defaultStore <id>`）→ その store を使い `source: "global_default"`。古い ID は元の store エラーで失敗し、`fix` に `openspec config unset defaultStore` が示されます。
 4. 近くにルートも既定値もなく、登録済み store がある → `no_root_with_registered_stores` エラー。
-5. ルート、既定値、store がない場合、コマンドによっては現在の作業ディレクトリを `source: "implicit"` として扱います。一方、`doctor`、`context`、`list`、一括 `validate` は `no_openspec_root` で失敗します。`list` は `openspec/project.md` を持つ旧形式プロジェクト用に、暗黙のフォールバックを維持します。
+5. ルート、既定値、store がない場合、コマンドによっては現在の作業ディレクトリを `source: "implicit"` として扱います。一方、`doctor`、`context`、`list`、一括 `validate` は `no_openspec_root` で失敗します。`list` は `openspec/project.md` を持つ旧形式プロジェクト用に、暗黙の fallback を維持します。
 
 成功時の JSON ペイロードには通常ルートが含まれます。成功時の `schemas --json` は、互換性維持のため §4.13 に記載のとおり意図的に配列のみを返します。
 
@@ -59,7 +59,7 @@ title: "OpenSpec エージェント契約"
 `{ "items": [ { "id", "type": "change"|"spec", "valid", "issues": [ { "level", "path", "message", "line"?, "column"? } ], "durationMs" } ], "summary": { "totals": {items,passed,failed}, "byType": {...} }, "version": "1.0", "root" }`. 項目が1つでも失敗すると、終了コード1になります。
 
 ### 4.4 `status --json`
-`{ "changeName", "schemaName", "planningHome"?: { "kind", "root", "changesDir", "defaultSchema" }, "changeRoot", "artifactPaths": { "<id>": {outputPath, resolvedOutputPath, existingOutputPaths} }, "nextSteps": ["..."], "actionContext": { "mode": "repo-local", "sourceOfTruth": "repo", "planningArtifacts", "linkedContext", "allowedEditRoots", "requiresAffectedAreaSelection", "constraints" }, "isPlanningComplete", "isComplete", "applyRequires", "artifacts": [ {id, outputPath, status: "done"|"skipped"|"ready"|"blocked", requires, missingDeps?} ], "root" }`. ストアで選択されたルートの場合、`allowedEditRoots` は `[<declaring project>, <store>]` になるのが、現在のパス上で最も近いプロジェクトが、`store:` ポインターでそのストアを指定する設定専用ルートである場合です。それ以外では `[<store>]` になります（グローバルの `defaultStore` を含みます）。この場合、どのリポジトリを編集するかをエージェントに尋ねるよう指示する制約が付きます。OpenSpec はストアのタスクをリポジトリに振り分けないため、宣言プロジェクトは変更が触れるすべてのリポジトリではなく、現在のプロジェクトになります。`isPlanningComplete` は、スキップされていない計画成果物がすべて存在することを示します。スキップされた成果物は作成しなくても充足したものと見なされます。実装タスクが完了したという意味ではありません。`isComplete` は同じ値を持つ互換性用エイリアスとして残されています。各成果物の `requires` は直接の依存 ID であり（すべての状態で存在するため、成果物が `done` でも推移的な依存関係を計算できます）、`missingDeps` は `blocked` の場合だけ表示されます。`artifacts` 配列は依存関係の順で、同時に準備可能になる成果物の順序はスキーマの `artifacts:` 宣言順（アルファベット順ではない）で決まります。そのため最初の `ready` 項目が次に作成する成果物です。`missingDeps` にも同じ順序が適用されます。`"skipped"` は、`generates` パスが `specs/` 以下にある成果物で、`.openspec.yaml` に `skip_specs: true` が宣言された change 内のものを示します。依存関係は満たしますが、作成してはいけません。作業中の change がない場合は `{ "changes": [], "message", "root" }` を返し、終了コード0になります。
+`{ "changeName", "schemaName", "planningHome"?: { "kind", "root", "changesDir", "defaultSchema" }, "changeRoot", "artifactPaths": { "<id>": {outputPath, resolvedOutputPath, existingOutputPaths} }, "nextSteps": ["..."], "actionContext": { "mode": "repo-local", "sourceOfTruth": "repo", "planningArtifacts", "linkedContext", "allowedEditRoots", "requiresAffectedAreaSelection", "constraints" }, "isPlanningComplete", "isComplete", "applyRequires", "artifacts": [ {id, outputPath, status: "done"|"skipped"|"ready"|"blocked", requires, missingDeps?} ], "root" }`. ストアで選択されたルートの場合、`allowedEditRoots` は `[<declaring project>, <store>]` になるのが、現在のパス上で最も近いプロジェクトが、`store:` ポインターでそのストアを指定する設定専用ルートである場合です。それ以外では `[<store>]` になります（グローバルの `defaultStore` を含みます）。この場合、どのリポジトリを編集するかを agent に尋ねるよう指示する制約が付きます。OpenSpec はストアのタスクをリポジトリに振り分けないため、宣言プロジェクトは変更が触れるすべてのリポジトリではなく、現在のプロジェクトになります。`isPlanningComplete` は、スキップされていない計画成果物がすべて存在することを示します。スキップされた成果物は作成しなくても充足したものと見なされます。実装タスクが完了したという意味ではありません。`isComplete` は同じ値を持つ互換性用エイリアスとして残されています。各成果物の `requires` は直接の依存 ID であり（すべての状態で存在するため、成果物が `done` でも推移的な依存関係を計算できます）、`missingDeps` は `blocked` の場合だけ表示されます。`artifacts` 配列は依存関係の順で、同時に準備可能になる成果物の順序はスキーマの `artifacts:` 宣言順（アルファベット順ではない）で決まります。そのため最初の `ready` 項目が次に作成する成果物です。`missingDeps` にも同じ順序が適用されます。`"skipped"` は、`generates` パスが `specs/` 以下にある成果物で、`.openspec.yaml` に `skip_specs: true` が宣言された change 内のものを示します。依存関係は満たしますが、作成してはいけません。作業中の change がない場合は `{ "changes": [], "message", "root" }` を返し、終了コード0になります。
 
 `--all`（一括処理。`--change` とは併用不可で、併用すると `{ "changes": [], "root": null, "status": [d] }` の null 形式でエラーになります）: `{ "changes": [ <per-change status object, no per-change root>, ... ], "root" }` を change 名順で返します。読み込みに失敗した change はその位置に `{ "changeName", "status": [d] }` として含まれます。一覧処理は続行され、エンベロープ全体が保持され、テキストと JSON の両モードで終了コード1になります。無効な `--schema` は、change が存在しない場合でも呼び出し全体を null 形式で失敗させます。
 
@@ -69,7 +69,7 @@ title: "OpenSpec エージェント契約"
 `ReferenceIndexEntry`: `{ "store_id", "root"?, "specs"?: [{id,summary}], "fetch"?, "status": [] }` — 解決済みのエントリには root/specs/fetch が含まれ、未解決の場合は store_id と警告 status が含まれます。索引の上限は50 KBです（`reference_index_truncated`）。
 
 ### 4.6 `instructions apply --json`
-`{ "changeName", "changeDir", "schemaName", "contextFiles": { "<artifactId>": ["/abs", ...] }, "progress": {total,complete,remaining}, "tasks": [{id,description,done}], "state": "blocked"|"all_done"|"ready", "missingArtifacts"?, "missingPrerequisites"?, "warnings"?, "instruction", "references"?, "context"?, "operationGuidance"?, "root" }`. `missingArtifacts` は apply が処理をブロックする要因（スキーマの `apply.requires`）です。`missingPrerequisites` は apply を実行する前に作成すべき残りの項目をビルド順に示します。依存関係の推移的閉包であるため、より長い一覧になる場合があります。`warnings` は change 自体に関する、処理を妨げない問題を示します。現時点では、差分仕様も `skip_specs: true` もなく実装可能な状態になっている change が該当し、`openspec validate` はこれを拒否します。省略可能なルートフィールド（`context`、`operationGuidance`）は、呼び出しごとに選択されたルートから読み取られます。`context` はプロンプトレベルで必須の入力であり、関連するプロジェクト情報、規約、制約を適用する必要があります。`operationGuidance` は助言的な入力で、組み込みワークフローに適用でき、かつ矛盾しない項目だけを使用します。どちらも状態、タスク、進捗、コンテキストファイル、組み込みの指示とは別に保持されます。
+`{ "changeName", "changeDir", "schemaName", "contextFiles": { "<artifactId>": ["/abs", ...] }, "progress": {total,complete,remaining}, "tasks": [{id,description,done}], "state": "blocked"|"all_done"|"ready", "missingArtifacts"?, "missingPrerequisites"?, "warnings"?, "instruction", "references"?, "context"?, "operationGuidance"?, "root" }`. `missingArtifacts` は apply が処理をブロックする要因（スキーマの `apply.requires`）です。`missingPrerequisites` は apply を実行する前に作成すべき残りの項目をビルド順に示します。依存関係の推移的閉包であるため、より長い一覧になる場合があります。`warnings` は change 自体に関する、処理を妨げない問題を示します。現時点では、差分仕様も `skip_specs: true` もなく実装可能な状態になっている change が該当し、`openspec validate` はこれを拒否します。省略可能なルートフィールド（`context`、`operationGuidance`）は、呼び出しごとに選択されたルートから読み取られます。`context` は prompt レベルで必須の入力であり、関連するプロジェクト情報、規約、制約を適用する必要があります。`operationGuidance` は助言的な入力で、組み込みワークフローに適用でき、かつ矛盾しない項目だけを使用します。どちらも状態、タスク、進捗、コンテキストファイル、組み込みの指示とは別に保持されます。
 
 ### 4.7 `instructions archive --json`
 `{ "changeName", "context"?, "operationGuidance"?, "root" }`. 解決されたリポジトリ/store ルート内に有効な `--change` が必要です。apply と同じく、コンテキストは必須、ガイダンスは助言として扱います。これは実行時入力を読み取り専用で提供するインターフェイスです。静的な archive ワークフローを返したり、差分仕様を確認・マージしたり、メイン仕様を書き込んだり、change を移動したりはしません。
@@ -78,11 +78,11 @@ title: "OpenSpec エージェント契約"
 成功時：`{ "change": { "id", "path", "metadataPath", "schema" }, "root" }`。失敗時：`{ "change": null, "status": [d] }`、終了コード1。
 
 ### 4.9 `archive <name> --json`
-成功時：`{ "archive": { "change", "archivedAs": "YYYY-MM-DD-name", "path", "specsUpdated", "totals"?, "warnings"? }, "root" }`。失敗時：`{ "archive": null, "root"?, "status": [d] }`、終了コード1。`specsUpdated` が true になるのは、仕様ファイルが1つ以上書き込まれるか廃止された場合に限ります（change が機能の最後の要件を削除したとき仕様を削除します。この操作には `retire_capabilities: true` が必要で、これは change の `.openspec.yaml` に記述します。廃止はすべて `warnings` に示され、呼び出し元のチェックアウトにあった仕様についてのみ、貼り付け可能な Git 復旧コマンドが含まれます）。すでに同期済みの change をアーカイブすると、合計はすべて0になり、スキップした内容が `warnings` に記載されます。JSON モードは完全な非対話型です。確認プロンプトはすべて `archive_*` コードに置き換わります。
+成功時：`{ "archive": { "change", "archivedAs": "YYYY-MM-DD-name", "path", "specsUpdated", "totals"?, "warnings"? }, "root" }`。失敗時：`{ "archive": null, "root"?, "status": [d] }`、終了コード1。`specsUpdated` が true になるのは、仕様ファイルが1つ以上書き込まれるか廃止された場合に限ります（change が機能の最後の要件を削除したとき仕様を削除します。この操作には `retire_capabilities: true` が必要で、これは change の `.openspec.yaml` に記述します。廃止はすべて `warnings` に示され、呼び出し元のチェックアウトにあった仕様についてのみ、貼り付け可能な Git 復旧コマンドが含まれます）。すでに同期済みの change をアーカイブすると、合計はすべて0になり、スキップした内容が `warnings` に記載されます。JSON モードは完全な非対話型です。確認 prompt はすべて `archive_*` コードに置き換わります。
 
 - **`archive: null`**: コマンドが失敗したことを示します。ファイルが変更されていないことは保証されません。
-- **`archive_retirement_cleanup_failed`**: change はアーカイブされましたが、廃止時のバックアップの検証またはクリーンアップに失敗しました。表示されたバックアップのパスが変更されたか、消えている可能性があります。フォールバックのコピー後のクリーンアップに失敗したことで残った、ステージング済みのソースについても報告される場合があります。クリーンアップの前に、現在のアーカイブと報告されたすべての復旧パスを確認してください。必要な内容は保持してください。アーカイブを再試行しても、これらのパスはクリーンアップされません。
-- **`archive_error`**: フォールバックの診断では、ファイルが変更されたかどうかを特定できません。再試行する前に、change、アーカイブ、影響を受けた仕様を確認してください。
+- **`archive_retirement_cleanup_failed`**: change はアーカイブされましたが、廃止時のバックアップの検証またはクリーンアップに失敗しました。表示されたバックアップのパスが変更されたか、消えている可能性があります。fallback のコピー後のクリーンアップに失敗したことで残った、ステージング済みのソースについても報告される場合があります。クリーンアップの前に、現在のアーカイブと報告されたすべての復旧パスを確認してください。必要な内容は保持してください。アーカイブを再試行しても、これらのパスはクリーンアップされません。
+- **`archive_error`**: fallback の診断では、ファイルが変更されたかどうかを特定できません。再試行する前に、change、アーカイブ、影響を受けた仕様を確認してください。
 
 ### 4.10 `doctor --json`
 `{ "root": { "path", "source", "store_id"?, "healthy", "status": [] }, "store": { "id", "metadata": {present,valid,remote?}, "origin_url"?, "drift"?: {ahead,behind}, "status": [] } | null, "references": [...], "status": [] }`. `drift`（Git を使った store のチェックアウトに upstream の追跡参照がある場合のみ出力）は、最後に取得した upstream に対する進行・遅れの件数です。現在のリモートに対する値ではありません。健全性の指摘は重要度に関係なく終了コード0です。失敗時のペイロード：`{ "root": null, "store": null, "references": [], "status": [d] }`、終了コード1。
@@ -91,7 +91,7 @@ title: "OpenSpec エージェント契約"
 `{ "root": { "path", "source", "store_id"?, "role": "openspec_root" }, "members": [ { "role": "referenced_store", "id", "path"?, "remote"?, "fetch"?, "status": [] } ], "status": [] }`. AVAILABLE = path があり、かつ status が空。`--code-workspace <path>` は `{folders:[{name,path}]}` を書き込みます（参照可能な store のみ。`ref:` プレフィックス付き）。JSON モードでは出力前に書き込みを行うため、書き込みに失敗しても stdout には JSON ドキュメントが正確に1つ出力されます。失敗時：`{ "root": null, "members": [], "status": [d] }`、終了コード1。
 
 ### 4.12 `store ... --json`
-setup/register: `{ "store": {id, root, metadata_path?}, "registry": {path, registered, already_registered}, "git": {is_repository, initialized, committed}, "created_files": [], "status": [] }`。unregister/remove: `{ "store", "registry": {path, removed}, "files": {deleted, deleted_path, left_on_disk}, "status": [] }`。list: `{ "stores": [{id, root}], "status": [] }`。doctor: `{ "stores": [ { id, root, metadata_path?, openspec_root: {...healthy, status}, metadata: {present, valid, id?, remote}, git: {is_repository, has_commits, has_uncommitted_changes, has_remote, origin_url}, status } ], "status": [] }`（`null` = 不明/未検査）。健全性の指摘では終了コード0、失敗時は対応する null 形式で終了コード1になります。プロンプトのキャンセル時は終了コード130です。
+setup/register: `{ "store": {id, root, metadata_path?}, "registry": {path, registered, already_registered}, "git": {is_repository, initialized, committed}, "created_files": [], "status": [] }`。unregister/remove: `{ "store", "registry": {path, removed}, "files": {deleted, deleted_path, left_on_disk}, "status": [] }`。list: `{ "stores": [{id, root}], "status": [] }`。doctor: `{ "stores": [ { id, root, metadata_path?, openspec_root: {...healthy, status}, metadata: {present, valid, id?, remote}, git: {is_repository, has_commits, has_uncommitted_changes, has_remote, origin_url}, status } ], "status": [] }`（`null` = 不明/未検査）。健全性の指摘では終了コード0、失敗時は対応する null 形式で終了コード1になります。prompt のキャンセル時は終了コード130です。
 
 ### 4.13 `schemas --json` / `templates --json`
 `schemas`：成功時は引き続き配列 `[ {name, description, artifacts, source} ]` のみを返します。標準のルート選択優先順位で解決し、`--store <id>` に対応します。ルート選択の失敗時：`{ "schemas": [], "root": null, "status": [d] }`、終了コード1。`templates`：キー付きオブジェクト `{ "<artifactId>": {path, source} }` です。引き続き現在の作業ディレクトリを基準とし、root/status キーはありません。
@@ -103,7 +103,7 @@ setup/register: `{ "store": {id, root, metadata_path?}, "registry": {path, regis
 | 成功（doctor/context/store doctor の健全性の指摘も含む） | 0 | ペイロード |
 | `--json` モードでコマンドが失敗 | 1 | `status: [d]` とコマンドの null 形式を含む JSON ドキュメント1つ |
 | `validate` で失敗項目がある | 1 | 完全なレポート |
-| プロンプトをキャンセル（`store` グループ、人間向けモード） | 130 | stderr のみ |
+| prompt をキャンセル（`store` グループ、人間向けモード） | 130 | stderr のみ |
 
 ## 6. 診断コード一覧
 
@@ -134,7 +134,7 @@ setup/register: `{ "store": {id, root, metadata_path?}, "registry": {path, regis
 ### Context の書き込み
 `context_file_exists`, `context_output_dir_missing`.
 
-### フォールバック
+### fallback
 `doctor_failed`, `context_failed`, `store_error`, `change_error`, `archive_error`.
 
 ## 既知の不整合

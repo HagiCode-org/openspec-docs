@@ -4,7 +4,7 @@ title: "Herramientas compatibles"
 
 OpenSpec funciona con muchos asistentes de programación con IA. Al ejecutar
 `openspec init`, configura las herramientas seleccionadas de acuerdo con el
-perfil o los flujos de trabajo activos y el modo de distribución.
+profile o los flujos de trabajo activos y el modo de distribución.
 
 ## Cómo funciona
 
@@ -15,12 +15,12 @@ Para cada herramienta seleccionada, OpenSpec puede instalar:
 
 Codex solo admite habilidades: OpenSpec instala `.agents/skills/openspec-*/SKILL.md`
 para Codex incluso si el modo de distribución es `commands`, y no genera
-archivos de instrucciones personalizados para Codex. Las habilidades existentes
+archivos de prompts personalizados para Codex. Las habilidades existentes
 administradas por OpenSpec en la ruta heredada `.codex/skills` se reconcilian
 después de escribir sus reemplazos; los archivos personalizados o distintos se
 conservan.
 
-De forma predeterminada, OpenSpec usa el perfil `core`, que incluye:
+De forma predeterminada, OpenSpec usa el profile `core`, que incluye:
 - `propose`
 - `explore`
 - `apply`
@@ -44,8 +44,8 @@ correspondiente.
 |------------------------------|----------|-------|
 | `.../commands/opsx/<id>.*` — la carpeta `opsx/` indica el espacio de nombres | `/opsx:<id>` | Claude Code, CodeBuddy, Crush, Gemini CLI, Lingma, Qoder, ZCode |
 | `.../opsx-<id>.*` — el nombre del archivo es el comando | `/opsx-<id>` | Todas las demás herramientas que generan archivos de comandos, salvo Amazon Q y Devin |
-| `.devin/workflows/opsx-<id>.md` — solo lo lee uno de los dos agentes de Devin | `/opsx-<id>` en Devin Desktop, `/openspec-<skill>` en Devin Local | Devin Desktop\*\*\*\* |
-| `.amazonq/prompts/opsx-<id>.md` — es una instrucción, no un comando | `@opsx-<id>` | Amazon Q Developer |
+| `.devin/workflows/opsx-<id>.md` — solo lo lee uno de los dos agents de Devin | `/opsx-<id>` en Devin Desktop, `/openspec-<skill>` en Devin Local | Devin Desktop\*\*\*\* |
+| `.amazonq/prompts/opsx-<id>.md` — es un prompt, no un comando | `@opsx-<id>` | Amazon Q Developer |
 | ninguno — solo habilidades | `/openspec-<skill>` | CodeArts, ForgeCode, Hermes, MiniMax Code, Mistral Vibe, Zed Agent, `.agents` compartido |
 | ninguno — Kimi Code | `/skill:openspec-<skill>` | Kimi Code |
 | ninguno — Codex CLI | `$openspec-<skill>` | Codex ([`/openspec-<skill>` no se reconoce](https://github.com/openai/codex/issues/11817)) |
@@ -58,7 +58,7 @@ Hay dos aspectos independientes, por eso las filas no se pueden combinar:
 - **El nombre.** Las filas 1 y 2 solo difieren en cómo el nombre del archivo
   representa el comando; el prefijo `opsx-<id>` / `opsx:<id>` es el mismo para
   todas las herramientas que generan archivos de comandos.
-- **El envoltorio.** Amazon Q carga los archivos en una biblioteca de instrucciones que se invoca con
+- **El envoltorio.** Amazon Q carga los archivos en una biblioteca de prompts que se invoca con
   `@`. Las herramientas que solo admiten habilidades no generan archivos de
   comandos, así que sus tres últimas filas usan nombres de *habilidad*,
   enumerados en [Nombres de las habilidades generadas](#nombres-de-las-habilidades-generadas),
@@ -113,7 +113,7 @@ seleccionadas; lo más rápido es consultar esa indicación.
 | SourceCraft Code Assistant para VS Code (`codeassistant`) | `.codeassistant/skills/openspec-*/SKILL.md` | `.codeassistant/commands/opsx-<id>.md` |
 | Qoder (`qoder`) | `.qoder/skills/openspec-*/SKILL.md` | `.qoder/commands/opsx/<id>.md` |
 | Qwen Code (`qwen`) | `.qwen/skills/openspec-*/SKILL.md` | `.qwen/commands/opsx-<id>.md` |
-| [Rovo Dev CLI](https://support.atlassian.com/rovo/docs/use-rovo-dev-cli/) (`rovodev`) | `.rovodev/skills/openspec-*/SKILL.md` | No se generan. Rovo no tiene comandos de barra: encuentra las habilidades automáticamente o mediante instrucciones (por ejemplo, «usa la habilidad openspec-propose»); `/skills` solo las administra. El contenido generado menciona las habilidades por su nombre, nunca como comandos `/openspec-*`. |
+| [Rovo Dev CLI](https://support.atlassian.com/rovo/docs/use-rovo-dev-cli/) (`rovodev`) | `.rovodev/skills/openspec-*/SKILL.md` | No se generan. Rovo no tiene comandos de barra: encuentra las habilidades automáticamente o mediante prompts (por ejemplo, «usa la habilidad openspec-propose»); `/skills` solo las administra. El contenido generado menciona las habilidades por su nombre, nunca como comandos `/openspec-*`. |
 | [Zoo Code](https://github.com/Zoo-Code-Org/Zoo-Code) (`roocode`) | `.roo/skills/openspec-*/SKILL.md` | `.roo/commands/opsx-<id>.md` |
 | Trae (`trae`) | `.trae/skills/openspec-*/SKILL.md` | `.trae/commands/opsx-<id>.md` |
 | [Zed Agent](https://zed.dev/docs/ai/skills) (`zed`) | `.agents/skills/openspec-*/SKILL.md` | No se generan (solo admite habilidades; usa `/openspec-*` o `@openspec-*`) |
@@ -121,11 +121,11 @@ seleccionadas; lo más rápido es consultar esa indicación.
 | Habilidades compartidas de `.agents` (`agents`) | `.agents/skills/openspec-*/SKILL.md` | No se generan (no hay adaptador de comandos; usa invocaciones `/openspec-*` basadas en habilidades) |
 
 \*\* Las extensiones de IDE (VS Code, JetBrains y Visual Studio) reconocen los
-archivos de instrucciones de GitHub Copilot como comandos de barra
+archivos de prompts de GitHub Copilot como comandos de barra
 personalizados. Copilot CLI todavía no lee directamente
 `.github/prompts/*.prompt.md`. Al seleccionar `github-copilot`, también puedes
-configurar el **agente de programación en la nube** alojado en GitHub; consulta
-la sección [Agente de programación en la nube de GitHub Copilot](#agente-de-programación-en-la-nube-de-github-copilot).
+configurar el **coding agent en la nube** alojado en GitHub; consulta
+la sección [coding agent en la nube de GitHub Copilot](#agente-de-programación-en-la-nube-de-github-copilot).
 
 \*\*\* De forma predeterminada, Hermes carga las habilidades desde
 `~/.hermes/skills/`. Para usar las habilidades de OpenSpec locales al proyecto,
@@ -135,7 +135,7 @@ añade el directorio `.hermes/skills/` del proyecto a `skills.external_dirs` en
 
 \*\*\*\* Windsurf pasó a llamarse [Devin Desktop](https://docs.devin.ai/desktop/devin-desktop-faq)
 el 2 de junio de 2026 y cambió su directorio de configuración: `.devin/` es la
-ruta preferida de lectura y escritura, y `.windsurf/` queda como alternativa
+ruta preferida de lectura y escritura, y `.windsurf/` queda como fallback
 heredada de solo lectura. OpenSpec adopta el nuevo nombre: el ID de la
 herramienta es `devin`, y `--tools windsurf` sigue resolviendo a ese ID para que
 los scripts de configuración existentes continúen funcionando. Si un proyecto
@@ -143,10 +143,10 @@ aún tiene archivos de OpenSpec en `.windsurf/`, la siguiente ejecución de
 `openspec update` ofrecerá trasladarlos; si rechazas, permanecerán allí, y nunca
 se modificarán tus archivos propios. Los flujos se invocan por nombre de
 archivo, así que `.devin/workflows/opsx-apply.md` corresponde a `/opsx-apply`.
-El [agente Devin Local no admite flujos de trabajo](https://docs.devin.ai/desktop/devin-local),
+El [agent Devin Local no admite flujos de trabajo](https://docs.devin.ai/desktop/devin-local),
 solo habilidades, y no lee `.windsurf/`. Por eso, al escribir habilidades de
 Devin, OpenSpec mantiene sus instrucciones y la indicación de primeros pasos en
-el formato `/openspec-*`, compatible con ambos agentes. Si la distribución solo
+el formato `/openspec-*`, compatible con ambos agents. Si la distribución solo
 incluye comandos, no se escriben habilidades y ambos usan `/opsx-*`.
 
 La compatibilidad con SourceCraft Code Assistant está dirigida a su extensión
@@ -168,16 +168,16 @@ la configuración de un proyecto no pueda eliminar habilidades que use otro.
 
 ### Agente de programación en la nube de GitHub Copilot
 
-El [agente de programación de Copilot](https://docs.github.com/en/copilot/using-github-copilot/coding-agent)
+El [coding agent de Copilot](https://docs.github.com/en/copilot/using-github-copilot/coding-agent)
 de GitHub se ejecuta en GitHub dentro de un entorno de GitHub Actions, separado
 de Copilot en tu editor. OpenSpec puede configurarlo para que use la CLI de
 OpenSpec mediante la generación de dos archivos:
 
-- `.github/workflows/copilot-setup-steps.yml`: instala `@fission-ai/openspec` en el entorno del agente.
-- `.github/agents/openspec.agent.md`: indica al agente cómo usar OpenSpec.
+- `.github/workflows/copilot-setup-steps.yml`: instala `@fission-ai/openspec` en el entorno del agent.
+- `.github/agents/openspec.agent.md`: indica al agent cómo usar OpenSpec.
 
 Como esto escribe un flujo de trabajo de GitHub Actions en tu repositorio, es
-una opción **voluntaria**:
+una opción **opt-in**:
 
 | Método | Comportamiento |
 |-----|----------|
@@ -195,13 +195,13 @@ propios archivos, no los modifica (y `init`/`update` te lo indican).
 ### Cuándo elegir el destino compartido `.agents`
 
 `agents` es la opción independiente del proveedor: escribe las habilidades en
-`.agents/skills/`, una ruta compartida que leen muchas herramientas de agentes,
+`.agents/skills/`, una ruta compartida que leen muchas herramientas de agents,
 en vez de usar un directorio específico de una herramienta.
 
 | Situación | Opción |
 |-----------|------|
 | Tu herramienta aparece en una fila propia | Su propio ID: obtendrás la integración de esa herramienta, incluidos los comandos de barra si los admite |
-| Varios agentes usan el mismo repositorio y todos leen `.agents/skills` | `agents`: un único árbol de habilidades en vez de uno por herramienta |
+| Varios agents usan el mismo repositorio y todos leen `.agents/skills` | `agents`: un único árbol de habilidades en vez de uno por herramienta |
 | Tu herramienta aún no está en la lista, pero lee `.agents/skills` | `agents` |
 
 Puedes seleccionarla junto con el ID de una herramienta concreta; normalmente
@@ -209,13 +209,13 @@ cada una escribe en su propia raíz. Codex y Zed Agent son las excepciones,
 porque comparten la misma raíz canónica `.agents`. Si seleccionas Codex junto
 con Zed o `agents`, OpenSpec mantiene un único árbol dirigido por Codex. Sus
 indicaciones de traspaso incluyen tanto `$openspec-*` para Codex como
-`/openspec-*` para otros agentes, de modo que `--tools all` y las
-configuraciones multiagente existentes siguen funcionando sin que dos
+`/openspec-*` para otros agents, de modo que `--tools all` y las
+configuraciones multi-agent existentes siguen funcionando sin que dos
 generadores sobrescriban los mismos archivos.
 OpenSpec también la ofrece automáticamente cuando un proyecto tiene el
 directorio `.agents/skills/`. No basta con que exista `.agents/` a secas,
 porque las herramientas también usan esa raíz para reglas y definiciones de
-subagentes. Ten en cuenta que `.agents` no es lo mismo que `.agent`: el
+subagents. Ten en cuenta que `.agents` no es lo mismo que `.agent`: el
 directorio singular pertenece a Antigravity.
 
 Ten en cuenta dos cosas:
@@ -234,10 +234,9 @@ Ten en cuenta dos cosas:
   [guía de migración](/es-ES/migration-guide/).
 
 La compatibilidad con Zed se refiere al Zed Agent integrado. Zed External
-Agents y Terminal Threads usan sus propias integraciones. Las habilidades de
-agente requieren [Zed v1.4.2](https://github.com/zed-industries/zed/releases/tag/v1.4.2)
+Agents y Terminal Threads usan sus propias integraciones. Las Agent Skills requieren [Zed v1.4.2](https://github.com/zed-industries/zed/releases/tag/v1.4.2)
 o posterior. Las habilidades locales del proyecto no están disponibles en un
-árbol de trabajo que no sea de confianza hasta que [le otorgues
+worktree que no sea de confianza hasta que [le otorgues
 confianza](https://zed.dev/docs/worktree-trust).
 
 Como Codex, Zed Agent y el destino independiente del proveedor comparten
@@ -259,9 +258,9 @@ consolida en el árbol compartido compatible.
 
 `openspec update` también respeta esta propiedad. Si un proyecto usa `.agents`
 como destino independiente del proveedor y se detecta una instalación
-residual de Codex únicamente a partir de archivos de instrucciones dispersos,
+residual de Codex únicamente a partir de archivos de prompts dispersos,
 la actualización conserva el árbol `agents` existente en vez de volver a
-escribirlo con sintaxis de Codex, y mantiene esos archivos de instrucciones
+escribirlo con sintaxis de Codex, y mantiene esos archivos de prompts
 heredados en lugar de eliminarlos. Para asignar explícitamente a Codex el
 árbol compartido, ejecuta `openspec init --tools codex`.
 
@@ -290,16 +289,16 @@ openspec init --profile core
 
 OpenSpec instala artefactos de flujo de trabajo según los flujos seleccionados:
 
-- **Perfil core (predeterminado):** `propose`, `explore`, `apply`, `update`, `sync`, `archive`
+- **Core profile (predeterminado):** `propose`, `explore`, `apply`, `update`, `sync`, `archive`
 - **Selección personalizada:** cualquier subconjunto de los ID de flujo de trabajo:
   `propose`, `explore`, `new`, `continue`, `apply`, `update`, `ff`, `sync`, `archive`, `bulk-archive`, `verify`, `onboard`
 
-En otras palabras, la cantidad de habilidades y comandos depende del perfil y
+En otras palabras, la cantidad de habilidades y comandos depende del profile y
 del modo de distribución; no es fija.
 
 ## Nombres de las habilidades generadas
 
-Según la configuración del perfil o del flujo de trabajo, OpenSpec genera estas
+Según la configuración del profile o del flujo de trabajo, OpenSpec genera estas
 habilidades:
 
 - `openspec-propose`

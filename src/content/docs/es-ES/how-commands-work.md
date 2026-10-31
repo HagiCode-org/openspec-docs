@@ -15,7 +15,7 @@ Esta distinción es el obstáculo más habitual para quienes empiezan, así que 
 
 OpenSpec es un proyecto que cumple dos funciones.
 
-**La CLI (la mitad del terminal).** Un programa llamado `openspec` que instalas y ejecutas desde el shell. Configura el proyecto, enumera y valida cambios, muestra un panel y archiva el trabajo terminado. Estos comandos se escriben en iTerm, el terminal de VS Code, PowerShell o cualquier otro lugar donde ejecutarías `git` o `npm`.
+**La CLI (la mitad del terminal).** Un programa llamado `openspec` que instalas y ejecutas desde el shell. Configura el proyecto, enumera y valida cambios, muestra un dashboard y archiva el trabajo terminado. Estos comandos se escriben en iTerm, el terminal de VS Code, PowerShell o cualquier otro lugar donde ejecutarías `git` o `npm`.
 
 ```bash
 openspec init        # set up OpenSpec in this project
@@ -59,7 +59,7 @@ En realidad, solo tienes que:
 
 Eso es todo. No hay que activar ningún modo, iniciar ningún daemon ni abrir otra ventana.
 
-Hay una función que *sí* es realmente interactiva y se ejecuta en el terminal: `openspec view`. Abre un panel para explorar las especificaciones y los cambios, pero es un visor, no la herramienta con la que propones e implementas. La implementación se hace con comandos de barra en el chat.
+Hay una función que *sí* es realmente interactiva y se ejecuta en el terminal: `openspec view`. Abre un dashboard para explorar las especificaciones y los cambios, pero es un visor, no la herramienta con la que propones e implementas. La implementación se hace con comandos de barra en el chat.
 
 ## Por qué existe esta división
 
@@ -86,7 +86,7 @@ La intención es la misma en todas partes. La forma de escribir el comando depen
 
 Devin es la única herramienta que aparece en dos filas. Devin Desktop lee
 `.devin/workflows/`, así que `/opsx-propose` funciona allí; [Devin Local no lo
-hace](https://docs.devin.ai/desktop/devin-local), así que en ese agente usa la
+hace](https://docs.devin.ai/desktop/devin-local), así que en ese agent usa la
 habilidad `/openspec-propose`. Las habilidades que OpenSpec escribe en
 `.devin/skills/` funcionan en ambas, por eso se refieren entre sí por el nombre de la habilidad.
 

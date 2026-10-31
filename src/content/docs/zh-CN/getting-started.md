@@ -26,7 +26,7 @@ AI CHAT      /opsx:archive                    (specs updated, change filed away)
 
 设置只需在终端中执行两步，之后就在聊天中完成操作（Windows、npm 及其他安装方式请见[安装指南](/zh-CN/installation/)）。本指南余下部分将逐一介绍每一步的作用以及你会看到的内容。
 
-**不想自己在终端中操作？** 将[设置提示词](/zh-CN/installation/#使用-ai-助手安装)粘贴给助手，它会处理这两行命令，并报告创建了什么。
+**不想自己在终端中操作？** 将[设置 prompt](/zh-CN/installation/#使用-ai-助手安装)粘贴给助手，它会处理这两行命令，并报告创建了什么。
 
 > **还不确定要构建什么？从 `/opsx:explore` 开始。** 它是一位没有压力的思考伙伴，会读取代码库、权衡选项，并在编写任何代码之前，把模糊想法整理成具体计划。思路明确后，它会交由 `/opsx:propose` 继续。这是与 AI 合作时最值得养成的习惯，因为 AI 否则可能会自信地构建出错误的内容。参阅[探索指南](/zh-CN/explore/)。
 
@@ -34,14 +34,14 @@ AI CHAT      /opsx:archive                    (specs updated, change filed away)
 
 OpenSpec 帮助你和 AI 编程助手在编写代码之前，就要构建什么达成一致。
 
-**默认快捷路径（core 配置档案）：**
+**默认快捷路径（core profile）：**
 
 ```text
 /opsx:explore ──► /opsx:propose ──► /opsx:apply ──► /opsx:sync ──► /opsx:archive
    (optional)
 ```
 
-还在考虑该做什么时，从 `/opsx:explore` 开始；已经清楚要做什么时，可以直接使用 `/opsx:propose`。默认配置档案中包含 Explore，因此需要时随时可用。
+还在考虑该做什么时，从 `/opsx:explore` 开始；已经清楚要做什么时，可以直接使用 `/opsx:propose`。默认 profile 中包含 Explore，因此需要时随时可用。
 
 **扩展路径（自定义工作流选择）：**
 
@@ -49,7 +49,7 @@ OpenSpec 帮助你和 AI 编程助手在编写代码之前，就要构建什么�
 /opsx:new ──► /opsx:ff or /opsx:continue ──► /opsx:apply ──► /opsx:verify ──► /opsx:archive
 ```
 
-默认的全局配置档案是 `core`，其中包含 `propose`、`explore`、`apply`、`update`、`sync` 和 `archive`。你可以通过 `openspec config profile` 启用扩展工作流命令，然后运行 `openspec update`。
+默认的全局 profile 是 `core`，其中包含 `propose`、`explore`、`apply`、`update`、`sync` 和 `archive`。你可以通过 `openspec config profile` 启用扩展工作流命令，然后运行 `openspec update`。
 
 ## OpenSpec 会创建什么
 
@@ -163,7 +163,7 @@ AI:  Created openspec/changes/add-dark-mode/
      Ready for implementation!
 ```
 
-如果你启用了扩展工作流配置档案，也可以分两步完成：先运行 `/opsx:new`，然后运行 `/opsx:ff`（或通过 `/opsx:continue` 逐步完成）。
+如果你启用了扩展工作流 profile，也可以分两步完成：先运行 `/opsx:new`，然后运行 `/opsx:ff`（或通过 `/opsx:continue` 逐步完成）。
 
 ### 2. 创建的内容
 

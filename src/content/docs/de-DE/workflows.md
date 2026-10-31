@@ -101,7 +101,7 @@ sequenceDiagram
 
 ## Zwei Modi
 
-### Schneller Standardablauf (Profil `core`)
+### Schneller Standardablauf (profile `core`)
 
 Bei neuen Installationen ist standardmäßig `core` aktiviert. Es bietet:
 - `/opsx:explore`
@@ -120,7 +120,7 @@ Typischer Ablauf:
 
 #### Mit Erkunden beginnen – eine Gewohnheit, die sich lohnt
 
-`/opsx:explore` gehört zum Standardprofil und ist kein erweitertes Zusatzfeature. Nutzen Sie den Befehl, wenn Sie ein Problem, aber noch keinen Plan haben – mit einem KI-Assistenten ist das meistens der Fall.
+`/opsx:explore` gehört zum Standard profile und ist kein erweitertes Zusatzfeature. Nutzen Sie den Befehl, wenn Sie ein Problem, aber noch keinen Plan haben – mit einem KI-Assistenten ist das meistens der Fall.
 
 ```text
 You: /opsx:explore
@@ -401,7 +401,7 @@ AI:  ✓ Synced specs to openspec/specs/auth/spec.md
      Change archived successfully.
 ```
 
-Wenn die Spezifikationen noch nicht synchronisiert sind, fragt „Archive“ nach. Unvollständige Aufgaben verhindern das Archivieren nicht, lösen aber eine Warnung aus.
+Wenn die Spezifikationen noch nicht synchronisiert sind, fragt „Archive“ per prompt nach. Unvollständige Aufgaben verhindern das Archivieren nicht, lösen aber eine Warnung aus.
 
 ## Wann Sie was verwenden sollten
 
@@ -533,7 +533,7 @@ Die vollständige Beschreibung der Befehle und ihrer Optionen finden Sie unter [
 
 | Befehl | Zweck | Wann verwenden? |
 |---------|---------|-------------|
-| `/opsx:propose` | Änderung und Planungsartefakte erstellen | Schneller Standardablauf (Profil `core`) |
+| `/opsx:propose` | Änderung und Planungsartefakte erstellen | Schneller Standardablauf (profile `core`) |
 | `/opsx:explore` | Ideen gemeinsam mit der KI durchdenken | Bei Unsicherheit hier beginnen: unklare Anforderungen, Untersuchung, Vergleich von Optionen |
 | `/opsx:new` | Grundgerüst einer Änderung anlegen | Erweiterter Modus, ausdrückliche Kontrolle über Artefakte |
 | `/opsx:continue` | Nächstes Artefakt erstellen | Erweiterter Modus, schrittweise Erstellung von Artefakten |

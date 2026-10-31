@@ -33,9 +33,9 @@ irm https://raw.githubusercontent.com/Fission-AI/OpenSpec/main/scripts/binary/in
 
 ## 使用 AI 助手安裝
 
-不想手動操作？將下面的提示詞貼上給任何能夠執行 shell 命令的程式設計助手——例如 Claude Code、Codex、Cursor、Gemini CLI、Copilot，以及其他[受支援的工具](/zh-Hant/supported-tools/)。它會安裝 CLI、初始化當前專案，並向你報告實際完成的操作。
+不想手動操作？將下面的 prompt 貼上給任何能夠執行 shell 命令的程式設計助手——例如 Claude Code、Codex、Cursor、Gemini CLI、Copilot，以及其他[受支援的工具](/zh-Hant/supported-tools/)。它會安裝 CLI、初始化當前專案，並向你報告實際完成的操作。
 
-下方的手動步驟才是權威說明——提示詞只是替你執行這些步驟。如果助手停止並把某些操作交還給你，這是有意設計的：涉及特權的操作前會先徵求你的同意，並且絕不會修改 shell 啟動檔案。請自行參閱[安裝](#安裝)和[故障排除](/zh-Hant/troubleshooting/)完成這些步驟。
+下方的手動步驟才是權威說明——prompt 只是替你執行這些步驟。如果助手停止並把某些操作交還給你，這是有意設計的：涉及特權的操作前會先徵求你的同意，並且絕不會修改 shell 啟動檔案。請自行參閱[安裝](#安裝)和[故障排除](/zh-Hant/troubleshooting/)完成這些步驟。
 
 ```text
 Install OpenSpec in this project and set it up for me. Follow these steps in
@@ -116,7 +116,7 @@ order, and stop where a step tells you to stop.
    or $openspec-propose in Codex, or /skill:openspec-propose in Kimi Code).
 ```
 
-提示詞本身不依賴任何特定廠商：它只是普通指令和本頁記錄的相同命令。它適用於 macOS、Linux 和 Windows；如果某一步需要你的許可，它會停下來，而不是擅自採取措施。你的助手還必須能夠執行 shell 命令——部分 IDE 整合不具備此能力。
+prompt 本身不依賴任何特定廠商：它只是普通指令和本頁記錄的相同命令。它適用於 macOS、Linux 和 Windows；如果某一步需要你的許可，它會停下來，而不是擅自採取措施。你的助手還必須能夠執行 shell 命令——部分 IDE 整合不具備此能力。
 
 ## 包管理器
 
@@ -176,7 +176,7 @@ bun add -g @fission-ai/openspec@latest
 nix run github:Fission-AI/OpenSpec -- init
 ```
 
-也可以將其安裝到設定檔案中：
+也可以將其安裝到 profile 中：
 
 ```bash
 nix profile install github:Fission-AI/OpenSpec

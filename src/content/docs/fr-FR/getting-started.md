@@ -26,7 +26,7 @@ AI CHAT      /opsx:archive                    (specs updated, change filed away)
 
 Deux étapes dans le terminal pour la configuration, puis le travail se déroule dans la conversation. (Windows, npm et les autres modes d'installation sont décrits dans [Installation](/fr-FR/installation/).) Le reste de ce guide explique le rôle de chaque étape et ce que vous verrez.
 
-**Vous ne voulez pas effectuer vous-même les étapes dans le terminal ?** Collez la [consigne de configuration](/fr-FR/installation/#installer-avec-votre-assistant-ia) dans votre assistant : il effectuera les deux commandes, puis indiquera ce qui a été créé.
+**Vous ne voulez pas effectuer vous-même les étapes dans le terminal ?** Collez le [prompt de configuration](/fr-FR/installation/#installer-avec-votre-assistant-ia) dans votre assistant : il effectuera les deux commandes, puis indiquera ce qui a été créé.
 
 > **Vous ne savez pas encore quoi construire ? Commencez par `/opsx:explore`.** C'est un partenaire de réflexion sans engagement : il lit votre base de code, examine les options et transforme une idée vague en plan concret avant toute écriture de code. Une fois le besoin clarifié, il passe le relais à `/opsx:propose`. C'est la meilleure habitude à prendre lorsqu'on travaille avec une IA qui risquerait sinon de construire avec assurance la mauvaise chose. Voir le [Guide Explore](/fr-FR/explore/).
 
@@ -34,14 +34,14 @@ Deux étapes dans le terminal pour la configuration, puis le travail se déroule
 
 OpenSpec vous aide à vous mettre d'accord avec votre assistant de programmation IA sur ce qu'il faut construire, avant toute écriture de code.
 
-**Parcours rapide par défaut (profil core) :**
+**Parcours rapide par défaut (profile core) :**
 
 ```text
 /opsx:explore ──► /opsx:propose ──► /opsx:apply ──► /opsx:sync ──► /opsx:archive
    (optional)
 ```
 
-Commencez par `/opsx:explore` si vous cherchez encore la bonne approche, ou passez directement à `/opsx:propose` si vous la connaissez déjà. Explore fait partie du profil par défaut et reste donc toujours disponible.
+Commencez par `/opsx:explore` si vous cherchez encore la bonne approche, ou passez directement à `/opsx:propose` si vous la connaissez déjà. Explore fait partie du profile par défaut et reste donc toujours disponible.
 
 **Parcours étendu (sélection de workflow personnalisée) :**
 
@@ -49,7 +49,7 @@ Commencez par `/opsx:explore` si vous cherchez encore la bonne approche, ou pass
 /opsx:new ──► /opsx:ff or /opsx:continue ──► /opsx:apply ──► /opsx:verify ──► /opsx:archive
 ```
 
-Le profil global par défaut est `core`, qui comprend `propose`, `explore`, `apply`, `update`, `sync` et `archive`. Activez les commandes de workflow étendues avec `openspec config profile`, puis `openspec update`.
+Le profile global par défaut est `core`, qui comprend `propose`, `explore`, `apply`, `update`, `sync` et `archive`. Activez les commandes de workflow étendues avec `openspec config profile`, puis `openspec update`.
 
 ## Ce qu'OpenSpec crée
 
@@ -163,7 +163,7 @@ AI:  Created openspec/changes/add-dark-mode/
      Ready for implementation!
 ```
 
-Si vous avez activé le profil de workflow étendu, vous pouvez procéder en deux étapes : `/opsx:new`, puis `/opsx:ff` (ou `/opsx:continue` pour avancer progressivement).
+Si vous avez activé le profile de workflow étendu, vous pouvez procéder en deux étapes : `/opsx:new`, puis `/opsx:ff` (ou `/opsx:continue` pour avancer progressivement).
 
 ### 2. Contenu créé
 

@@ -44,7 +44,7 @@ Explore 是一場**對話**，不是生成器。
 
 ## 它已經安裝好了
 
-好訊息：`/opsx:explore` 已包含在預設的 **core** 設定檔案中，與 `propose`、`apply`、`update`、`sync` 和 `archive` 並列。你無需啟用任何功能。只要專案已設定 OpenSpec，就可以在 AI 聊天中使用 Explore。（和所有 `/opsx:*` 命令一樣，要在助手聊天中輸入，而不是在終端中輸入。參閱[命令的工作方式](/zh-Hant/how-commands-work/)。）
+好訊息：`/opsx:explore` 已包含在預設的 **core** profile 中，與 `propose`、`apply`、`update`、`sync` 和 `archive` 並列。你無需啟用任何功能。只要專案已設定 OpenSpec，就可以在 AI 聊天中使用 Explore。（和所有 `/opsx:*` 命令一樣，要在助手聊天中輸入，而不是在終端中輸入。參閱[命令的工作方式](/zh-Hant/how-commands-work/)。）
 
 ## 完整範例
 

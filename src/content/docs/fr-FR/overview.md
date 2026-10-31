@@ -23,7 +23,7 @@ proposal ──► specs ──► design ──► tasks ──► implement
    why        what       how       steps      do it
 ```
 
-Vous pouvez revenir à chacun d'eux à tout moment. Ce sont des facilitateurs, pas des barrières. (Nous y reviendrons.)
+Vous pouvez revenir à chacun d'eux à tout moment. Ce sont des facilitateurs, pas des gates. (Nous y reviendrons.)
 
 **5. L'archivage réintègre le changement à la vérité de référence.** Une fois le travail terminé, vous archivez le changement. Ses spécifications différentielles sont fusionnées dans les spécifications principales et son dossier est déplacé vers `changes/archive/` avec une date. Vos spécifications décrivent alors la nouvelle réalité ; vous pouvez passer au changement suivant. Le cycle est bouclé.
 
@@ -58,7 +58,7 @@ Dans la configuration par défaut, votre journée ressemble à ceci. Vous pouvez
 /opsx:archive                   →  specs updated, change archived
 ```
 
-**En cas de doute, commencez par explorer.** `/opsx:explore` est un partenaire de réflexion sans engagement : il lit votre code, expose les options et transforme une idée vague en plan concret avant toute écriture de code. C'est le meilleur antidote à une IA qui, sans cela, construirait *quelque chose* à partir d'une demande imprécise. Vous savez déjà exactement ce que vous voulez ? Passez directement à `/opsx:propose`. Explore est inclus dans le profil par défaut et toujours disponible. Voir le [Guide Explore](/fr-FR/explore/).
+**En cas de doute, commencez par explorer.** `/opsx:explore` est un partenaire de réflexion sans engagement : il lit votre code, expose les options et transforme un prompt vague en plan concret avant toute écriture de code. C'est le meilleur antidote à une IA qui, sans cela, construirait *quelque chose* à partir d'une demande imprécise. Vous savez déjà exactement ce que vous voulez ? Passez directement à `/opsx:propose`. Explore est inclus dans le profile par défaut et toujours disponible. Voir le [Guide Explore](/fr-FR/explore/).
 
 Ce sont des commandes slash, saisies dans la conversation de votre assistant IA. La configuration (`openspec init`) se fait dans le terminal. Si cette distinction n'est pas claire, lisez d'abord [Fonctionnement des commandes](/fr-FR/how-commands-work/) : c'est la source de confusion la plus fréquente.
 

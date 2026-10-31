@@ -17,7 +17,7 @@ openspec --version
 
 如果安装成功但仍然找不到命令，很可能是全局 npm bin 目录未加入 `PATH`。运行 `npm prefix -g` 查看全局软件包所在位置：在 macOS 和 Linux 上，可执行文件位于该目录的 `bin/` 中；在 Windows 上则直接位于该目录中。请确保对应路径已加入 `PATH`。（npm 9 已移除 `npm bin -g`。）
 
-如果你使用[由 AI 助手协助安装](/zh-CN/installation/)，此时正是预期的交接点：提示词会要求助手告知你如何修改 `PATH`，而不是自行编辑 shell 启动文件。
+如果你使用[由 AI 助手协助安装](/zh-CN/installation/)，此时正是预期的交接点：prompt 会要求助手告知你如何修改 `PATH`，而不是自行编辑 shell 启动文件。
 
 ### “Requires Node.js 20.19.0 or higher”
 
@@ -61,7 +61,7 @@ openspec init --tools claude,cursor
 
 5. **确认已初始化当前项目。** 技能是按项目写入的。如果你克隆了仓库或切换了文件夹，请在对应目录中运行 `openspec init`（或 `openspec update`）。
 
-6. **确认你的工具支持命令文件。** Codex、CodeArts、ForgeCode、Hermes、Kimi Code、Mistral Vibe、Zed Agent 和共享的 `.agents` 目标不会生成 `opsx-*` 命令文件，而是通过技能调用，因此 `/opsx` 永远不会在这些工具中自动补全。在 Codex 中输入 `$openspec-propose`，在 Kimi Code 中输入 `/skill:openspec-propose`，其他工具则输入 `/openspec-propose`。共享的 `.agents` 目标不绑定厂商，因此 `/openspec-propose` 是通用形式，但不能保证所有助手都支持——如果助手没有响应，请查看它自己的技能调用说明。Amazon Q 会生成命令文件，但会将其加载到提示词库，而不是斜杠菜单；应输入 `@opsx-propose`，而非 `/opsx`。每种工具的调用形式都列在[如何调用](/zh-CN/supported-tools/)中。
+6. **确认你的工具支持命令文件。** Codex、CodeArts、ForgeCode、Hermes、Kimi Code、Mistral Vibe、Zed Agent 和共享的 `.agents` 目标不会生成 `opsx-*` 命令文件，而是通过技能调用，因此 `/opsx` 永远不会在这些工具中自动补全。在 Codex 中输入 `$openspec-propose`，在 Kimi Code 中输入 `/skill:openspec-propose`，其他工具则输入 `/openspec-propose`。共享的 `.agents` 目标不绑定厂商，因此 `/openspec-propose` 是通用形式，但不能保证所有助手都支持——如果助手没有响应，请查看它自己的技能调用说明。Amazon Q 会生成命令文件，但会将其加载到 prompt 库，而不是斜杠菜单；应输入 `@opsx-propose`，而非 `/opsx`。每种工具的调用形式都列在[如何调用](/zh-CN/supported-tools/)中。
 
 ## 使用变更
 
@@ -122,7 +122,7 @@ AI 获得的上下文不足。以下方法可能有所帮助：
 
 ### “User force closed the prompt with 0 null”
 
-当某处在无法回答交互问题的环境中运行 `openspec archive` 时，就会出现此问题——例如由工具调用命令的 AI 智能体、CI 作业，或 stdin 已关闭的 shell。归档最多会询问三次确认；以前无法回答的问题会以这条原始消息失败。
+当某处在无法回答交互问题的环境中运行 `openspec archive` 时，就会出现此问题——例如由工具调用命令的 AI agent、CI 作业，或 stdin 已关闭的 shell。归档最多会询问三次确认；以前无法回答的问题会以这条原始消息失败。
 
 传入 `--yes` 即可预先确认：
 
@@ -132,7 +132,7 @@ openspec archive <change-name> --yes
 
 保留之前使用的其他标志——`--skip-specs` 和 `--no-validate` 会改变归档行为，因此只使用 `--yes` 重试并不是相同命令。当前版本会指出需要添加的标志，并打印一行可直接粘贴的 `Fix:`。如果需要从列表中选择，请明确传入变更名称：选择器同样需要回答。
 
-如果你将归档输出重定向到文件，或由工具捕获，并且*确实*通过管道传入了应答（`printf 'y\n' | openspec archive …`），旧版本会在显示提示时把终端转义码写入捕获内容；某些环境中，这些字符会让文件异常膨胀。当前版本在 stdout 不是终端时会以纯文本读取确认提示；如果不提供参数运行 `openspec archive`（本来会显示交互式变更选择器），它会要求你先提供变更名称，而不是把菜单渲染到捕获内容中。无论哪种情况，重定向和智能体调用都能保持清晰；提供变更名称并加上 `--yes` 则可完全跳过提示。
+如果你将归档输出重定向到文件，或由工具捕获，并且*确实*通过管道传入了应答（`printf 'y\n' | openspec archive …`），旧版本会在显示 prompt 时把终端转义码写入捕获内容；某些环境中，这些字符会让文件异常膨胀。当前版本在 stdout 不是终端时会以纯文本读取确认 prompt；如果不提供参数运行 `openspec archive`（本来会显示交互式变更选择器），它会要求你先提供变更名称，而不是把菜单渲染到捕获内容中。无论哪种情况，重定向和 agent 调用都能保持清晰；提供变更名称并加上 `--yes` 则可完全跳过 prompt。
 
 ## 配置
 
@@ -178,7 +178,7 @@ openspec schema init <name>         # create a custom one
 openspec init --force
 ```
 
-对于 Codex，OpenSpec 可能会在 `$CODEX_HOME/prompts` 或 `~/.codex/prompts` 中检测到旧的托管提示词文件。清理范围仅限 OpenSpec 允许列表中的旧版 Codex 提示词文件名；非交互式 `openspec init` 只会移除已有替代文件 `.agents/skills/openspec-*` 的提示词。除非传入 `--force`，否则非交互式 `openspec update` 不会进行任何旧文件清理。
+对于 Codex，OpenSpec 可能会在 `$CODEX_HOME/prompts` 或 `~/.codex/prompts` 中检测到旧的托管 prompt 文件。清理范围仅限 OpenSpec 允许列表中的旧版 Codex prompt 文件名；非交互式 `openspec init` 只会移除已有替代文件 `.agents/skills/openspec-*` 的 prompt。除非传入 `--force`，否则非交互式 `openspec update` 不会进行任何旧文件清理。
 
 ### 迁移后没有出现命令
 
@@ -186,7 +186,7 @@ openspec init --force
 
 ### 旧的 `project.md` 没有迁移
 
-这是有意设计的。OpenSpec 不会自动删除 `project.md`，因为其中可能有你编写的重要上下文。将有用部分移到 `config.yaml` 的 `context:` 字段中，然后自行删除 `project.md`。有关迁移步骤（包括可以交给 AI 助手的提炼提示词），请参阅[迁移指南](/zh-CN/migration-guide/)。
+这是有意设计的。OpenSpec 不会自动删除 `project.md`，因为其中可能有你编写的重要上下文。将有用部分移到 `config.yaml` 的 `context:` 字段中，然后自行删除 `project.md`。有关迁移步骤（包括可以交给 AI 助手的提炼 prompt），请参阅[迁移指南](/zh-CN/migration-guide/)。
 
 ## 仍然无法解决？
 

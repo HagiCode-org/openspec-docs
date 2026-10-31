@@ -12,7 +12,7 @@ OPSX는 단계에 고정된 기존 워크플로를 유연한 동작 기반 접�
 |--------|--------|------|
 | **명령** | `/openspec:proposal`, `/openspec:apply`, `/openspec:archive` | 기본값: `/opsx:propose`, `/opsx:explore`, `/opsx:apply`, `/opsx:update`, `/opsx:sync`, `/opsx:archive`(확장 워크플로 명령은 선택 사항) |
 | **워크플로** | 모든 산출물을 한 번에 생성 | 점진적으로 또는 한꺼번에 생성 — 원하는 방식 선택 |
-| **이전 단계로 돌아가기** | 불편한 단계별 관문 | 자연스럽게 언제든 산출물 업데이트 |
+| **이전 단계로 돌아가기** | 불편한 단계별 gates | 자연스럽게 언제든 산출물 업데이트 |
 | **사용자 지정** | 고정된 구조 | 스키마 기반, 자유롭게 조정 가능 |
 | **구성** | 표시 블록이 있는 `CLAUDE.md` + `project.md` | `openspec/config.yaml`에 정리된 구성 |
 
@@ -49,7 +49,7 @@ OPSX는 단계에 고정된 기존 워크플로를 유연한 동작 기반 접�
 - Cline: `.clinerules/workflows/openspec-*.md`
 - Roo: `.roo/commands/openspec-*.md`
 - GitHub Copilot: `.github/prompts/openspec-*.prompt.md`(IDE 확장 전용, Copilot CLI에서 지원하지 않음)
-- Codex: OpenSpec은 이제 표준 경로인 `.agents/skills/openspec-*`를 사용합니다. 기존 `.codex/skills` 경로의 OpenSpec 관리 `SKILL.md` 파일은 대체 파일이 생성된 뒤에만 정리하며 사용자 지정 파일과 서로 다른 복사본은 그대로 둡니다. 표시가 없는 `.agents` 트리에 OpenSpec 스킬이 이미 있으면 기존 Codex(`$openspec-*`) 또는 일반(`/openspec-*`) 형식을 유지하며 기존 디렉터리만으로 형식을 추측하지 않습니다. 소유 대상을 바꾸려면 `openspec init`에서 `codex`를 명시적으로 선택하세요. 기존 프롬프트 정리는 `$CODEX_HOME/prompts` 또는 `~/.codex/prompts`에 있는 OpenSpec 허용 목록의 파일 이름만 대상으로 합니다.
+- Codex: OpenSpec은 이제 표준 경로인 `.agents/skills/openspec-*`를 사용합니다. 기존 `.codex/skills` 경로의 OpenSpec 관리 `SKILL.md` 파일은 대체 파일이 생성된 뒤에만 정리하며 사용자 지정 파일과 서로 다른 복사본은 그대로 둡니다. 표시가 없는 `.agents` 트리에 OpenSpec 스킬이 이미 있으면 기존 Codex(`$openspec-*`) 또는 일반(`/openspec-*`) 형식을 유지하며 기존 디렉터리만으로 형식을 추측하지 않습니다. 소유 대상을 바꾸려면 `openspec init`에서 `codex`를 명시적으로 선택하세요. 기존 prompt 정리는 `$CODEX_HOME/prompts` 또는 `~/.codex/prompts`에 있는 OpenSpec 허용 목록의 파일 이름만 대상으로 합니다.
 - 그 외(Augment, Continue, Amazon Q 등)
 
 마이그레이션 과정에서 구성된 도구를 감지하고 해당 도구의 기존 파일을 정리합니다.
@@ -68,7 +68,7 @@ OPSX는 단계에 고정된 기존 워크플로를 유연한 동작 기반 접�
 
 **이렇게 변경한 이유:**
 
-기존 `project.md`는 수동적인 파일이었습니다. 에이전트가 읽을 수도 있고, 읽지 않을 수도 있으며, 읽은 내용을 잊어버릴 수도 있습니다. 따라서 일관성이 부족했습니다.
+기존 `project.md`는 수동적인 파일이었습니다. agents가 읽을 수도 있고, 읽지 않을 수도 있으며, 읽은 내용을 잊어버릴 수도 있습니다. 따라서 일관성이 부족했습니다.
 
 새 `config.yaml` 컨텍스트는 **모든 OpenSpec 계획 요청에 직접 주입됩니다.** 따라서 AI가 산출물을 작성할 때 프로젝트 관례, 기술 스택, 규칙이 항상 포함되어 신뢰성이 높아집니다.
 
@@ -87,8 +87,8 @@ OPSX는 단계에 고정된 기존 워크플로를 유연한 동작 기반 접�
 
 `openspec init`과 `openspec update` 모두 기존 파일을 감지하고 동일한 정리 과정을 안내합니다. 상황에 맞는 명령을 사용하세요.
 
-- 새로 설치하면 기본 프로필 `core`(`propose`, `explore`, `apply`, `update`, `sync`, `archive`)를 사용합니다.
-- 마이그레이션 설치에서는 필요한 경우 `custom` 프로필을 작성해 이전에 설치된 워크플로를 유지합니다.
+- 새로 설치하면 기본 profile `core`(`propose`, `explore`, `apply`, `update`, `sync`, `archive`)를 사용합니다.
+- 마이그레이션 설치에서는 필요한 경우 `custom` profile을 작성해 이전에 설치된 워크플로를 유지합니다.
 
 ### `openspec init` 사용
 
@@ -147,7 +147,7 @@ Needs your attention
 openspec update
 ```
 
-update 명령은 기존 산출물도 감지해 정리한 다음 현재 프로필 및 전달 설정에 맞게 생성된 스킬/명령을 새로 고칩니다.
+update 명령은 기존 산출물도 감지해 정리한 다음 현재 profile 및 전달 설정에 맞게 생성된 스킬/명령을 새로 고칩니다.
 
 ### 비대화형/CI 환경
 
@@ -157,9 +157,9 @@ update 명령은 기존 산출물도 감지해 정리한 다음 현재 프로필
 openspec init --force --tools claude
 ```
 
-`--force` 플래그는 프롬프트를 건너뛰고 정리를 자동으로 승인합니다.
+`--force` 플래그는 prompt를 건너뛰고 정리를 자동으로 승인합니다.
 
-전역 Codex 프롬프트 디렉터리의 OpenSpec 관리 Codex 프롬프트 파일도 정리합니다. 정리 대상은 OpenSpec 허용 목록의 기존 Codex 프롬프트 파일 이름으로 한정되며 대체 파일인 `.agents/skills/openspec-*` 스킬이 생성된 후에만 삭제합니다. 다른 모든 파일은 보존합니다.
+전역 Codex prompt 디렉터리의 OpenSpec 관리 Codex prompt 파일도 정리합니다. 정리 대상은 OpenSpec 허용 목록의 기존 Codex prompt 파일 이름으로 한정되며 대체 파일인 `.agents/skills/openspec-*` 스킬이 생성된 후에만 삭제합니다. 다른 모든 파일은 보존합니다.
 
 ---
 
@@ -260,7 +260,7 @@ rules:
 
 **너무 고민하지 마세요.** 핵심 내용부터 시작해 반복해서 다듬으세요. AI가 중요한 내용을 놓치는 것을 알게 되면 추가하고 컨텍스트가 지나치게 길면 줄이세요. 계속 업데이트하는 문서입니다.
 
-### 도움이 필요하신가요? 다음 프롬프트를 사용하세요
+### 도움이 필요하신가요? 다음 prompt를 사용하세요
 
 project.md에서 내용을 어떻게 추려야 할지 확실하지 않다면 AI 어시스턴트에 다음과 같이 요청하세요.
 
@@ -283,9 +283,9 @@ AI가 핵심 내용과 줄여도 되는 내용을 구분하는 데 도움을 줍
 
 ## 새 명령
 
-사용할 수 있는 명령은 프로필에 따라 다릅니다.
+사용할 수 있는 명령은 profile에 따라 다릅니다.
 
-**기본(`core` 프로필):**
+**기본(`core` profile):**
 
 | 명령 | 목적 |
 |---------|---------|
@@ -366,7 +366,7 @@ OPSX는 단계가 아니라 동작을 사용합니다.
 
 ### 의존성 그래프
 
-산출물은 방향성 그래프를 구성합니다. 의존성은 관문이 아니라 다음을 가능하게 하는 요소입니다.
+산출물은 방향성 그래프를 구성합니다. 의존성은 gates가 아니라 다음을 가능하게 하는 요소입니다.
 
 ```
                         proposal
@@ -413,7 +413,7 @@ OPSX는 새롭게 부상하는 **스킬** 표준을 사용합니다.
 
 스킬은 여러 AI 코딩 도구에서 인식되며 더 풍부한 메타데이터를 제공합니다.
 
-OPSX에서 Codex는 스킬만 사용합니다. OpenSpec은 Codex 사용자 지정 프롬프트 파일을 더 이상 생성하지 않으므로 생성된 `.agents/skills/openspec-*` 디렉터리를 사용하세요.
+OPSX에서 Codex는 스킬만 사용합니다. OpenSpec은 Codex 사용자 지정 prompt 파일을 더 이상 생성하지 않으므로 생성된 `.agents/skills/openspec-*` 디렉터리를 사용하세요.
 
 ---
 
@@ -549,7 +549,7 @@ openspec schemas --json
 
 ### 정리될 항목을 미리 확인하고 싶나요?
 
-init을 실행하고 정리 프롬프트를 거절하세요. 아무것도 수정하지 않은 채 감지된 전체 항목을 확인할 수 있습니다.
+init을 실행하고 정리 prompt를 거절하세요. 아무것도 수정하지 않은 채 감지된 전체 항목을 확인할 수 있습니다.
 
 ---
 

@@ -50,13 +50,13 @@ Los términos se agrupan por tema y se ordenan alfabéticamente dentro de cada g
 
 **Explore (`/opsx:explore`).** Comando que sirve de compañero de reflexión. Lee la base de código, compara opciones y convierte una idea imprecisa en un plan concreto. Nunca escribe código ni hace ninguna otra modificación, a menos que le pidas que registre la exploración como un cambio o aceptes cuando te lo ofrezca. Es el punto de partida recomendado cuando tienes un problema, pero aún no un plan. Consulta [Empieza por explorar](/es-ES/explore/).
 
-**CLI.** El programa `openspec` que se ejecuta en el terminal. Configura proyectos, enumera y valida cambios, abre el panel y archiva cambios. Es la parte de OpenSpec que funciona en el terminal. Consulta [CLI](/es-ES/cli/).
+**CLI.** El programa `openspec` que se ejecuta en el terminal. Configura proyectos, enumera y valida cambios, abre el dashboard y archiva cambios. Es la parte de OpenSpec que funciona en el terminal. Consulta [CLI](/es-ES/cli/).
 
 **Habilidad (skill).** Carpeta de instrucciones (`.../skills/openspec-*/SKILL.md`) que el asistente de IA detecta y sigue automáticamente. Las habilidades son el estándar emergente entre herramientas para proporcionar el flujo de trabajo de OpenSpec al asistente.
 
 **Archivo de comando.** Archivo de comando de barra específico de una herramienta (`.../commands/opsx-*`). Es el mecanismo anterior para distribuir comandos y sigue siendo compatible junto con las habilidades. Rara vez tendrás que modificar estos archivos directamente.
 
-**Perfil.** Conjunto de comandos de barra instalados en el proyecto. **Core** (predeterminado) incluye `propose`, `explore`, `apply`, `update`, `sync` y `archive`. El conjunto **expanded** añade `new`, `continue`, `ff`, `verify`, `bulk-archive` y `onboard`. Cámbialo con `openspec config profile`.
+**Profile.** Conjunto de comandos de barra instalados en el proyecto. **Core** (predeterminado) incluye `propose`, `explore`, `apply`, `update`, `sync` y `archive`. El conjunto **expanded** añade `new`, `continue`, `ff`, `verify`, `bulk-archive` y `onboard`. Cámbialo con `openspec config profile`.
 
 **Distribución.** Determina si OpenSpec instala habilidades, archivos de comando o ambos para tus herramientas. Se configura globalmente y se aplica con `openspec update`.
 
@@ -72,7 +72,7 @@ Los términos se agrupan por tema y se ordenan alfabéticamente dentro de cada g
 
 **Grafo de dependencias.** Grafo dirigido que forman las relaciones `requires:` entre artefactos. Es un DAG (grafo acíclico dirigido: las flechas solo apuntan hacia delante, nunca forman un ciclo) y OpenSpec lo usa para saber qué puedes crear a continuación.
 
-**Facilitadores, no barreras.** Principio según el cual las dependencias entre artefactos indican qué se vuelve *posible* hacer a continuación, no qué es *obligatorio*. Puedes volver a cualquier artefacto y editarlo en cualquier momento. Consulta [Conceptos básicos de un vistazo](/es-ES/overview/#facilitadores-no-barreras).
+**Facilitadores, no gates.** Principio según el cual las dependencias entre artefactos indican qué se vuelve *posible* hacer a continuación, no qué es *obligatorio*. Puedes volver a cualquier artefacto y editarlo en cualquier momento. Consulta [Conceptos básicos de un vistazo](/es-ES/overview/#facilitadores-no-barreras).
 
 ## Coordinación entre repositorios (beta)
 

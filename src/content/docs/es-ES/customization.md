@@ -20,7 +20,7 @@ El archivo `openspec/config.yaml` es la forma más sencilla de adaptar OpenSpec 
 - **Incorporar contexto del proyecto**: la IA conoce tu pila tecnológica, convenciones, etc.
 - **Añadir reglas por artefacto**: reglas personalizadas para artefactos concretos.
 - **Añadir indicaciones por operación**: preferencias orientativas para las operaciones de aplicación y archivado.
-- **Recordar las opciones de integración**: por ejemplo, la activación del [agente de programación en la nube de GitHub Copilot](/es-ES/supported-tools/#agente-de-programación-en-la-nube-de-github-copilot).
+- **Recordar las opciones de integración**: por ejemplo, la activación opt-in del [coding agent en la nube de GitHub Copilot](/es-ES/supported-tools/#agente-de-programación-en-la-nube-de-github-copilot).
 
 ### Configuración rápida
 
@@ -76,7 +76,7 @@ openspec new change my-feature
 
 **Incorporación de contexto y reglas:**
 
-Al generar un artefacto, el contexto y las reglas se incorporan a la instrucción de la IA:
+Al generar un artefacto, el contexto y las reglas se incorporan al prompt de la IA:
 
 ```xml
 <context>
@@ -100,7 +100,7 @@ Tech stack: TypeScript, React, Node.js, PostgreSQL
 **Indicaciones para las operaciones:**
 
 `operations.apply.guidance` y `operations.archive.guidance` son listas opcionales
-de recomendaciones sobre cómo debe realizar un agente esas operaciones. Son
+de recomendaciones sobre cómo debe realizar un agent esas operaciones. Son
 independientes de `rules`: las indicaciones de operación no restringen el contenido
 de los artefactos, y las reglas de artefacto nunca se convierten en indicaciones de operación.
 
@@ -119,7 +119,7 @@ actual. El comando de instrucciones para archivar es de solo lectura: no inspecc
 ni combina especificaciones delta, no escribe las especificaciones principales,
 no mueve el cambio ni ejecuta el flujo estático de archivado.
 
-El contexto del proyecto es un dato obligatorio para la instrucción. Los flujos
+El contexto del proyecto es un dato obligatorio a nivel de prompt. Los flujos
 generados lo leen y aplican los datos, convenciones y restricciones pertinentes.
 Las indicaciones de operación son recomendaciones adicionales opcionales: los
 flujos consideran cada entrada y siguen las que sean aplicables y compatibles con
@@ -153,7 +153,7 @@ especificación afectada o mover el cambio (en el archivado en lote, antes de
 cualquier escritura o movimiento del lote).
 
 Esta configuración no modifica las fases de ejecución del archivado, las
-indicaciones al usuario, las operaciones del sistema de archivos, la gestión de
+prompts al usuario, las operaciones del sistema de archivos, la gestión de
 las combinaciones semánticas, el comando directo `openspec archive` ni la
 estructura y salida de `rules` de los artefactos.
 
@@ -283,7 +283,7 @@ genera primero cuando hay varios artefactos disponibles.
 ### Plantillas
 
 Las plantillas son archivos Markdown que orientan a la IA. Se incorporan a la
-instrucción al crear el artefacto correspondiente.
+prompt al crear el artefacto correspondiente.
 
 ```markdown
 <!-- templates/proposal.md -->
@@ -438,11 +438,11 @@ proyecto (el README de cada repositorio contiene las instrucciones de instalaci�
 
 | Esquema | Mantenedor | Repositorio | Descripción |
 |--------|-----------|-----------|-------------|
-| `intent-driven` | @harikrishnan83 | [intent-driven-dev/openspec-schemas](https://github.com/intent-driven-dev/openspec-schemas/tree/main/openspec/schemas/intent-driven) | Registra la intención del cambio, el comportamiento observable, el diseño técnico y las decisiones arquitectónicas duraderas antes de implementar. Añade un manifiesto de revisión ADR específico del cambio y registra como ADR inmutables y reemplazables las decisiones que deban perdurar. |
-| `superpowers-bridge` | @JiangWay | [JiangWay/openspec-schemas](https://github.com/JiangWay/openspec-schemas/tree/main/superpowers-bridge) | Integra la gobernanza de artefactos de OpenSpec con las habilidades de ejecución de [obra/superpowers](https://github.com/obra/superpowers) (lluvia de ideas, planes, TDD mediante subagentes, revisión de código y finalización). Añade un artefacto `retrospective` que parte de la evidencia y cubre una carencia que Superpowers no aborda de forma nativa. |
+| `intent-driven` | @harikrishnan83 | [intent-driven-dev/openspec-schemas](https://github.com/intent-driven-dev/openspec-schemas/tree/main/openspec/schemas/intent-driven) | Registra la intención del cambio, el comportamiento observable, el diseño técnico y las decisiones arquitectónicas duraderas antes de implementar. Añade un manifest de revisión ADR específico del cambio y registra como ADR inmutables y reemplazables las decisiones que deban perdurar. |
+| `superpowers-bridge` | @JiangWay | [JiangWay/openspec-schemas](https://github.com/JiangWay/openspec-schemas/tree/main/superpowers-bridge) | Integra la gobernanza de artefactos de OpenSpec con las habilidades de ejecución de [obra/superpowers](https://github.com/obra/superpowers) (lluvia de ideas, planes, TDD mediante subagents, revisión de código y finalización). Añade un artefacto `retrospective` que parte de la evidencia y cubre una carencia que Superpowers no aborda de forma nativa. |
 | `nanopm` | @nmrtn | [nmrtn/nanopm](https://github.com/nmrtn/nanopm/tree/main/openspec-schema) | Flujo de trabajo centrado primero en la gestión de productos. Ejecuta la canalización de planificación de [nanopm](https://github.com/nmrtn/nanopm) (auditoría → estrategia → hoja de ruta → PRD) antes de la implementación. Conecta la planificación de producto con el flujo de ingeniería basado en especificaciones de OpenSpec. Si existe `.nanopm/`, los artefactos obtienen información de allí: la propuesta, de la auditoría; el diseño, de la estrategia; y las tareas, del desglose del PRD. |
 | `e2e-runbooks` | @Lukk17 | [Lukk17/openspec-schemas](https://github.com/Lukk17/openspec-schemas/tree/master/openspec/schemas/e2e-runbooks) | Guías de pruebas integrales de extremo a extremo para cada capacidad. Cada capacidad tiene una especificación inmutable, una plantilla inmutable de tareas y un registro de ejecución con marca de tiempo por cada ejecución. Las aserciones se limitan al comportamiento observable (estado HTTP, cuerpo de la respuesta y estado persistido; nunca fragmentos de registros). Cada ejecución registra el inicio y el fin en UTC, la duración y una estimación del consumo de tokens del LLM. |
-| `anvil` | @jikkujoyce | [jikkujoyce/openspec-schemas](https://github.com/jikkujoyce/openspec-schemas/tree/main/schemas/anvil) | Flujo basado en especificaciones con disciplina TDD y una etapa de revisión adversarial. Secuencia: `proposal` → `specs` → `design` → `review` → `test-plan` → `tasks` → `apply` → `verify`. Un revisor de solo lectura con contexto nuevo (un segundo modelo, si hay alguno disponible) redacta `review` y emite una línea `VERDICT:` que indica al agente si debe habilitar `test-plan`, `tasks` y `apply`. OpenSpec solo comprueba que existan los artefactos, así que debes aplicar esta condición en tu propio CI o hook. `test-plan` asigna una prueba con nombre a cada escenario de las especificaciones y también sirve de registro rojo/verde que audita `verify`. |
+| `anvil` | @jikkujoyce | [jikkujoyce/openspec-schemas](https://github.com/jikkujoyce/openspec-schemas/tree/main/schemas/anvil) | Flujo basado en especificaciones con disciplina TDD y una etapa de revisión adversarial. Secuencia: `proposal` → `specs` → `design` → `review` → `test-plan` → `tasks` → `apply` → `verify`. Un revisor de solo lectura con contexto nuevo (un segundo modelo, si hay alguno disponible) redacta `review` y emite una línea `VERDICT:` que indica al agent si debe hacer gate de `test-plan`, `tasks` y `apply`. OpenSpec solo comprueba que existan los artefactos, así que debes aplicar este gate en tu propio CI o hook. `test-plan` asigna una prueba con nombre a cada escenario de las especificaciones y también sirve de registro rojo/verde que audita `verify`. |
 | `ml-research` | @tsenst | [idealo/openspec-schemas](https://github.com/idealo/openspec-schemas/tree/main/openspec/schemas/ml-research) | Flujo de trabajo para experimentos de aprendizaje automático. Secuencia: `proposal` → `design` → `evaluation` → `tasks` → `apply` → `specs`. `evaluation` fija las métricas, los criterios de éxito y la condición de falsación antes de la ejecución; `apply` escribe `results.md`; `specs` registra solo los hallazgos respaldados por evidencia (incluidas las hipótesis refutadas) como requisitos `Finding:` con bloques `Evidence:` enlazados. |
 | `epic-driven` | @ivanferic | [IvanFeric/openspec-epic-driven](https://github.com/IvanFeric/openspec-epic-driven/tree/main/openspec/schemas/epic-driven) | Flujo de trabajo basado en épicas. Secuencia: `explore` (opcional) → `epic-propose` → `epic-next` selecciona una historia hija → `apply` de la historia hija → `archive` de la historia hija → `epic-sync`. La épica no tiene fase `apply` y solo se archiva cuando se completan todas sus historias. `epic-propose` crea la visión, las historias y la hoja de ruta; `epic-next` recomienda una historia hija, y `epic-next <story> start` delega la planificación de la historia en el flujo normal `openspec-propose`; `epic-status` muestra el estado actual de todas las historias de la épica; `epic-replan` puede cambiar el plan manteniendo las historias activas o completadas; `epic-sync` actualiza los indicadores de finalización de las historias. |
 

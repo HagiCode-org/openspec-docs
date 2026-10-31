@@ -50,13 +50,13 @@ OpenSpec 용어를 한곳에 모아 쉬운 말로 정의했습니다. 한 번 �
 
 **탐색(Explore, `/opsx:explore`).** 사고 파트너 역할을 하는 명령입니다. 코드베이스를 읽고 여러 선택지를 비교해 모호한 아이디어를 구체적인 계획으로 다듬습니다. 코드를 작성하지 않으며, 탐색을 변경 사항으로 기록해 달라고 요청하거나 기록 제안을 수락하지 않는 한 다른 내용도 작성하지 않습니다. 문제가 있지만 계획이 없을 때 권장되는 시작점입니다. [먼저 탐색하기](/ko-KR/explore/)를 참조하세요.
 
-**CLI.** 터미널에서 실행하는 `openspec` 프로그램입니다. 프로젝트를 설정하고 변경 사항을 나열 및 검증하며 대시보드를 열고 변경 사항을 보관합니다. OpenSpec의 터미널 인터페이스입니다. [CLI](/ko-KR/cli/)를 참조하세요.
+**CLI.** 터미널에서 실행하는 `openspec` 프로그램입니다. 프로젝트를 설정하고 변경 사항을 나열 및 검증하며 dashboard를 열고 변경 사항을 보관합니다. OpenSpec의 터미널 인터페이스입니다. [CLI](/ko-KR/cli/)를 참조하세요.
 
 **스킬(Skill).** AI 어시스턴트가 자동으로 검색해 따르는 지침 폴더(`.../skills/openspec-*/SKILL.md`)입니다. 스킬은 어시스턴트에 OpenSpec 워크플로를 제공하기 위한 새로운 도구 간 표준입니다.
 
 **명령 파일(Command file).** 도구별 슬래시 명령 파일(`.../commands/opsx-*`)입니다. 스킬과 함께 계속 지원되는 이전 전달 방식이며, 직접 수정할 일은 거의 없습니다.
 
-**프로필(Profile).** 프로젝트에 설치되는 슬래시 명령 집합입니다. 기본 **Core** 프로필에는 `propose`, `explore`, `apply`, `update`, `sync`, `archive`가 포함됩니다. **확장** 프로필에는 `new`, `continue`, `ff`, `verify`, `bulk-archive`, `onboard`가 추가됩니다. `openspec config profile`로 변경하세요.
+**Profile.** 프로젝트에 설치되는 슬래시 명령 집합입니다. 기본 **Core** profile에는 `propose`, `explore`, `apply`, `update`, `sync`, `archive`가 포함됩니다. **확장** profile에는 `new`, `continue`, `ff`, `verify`, `bulk-archive`, `onboard`가 추가됩니다. `openspec config profile`로 변경하세요.
 
 **전달 방식(Delivery).** OpenSpec이 도구에 스킬, 명령 파일 또는 둘 다를 설치할지 지정합니다. 전역으로 구성하고 `openspec update`를 실행해 적용합니다.
 

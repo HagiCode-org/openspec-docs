@@ -23,9 +23,9 @@ OpenSpec CLI（`openspec`）は、プロジェクトのセットアップ、検�
 
 ---
 
-## 人間向けコマンドとエージェント向けコマンド
+## 人間向けコマンドと agent 向けコマンド
 
-CLI コマンドの多くはターミナルでの **人間による利用** を想定しています。一部のコマンドは JSON 出力による **エージェント/スクリプトからの利用** にも対応しています。
+CLI コマンドの多くはターミナルでの **人間による利用** を想定しています。一部のコマンドは JSON 出力による **agent/スクリプトからの利用** にも対応しています。
 
 ### 人間専用コマンド
 
@@ -33,24 +33,24 @@ CLI コマンドの多くはターミナルでの **人間による利用** を�
 
 | コマンド | 目的 |
 |---------|---------|
-| `openspec init` | プロジェクトを初期化（対話型プロンプト） |
-| `openspec view` | 対話型ダッシュボード |
-| `openspec workset open <name>` | 保存済みワークセットを開く（エディターウィンドウまたはターミナルエージェントセッション） |
+| `openspec init` | プロジェクトを初期化（対話型 prompt） |
+| `openspec view` | 対話型 dashboard |
+| `openspec workset open <name>` | 保存済みワークセットを開く（エディターウィンドウまたはターミナル agent セッション） |
 | `openspec config edit` | エディターで設定を開く |
 | `openspec feedback` | GitHub からフィードバックを送信 |
 | `openspec completion install` | シェル補完をインストール |
 
-### エージェント対応コマンド
+### agent 対応コマンド
 
-これらのコマンドは、AI エージェントやスクリプトからのプログラム利用に対応する `--json` 出力をサポートします。
+これらのコマンドは、AI agent やスクリプトからのプログラム利用に対応する `--json` 出力をサポートします。
 
-| コマンド | 人間による利用 | エージェントによる利用 |
+| コマンド | 人間による利用 | agent による利用 |
 |---------|-----------|-----------|
 | `openspec list` | change/仕様を閲覧 | 構造化データには `--json` |
 | `openspec show <item>` | 内容を読む | 解析用に `--json` |
 | `openspec validate` | 問題を確認 | 一括検証には `--all --json` |
 | `openspec status` | 成果物の進捗を確認 | 構造化状態には `--json` |
-| `openspec instructions` | 次の手順を取得 | エージェント向け指示には `--json` |
+| `openspec instructions` | 次の手順を取得 | agent 向け指示には `--json` |
 | `openspec templates` | テンプレートのパスを確認 | パス解決には `--json` |
 | `openspec schemas` | 利用可能なスキーマを一覧表示 | スキーマの検出には `--json`。登録済みルートの選択には `--store <id>` |
 | `openspec store setup <id>` | ローカル store を作成・登録 | 構造化セットアップ出力には、明示的な入力と `--json` |
@@ -84,7 +84,7 @@ CLI コマンドの多くはターミナルでの **人間による利用** を�
 
 プロジェクト内で OpenSpec を初期化します。フォルダー構成を作成し、AI ツールとの統合を設定します。
 
-既定ではグローバル設定を使用します。プロファイルは `core`、配布方式は `both`、ワークフローは `propose, explore, apply, update, sync, archive` です。
+既定ではグローバル設定を使用します。profile は `core`、配布方式は `both`、ワークフローは `propose, explore, apply, update, sync, archive` です。
 
 ```
 openspec init [path] [options]
@@ -107,10 +107,10 @@ openspec init [path] [options]
 | `--tools <list>` | AI ツールを非対話形式で設定。`all`、`none`、またはカンマ区切りのリストを指定 |
 | `--language <language>` | 新しい設定を作成するとき、成果物をこの言語で記述 |
 | `--force` | 確認せずに従来のファイルを自動整理 |
-| `--profile <profile>` | 今回の init に限りグローバルプロファイルを上書き（`core` または `custom`） |
+| `--profile <profile>` | 今回の init に限りグローバル profile を上書き（`core` または `custom`） |
 | `--no-animation` | アニメーションの代わりに静止画のウェルカム画面を表示 |
-| `--copilot-cloud` | 確認せずに GitHub Copilot の[クラウドコーディングエージェント用ファイル](/ja-JP/supported-tools/#github-copilot-クラウドコーディングエージェント)をセットアップ |
-| `--no-copilot-cloud` | GitHub Copilot のクラウドコーディングエージェント用ファイルを確認せずにスキップ |
+| `--copilot-cloud` | 確認せずに GitHub Copilot の[cloud coding agent 用ファイル](/ja-JP/supported-tools/#github-copilot-クラウドコーディングエージェント)をセットアップ |
+| `--no-copilot-cloud` | GitHub Copilot の cloud coding agent 用ファイルを確認せずにスキップ |
 
 `--profile custom` は、グローバル設定で現在選択されているワークフロー（`openspec config profile`）を使います。
 
@@ -164,7 +164,7 @@ openspec/
 
 ### `openspec update`
 
-CLI のアップグレード後に OpenSpec の指示ファイルを更新します。現在のグローバルプロファイル、選択されたワークフロー、配布方式に基づき、AI ツールの設定ファイルを再生成します。
+CLI のアップグレード後に OpenSpec の指示ファイルを更新します。現在のグローバル profile、選択されたワークフロー、配布方式に基づき、AI ツールの設定ファイルを再生成します。
 
 ```
 openspec update [path] [options]
@@ -211,7 +211,7 @@ openspec update --dry-run --json
 }
 ```
 
-計画は、非対話型の実行が行う内容と同じで、変更対象となるすべてのファイルを一覧にします。ツールの旧ディレクトリからの移動、プロファイル導入前のインストールに対するグローバル設定の保存、Copilot cloud agent のファイル、そして `--force` を指定した場合のレガシー成果物の削除が含まれます。1つのツールではなく OpenSpec 自体に属するファイルには `tool: "openspec"` が付きます。`notes` は、ターミナルのユーザーに確認が求められるステップを示し、それぞれに安定した `code` があります。`legacy-tool-directories`（移動済みとして記録された移動）と `legacy-artifacts`（`--force` なしでは更新されない旧レイアウトのファイル）です。`failures` は、実際の更新が失敗するツールを一覧にします。ファイルの場所にあるディレクトリや書き込み権限がないなど、書き込めないものを含みます。そのツールでは計画は実際の更新が止まる箇所で停止し、1つのツールが壊れていても計画の残りは失われません。どちらも通常の更新では空になります。
+計画は、非対話型の実行が行う内容と同じで、変更対象となるすべてのファイルを一覧にします。ツールの旧ディレクトリからの移動、profile 導入前のインストールに対するグローバル設定の保存、Copilot cloud agent のファイル、そして `--force` を指定した場合のレガシー成果物の削除が含まれます。1つのツールではなく OpenSpec 自体に属するファイルには `tool: "openspec"` が付きます。`notes` は、ターミナルのユーザーに確認が求められるステップを示し、それぞれに安定した `code` があります。`legacy-tool-directories`（移動済みとして記録された移動）と `legacy-artifacts`（`--force` なしでは更新されない旧レイアウトのファイル）です。`failures` は、実際の更新が失敗するツールを一覧にします。ファイルの場所にあるディレクトリや書き込み権限がないなど、書き込めないものを含みます。そのツールでは計画は実際の更新が止まる箇所で停止し、1つのツールが壊れていても計画の残りは失われません。どちらも通常の更新では空になります。
 完全なリファレンスは [openspec.dev/docs/cli](https://openspec.dev/docs/cli) にあります。
 
 `--dry-run --json` が失敗した場合も、JSON ドキュメントは1つだけ出力されます。内容は空の計画と `status` 配列で、終了コードは0以外になります。
@@ -255,7 +255,7 @@ store は、このマシンに登録した独立した OpenSpec リポジトリ�
 ### `openspec store setup`
 
 ローカル store を作成して登録します。ターミナルで引数なしに実行すると、
-OpenSpec がセットアップを案内します。エージェントやスクリプトからは、
+OpenSpec がセットアップを案内します。agent やスクリプトからは、
 入力を明示して `--json` を使ってください。
 
 ```bash
@@ -272,7 +272,7 @@ openspec store setup [id] [options]
 | `--no-init-git` | Git 操作をすべてスキップ（初期化も初回コミットも行わない） |
 | `--json` | JSON を出力 |
 
-非対話形式（`--json`、スクリプト、エージェント）では、store ID と `--path` の両方を指定する必要があります。対話型ターミナルでは、ユーザーが確認できて管理する場所（例：`~/openspec/<id>`）を編集可能な候補として表示し、保存先を尋ねます。OpenSpec 管理のデータディレクトリが既定値になることはありません。
+非対話形式（`--json`、スクリプト、agent）では、store ID と `--path` の両方を指定する必要があります。対話型ターミナルでは、ユーザーが確認できて管理する場所（例：`~/openspec/<id>`）を編集可能な候補として表示し、保存先を尋ねます。OpenSpec 管理のデータディレクトリが既定値になることはありません。
 
 例：
 
@@ -318,7 +318,7 @@ openspec store remove <id> [--yes] [--json]
 ```
 
 対話型ターミナルでは、`remove` は削除前にフォルダーの正確なパスを表示します。
-エージェント、スクリプト、JSON モードでは、削除を確認するために `--yes` を指定する必要があります。
+agent、スクリプト、JSON モードでは、削除を確認するために `--yes` を指定する必要があります。
 一致する store メタデータを含まないフォルダーは削除されません。
 
 ### `openspec store list`
@@ -383,7 +383,7 @@ references:
 store: team-context
 ```
 
-これで通常のコマンドは宣言された store に自動的に解決されます。ルートバナーと JSON の `root` ブロックには store ID とともに `source: "declared"` が表示され、出力されるヒントには引き続き `--store <id>` が含まれます。この宣言はフォールバックであり、上書きではありません。明示的な `--store` が常に優先され、実際の計画フォルダーがあるディレクトリではポインターが無視されます（警告あり）。ポインターリポジトリをローカル OpenSpec ルートに変換するには、`store:` 行を削除して `openspec init` を実行します。宣言が残っている間、init はひな型を作成しません。
+これで通常のコマンドは宣言された store に自動的に解決されます。ルートバナーと JSON の `root` ブロックには store ID とともに `source: "declared"` が表示され、出力されるヒントには引き続き `--store <id>` が含まれます。この宣言は fallback であり、上書きではありません。明示的な `--store` が常に優先され、実際の計画フォルダーがあるディレクトリではポインターが無視されます（警告あり）。ポインターリポジトリをローカル OpenSpec ルートに変換するには、`store:` 行を削除して `openspec init` を実行します。宣言が残っている間、init はひな型を作成しません。
 
 マシン単位で全リポジトリに適用するには、`openspec config set defaultStore <id>` を使います（「設定」を参照）。`--store`、ローカルルート、プロジェクトポインターのいずれでも解決できない場合にのみ参照されます。この場合、ルートバナーと JSON の `root` ブロックには `source: "global_default"` と表示されます。
 
@@ -395,7 +395,7 @@ store: team-context
 openspec doctor [--store <id>] [--json]
 ```
 
-レポートでは、ルートの状態、store メタデータの状態（記録されたリモートとチェックアウトの origin の不一致や、最後に取得した upstream 追跡参照より store のチェックアウトが古い場合の注記を含む）、参照先の状態（instructions に表示される診断と同じ。未解決の参照には clone による修正方法を含む）を分けて表示します。重要度に関係なく健全性の指摘は終了コード0になります。エージェントは `status` 配列を読み取ります。終了コード1になるのは、ルートがない、未知の store などのコマンド失敗だけです。Doctor が clone、同期、修復を行うことはありません。健全性ではなく、まとめられた作業セットを取得するには `openspec context` を使います。
+レポートでは、ルートの状態、store メタデータの状態（記録されたリモートとチェックアウトの origin の不一致や、最後に取得した upstream 追跡参照より store のチェックアウトが古い場合の注記を含む）、参照先の状態（instructions に表示される診断と同じ。未解決の参照には clone による修正方法を含む）を分けて表示します。重要度に関係なく健全性の指摘は終了コード0になります。agent は `status` 配列を読み取ります。終了コード1になるのは、ルートがない、未知の store などのコマンド失敗だけです。Doctor が clone、同期、修復を行うことはありません。健全性ではなく、まとめられた作業セットを取得するには `openspec context` を使います。
 
 ## 作業コンテキスト（まとめられた作業セット）
 
@@ -405,7 +405,7 @@ OpenSpec の宣言を通してこの作業に関係する情報、つまり Open
 openspec context [--store <id>] [--json] [--code-workspace <path> [--force]]
 ```
 
-JSON の概要はエージェントから利用できます（利用可能な参照先 store には取得方法が、未解決のメンバーには doctor と同じ修正方法が含まれます）。`--code-workspace` を指定すると、ルートと利用可能な参照先 store（`ref:<id>` フォルダー）を含む VS Code ワークスペースファイルも書き込みます。これがこのコマンドによる唯一の書き込みです。ファイルが存在する場合、`--force` なしでは拒否されます。利用できないメンバーは報告され、推測されることはありません。
+JSON の概要は agent から利用できます（利用可能な参照先 store には取得方法が、未解決のメンバーには doctor と同じ修正方法が含まれます）。`--code-workspace` を指定すると、ルートと利用可能な参照先 store（`ref:<id>` フォルダー）を含む VS Code ワークスペースファイルも書き込みます。これがこのコマンドによる唯一の書き込みです。ファイルが存在する場合、`--force` なしでは拒否されます。利用できないメンバーは報告され、推測されることはありません。
 
 「作業コンテキスト」はまとめられた作業セットです。一方、`openspec/config.yaml` の `context:` フィールドは指示に注入されるプロジェクトの背景情報です。両者は別のものです。`openspec doctor` は作業セットが正常かを答え、`openspec context` は作業セットの内容を答えます。
 
@@ -422,7 +422,7 @@ openspec workset open <name> [--tool <id>]
 openspec workset remove <name> [--yes] [--json]
 ```
 
-`create` は簡単なガイド付きフローを開始します（または非対話形式で `--member` フラグを受け取ります。最初のメンバーがプライマリになり、セッションはそこから始まります）。`open` は選択されたツールを起動します。エディター（VS Code、Cursor）はすべてのメンバーを含むウィンドウを開いて制御を戻します。CLI エージェント（Claude Code、codex）は、すべてのメンバーをアタッチしたセッションとしてこのターミナルを引き継ぎます。プロンプトは事前入力されず、終了すると戻ります。open 時に存在しないメンバーフォルダーは注記付きでスキップされ、残りのフォルダーが開かれます。保存済みのツール設定は `--tool` で起動ごとに上書きできます。
+`create` は簡単なガイド付きフローを開始します（または非対話形式で `--member` フラグを受け取ります。最初のメンバーがプライマリになり、セッションはそこから始まります）。`open` は選択されたツールを起動します。エディター（VS Code、Cursor）はすべてのメンバーを含むウィンドウを開いて制御を戻します。CLI agent（Claude Code、codex）は、すべてのメンバーをアタッチしたセッションとしてこのターミナルを引き継ぎます。prompt は事前入力されず、終了すると戻ります。open 時に存在しないメンバーフォルダーは注記付きでスキップされ、残りのフォルダーが開かれます。保存済みのツール設定は `--tool` で起動ごとに上書きできます。
 
 新しいツールの対応はコードではなく設定で行います。ツールの起動方式は `workspace-file`（生成された `.code-workspace` で起動）または `attach-dirs`（メンバーごとにアタッチフラグを指定）のいずれかです。グローバル `config.json`（`openspec config edit` で開く）の `openers` キーで、ツールを追加したり、組み込み設定をフィールドごとに調整したりできます。
 
@@ -482,7 +482,7 @@ Changes:
 
 ### `openspec view`
 
-仕様や change を確認するための対話型ダッシュボードを表示します。
+仕様や change を確認するための対話型 dashboard を表示します。
 
 ```
 openspec view
@@ -512,7 +512,7 @@ openspec show [item-name] [options]
 |--------|-------------|
 | `--type <type>` | 種類を指定：`change` または `spec`（一意に判断できる場合は自動検出） |
 | `--json` | JSON 形式で出力 |
-| `--no-interactive` | プロンプトを無効化 |
+| `--no-interactive` | prompt を無効化 |
 
 **change 固有のオプション：**
 
@@ -576,7 +576,7 @@ openspec validate [item-name] [options]
 | `--strict` | 厳格な検証モードを有効化 |
 | `--json` | JSON 形式で出力 |
 | `--concurrency <n>` | 並列検証の最大数（既定： 6、または `OPENSPEC_CONCURRENCY` 環境変数） |
-| `--no-interactive` | プロンプトを無効化 |
+| `--no-interactive` | prompt を無効化 |
 
 `--archived` は独立した対象範囲です。仕様の差分は検証しません（アーカイブ時にすでに適用済みのため）。`changes/archive/` 以下のすべての change について、`tasks.md` のチェックボックスがすべてオンか確認します。未チェックが1つでもあると、ゼロ以外の終了コードで終了します。これにより未完了の作業を含む change がアーカイブされたことを検出できます。pre-commit フックに便利です。
 
@@ -651,13 +651,13 @@ openspec archive [change-name] [options]
 
 | 引数 | 必須 | 説明 |
 |----------|----------|-------------|
-| `change-name` | いいえ | アーカイブする change（省略すると入力を求める。プロンプトに応答できない場合は必須） |
+| `change-name` | いいえ | アーカイブする change（省略すると入力を求める。prompt に応答できない場合は必須） |
 
 **オプション：**
 
 | オプション | 説明 |
 |--------|-------------|
-| `-y, --yes` | 確認プロンプトを省略。AI エージェント、CI ジョブ、stdin が閉じられた実行など、応答できるものがない場合に必須 |
+| `-y, --yes` | 確認 prompt を省略。AI agent、CI ジョブ、stdin が閉じられた実行など、応答できるものがない場合に必須 |
 | `--skip-specs` | 1回のアーカイブで仕様更新をスキップ。仕様の差分が恒久的にない change では、代わりに `.openspec.yaml` に `skip_specs: true` を宣言すると、フラグなしでアーカイブ可能 |
 | `--no-validate` | 検証をスキップ（確認が必要）。機能の廃止も無効化され、検証結果がないため何も廃止されない |
 
@@ -715,15 +715,15 @@ change によって機能の最後の要件が削除されると、OpenSpec は�
 4. 作業中の差分仕様を検証し、`openspec/specs/` にマージ。change が機能の最後の要件を削除する場合、その `.openspec.yaml` に `schema:` とともに `retire_capabilities: true` が宣言されている場合に限り、機能を廃止して仕様ファイルを削除
 5. change フォルダーを `openspec/changes/archive/YYYY-MM-DD-<name>/` に移動
 6. アーカイブが完全に確保される前に仕様の変更または最終移動が失敗した場合、仕様を復元し、change を作業中のパスに残すか戻す
-7. 検証済みのフォールバックコピーが完了した後、ステージング元のクリーンアップに失敗した場合、復旧できるよう完全なアーカイブと確定済みの仕様を保持
+7. 検証済みの fallback コピーが完了した後、ステージング元のクリーンアップに失敗した場合、復旧できるよう完全なアーカイブと確定済みの仕様を保持
 
-**ターミナル以外での実行：** AI エージェント、CI ジョブ、stdin が閉じられた実行などでは手順2に回答できません。そのため archive は何も変更する前に停止して終了コード1で終了し、再実行するコマンド（指定した他のフラグも含む `openspec archive <name> --yes`）を示します。確認のやり取りを省くには、最初から `--yes`（および change 名）を指定してください。
+**ターミナル以外での実行：** AI agent、CI ジョブ、stdin が閉じられた実行などでは手順2に回答できません。そのため archive は何も変更する前に停止して終了コード1で終了し、再実行するコマンド（指定した他のフラグも含む `openspec archive <name> --yes`）を示します。確認のやり取りを省くには、最初から `--yes`（および change 名）を指定してください。
 
 ---
 
 ## ワークフローコマンド
 
-これらのコマンドは成果物駆動の OPSX ワークフローを支援します。人間が進捗を確認する場合にも、エージェントが次の手順を判断する場合にも便利です。
+これらのコマンドは成果物駆動の OPSX ワークフローを支援します。人間が進捗を確認する場合にも、agent が次の手順を判断する場合にも便利です。
 
 ### `openspec new change`
 
@@ -830,7 +830,7 @@ Progress: 2/4 artifacts complete
 
 ### `openspec instructions`
 
-成果物の作成またはタスクの適用に関する詳細な指示を取得します。AI エージェントが次に作成するものを判断するために使います。
+成果物の作成またはタスクの適用に関する詳細な指示を取得します。AI agent が次に作成するものを判断するために使います。
 
 ```
 openspec instructions [artifact] [options]
@@ -882,12 +882,12 @@ openspec instructions design --change add-dark-mode --json
 - `apply`/`archive` に対する現在のプロジェクトコンテキストと対応する操作ガイダンス
 
 操作入力は呼び出しごとに、解決されたリポジトリまたは選択された store から読み込まれます。
-プロジェクトコンテキストはプロンプトレベルで必須の入力です。エージェントはこれを読み、
+プロジェクトコンテキストは prompt レベルで必須の入力です。agent はこれを読み、
 関連するプロジェクト情報、規約、制約を適用します。操作ガイダンスは任意の追加的な助言です。
-エージェントは各項目を検討し、組み込みワークフローに適用可能で矛盾しない項目のみを使用します。
+agent は各項目を検討し、組み込みワークフローに適用可能で矛盾しない項目のみを使用します。
 どちらのフィールドも明示的なユーザー選択、CLI が制御する状態、組み込み指示、成果物ルールとは
 別に保持されます。コンテキストの競合は報告され、矛盾する、または適用できないガイダンスは
-使用せず、その理由が説明されます。これらは生成されたエージェントに対する動作上の契約であり、
+使用せず、その理由が説明されます。これらは生成された agent に対する動作上の契約であり、
 CLI が強制できる検査ではありません。`instructions archive` は選択した change、任意の入力、
 ルートメタデータのみを返し、静的な archive ワークフローは含みません。
 
@@ -1159,7 +1159,7 @@ openspec config <subcommand> [options]
 | `unset <key>` | キーを削除 |
 | `reset` | 既定値に戻す |
 | `edit` | `$EDITOR` で開く |
-| `profile [preset]` | 対話形式またはプリセットでワークフロープロファイルを設定 |
+| `profile [preset]` | 対話形式またはプリセットでワークフロー profile を設定 |
 
 **例：**
 
@@ -1210,8 +1210,8 @@ openspec config profile core
 - ワークフローのみ変更
 - 現在の設定を維持（終了）
 
-現在の設定を維持した場合、変更は書き込まれず、更新プロンプトも表示されません。
-設定に変更がなくても、現在のプロジェクトファイルがグローバルプロファイル/配布方式と同期していない場合、OpenSpec は警告を表示し `openspec update` を提案します。
+現在の設定を維持した場合、変更は書き込まれず、更新 prompt も表示されません。
+設定に変更がなくても、現在のプロジェクトファイルがグローバル profile/配布方式と同期していない場合、OpenSpec は警告を表示し `openspec update` を提案します。
 `Ctrl+C` を押すとスタックトレースなしで正常にキャンセルされ、終了コード `130` で終了します。
 ワークフローのチェックリストでは、`[x]` はグローバル設定で選択されていることを示します。選択内容をプロジェクトファイルに適用するには `openspec update` を実行するか、プロジェクト内で確認されたときに `Apply changes to this project now?` を選択してください。
 
@@ -1306,9 +1306,9 @@ openspec completion install powershell
 . $PROFILE
 ```
 
-`$env:PROFILE` は、このセッションで設定するプロファイルを OpenSpec に伝えます。
-インストーラーは必要なプロファイルディレクトリを作成し、`OpenSpecCompletion.ps1` を読み込む
-管理ブロックを追加します。プロファイルを再読み込みすると、補完がすぐに有効になります。
+`$env:PROFILE` は、このセッションで設定する profile を OpenSpec に伝えます。
+インストーラーは必要な profile ディレクトリを作成し、`OpenSpecCompletion.ps1` を読み込む
+管理ブロックを追加します。profile を再読み込みすると、補完がすぐに有効になります。
 
 現在のホストからアンインストールするには、次を実行します。
 
@@ -1319,7 +1319,7 @@ openspec completion uninstall powershell
 
 アンインストール後、現在のセッションから補完を消去するため PowerShell を再起動してください。
 
-補完はオプトイン方式です。対話型ターミナルでコマンドを初めて実行したときに限り、CLI は stderr に一度だけ案内を表示します。すでに補完がインストールされている場合は表示しません。案内を完全に抑制するには `OPENSPEC_NO_COMPLETIONS=1` を設定してください。
+補完は opt-in 方式です。対話型ターミナルでコマンドを初めて実行したときに限り、CLI は stderr に一度だけ案内を表示します。すでに補完がインストールされている場合は表示しません。案内を完全に抑制するには `OPENSPEC_NO_COMPLETIONS=1` を設定してください。
 
 ---
 
@@ -1344,7 +1344,7 @@ openspec completion uninstall powershell
 | `OPENSPEC_NO_ANIMATION` | 設定すると `openspec init` のウェルカムアニメーションを無効化 |
 | `OPENSPEC_NO_COMPLETIONS` | `1` を設定するとシェル補完に関する一度限りの案内を抑制 |
 | `OPENSPEC_NO_UPDATE_CHECK` | 設定すると `openspec update` で公開済み CLI の新バージョン確認を無効化（空を含む任意の値）。`CI` が設定されている場合（`false`/`0`/`no`/`off` を除く）または `NODE_ENV=test` の場合もスキップ |
-| `npm_config_registry` | `openspec update` のバージョン確認に使うレジストリ。`http(s)` URL でなければ `https://registry.npmjs.org` にフォールバック。`.npmrc` ファイルは読み込まない |
+| `npm_config_registry` | `openspec update` のバージョン確認に使うレジストリ。`http(s)` URL でなければ `https://registry.npmjs.org` に fallback。`.npmrc` ファイルは読み込まない |
 
 ---
 

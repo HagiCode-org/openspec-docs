@@ -122,7 +122,7 @@ El archivado no se *bloquea* por las tareas incompletas, pero te avisa porque, p
 
 ### «User force closed the prompt with 0 null»
 
-Se ejecutó `openspec archive` en un entorno donde nadie puede responder a una pregunta: por ejemplo, un agente de IA que lo invoca desde una herramienta, un trabajo de CI o un shell con stdin cerrado. Archive hace hasta tres preguntas de confirmación y, antes, la falta de respuesta producía ese mensaje sin procesar.
+Se ejecutó `openspec archive` en un entorno donde nadie puede responder a una pregunta: por ejemplo, un AI agent que lo invoca desde una herramienta, un trabajo de CI o un shell con stdin cerrado. Archive hace hasta tres preguntas de confirmación y, antes, la falta de respuesta producía ese mensaje sin procesar.
 
 Pasa `--yes` para responderlas de antemano:
 
@@ -132,7 +132,7 @@ openspec archive <change-name> --yes
 
 Conserva los parámetros que ya estabas pasando: `--skip-specs` y `--no-validate` modifican el comportamiento del archivado, así que volver a ejecutarlo solo con `--yes` no es lo mismo. Las versiones actuales indican el parámetro necesario e imprimen una línea `Fix:` que puedes copiar. Si pretendías elegir un cambio de una lista, indica su nombre explícitamente: el selector también necesita una respuesta.
 
-Si, en cambio, redirigiste la salida del archivado a un archivo o la capturaste con una herramienta y *pasaste* una respuesta por una tubería (`printf 'y\n' | openspec archive …`), las versiones antiguas escribían códigos de escape del terminal en la captura al mostrar el prompt, lo que en algunos entornos podía aumentar mucho el tamaño del archivo. Las versiones actuales muestran los prompts de confirmación como texto sin formato cuando stdout no es un terminal; además, si ejecutas `openspec archive` sin argumentos (lo que normalmente mostraría un selector interactivo), te pide que indiques el nombre del cambio en vez de dibujar un menú en la captura. En ambos casos, las ejecuciones redirigidas y las de agentes quedan limpias; pasar `--yes` junto con el nombre del cambio omite por completo los prompts.
+Si, en cambio, redirigiste la salida del archivado a un archivo o la capturaste con una herramienta y *pasaste* una respuesta por una tubería (`printf 'y\n' | openspec archive …`), las versiones antiguas escribían códigos de escape del terminal en la captura al mostrar el prompt, lo que en algunos entornos podía aumentar mucho el tamaño del archivo. Las versiones actuales muestran los prompts de confirmación como texto sin formato cuando stdout no es un terminal; además, si ejecutas `openspec archive` sin argumentos (lo que normalmente mostraría un selector interactivo), te pide que indiques el nombre del cambio en vez de dibujar un menú en la captura. En ambos casos, las ejecuciones redirigidas y las de agents quedan limpias; pasar `--yes` junto con el nombre del cambio omite por completo los prompts.
 
 ## Configuración
 

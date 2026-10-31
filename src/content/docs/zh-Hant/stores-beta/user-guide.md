@@ -12,7 +12,7 @@ title: "儲存庫：將規劃放入獨立儲存庫"
 
 - 工作涉及多個儲存庫——一項功能同時修改 API 伺服器、Web 應用和共享庫。計畫應該放在哪個儲存庫的 `openspec/` 資料夾中？
 - 團隊在程式碼存在之前就開始規劃，或規劃不會成為*當前*儲存庫程式碼的工作。
-- 一個團隊負責需求，其他團隊使用這些需求。Wiki 上的版本逐漸過時，而編碼智慧代理程式甚至無法讀取它。
+- 一個團隊負責需求，其他團隊使用這些需求。Wiki 上的版本逐漸過時，而 coding agent 甚至無法讀取它。
 
 **儲存庫** (store) 就是解決辦法：一個專門用於規劃的獨立儲存庫。它擁有你熟悉的 `openspec/` 結構——規格說明和變更——以及一個小型身份檔案。你只需在本機按名稱註冊一次，之後就能在任何位置使用所有常規 OpenSpec 命令操作它。
 
@@ -119,7 +119,7 @@ Using OpenSpec root: team-plans (/Users/you/openspec/team-plans)
 ...
 ```
 
-此指標只是回退機制，不會強制覆蓋其他選擇：顯式傳入 `--store` 始終優先；如果儲存庫後來出現自己的真實規劃目錄，則本地目錄會優先（併發出警告，建議移除過期指標）。
+此指標只是 fallback 機制，不會強制覆蓋其他選擇：顯式傳入 `--store` 始終優先；如果儲存庫後來出現自己的真實規劃目錄，則本地目錄會優先（併發出警告，建議移除過期指標）。
 
 **在本機為所有儲存庫設定一個預設值。** 如果你有很多程式碼儲存庫都使用同一個儲存庫進行規劃，可以在全域設定一次，而不必在每個儲存庫中都新增 `store:`：
 
@@ -149,7 +149,7 @@ openspec status --change add-checkout-promo --store team-plans
 
 ### 規劃時能看到哪些上下文？
 
-選擇儲存庫會改變 OpenSpec 根目錄，但不會自動發現或讀取所有使用該儲存庫的程式碼儲存庫。儲存庫中的指令會讀取儲存庫內的產物和已設定上下文。只有當智慧代理程式或編輯器能存取相應元件目錄，且智慧代理程式實際讀取了它們，才會看到元件程式碼。
+選擇儲存庫會改變 OpenSpec 根目錄，但不會自動發現或讀取所有使用該儲存庫的程式碼儲存庫。儲存庫中的指令會讀取儲存庫內的產物和已設定上下文。只有當 agent 或編輯器能存取相應元件目錄，且 agent 實際讀取了它們，才會看到元件程式碼。
 
 使用工作集可以方便地同時開啟規劃儲存庫和兩個程式碼儲存庫：
 
@@ -162,7 +162,7 @@ openspec workset create checkout-promo \
 openspec workset open checkout-promo
 ```
 
-這會將這些資料夾顯示在同一個 IDE 工作區中。它不會將原始碼上下文複製到儲存庫，不會選擇受影響的儲存庫，也不會授予智慧代理程式編輯這些儲存庫的權限。持久的跨元件事實應寫入共享規格說明；不要依賴規劃者記住自己偶然檢查過的原始碼內容。
+這會將這些資料夾顯示在同一個 IDE 工作區中。它不會將原始碼上下文複製到儲存庫，不會選擇受影響的儲存庫，也不會授予 agent 編輯這些儲存庫的權限。持久的跨元件事實應寫入共享規格說明；不要依賴規劃者記住自己偶然檢查過的原始碼內容。
 
 ### 如何在每個儲存庫中開始實作？
 
@@ -217,7 +217,7 @@ references:
   - platform-reqs
 ```
 
-引用是隻讀上下文。儲存庫仍然保留自己的 `openspec/` 根目錄，工作也仍在其中進行。變化在於：該儲存庫中的 `openspec instructions` 會增加一個被引用儲存庫規格說明的索引——每條規格都有一行摘要和準確的獲取命令（`openspec show <spec-id> --type spec --store platform-reqs`）。在 `api-server` 中工作的智慧代理程式可以找到上游支付需求並引用它們，然後在儲存庫自己的根目錄中編寫低層設計，不需要任何人手動貼上上下文。
+引用是隻讀上下文。儲存庫仍然保留自己的 `openspec/` 根目錄，工作也仍在其中進行。變化在於：該儲存庫中的 `openspec instructions` 會增加一個被引用儲存庫規格說明的索引——每條規格都有一行摘要和準確的獲取命令（`openspec show <spec-id> --type spec --store platform-reqs`）。在 `api-server` 中工作的 agent 可以找到上游支付需求並引用它們，然後在儲存庫自己的根目錄中編寫低層設計，不需要任何人手動貼上上下文。
 
 引用也可以包含複製來源，這樣尚未擁有該儲存庫的隊友就能獲得完整的修復建議，而非無處可去的報錯：
 
@@ -266,7 +266,7 @@ Referenced stores
     Fetch: openspec show <spec-id> --type spec --store platform-reqs
 ```
 
-這兩個命令都支援 `--json`，方便智慧代理程式呼叫。`openspec context --code-workspace <path>` 還會寫入一個包含整個工作集的 VS Code 工作區檔案——這是此命令唯一執行的寫操作。
+這兩個命令都支援 `--json`，方便 agent 呼叫。`openspec context --code-workspace <path>` 還會寫入一個包含整個工作集的 VS Code 工作區檔案——這是此命令唯一執行的寫操作。
 
 ## 工作集：重新開啟一起工作的資料夾
 
@@ -326,7 +326,7 @@ platform  (opens in VS Code)
 - **部分命令仍固定在當前目錄中執行。** `templates` 和已棄用的名詞形式（`openspec change show` 等）只作用於當前目錄，不支援 `--store`。`schemas` 遵循標準根目錄選擇優先順序並接受 `--store <id>`，同時保持成功時 JSON 陣列的原有結構。
 - **每臺機器的狀態彼此獨立。** 儲存庫登錄檔和工作集都是本地設定。機器的目錄佈局不會提交到共享規劃儲存庫。
 - **工作集支援兩種啟動方式。** 無法透過工作區檔案或逐目錄附加標誌啟動的工具，不能作為 opener 新增。
-- **智慧代理程式 JSON 中存在已知的鍵名大小寫差異**（store 系列使用 snake_case，workflow 系列使用 camelCase）。詳見[智慧代理程式契約](/zh-Hant/agent-contract/)；統一鍵名的工作會推遲到後續帶版本的釋出中。
+- **agent JSON 中存在已知的鍵名大小寫差異**（store 系列使用 snake_case，workflow 系列使用 camelCase）。詳見[agent 契約](/zh-Hant/agent-contract/)；統一鍵名的工作會推遲到後續帶版本的釋出中。
 
 ## 檔案分別存放在哪裡
 
@@ -341,4 +341,4 @@ platform  (opens in VS Code)
 
 ## 參考資料
 
-本頁介紹的各命令的準確標誌和 JSON 結構見：[CLI 參考](/zh-Hant/cli/)（Stores、Doctor、Working context、Personal worksets）以及[智慧代理程式契約](/zh-Hant/agent-contract/)。
+本頁介紹的各命令的準確標誌和 JSON 結構見：[CLI 參考](/zh-Hant/cli/)（Stores、Doctor、Working context、Personal worksets）以及[agent 契約](/zh-Hant/agent-contract/)。

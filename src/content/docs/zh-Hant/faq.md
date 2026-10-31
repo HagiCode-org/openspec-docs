@@ -34,7 +34,7 @@ OpenSpec 是一個輕量級約定層，讓你和 AI 程式設計助手在編寫�
 
 ### 如何“啟動互動模式”？
 
-沒有單獨需要啟動的模式。像平常一樣開啟 AI 助手，在聊天中輸入斜槓命令即可。輸入斜槓命令就是“進入”OpenSpec 的方式。（真正具有互動性的終端功能是 `openspec view`，它提供瀏覽規格說明和變更的儀表板。）詳情見[命令的工作方式](/zh-Hant/how-commands-work/)。
+沒有單獨需要啟動的模式。像平常一樣開啟 AI 助手，在聊天中輸入斜槓命令即可。輸入斜槓命令就是“進入”OpenSpec 的方式。（真正具有互動性的終端功能是 `openspec view`，它提供瀏覽規格說明和變更的 dashboard。）詳情見[命令的工作方式](/zh-Hant/how-commands-work/)。
 
 ### 我輸入了斜槓命令，卻什麼也沒發生。為什麼？
 
@@ -52,7 +52,7 @@ OpenSpec 是一個輕量級約定層，讓你和 AI 程式設計助手在編寫�
 
 ### 還不確定要建置什麼時，應該從哪裡開始？
 
-從 `/opsx:explore` 開始。它是一位沒有壓力的思考夥伴，會讀取程式碼庫、列出選項，並在編寫程式碼之前把模糊的問題梳理成具體計畫。它包含在預設設定檔案中，隨時可用。計畫清晰後，再轉交 `/opsx:propose`。這是最值得養成的習慣，因為它能阻止躍躍欲試的 AI 自信地建置錯誤的內容。參閱[先探索](/zh-Hant/explore/)。
+從 `/opsx:explore` 開始。它是一位沒有壓力的思考夥伴，會讀取程式碼庫、列出選項，並在編寫程式碼之前把模糊的問題梳理成具體計畫。它包含在預設 profile 中，隨時可用。計畫清晰後，再轉交 `/opsx:propose`。這是最值得養成的習慣，因為它能阻止躍躍欲試的 AI 自信地建置錯誤的內容。參閱[先探索](/zh-Hant/explore/)。
 
 ### 最簡單的流程是什麼？
 
@@ -66,9 +66,9 @@ OpenSpec 是一個輕量級約定層，讓你和 AI 程式設計助手在編寫�
 
 `/opsx:propose` 是預設的單步命令：它會建立變更並一次性起草所有規劃產物。`/opsx:new` 屬於擴充套件命令集，只搭建空的變更框架，然後由你透過 `/opsx:continue` 一次建立一個產物（或使用 `/opsx:ff` 一次建立全部產物）。除非你需要逐步控制，否則使用 propose 即可。參閱[命令](/zh-Hant/commands/)。
 
-### `core` 和 expanded 設定檔案是什麼？
+### `core` 和 expanded profile 是什麼？
 
-設定檔案決定安裝哪些斜槓命令。預設的 **Core** 包含 `propose`、`explore`、`apply`、`update`、`sync` 和 `archive`。**expanded** 集合還增加 `new`、`continue`、`ff`、`verify`、`bulk-archive` 和 `onboard`，提供更細緻的控制。使用 `openspec config profile` 切換，然後執行 `openspec update` 應用設定。
+profile 決定安裝哪些斜槓命令。預設的 **Core** 包含 `propose`、`explore`、`apply`、`update`、`sync` 和 `archive`。**expanded** 集合還增加 `new`、`continue`、`ff`、`verify`、`bulk-archive` 和 `onboard`，提供更細緻的控制。使用 `openspec config profile` 切換，然後執行 `openspec update` 應用設定。
 
 ### 我需要執行 `/opsx:sync` 嗎？
 

@@ -34,14 +34,14 @@ São duas etapas de configuração no terminal; depois, você trabalha no chat. 
 
 O OpenSpec ajuda você e seu assistente de programação com IA a combinar o que será construído antes que qualquer código seja escrito.
 
-**Fluxo rápido padrão (perfil core):**
+**Fluxo rápido padrão (profile core):**
 
 ```text
 /opsx:explore ──► /opsx:propose ──► /opsx:apply ──► /opsx:sync ──► /opsx:archive
    (optional)
 ```
 
-Comece com `/opsx:explore` quando ainda estiver decidindo o que fazer, ou vá direto para `/opsx:propose` quando já souber. Explore faz parte do perfil padrão e estará disponível sempre que você quiser.
+Comece com `/opsx:explore` quando ainda estiver decidindo o que fazer, ou vá direto para `/opsx:propose` quando já souber. Explore faz parte do profile padrão e estará disponível sempre que você quiser.
 
 **Fluxo expandido (seleção de fluxo personalizado):**
 
@@ -49,7 +49,7 @@ Comece com `/opsx:explore` quando ainda estiver decidindo o que fazer, ou vá di
 /opsx:new ──► /opsx:ff or /opsx:continue ──► /opsx:apply ──► /opsx:verify ──► /opsx:archive
 ```
 
-O perfil global padrão é `core`, que inclui `propose`, `explore`, `apply`, `update`, `sync` e `archive`. Para habilitar os comandos de fluxo expandidos, use `openspec config profile` e depois `openspec update`.
+O profile global padrão é `core`, que inclui `propose`, `explore`, `apply`, `update`, `sync` e `archive`. Para habilitar os comandos de fluxo expandidos, use `openspec config profile` e depois `openspec update`.
 
 ## O que o OpenSpec cria
 
@@ -164,7 +164,7 @@ AI:  Created openspec/changes/add-dark-mode/
      Ready for implementation!
 ```
 
-Se você habilitou o perfil de fluxo expandido, também pode fazer isso em duas etapas: `/opsx:new` e depois `/opsx:ff` (ou avançar aos poucos com `/opsx:continue`).
+Se você habilitou o profile de fluxo expandido, também pode fazer isso em duas etapas: `/opsx:new` e depois `/opsx:ff` (ou avançar aos poucos com `/opsx:continue`).
 
 ### 2. O que é criado
 

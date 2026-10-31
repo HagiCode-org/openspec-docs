@@ -10,7 +10,7 @@ title: "命令"
 
 ## 快速參考
 
-### 預設快捷路徑（`core` 設定檔案）
+### 預設快捷路徑（`core` profile）
 
 | 命令 | 用途 |
 |---------|---------|
@@ -32,7 +32,7 @@ title: "命令"
 | `/opsx:bulk-archive` | 一次性歸檔多個變更 |
 | `/opsx:onboard` | 透過完整工作流程進行引導式教程 |
 
-預設全域設定檔案為 `core`。若要啟用擴充套件工作流程命令，請執行 `openspec config profile` 並選擇工作流程，然後在專案中執行 `openspec update`。
+預設全域 profile 為 `core`。若要啟用擴充套件工作流程命令，請執行 `openspec config profile` 並選擇工作流程，然後在專案中執行 `openspec update`。
 
 ---
 
@@ -40,7 +40,7 @@ title: "命令"
 
 ### `/opsx:propose`
 
-新建變更，並在一步中生成規劃產物。這是 `core` 設定檔案中的預設起始命令。
+新建變更，並在一步中生成規劃產物。這是 `core` profile 中的預設起始命令。
 
 **語法：**
 ```text
@@ -79,7 +79,7 @@ AI:  Created openspec/changes/add-dark-mode/
 
 ### `/opsx:explore`
 
-> **拿不準時從這裡開始。** Explore 是一位沒有壓力的思考夥伴：它會讀取程式碼庫、比較方案，並在編寫任何程式碼之前，把模糊想法整理成具體計畫。它已包含在預設設定檔案中。完整說明和更多範例請參閱[先探索](/zh-Hant/explore/)指南。
+> **拿不準時從這裡開始。** Explore 是一位沒有壓力的思考夥伴：它會讀取程式碼庫、比較方案，並在編寫任何程式碼之前，把模糊想法整理成具體計畫。它已包含在預設 profile 中。完整說明和更多範例請參閱[先探索](/zh-Hant/explore/)指南。
 
 在確定變更方案之前梳理想法、調查問題並明確需求。
 
@@ -146,7 +146,7 @@ AI:  Started openspec/changes/add-jwt-auth/. Say the word and I'll
 
 建立新的變更腳手架。此命令會建立變更資料夾，隨後等待你使用 `/opsx:continue` 或 `/opsx:ff` 生成產物。
 
-此命令屬於擴充套件工作流程集（預設的 `core` 設定檔案不包含）。
+此命令屬於擴充套件工作流程集（預設的 `core` profile 不包含）。
 
 **語法：**
 ```
@@ -156,7 +156,7 @@ AI:  Started openspec/changes/add-jwt-auth/. Say the word and I'll
 **引數：**
 | 引數 | 必需 | 描述 |
 |----------|----------|-------------|
-| `change-name` | 否 | 變更資料夾名稱（未提供時會提示輸入） |
+| `change-name` | 否 | 變更資料夾名稱（未提供時會 prompt 輸入） |
 | `--schema` | 否 | 要使用的工作流程模式（預設來自設定或 `spec-driven`） |
 
 **功能：**
@@ -164,7 +164,7 @@ AI:  Started openspec/changes/add-jwt-auth/. Say the word and I'll
 - 建立 `openspec/changes/<change-name>/` 目錄
 - 在變更資料夾中建立 `.openspec.yaml` 元資料檔案
 - 顯示可供建立的第一個產物模板
-- 未提供時提示輸入變更名稱和模式
+- 未提供時 prompt 輸入變更名稱和模式
 
 **建立內容：**
 ```
@@ -468,7 +468,7 @@ AI:  Verifying add-dark-mode...
 
 ### `/opsx:sync`
 
-**可選命令。** 將變更中的差異規格說明合併到主規格說明。如果需要同步，Archive 會主動提示，因此通常無需手動執行此命令。
+**可選命令。** 將變更中的差異規格說明合併到主規格說明。如果需要同步，Archive 會主動 prompt，因此通常無需手動執行此命令。
 
 **語法：**
 ```
@@ -521,7 +521,7 @@ AI:  Syncing add-dark-mode delta specs...
 - Sync 是智慧合併，而非複製貼上。
 - 可以向現有需求新增情境而不重複建立。
 - 同步後變更仍保持活動狀態（不會歸檔）。
-- 大多數使用者永遠不需要直接呼叫此命令——如有需要，Archive 會提示。
+- 大多數使用者永遠不需要直接呼叫此命令——如有需要，Archive 會 prompt。
 
 ---
 
@@ -591,7 +591,7 @@ AI:  ✓ Synced specs to openspec/specs/ui/spec.md
 **引數：**
 | 引數 | 必需 | 描述 |
 |----------|----------|-------------|
-| `change-names` | 否 | 要歸檔的指定變更（未提供時會提示選擇） |
+| `change-names` | 否 | 要歸檔的指定變更（未提供時會 prompt 選擇） |
 
 **功能：**
 
@@ -633,7 +633,7 @@ AI:  ✓ Archived add-dark-mode
 - 適用於並行工作流程。
 - 衝突解決由智慧代理程式完成（會檢查程式碼庫）。
 - 按建立順序歸檔變更。
-- 覆蓋規格內容前會提示。
+- 覆蓋規格內容前會 prompt。
 
 ---
 
@@ -712,7 +712,7 @@ AI:  Welcome to OpenSpec!
 | 無——Kimi Code | `/skill:openspec-propose` | Kimi Code |
 | 無——Codex CLI | `$openspec-propose` | Codex |
 
-> **Devin Desktop 與 Devin Local：** `.devin/workflows/opsx-*.md` 檔案會為 Devin Desktop 提供 `/opsx-propose`。Devin Local 沒有工作流程——請使用 OpenSpec 寫入 `.devin/skills/` 的技能，例如 `/openspec-propose`；兩種智慧代理程式均可使用這些技能。
+> **Devin Desktop 與 Devin Local：** `.devin/workflows/opsx-*.md` 檔案會為 Devin Desktop 提供 `/opsx-propose`。Devin Local 沒有工作流程——請使用 OpenSpec 寫入 `.devin/skills/` 的技能，例如 `/openspec-propose`；兩種 agent 均可使用這些技能。
 
 不同工具中的命令意圖相同，但呈現方式可能因整合而異。[如何呼叫](/zh-Hant/supported-tools/)列出了所有受支援的工具；此表只展示各類格式的範例。
 

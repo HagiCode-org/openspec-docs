@@ -1,5 +1,5 @@
 ---
-title: "OpenSpec 에이전트 계약"
+title: "OpenSpec Agent 계약"
 ---
 
 `openspec` CLI의 기계 판독 가능한 인터페이스를 `src/` 코드와 대조해 검증했습니다(최종 감사, 2026-06-11). 아래 형식은 모두 해당 출력을 생성하는 코드를 바탕으로 문서화했습니다.
@@ -69,7 +69,7 @@ title: "OpenSpec 에이전트 계약"
 `ReferenceIndexEntry`: `{ "store_id", "root"?, "specs"?: [{id,summary}], "fetch"?, "status": [] }` — 확인된 항목에는 root/specs/fetch가 포함되고 확인되지 않은 항목에는 store_id와 경고 상태가 포함됩니다. 색인은 50KB로 제한됩니다(`reference_index_truncated`).
 
 ### 4.6 `instructions apply --json`
-`{ "changeName", "changeDir", "schemaName", "contextFiles": { "<artifactId>": ["/abs", ...] }, "progress": {total,complete,remaining}, "tasks": [{id,description,done}], "state": "blocked"|"all_done"|"ready", "missingArtifacts"?, "missingPrerequisites"?, "warnings"?, "instruction", "references"?, "context"?, "operationGuidance"?, "root" }`. `missingArtifacts`는 apply가 차단되는 직접 원인(스키마의 `apply.requires`)이고 `missingPrerequisites`는 apply를 실행하기 전에 작성해야 할 모든 항목을 빌드 순서대로 나열합니다. 이 값은 직접 의존성의 전이 폐쇄이므로 더 길 수 있습니다. `warnings`에는 변경 사항 자체의 비차단 문제가 나열됩니다. 현재는 델타 사양이나 `skip_specs: true`가 없지만 구현 준비가 된 상태이며 `openspec validate`에서 거부됩니다. 선택적 루트 필드(`context`, `operationGuidance`)는 호출할 때마다 선택된 루트에서 읽습니다. `context`는 관련 프로젝트 정보, 관례, 제약 조건을 적용해야 하는 필수 프롬프트 입력입니다. `operationGuidance`는 안내 입력이며 내장 워크플로에 적용 가능하고 호환되는 항목만 따릅니다. 두 필드는 상태, 작업, 진행률, 컨텍스트 파일, 내장 지침과 별도로 유지됩니다.
+`{ "changeName", "changeDir", "schemaName", "contextFiles": { "<artifactId>": ["/abs", ...] }, "progress": {total,complete,remaining}, "tasks": [{id,description,done}], "state": "blocked"|"all_done"|"ready", "missingArtifacts"?, "missingPrerequisites"?, "warnings"?, "instruction", "references"?, "context"?, "operationGuidance"?, "root" }`. `missingArtifacts`는 apply가 차단되는 직접 원인(스키마의 `apply.requires`)이고 `missingPrerequisites`는 apply를 실행하기 전에 작성해야 할 모든 항목을 빌드 순서대로 나열합니다. 이 값은 직접 의존성의 전이 폐쇄이므로 더 길 수 있습니다. `warnings`에는 변경 사항 자체의 비차단 문제가 나열됩니다. 현재는 델타 사양이나 `skip_specs: true`가 없지만 구현 준비가 된 상태이며 `openspec validate`에서 거부됩니다. 선택적 루트 필드(`context`, `operationGuidance`)는 호출할 때마다 선택된 루트에서 읽습니다. `context`는 관련 프로젝트 정보, 관례, 제약 조건을 적용해야 하는 필수 prompt 입력입니다. `operationGuidance`는 안내 입력이며 내장 워크플로에 적용 가능하고 호환되는 항목만 따릅니다. 두 필드는 상태, 작업, 진행률, 컨텍스트 파일, 내장 지침과 별도로 유지됩니다.
 
 ### 4.7 `instructions archive --json`
 `{ "changeName", "context"?, "operationGuidance"?, "root" }`. 확인된 저장소/store 루트에 유효한 `--change`가 필요하며 apply와 동일하게 필수 컨텍스트/권고 안내를 처리합니다. 읽기 전용 런타임 입력 인터페이스입니다. 정적인 보관 워크플로를 반환하거나 델타 사양을 검사 또는 병합하지 않으며 기본 사양을 작성하거나 변경 사항을 이동하지 않습니다.
@@ -81,8 +81,8 @@ title: "OpenSpec 에이전트 계약"
 성공: `{ "archive": { "change", "archivedAs": "YYYY-MM-DD-name", "path", "specsUpdated", "totals"?, "warnings"? }, "root" }`. 실패: `{ "archive": null, "root"?, "status": [d] }`, 종료 코드 1. `specsUpdated`는 사양 파일을 하나 이상 작성하거나 폐기했을 때만 true입니다(변경 사항에서 마지막 요구 사항을 제거한 기능은 사양이 삭제되며 변경 사항의 `.openspec.yaml`에 `retire_capabilities: true`가 필요합니다. 폐기 항목은 모두 `warnings`에 표시되며 사양이 호출자의 체크아웃에 있을 때만 복사해 사용할 수 있는 Git 복구 명령이 포함됨). 이미 동기화된 변경 사항은 모든 합계가 0인 상태로 보관되며 건너뛴 항목은 `warnings`에 표시됩니다. JSON 모드는 대화형 입력을 허용하지 않으므로 모든 확인 요청이 `archive_*` 코드로 바뀝니다.
 
 - **`archive: null`**: 명령이 실패했습니다. 파일이 변경되지 않았다는 보장은 없습니다.
-- **`archive_retirement_cleanup_failed`**: 변경 사항은 보관되었지만 폐기 백업 검증 또는 정리에 실패했습니다. 나열된 백업 경로가 변경되었거나 사라졌을 수 있습니다. 메시지에는 실패한 대체 복사 정리 과정에서 남은 준비된 원본도 보고될 수 있습니다. 정리하기 전에 현재 보관본과 보고된 모든 복구 경로를 확인하고 필요한 내용은 보존하세요. 보관을 다시 시도해도 이 경로는 정리되지 않습니다.
-- **`archive_error`**: 대체 진단 정보로는 파일이 변경되었는지 알 수 없습니다. 다시 시도하기 전에 변경 사항, 보관본, 영향을 받은 사양을 확인하세요.
+- **`archive_retirement_cleanup_failed`**: 변경 사항은 보관되었지만 폐기 백업 검증 또는 정리에 실패했습니다. 나열된 백업 경로가 변경되었거나 사라졌을 수 있습니다. 메시지에는 실패한 fallback 복사 정리 과정에서 남은 준비된 원본도 보고될 수 있습니다. 정리하기 전에 현재 보관본과 보고된 모든 복구 경로를 확인하고 필요한 내용은 보존하세요. 보관을 다시 시도해도 이 경로는 정리되지 않습니다.
+- **`archive_error`**: fallback 진단 정보로는 파일이 변경되었는지 알 수 없습니다. 다시 시도하기 전에 변경 사항, 보관본, 영향을 받은 사양을 확인하세요.
 
 ### 4.10 `doctor --json`
 `{ "root": { "path", "source", "store_id"?, "healthy", "status": [] }, "store": { "id", "metadata": {present,valid,remote?}, "origin_url"?, "drift"?: {ahead,behind}, "status": [] } | null, "references": [...], "status": [] }`. `drift`(Git 기반 store 체크아웃에 업스트림 추적 참조가 있을 때만 표시)는 현재 원격 저장소가 아니라 마지막으로 가져온 업스트림 기준 앞섬/뒤처짐 횟수입니다. 심각도와 관계없이 상태 진단 결과는 종료 코드 0을 반환합니다. 실패 페이로드: `{ "root": null, "store": null, "references": [], "status": [d] }`, 종료 코드 1.
@@ -91,7 +91,7 @@ title: "OpenSpec 에이전트 계약"
 `{ "root": { "path", "source", "store_id"?, "role": "openspec_root" }, "members": [ { "role": "referenced_store", "id", "path"?, "remote"?, "fetch"?, "status": [] } ], "status": [] }`. AVAILABLE은 경로가 있고 상태가 비어 있는 항목입니다. `--code-workspace <path>`는 `{folders:[{name,path}]}`를 작성합니다(사용 가능한 참조 store만 포함하며 폴더 이름에는 `ref:` 접두사를 사용). JSON 모드에서는 출력 전에 파일을 작성하므로 파일 쓰기 실패 시에도 표준 출력에는 문서 하나만 나옵니다. 실패: `{ "root": null, "members": [], "status": [d] }`, 종료 코드 1.
 
 ### 4.12 `store ... --json`
-setup/register: `{ "store": {id, root, metadata_path?}, "registry": {path, registered, already_registered}, "git": {is_repository, initialized, committed}, "created_files": [], "status": [] }`. unregister/remove: `{ "store", "registry": {path, removed}, "files": {deleted, deleted_path, left_on_disk}, "status": [] }`. list: `{ "stores": [{id, root}], "status": [] }`. doctor: `{ "stores": [ { id, root, metadata_path?, openspec_root: {...healthy, status}, metadata: {present, valid, id?, remote}, git: {is_repository, has_commits, has_uncommitted_changes, has_remote, origin_url}, status } ], "status": [] }`(`null`은 알 수 없거나 확인하지 않은 값을 의미). 상태 진단 결과는 종료 코드 0을 반환하며 실패 시 해당 null 형식과 함께 종료 코드 1을 반환합니다. 프롬프트 취소 시 종료 코드 130을 반환합니다.
+setup/register: `{ "store": {id, root, metadata_path?}, "registry": {path, registered, already_registered}, "git": {is_repository, initialized, committed}, "created_files": [], "status": [] }`. unregister/remove: `{ "store", "registry": {path, removed}, "files": {deleted, deleted_path, left_on_disk}, "status": [] }`. list: `{ "stores": [{id, root}], "status": [] }`. doctor: `{ "stores": [ { id, root, metadata_path?, openspec_root: {...healthy, status}, metadata: {present, valid, id?, remote}, git: {is_repository, has_commits, has_uncommitted_changes, has_remote, origin_url}, status } ], "status": [] }`(`null`은 알 수 없거나 확인하지 않은 값을 의미). 상태 진단 결과는 종료 코드 0을 반환하며 실패 시 해당 null 형식과 함께 종료 코드 1을 반환합니다. Prompt 취소 시 종료 코드 130을 반환합니다.
 
 ### 4.13 `schemas --json` / `templates --json`
 `schemas`: 성공 시 일반 배열 `[ {name, description, artifacts, source} ]`을 반환하며 표준 루트 선택 우선순위를 따르고 `--store <id>`를 허용합니다. 루트 선택 실패: `{ "schemas": [], "root": null, "status": [d] }`, 종료 코드 1. `templates`: 키 기반 객체 `{ "<artifactId>": {path, source} }`를 반환하며 여전히 현재 작업 디렉터리를 기준으로 하고 root/status 키는 없습니다.
@@ -103,7 +103,7 @@ setup/register: `{ "store": {id, root, metadata_path?}, "registry": {path, regis
 | 성공(doctor/context/store doctor의 상태 진단 포함) | 0 | 페이로드 |
 | `--json` 모드의 명령 실패 | 1 | `status: [d]`와 명령의 null 형식을 포함한 JSON 문서 하나 |
 | 실패 항목이 있는 `validate` | 1 | 전체 보고서 |
-| 프롬프트 취소(`store` 그룹, 대화형 모드) | 130 | 표준 오류만 |
+| Prompt 취소(`store` 그룹, 대화형 모드) | 130 | 표준 오류만 |
 
 ## 6. 진단 코드 목록
 

@@ -50,13 +50,13 @@ title: "术语表"
 
 **探索 (`/opsx:explore`)。** 思考伙伴命令。它会读取代码库、比较选项，并把模糊想法梳理成具体计划。它不会编写代码；除非你要求将探索结果记录为变更，或在它提出该建议时表示同意，否则也不会写入其他内容。当你有问题但尚无计划时，建议从此命令开始。参阅[先探索](/zh-CN/explore/)。
 
-**CLI。** 在终端运行的 `openspec` 程序。它用于设置项目、列出和验证变更、打开仪表板以及归档，是 OpenSpec 的终端端工具。参阅[CLI](/zh-CN/cli/)。
+**CLI。** 在终端运行的 `openspec` 程序。它用于设置项目、列出和验证变更、打开 dashboard 以及归档，是 OpenSpec 的终端端工具。参阅[CLI](/zh-CN/cli/)。
 
 **技能 (skill)。** 包含指令的文件夹 (`.../skills/openspec-*/SKILL.md`)，AI 助手会自动检测并遵循其中的指令。技能正逐渐成为跨工具交付 OpenSpec 工作流的标准方式。
 
 **命令文件 (command file)。** 针对具体工具的斜杠命令文件 (`.../commands/opsx-*`)。这是较早采用的交付机制，目前仍与技能并行支持。通常无需直接编辑这些文件。
 
-**配置档案 (profile)。** 项目中安装的斜杠命令集合。默认的 **Core** 包含 `propose`、`explore`、`apply`、`update`、`sync`、`archive`。**expanded** 集合还增加 `new`、`continue`、`ff`、`verify`、`bulk-archive`、`onboard`。使用 `openspec config profile` 更改配置档案。
+**profile。** 项目中安装的斜杠命令集合。默认的 **Core** 包含 `propose`、`explore`、`apply`、`update`、`sync`、`archive`。**expanded** 集合还增加 `new`、`continue`、`ff`、`verify`、`bulk-archive`、`onboard`。使用 `openspec config profile` 更改 profile。
 
 **交付方式 (delivery)。** OpenSpec 为你的工具安装技能、命令文件，还是两者都安装。此项在全局范围配置，并通过 `openspec update` 应用。
 
@@ -72,7 +72,7 @@ title: "术语表"
 
 **依赖图 (dependency graph)。** 由产物的 `requires:` 关系构成的有向图。它是一个 DAG（有向无环图：箭头只向前，不会形成循环），OpenSpec 用它判断接下来可以创建什么。
 
-**助力，而非关卡 (enablers, not gates)。** 产物依赖关系说明下一步*可以*做什么，而不是*必须*做什么这一原则。任何时候都可以回头修改任一产物。参阅[核心概念速览](/zh-CN/overview/)。
+**助力，而非 gates (enablers, not gates)。** 产物依赖关系说明下一步*可以*做什么，而不是*必须*做什么这一原则。任何时候都可以回头修改任一产物。参阅[核心概念速览](/zh-CN/overview/)。
 
 ## 跨仓库协作（beta）
 

@@ -26,7 +26,7 @@ AI CHAT      /opsx:archive                    (specs updated, change filed away)
 
 セットアップはターミナルで2手順。その後はチャットで作業します。（Windows、npm、その他のインストール方法は[インストール](/ja-JP/installation/)を参照してください。）このガイドの残りでは、各手順で何が行われ、何が表示されるかを説明します。
 
-**ターミナル操作を自分で行いたくない場合は？** アシスタントに[セットアップ用プロンプト](/ja-JP/installation/#ai-アシスタントを使ってインストールする)を貼り付けると、2つのコマンドを実行し、作成した内容を報告します。
+**ターミナル操作を自分で行いたくない場合は？** アシスタントに[セットアップ用 prompt](/ja-JP/installation/#ai-アシスタントを使ってインストールする)を貼り付けると、2つのコマンドを実行し、作成した内容を報告します。
 
 > **何を作るかまだ決まっていませんか？ `/opsx:explore` から始めましょう。** リスクのない思考パートナーとしてコードベースを読み、選択肢を比較し、コードを書く前に曖昧なアイデアを具体的な計画にします。全体像が見えたら `/opsx:propose` に引き継ぎます。自信満々に間違ったものを作る AI と作業するうえで、最も効果的な習慣です。[Explore ガイド](/ja-JP/explore/)を参照してください。
 
@@ -34,14 +34,14 @@ AI CHAT      /opsx:archive                    (specs updated, change filed away)
 
 OpenSpec は、コードを書く前に何を構築するかについて、あなたと AI コーディングアシスタントが合意できるよう支援します。
 
-**既定の簡易フロー（core プロファイル）:**
+**既定の簡易フロー（core profile）:**
 
 ```text
 /opsx:explore ──► /opsx:propose ──► /opsx:apply ──► /opsx:sync ──► /opsx:archive
    (optional)
 ```
 
-何をすべきか検討中なら `/opsx:explore` から始め、すでに決まっているなら `/opsx:propose` に進んでください。Explore は既定のプロファイルに含まれているため、いつでも使えます。
+何をすべきか検討中なら `/opsx:explore` から始め、すでに決まっているなら `/opsx:propose` に進んでください。Explore は既定の profile に含まれているため、いつでも使えます。
 
 **拡張フロー（カスタムワークフローの選択）:**
 
@@ -49,7 +49,7 @@ OpenSpec は、コードを書く前に何を構築するかについて、あ�
 /opsx:new ──► /opsx:ff or /opsx:continue ──► /opsx:apply ──► /opsx:verify ──► /opsx:archive
 ```
 
-既定のグローバルプロファイルは `core` で、`propose`、`explore`、`apply`、`update`、`sync`、`archive` が含まれます。`openspec config profile` で拡張ワークフローコマンドを有効にし、`openspec update` で適用できます。
+既定のグローバル profile は `core` で、`propose`、`explore`、`apply`、`update`、`sync`、`archive` が含まれます。`openspec config profile` で拡張ワークフローコマンドを有効にし、`openspec update` で適用できます。
 
 ## OpenSpec が作成するもの
 
@@ -164,7 +164,7 @@ AI:  Created openspec/changes/add-dark-mode/
      Ready for implementation!
 ```
 
-拡張ワークフロープロファイルを有効にしている場合は、`/opsx:new`、次に `/opsx:ff`（または `/opsx:continue` で段階的に進める）の2段階で行うこともできます。
+拡張ワークフロー profile を有効にしている場合は、`/opsx:new`、次に `/opsx:ff`（または `/opsx:continue` で段階的に進める）の2段階で行うこともできます。
 
 ### 2. 作成されるもの
 

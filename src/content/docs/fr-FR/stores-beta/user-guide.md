@@ -20,7 +20,7 @@ Ce modèle ne convient plus dès que la planification dépasse un seul dépôt :
 - Votre équipe planifie avant que le code existe, ou planifie des éléments qui ne deviendront
   jamais du code dans *ce* dépôt.
 - Une équipe est responsable des exigences que d’autres utilisent. La version du wiki
-  diverge et votre agent de programmation ne peut de toute façon pas la lire.
+  diverge et votre coding agent ne peut de toute façon pas la lire.
 
 Un **store** est la solution : un dépôt autonome consacré à la planification. Il reprend la
 structure `openspec/` que vous connaissez — spécifications et changements — et y ajoute
@@ -144,7 +144,7 @@ Using OpenSpec root: team-plans (/Users/you/openspec/team-plans)
 ...
 ```
 
-Le pointeur n’est qu’une solution de repli, jamais une surcharge : `--store` explicite est
+Le pointeur n’est qu’un fallback, jamais une surcharge : `--store` explicite est
 toujours prioritaire et, si le dépôt acquiert ses propres dossiers de planification, ils
 prennent le dessus (avec un avertissement vous invitant à supprimer le pointeur devenu inutile).
 

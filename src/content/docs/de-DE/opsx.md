@@ -67,9 +67,9 @@ openspec init
 
 Dadurch werden Skills unter `.claude/skills/` (oder einem entsprechenden Pfad) erstellt, die KI-Codierassistenten automatisch erkennen.
 
-Standardmäßig verwendet OpenSpec das Workflow-Profil `core` (`propose`, `explore`, `apply`, `update`, `sync`, `archive`). Wenn Sie die erweiterten Workflow-Befehle (`new`, `continue`, `ff`, `verify`, `bulk-archive`, `onboard`) verwenden möchten, konfigurieren Sie sie mit `openspec config profile` und wenden Sie die Änderungen mit `openspec update` an.
+Standardmäßig verwendet OpenSpec das Workflow profile `core` (`propose`, `explore`, `apply`, `update`, `sync`, `archive`). Wenn Sie die erweiterten Workflow-Befehle (`new`, `continue`, `ff`, `verify`, `bulk-archive`, `onboard`) verwenden möchten, konfigurieren Sie sie mit `openspec config profile` und wenden Sie die Änderungen mit `openspec update` an.
 
-Während der Einrichtung werden Sie aufgefordert, eine **Projektkonfiguration** (`openspec/config.yaml`) zu erstellen. Sie ist optional, wird aber empfohlen.
+Während der Einrichtung werden Sie per prompt aufgefordert, eine **Projektkonfiguration** (`openspec/config.yaml`) zu erstellen. Sie ist optional, wird aber empfohlen.
 
 ## Projektkonfiguration
 
@@ -209,7 +209,7 @@ Erstellt alle Planungsartefakte auf einmal. Verwenden Sie den Befehl, wenn Sie b
 ```
 /opsx:apply
 ```
-Arbeitet die Aufgaben ab und hakt sie dabei ab. Wenn Sie mehrere Änderungen gleichzeitig bearbeiten, können Sie `/opsx:apply <name>` ausführen. Andernfalls sollte der Befehl die Änderung aus dem Gespräch ableiten und Sie zur Auswahl auffordern, falls sie unklar ist.
+Arbeitet die Aufgaben ab und hakt sie dabei ab. Wenn Sie mehrere Änderungen gleichzeitig bearbeiten, können Sie `/opsx:apply <name>` ausführen. Andernfalls sollte der Befehl die Änderung aus dem Gespräch ableiten und Sie per prompt zur Auswahl auffordern, falls sie unklar ist.
 
 ### Eine Änderung aktualisieren
 ```
@@ -223,7 +223,7 @@ Wenn die Änderung bereits implementiert wurde, empfiehlt der Befehl `/opsx:appl
 ```text
 /opsx:sync
 ```
-Führt die Delta-Spezifikationen der aktuellen Änderung mit den Hauptspezifikationen unter `openspec/specs/` zusammen, ohne die Änderung zu archivieren – sie bleibt aktiv. Das gesamte Delta wird angewendet: Eine Anforderung unter `## REMOVED` wird aus der Hauptspezifikation gelöscht, eine umbenannte Anforderung wird direkt an Ort und Stelle umbenannt, und nicht im Delta erwähnte Inhalte bleiben unverändert. Die Synchronisierung ist optional. Wenn sie noch nicht erfolgt ist, bietet archive sie vorher an. Verwenden Sie den Befehl, wenn Sie die Hauptspezifikationen vor dem Archivieren aktualisieren möchten, wenn eine parallele Änderung auf gerade hinzugefügten Spezifikationen aufbauen soll oder wenn Sie die zusammengeführte Hauptspezifikation vor dem Archivieren überprüfen möchten.
+Führt die Delta-Spezifikationen der aktuellen Änderung mit den Hauptspezifikationen unter `openspec/specs/` zusammen, ohne die Änderung zu archivieren – sie bleibt aktiv. Das gesamte Delta wird angewendet: Eine Anforderung unter `## REMOVED` wird aus der Hauptspezifikation gelöscht, eine umbenannte Anforderung wird direkt an Ort und Stelle umbenannt, und nicht im Delta erwähnte Inhalte bleiben unverändert. Die Synchronisierung ist optional. Wenn sie noch nicht erfolgt ist, bietet archive sie vorher per prompt an. Verwenden Sie den Befehl, wenn Sie die Hauptspezifikationen vor dem Archivieren aktualisieren möchten, wenn eine parallele Änderung auf gerade hinzugefügten Spezifikationen aufbauen soll oder wenn Sie die zusammengeführte Hauptspezifikation vor dem Archivieren überprüfen möchten.
 
 ### Abschließen
 ```
@@ -330,7 +330,7 @@ Stellen Sie es sich wie Git-Branches vor:
 ## Die Architektur im Detail
 
 Dieser Abschnitt erklärt, wie OPSX unter der Haube funktioniert und wie es sich vom alten Workflow unterscheidet.
-Die Beispiele verwenden hier den erweiterten Befehlssatz (`new`, `continue` usw.). Benutzer des Standardprofils `core` können denselben Ablauf auf `propose → apply → sync → archive` abbilden.
+Die Beispiele verwenden hier den erweiterten Befehlssatz (`new`, `continue` usw.). Benutzer mit dem Standard profile `core` können denselben Ablauf auf `propose → apply → sync → archive` abbilden.
 
 ### Philosophie: Phasen im Vergleich zu Aktionen
 
@@ -438,7 +438,7 @@ Der **alte Workflow** verwendet fest codierte Vorlagen in TypeScript:
 
 ### Modell des Abhängigkeitsgraphen
 
-Artefakte bilden einen gerichteten azyklischen Graphen (DAG). Abhängigkeiten **ermöglichen** Schritte, statt sie zu blockieren:
+Artefakte bilden einen gerichteten azyklischen Graphen (DAG). Abhängigkeiten **ermöglichen** Schritte, statt gates zu sein:
 
 ```
                               proposal

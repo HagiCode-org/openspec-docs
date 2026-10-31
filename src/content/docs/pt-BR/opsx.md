@@ -73,7 +73,7 @@ openspec init
 Isso cria skills em `.claude/skills/` (ou diretório equivalente), que os
 assistentes de programação com IA detectam automaticamente.
 
-Por padrão, o OpenSpec usa o perfil de fluxo de trabalho `core` (`propose`,
+Por padrão, o OpenSpec usa o profile de fluxo de trabalho `core` (`propose`,
 `explore`, `apply`, `update`, `sync`, `archive`). Para usar os comandos
 expandidos (`new`, `continue`, `ff`, `verify`, `bulk-archive`, `onboard`),
 configure-os com `openspec config profile` e aplique-os com `openspec update`.
@@ -367,7 +367,7 @@ Pense nisso como branches do Git:
 
 Esta seção explica como o OPSX funciona internamente e como se compara ao
 fluxo legado. Os exemplos usam o conjunto expandido de comandos (`new`,
-`continue` etc.); quem usa o perfil padrão `core` pode aplicar o mesmo fluxo
+`continue` etc.); quem usa o profile padrão `core` pode aplicar o mesmo fluxo
 com `propose → apply → sync → archive`.
 
 ### Filosofia: fases ou ações
@@ -477,7 +477,7 @@ O **OPSX** usa schemas externos e um mecanismo de grafo de dependências:
 ### Modelo do grafo de dependências
 
 Os artefatos formam um grafo direcionado acíclico (DAG). As dependências
-**viabilizam o trabalho**, não são barreiras:
+**viabilizam o trabalho**, não são gates:
 
 ```
                               proposal
@@ -516,7 +516,7 @@ Os artefatos formam um grafo direcionado acíclico (DAG). As dependências
 
 ### Fluxo de informações
 
-**Fluxo legado** — o agente recebe instruções estáticas:
+**Fluxo legado** — o agent recebe instruções estáticas:
 
 ```
   User: "/openspec:proposal"
@@ -537,7 +537,7 @@ Os artefatos formam um grafo direcionado acíclico (DAG). As dependências
   Agent creates ALL artifacts in one go
 ```
 
-**OPSX** — o agente consulta informações detalhadas:
+**OPSX** — o agent consulta informações detalhadas:
 
 ```
   User: "/opsx:continue"

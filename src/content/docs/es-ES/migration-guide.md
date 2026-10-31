@@ -15,7 +15,7 @@ basado en acciones. Este es el cambio principal:
 |--------|--------|------|
 | **Comandos** | `/openspec:proposal`, `/openspec:apply`, `/openspec:archive` | Predeterminados: `/opsx:propose`, `/opsx:explore`, `/opsx:apply`, `/opsx:update`, `/opsx:sync`, `/opsx:archive` (comandos ampliados opcionales) |
 | **Flujo de trabajo** | Crear todos los artefactos a la vez | Crearlos de forma incremental o todos de una vez, como prefieras |
-| **Volver atrás** | Fases que dificultan regresar | Natural: actualiza cualquier artefacto en cualquier momento |
+| **Volver atrás** | Phase gates que dificultan regresar | Natural: actualiza cualquier artefacto en cualquier momento |
 | **Personalización** | Estructura fija | Basado en esquemas, totalmente adaptable |
 | **Configuración** | `CLAUDE.md` con marcas y `project.md` | Configuración sencilla en `openspec/config.yaml` |
 
@@ -60,7 +60,7 @@ Solo se eliminan los archivos administrados por OpenSpec que van a sustituirse:
   OpenSpec conserva el formato existente de Codex (`$openspec-*`) o el formato
   genérico (`/openspec-*`), en vez de deducirlo a partir del directorio
   heredado. Para transferir explícitamente la administración, selecciona
-  `codex` con `openspec init`. La limpieza de instrucciones heredadas solo
+  `codex` con `openspec init`. La limpieza de prompts heredados solo
   afecta a los nombres de archivo permitidos por OpenSpec en
   `$CODEX_HOME/prompts` o `~/.codex/prompts`.
 - Y otras herramientas (Augment, Continue, Amazon Q, etc.).
@@ -83,7 +83,7 @@ puede contener contexto del proyecto que hayas escrito. Tendrás que:
 
 **Por qué hicimos este cambio:**
 
-El antiguo `project.md` era pasivo: los agentes podían leerlo o no, y quizá
+El antiguo `project.md` era pasivo: los agents podían leerlo o no, y quizá
 olvidaran lo que habían leído. Descubrimos que su fiabilidad era irregular.
 
 El contexto de `config.yaml` ahora se **incorpora activamente a todas las
@@ -110,8 +110,8 @@ Tanto `openspec init` como `openspec update` detectan archivos heredados y te
 guían por el mismo proceso de limpieza. Usa el comando que mejor se adapte a tu
 caso:
 
-- Las instalaciones nuevas usan el perfil predeterminado `core` (`propose`, `explore`, `apply`, `update`, `sync`, `archive`).
-- Las instalaciones migradas conservan los flujos instalados anteriormente; si es necesario, escriben un perfil `custom`.
+- Las instalaciones nuevas usan el profile predeterminado `core` (`propose`, `explore`, `apply`, `update`, `sync`, `archive`).
+- Las instalaciones migradas conservan los flujos instalados anteriormente; si es necesario, escriben un profile `custom`.
 
 ### Usar `openspec init`
 
@@ -172,7 +172,7 @@ openspec update
 
 El comando update también detecta y limpia los artefactos heredados, y luego
 actualiza las habilidades y los comandos generados para que coincidan con el
-perfil y el modo de distribución actuales.
+profile y el modo de distribución actuales.
 
 ### Entornos no interactivos o de CI
 
@@ -182,10 +182,10 @@ Para migraciones mediante scripts:
 openspec init --force --tools claude
 ```
 
-La opción `--force` omite las preguntas y acepta automáticamente la limpieza.
+La opción `--force` omite los prompts y acepta automáticamente la limpieza.
 
-Esto incluye la limpieza de los archivos de instrucciones de Codex administrados
-por OpenSpec en el directorio global de instrucciones de Codex. La limpieza solo
+Esto incluye la limpieza de los archivos de prompts de Codex administrados
+por OpenSpec en el directorio global de prompts de Codex. La limpieza solo
 afecta a los nombres de archivos heredados de Codex incluidos en la lista
 permitida de OpenSpec, los elimina únicamente después de que existan sus
 reemplazos en `.agents/skills/openspec-*` y conserva todos los demás archivos.
@@ -295,7 +295,7 @@ información en *todas* las solicitudes de planificación?».
 que a la IA le falta información importante, añádela. Si el contexto parece
 demasiado extenso, recórtalo. Es un documento vivo.
 
-### ¿Necesitas ayuda? Usa esta instrucción
+### ¿Necesitas ayuda? Usa este prompt
 
 Si no sabes cómo resumir tu project.md, pide ayuda a tu asistente de IA:
 
@@ -318,9 +318,9 @@ La IA te ayudará a distinguir lo esencial de lo que puedes recortar.
 
 ## Los nuevos comandos
 
-La disponibilidad de los comandos depende del perfil:
+La disponibilidad de los comandos depende del profile:
 
-**Predeterminados (perfil `core`):**
+**Predeterminados (profile `core`):**
 
 | Comando | Función |
 |---------|---------|
@@ -453,7 +453,7 @@ Varias herramientas de programación con IA reconocen las habilidades, que
 además proporcionan metadatos más completos.
 
 En OPSX, Codex solo admite habilidades. OpenSpec ya no genera archivos de
-instrucciones personalizados para Codex; usa los directorios
+prompts personalizados para Codex; usa los directorios
 `.agents/skills/openspec-*` que se generan.
 
 ---

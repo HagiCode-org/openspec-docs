@@ -67,7 +67,7 @@ openspec init
 
 Cette commande crée des skills dans `.claude/skills/` (ou l’emplacement équivalent), que les assistants de programmation IA détectent automatiquement.
 
-Par défaut, OpenSpec utilise le profil de workflow `core` (`propose`, `explore`, `apply`, `update`, `sync`, `archive`). Pour ajouter les commandes du workflow étendu (`new`, `continue`, `ff`, `verify`, `bulk-archive`, `onboard`), configurez-les avec `openspec config profile`, puis appliquez la configuration avec `openspec update`.
+Par défaut, OpenSpec utilise le profile de workflow `core` (`propose`, `explore`, `apply`, `update`, `sync`, `archive`). Pour ajouter les commandes du workflow étendu (`new`, `continue`, `ff`, `verify`, `bulk-archive`, `onboard`), configurez-les avec `openspec config profile`, puis appliquez la configuration avec `openspec update`.
 
 Lors de la configuration, il vous sera proposé de créer une **configuration de projet** (`openspec/config.yaml`). Cette étape est facultative, mais recommandée.
 
@@ -440,7 +440,7 @@ L’**ancien workflow** utilise des modèles codés en dur en TypeScript :
 
 ### Modèle de graphe de dépendances
 
-Les artefacts forment un graphe orienté acyclique (DAG). Les dépendances sont des **facilitateurs**, pas des barrières :
+Les artefacts forment un graphe orienté acyclique (DAG). Les dépendances sont des **facilitateurs**, pas des gates :
 
 ```
                               proposal

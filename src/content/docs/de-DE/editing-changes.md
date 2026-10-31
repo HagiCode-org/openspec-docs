@@ -2,7 +2,7 @@
 title: "Änderungen bearbeiten und iterieren"
 ---
 
-**Jedes Artefakt einer Änderung ist einfach eine Markdown-Datei, die Sie jederzeit bearbeiten können.** Es gibt keine festgeschriebene „Planungsphase“, keine Freigabehürde und keinen besonderen Bearbeitungsmodus. Sie möchten den Vorschlag ändern, nachdem Sie mit der Umsetzung begonnen haben? Öffnen und bearbeiten Sie `proposal.md`. Sie merken während der Implementierung, dass der Entwurf falsch ist? Korrigieren Sie `design.md` und machen Sie weiter. Das ist die ganze Antwort – und genau so ist es gedacht.
+**Jedes Artefakt einer Änderung ist einfach eine Markdown-Datei, die Sie jederzeit bearbeiten können.** Es gibt keine festgeschriebene „Planungsphase“, kein approval gate und keinen besonderen Bearbeitungsmodus. Sie möchten den Vorschlag ändern, nachdem Sie mit der Umsetzung begonnen haben? Öffnen und bearbeiten Sie `proposal.md`. Sie merken während der Implementierung, dass der Entwurf falsch ist? Korrigieren Sie `design.md` und machen Sie weiter. Das ist die ganze Antwort – und genau so ist es gedacht.
 
 Diese Seite ist für den Moment gedacht, in dem Sie sich fragen: „Moment, kann ich zurückgehen und das ändern?“ Ja. Hier erfahren Sie, wie das in den häufigsten Fällen geht.
 

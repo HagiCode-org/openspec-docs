@@ -12,7 +12,7 @@ title: "存储库：将规划放入独立仓库"
 
 - 工作涉及多个仓库——一项功能同时修改 API 服务器、Web 应用和共享库。计划应该放在哪个仓库的 `openspec/` 文件夹中？
 - 团队在代码存在之前就开始规划，或规划不会成为*当前*仓库代码的工作。
-- 一个团队负责需求，其他团队使用这些需求。Wiki 上的版本逐渐过时，而编码智能体甚至无法读取它。
+- 一个团队负责需求，其他团队使用这些需求。Wiki 上的版本逐渐过时，而 coding agent 甚至无法读取它。
 
 **存储库** (store) 就是解决办法：一个专门用于规划的独立仓库。它拥有你熟悉的 `openspec/` 结构——规格说明和变更——以及一个小型身份文件。你只需在本机按名称注册一次，之后就能在任何位置使用所有常规 OpenSpec 命令操作它。
 
@@ -119,7 +119,7 @@ Using OpenSpec root: team-plans (/Users/you/openspec/team-plans)
 ...
 ```
 
-此指针只是回退机制，不会强制覆盖其他选择：显式传入 `--store` 始终优先；如果仓库后来出现自己的真实规划目录，则本地目录会优先（并发出警告，建议移除过期指针）。
+此指针只是 fallback 机制，不会强制覆盖其他选择：显式传入 `--store` 始终优先；如果仓库后来出现自己的真实规划目录，则本地目录会优先（并发出警告，建议移除过期指针）。
 
 **在本机为所有仓库设置一个默认值。** 如果你有很多代码仓库都使用同一个存储库进行规划，可以在全局设置一次，而不必在每个仓库中都添加 `store:`：
 
@@ -149,7 +149,7 @@ openspec status --change add-checkout-promo --store team-plans
 
 ### 规划时能看到哪些上下文？
 
-选择存储库会改变 OpenSpec 根目录，但不会自动发现或读取所有使用该存储库的代码仓库。存储库中的指令会读取存储库内的产物和已配置上下文。只有当智能体或编辑器能访问相应组件目录，且智能体实际读取了它们，才会看到组件代码。
+选择存储库会改变 OpenSpec 根目录，但不会自动发现或读取所有使用该存储库的代码仓库。存储库中的指令会读取存储库内的产物和已配置上下文。只有当 agent 或编辑器能访问相应组件目录，且 agent 实际读取了它们，才会看到组件代码。
 
 使用工作集可以方便地同时打开规划存储库和两个代码仓库：
 
@@ -162,7 +162,7 @@ openspec workset create checkout-promo \
 openspec workset open checkout-promo
 ```
 
-这会将这些文件夹显示在同一个 IDE 工作区中。它不会将源代码上下文复制到存储库，不会选择受影响的仓库，也不会授予智能体编辑这些仓库的权限。持久的跨组件事实应写入共享规格说明；不要依赖规划者记住自己偶然检查过的源代码内容。
+这会将这些文件夹显示在同一个 IDE 工作区中。它不会将源代码上下文复制到存储库，不会选择受影响的仓库，也不会授予 agent 编辑这些仓库的权限。持久的跨组件事实应写入共享规格说明；不要依赖规划者记住自己偶然检查过的源代码内容。
 
 ### 如何在每个仓库中开始实现？
 
@@ -217,7 +217,7 @@ references:
   - platform-reqs
 ```
 
-引用是只读上下文。仓库仍然保留自己的 `openspec/` 根目录，工作也仍在其中进行。变化在于：该仓库中的 `openspec instructions` 会增加一个被引用存储库规格说明的索引——每条规格都有一行摘要和准确的获取命令（`openspec show <spec-id> --type spec --store platform-reqs`）。在 `api-server` 中工作的智能体可以找到上游支付需求并引用它们，然后在仓库自己的根目录中编写低层设计，不需要任何人手动粘贴上下文。
+引用是只读上下文。仓库仍然保留自己的 `openspec/` 根目录，工作也仍在其中进行。变化在于：该仓库中的 `openspec instructions` 会增加一个被引用存储库规格说明的索引——每条规格都有一行摘要和准确的获取命令（`openspec show <spec-id> --type spec --store platform-reqs`）。在 `api-server` 中工作的 agent 可以找到上游支付需求并引用它们，然后在仓库自己的根目录中编写低层设计，不需要任何人手动粘贴上下文。
 
 引用也可以包含克隆来源，这样尚未拥有该存储库的队友就能获得完整的修复建议，而非无处可去的报错：
 
@@ -266,7 +266,7 @@ Referenced stores
     Fetch: openspec show <spec-id> --type spec --store platform-reqs
 ```
 
-这两个命令都支持 `--json`，方便智能体调用。`openspec context --code-workspace <path>` 还会写入一个包含整个工作集的 VS Code 工作区文件——这是此命令唯一执行的写操作。
+这两个命令都支持 `--json`，方便 agents 调用。`openspec context --code-workspace <path>` 还会写入一个包含整个工作集的 VS Code 工作区文件——这是此命令唯一执行的写操作。
 
 ## 工作集：重新打开一起工作的文件夹
 
@@ -326,7 +326,7 @@ platform  (opens in VS Code)
 - **部分命令仍固定在当前目录中运行。** `templates` 和已弃用的名词形式（`openspec change show` 等）只作用于当前目录，不支持 `--store`。`schemas` 遵循标准根目录选择优先顺序并接受 `--store <id>`，同时保持成功时 JSON 数组的原有结构。
 - **每台机器的状态彼此独立。** 存储库注册表和工作集都是本地设置。机器的目录布局不会提交到共享规划仓库。
 - **工作集支持两种启动方式。** 无法通过工作区文件或逐目录附加标志启动的工具，不能作为 opener 添加。
-- **智能体 JSON 中存在已知的键名大小写差异**（store 系列使用 snake_case，workflow 系列使用 camelCase）。详见[智能体契约](/zh-CN/agent-contract/)；统一键名的工作会推迟到后续带版本的发布中。
+- **Agent JSON 中存在已知的键名大小写差异**（store 系列使用 snake_case，workflow 系列使用 camelCase）。详见[agent 契约](/zh-CN/agent-contract/)；统一键名的工作会推迟到后续带版本的发布中。
 
 ## 文件分别存放在哪里
 
@@ -341,4 +341,4 @@ platform  (opens in VS Code)
 
 ## 参考资料
 
-本页介绍的各命令的准确标志和 JSON 结构见：[CLI 参考](/zh-CN/cli/)（Stores、Doctor、Working context、Personal worksets）以及[智能体契约](/zh-CN/agent-contract/)。
+本页介绍的各命令的准确标志和 JSON 结构见：[CLI 参考](/zh-CN/cli/)（Stores、Doctor、Working context、Personal worksets）以及[agent 契约](/zh-CN/agent-contract/)。

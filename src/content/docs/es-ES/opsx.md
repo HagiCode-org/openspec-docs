@@ -18,7 +18,7 @@ El flujo de trabajo heredado de OpenSpec funciona, pero es **rígido**:
 - **Instrucciones codificadas**: están ocultas en TypeScript y no se pueden cambiar.
 - **Todo o nada**: un único comando grande lo crea todo; no puedes probar las piezas por separado.
 - **Estructura fija**: el mismo flujo para todos, sin personalización.
-- **Caja negra**: si la IA produce un resultado deficiente, no puedes ajustar las instrucciones.
+- **Caja negra**: si la IA produce un resultado deficiente, no puedes ajustar los prompts.
 
 **OPSX lo abre.** Ahora cualquiera puede:
 
@@ -41,7 +41,7 @@ Legacy workflow:                      OPSX:
 
 **Es para todos:**
 - **Equipos**: crear flujos que se ajusten a su forma de trabajar.
-- **Usuarios avanzados**: ajustar las instrucciones para obtener mejores resultados de IA en su base de código.
+- **Usuarios avanzados**: ajustar los prompts para obtener mejores resultados de IA en su base de código.
 - **Colaboradores de OpenSpec**: experimentar con nuevos enfoques sin esperar a una versión.
 
 Todavía estamos aprendiendo qué funciona mejor. OPSX nos permite aprender juntos.
@@ -73,7 +73,7 @@ openspec init
 Esto crea habilidades en `.claude/skills/` (o una ruta equivalente), que los
 asistentes de programación con IA detectan automáticamente.
 
-De forma predeterminada, OpenSpec usa el perfil de flujo de trabajo `core`
+De forma predeterminada, OpenSpec usa el profile de flujo de trabajo `core`
 (`propose`, `explore`, `apply`, `update`, `sync`, `archive`). Si quieres los
 comandos ampliados (`new`, `continue`, `ff`, `verify`, `bulk-archive`,
 `onboard`), configúralos con `openspec config profile` y aplícalos con
@@ -367,7 +367,7 @@ Piensa en las ramas de Git:
 
 Esta sección explica cómo funciona OPSX internamente y en qué se diferencia del
 flujo de trabajo heredado. Los ejemplos usan el conjunto ampliado de comandos
-(`new`, `continue`, etc.); quienes usan el perfil predeterminado `core` pueden
+(`new`, `continue`, etc.); quienes usan el profile predeterminado `core` pueden
 seguir el mismo flujo con `propose → apply → sync → archive`.
 
 ### Filosofía: fases frente a acciones
@@ -477,7 +477,7 @@ El **flujo heredado** usa plantillas codificadas en TypeScript:
 ### Modelo de grafo de dependencias
 
 Los artefactos forman un grafo acíclico dirigido (DAG). Las dependencias son
-**habilitadores**, no barreras:
+**habilitadores**, no gates:
 
 ```
                               proposal
@@ -516,7 +516,7 @@ Los artefactos forman un grafo acíclico dirigido (DAG). Las dependencias son
 
 ### Flujo de información
 
-**Flujo heredado**: el agente recibe instrucciones estáticas:
+**Flujo heredado**: el agent recibe instrucciones estáticas:
 
 ```
   User: "/openspec:proposal"
@@ -537,7 +537,7 @@ Los artefactos forman un grafo acíclico dirigido (DAG). Las dependencias son
   Agent creates ALL artifacts in one go
 ```
 
-**OPSX**: el agente consulta información contextual detallada:
+**OPSX**: el agent consulta información contextual detallada:
 
 ```
   User: "/opsx:continue"

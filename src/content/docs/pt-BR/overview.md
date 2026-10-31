@@ -23,7 +23,7 @@ proposal ──► specs ──► design ──► tasks ──► implement
    why        what       how       steps      do it
 ```
 
-Você pode revisitar qualquer um deles a qualquer momento. Eles facilitam o trabalho; não são etapas obrigatórias. (Mais sobre isso adiante.)
+Você pode revisitar qualquer um deles a qualquer momento. Eles facilitam o trabalho; não são gates. (Mais sobre isso adiante.)
 
 **5. O arquivamento incorpora a mudança à verdade.** Quando o trabalho termina, você arquiva a mudança. Suas especificações delta são mescladas às especificações principais, e a pasta da mudança é movida para `changes/archive/` com uma data no nome. Agora as especificações descrevem a nova realidade, e você está pronto para a próxima mudança. O ciclo se fecha.
 
@@ -58,7 +58,7 @@ Na configuração padrão, seu fluxo será assim. Se quiser, pense primeiro sobr
 /opsx:archive                   →  specs updated, change archived
 ```
 
-**Em caso de dúvida, comece explorando.** `/opsx:explore` é um parceiro de reflexão sem compromisso: ele lê seu código, apresenta opções e transforma uma ideia vaga em um plano concreto antes que qualquer código seja escrito. É o melhor antídoto para uma IA que, de outra forma, poderia construir *qualquer coisa* a partir de um pedido impreciso. Já sabe exatamente o que quer? Vá direto para `/opsx:propose`. De todo modo, explore faz parte do perfil padrão e está sempre disponível. Consulte o [guia Explorar](/pt-BR/explore/).
+**Em caso de dúvida, comece explorando.** `/opsx:explore` é um parceiro de reflexão sem compromisso: ele lê seu código, apresenta opções e transforma uma ideia vaga em um plano concreto antes que qualquer código seja escrito. É o melhor antídoto para uma IA que, de outra forma, poderia construir *qualquer coisa* a partir de um pedido impreciso. Já sabe exatamente o que quer? Vá direto para `/opsx:propose`. De todo modo, explore faz parte do profile padrão e está sempre disponível. Consulte o [guia Explorar](/pt-BR/explore/).
 
 Esses são comandos de barra, digitados no chat do seu assistente de IA. A configuração (`openspec init`) é feita no terminal. Se essa divisão é novidade para você, leia primeiro [Como os comandos funcionam](/pt-BR/how-commands-work/); essa é a dúvida mais comum.
 

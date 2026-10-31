@@ -120,7 +120,7 @@ AI:  Verifying add-dark-mode...
 
 Der Befehl kennzeichnet Probleme als CRITICAL, WARNING oder SUGGESTION und verhindert **nicht** das Archivieren. Er macht Lücken sichtbar und überlässt die Entscheidung Ihnen. Das ist der Unterschied zwischen „Hat die KI Code geschrieben?“ und „Hat sie umgesetzt, worauf wir uns geeinigt haben?“
 
-`/opsx:verify` ist im erweiterten Profil enthalten. Falls der Befehl bei Ihnen fehlt, aktivieren Sie ihn mit `openspec config profile` (und anschließend `openspec update`) oder lesen Sie die Änderung und den Diff selbst noch einmal durch.
+`/opsx:verify` ist im erweiterten profile enthalten. Falls der Befehl bei Ihnen fehlt, aktivieren Sie ihn mit `openspec config profile` (und anschließend `openspec update`) oder lesen Sie die Änderung und den Diff selbst noch einmal durch.
 
 ## Den Umfang der Überprüfung passend bemessen
 

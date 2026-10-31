@@ -20,7 +20,7 @@ OpenSpec 提供三個層次的自訂方式：
 - **注入專案上下文**——讓 AI 瞭解你的技術棧、約定等
 - **新增產物級規則**——為特定產物新增自訂規則
 - **新增操作指引**——為 apply 和 archive 操作提供建議
-- **記住整合選項**——例如選擇是否啟用 [GitHub Copilot 雲端編碼智慧代理程式](/zh-Hant/supported-tools/#github-copilot-雲端編碼智慧代理程式)
+- **記住整合選項**——例如選擇是否 opt-in [GitHub Copilot 雲端 coding agent](/zh-Hant/supported-tools/#github-copilot-雲端編碼智慧代理程式)
 
 ### 快速設定
 
@@ -76,7 +76,7 @@ openspec new change my-feature
 
 **上下文和規則注入：**
 
-生成任意產物時，你的上下文和規則都會注入 AI 提示詞：
+生成任意產物時，你的上下文和規則都會注入 AI prompt：
 
 ```xml
 <context>
@@ -99,7 +99,7 @@ Tech stack: TypeScript, React, Node.js, PostgreSQL
 
 **操作指引：**
 
-`operations.apply.guidance` 和 `operations.archive.guidance` 是可選陣列，用於提供智慧代理程式執行這些操作時的建議。它們與 `rules` 相互獨立：操作指引不會限制產物內容，產物規則也不會被重新歸類為操作指引。
+`operations.apply.guidance` 和 `operations.archive.guidance` 是可選陣列，用於提供 agent 執行這些操作時的建議。它們與 `rules` 相互獨立：操作指引不會限制產物內容，產物規則也不會被重新歸類為操作指引。
 
 Apply 和 archive 會在執行時獲取這些輸入：
 
@@ -110,7 +110,7 @@ openspec instructions archive --change my-feature --json
 
 這兩個介面會將當前專案的 `context` 和匹配的 `operationGuidance` 作為獨立的可選欄位返回。每次呼叫都會從已解析的根目錄讀取最新快照。使用 `--store <id>` 時，變更、上下文和指引均來自該儲存庫，而非當前程式碼儲存庫。Archive 指令命令是隻讀的：它不會檢查或合併差異規格說明、寫入主規格說明、移動變更，也不會執行靜態歸檔工作流程。
 
-專案上下文是提示詞層面的必需輸入。生成的工作流程會讀取它，並應用相關的專案事實、約定和限制。操作指引是可選的補充建議：工作流程會考慮所有條目，並遵循適用且與內建工作流程相容的內容。
+專案上下文是 prompt 層面的必需輸入。生成的工作流程會讀取它，並應用相關的專案事實、約定和限制。操作指引是可選的補充建議：工作流程會考慮所有條目，並遵循適用且與內建工作流程相容的內容。
 
 這兩個欄位都與 CLI 控制的狀態、已解析路徑、內建步驟、明確的使用者選擇以及產物規則相互獨立。工作流程會報告上下文衝突，同時保留具有控制效力的值。它不會遵循不適用或相互衝突的指引，並會說明原因。這兩個欄位都不是可強制執行的檢查；除非使用者另行要求，否則工作流程不會將它們複製到實作檔案、規格說明、變更產物或摘要中。
 
@@ -120,7 +120,7 @@ Archive、bulk archive 和獨立的 sync 會將 `openspec status --json` 輸出�
 
 語義合併寫入主規格說明之前，工作流程會讀取當前的 `openspec instructions specs --change <name> --json` 輸出。返回的 `specs` 規則僅約束此次合併所生成的主規格說明。單項 archive 會將該快照傳給內部 sync；單獨執行 sync 時會直接獲取快照；bulk archive 則會在首次寫入規格說明之前，先獲取所有必需快照。如果 archive/specs 指令請求返回非零退出碼或無效 JSON，這是查詢失敗，而非輸入為空：工作流程會在受影響的規格寫入或變更移動之前停止（bulk archive 會在任何批次寫入或移動之前停止）。
 
-此設定不會改變歸檔執行階段、使用者提示、檔案系統操作、語義合併的責任歸屬、直接的 `openspec archive` 命令，也不會改變產物 `rules` 的結構和輸出。
+此設定不會改變歸檔執行階段、使用者 prompt、檔案系統操作、語義合併的責任歸屬、直接的 `openspec archive` 命令，也不會改變產物 `rules` 的結構和輸出。
 
 ### 模式解析順序
 
@@ -243,7 +243,7 @@ apply:
 
 ### 模板
 
-模板是用於指導 AI 的 Markdown 檔案。建立相應產物時，模板會注入提示詞中。
+模板是用於指導 AI 的 Markdown 檔案。建立相應產物時，模板會注入 prompt 中。
 
 ```markdown
 <!-- templates/proposal.md -->
@@ -391,11 +391,11 @@ OpenSpec 也支援透過獨立儲存庫分發、由社群維護的模式。這�
 
 | 模式 | 維護者 | 儲存庫 | 說明 |
 |--------|-----------|-----------|-------------|
-| `intent-driven` | @harikrishnan83 | [intent-driven-dev/openspec-schemas](https://github.com/intent-driven-dev/openspec-schemas/tree/main/openspec/schemas/intent-driven) | 在實作前記錄變更意圖、可觀察行為、技術設計和長期架構決策。新增與變更關聯的 ADR 審查清單，並將符合條件的長期決策寫為不可變、可被後續 ADR 取代的記錄。 |
-| `superpowers-bridge` | @JiangWay | [JiangWay/openspec-schemas](https://github.com/JiangWay/openspec-schemas/tree/main/superpowers-bridge) | 將 OpenSpec 的產物治理與 [obra/superpowers](https://github.com/obra/superpowers) 執行技能（頭腦風暴、編寫計畫、透過子智慧代理程式進行 TDD、程式碼審查、收尾）整合。新增以證據為先的 `retrospective` 產物，補足 Superpowers 原生流程未覆蓋的環節。 |
+| `intent-driven` | @harikrishnan83 | [intent-driven-dev/openspec-schemas](https://github.com/intent-driven-dev/openspec-schemas/tree/main/openspec/schemas/intent-driven) | 在實作前記錄變更意圖、可觀察行為、技術設計和長期架構決策。新增與變更關聯的 ADR 審查 manifest，並將符合條件的長期決策寫為不可變、可被後續 ADR 取代的記錄。 |
+| `superpowers-bridge` | @JiangWay | [JiangWay/openspec-schemas](https://github.com/JiangWay/openspec-schemas/tree/main/superpowers-bridge) | 將 OpenSpec 的產物治理與 [obra/superpowers](https://github.com/obra/superpowers) 執行技能（頭腦風暴、編寫計畫、透過 subagent 進行 TDD、程式碼審查、收尾）整合。新增以證據為先的 `retrospective` 產物，補足 Superpowers 原生流程未覆蓋的環節。 |
 | `nanopm` | @nmrtn | [nmrtn/nanopm](https://github.com/nmrtn/nanopm/tree/main/openspec-schema) | 以產品管理為先的工作流程。先執行 [nanopm](https://github.com/nmrtn/nanopm) 規劃流水線（審計 → 策略 → 路線圖 → PRD），再進入實作階段。將產品規劃銜接到 OpenSpec 的規格驅動工程工作流程。如果存在 `.nanopm/`，產物會讀取其中內容：提案引用審計，設計引用策略，任務引用 PRD 分解。 |
 | `e2e-runbooks` | @Lukk17 | [Lukk17/openspec-schemas](https://github.com/Lukk17/openspec-schemas/tree/master/openspec/schemas/e2e-runbooks) | 面向能力的端到端測試手冊。每項能力都有不可變規格說明、不可變任務模板，併為每次執行生成帶時間戳的執行記錄。斷言只關注可觀察行為（HTTP 狀態、響應正文、持久化狀態，不檢查日誌片段）；每次執行都會記錄 UTC 開始/結束時間、持續時間，以及估算的 LLM token 消耗量。 |
-| `anvil` | @jikkujoyce | [jikkujoyce/openspec-schemas](https://github.com/jikkujoyce/openspec-schemas/tree/main/schemas/anvil) | 遵循 TDD 並包含對抗式審查步驟的規格驅動工作流程。流程：`proposal` → `specs` → `design` → `review` → `test-plan` → `tasks` → `apply` → `verify`。`review` 由具備全新上下文的只讀審查者編寫（如有條件則使用第二個模型），並輸出 `VERDICT:` 行，指示智慧代理程式阻止 `test-plan`、`tasks` 和 `apply` 直至透過審查；OpenSpec 只檢查產物是否存在，因此需透過自己的 CI 或鉤子實施此關卡。`test-plan` 會將每個規格情境對映到具名測試，同時作為由 `verify` 審計的紅/綠進度記錄。 |
+| `anvil` | @jikkujoyce | [jikkujoyce/openspec-schemas](https://github.com/jikkujoyce/openspec-schemas/tree/main/schemas/anvil) | 遵循 TDD 並包含對抗式審查步驟的規格驅動工作流程。流程：`proposal` → `specs` → `design` → `review` → `test-plan` → `tasks` → `apply` → `verify`。`review` 由具備全新上下文的只讀審查者編寫（如有條件則使用第二個模型），並輸出 `VERDICT:` 行，指示 agent 阻止 `test-plan`、`tasks` 和 `apply` 直至透過審查；OpenSpec 只檢查產物是否存在，因此需透過自己的 CI 或鉤子實施此 gate。`test-plan` 會將每個規格情境對映到具名測試，同時作為由 `verify` 審計的紅/綠進度記錄。 |
 | `ml-research` | @tsenst | [idealo/openspec-schemas](https://github.com/idealo/openspec-schemas/tree/main/openspec/schemas/ml-research) | 機器學習實驗工作流程。流程：`proposal` → `design` → `evaluation` → `tasks` → `apply` → `specs`。`evaluation` 會在執行前固定指標、成功標準和證偽條件；`apply` 寫入 `results.md`；`specs` 只記錄有證據支持的發現（包括被推翻的假設），並以附有 `Evidence:` 區塊的 `Finding:` 需求形式呈現。 |
 | `epic-driven` | @ivanferic| [IvanFeric/openspec-epic-driven](https://github.com/IvanFeric/openspec-epic-driven/tree/main/openspec/schemas/epic-driven) | 史詩驅動工作流程。流程：`explore`（可選）→ `epic-propose` → `epic-next` 選擇子故事 → 子故事 `apply` → 子故事 `archive` → `epic-sync`。史詩沒有 `apply` 階段，且只有在其所有故事完成後才會歸檔。`epic-propose` 建立願景、故事和路線圖；`epic-next` 推薦子故事，而 `epic-next <story> start` 會將子故事的規劃委派給一般的 `openspec-propose` 工作流程；`epic-status` 顯示史詩中所有故事的當前狀態；`epic-replan` 可在保留進行中或已完成故事的前提下變更計畫；`epic-sync` 更新故事完成指示器。 |
 

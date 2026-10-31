@@ -50,13 +50,13 @@ title: "術語表"
 
 **探索 (`/opsx:explore`)。** 思考夥伴命令。它會讀取程式碼庫、比較選項，並把模糊想法梳理成具體計畫。它不會編寫程式碼；除非你要求將探索結果記錄為變更，或在它提出該建議時表示同意，否則也不會寫入其他內容。當你有問題但尚無計畫時，建議從此命令開始。參閱[先探索](/zh-Hant/explore/)。
 
-**CLI。** 在終端執行的 `openspec` 程式。它用於設定專案、列出和驗證變更、開啟儀表板以及歸檔，是 OpenSpec 的終端端工具。參閱[CLI](/zh-Hant/cli/)。
+**CLI。** 在終端執行的 `openspec` 程式。它用於設定專案、列出和驗證變更、開啟 dashboard 以及歸檔，是 OpenSpec 的終端端工具。參閱[CLI](/zh-Hant/cli/)。
 
 **技能 (skill)。** 包含指令的資料夾 (`.../skills/openspec-*/SKILL.md`)，AI 助手會自動檢測並遵循其中的指令。技能正逐漸成為跨工具交付 OpenSpec 工作流程的標準方式。
 
 **命令檔案 (command file)。** 針對具體工具的斜槓命令檔案 (`.../commands/opsx-*`)。這是較早採用的交付機制，目前仍與技能並行支援。通常無需直接編輯這些檔案。
 
-**設定檔案 (profile)。** 專案中安裝的斜槓命令集合。預設的 **Core** 包含 `propose`、`explore`、`apply`、`update`、`sync`、`archive`。**expanded** 集合還增加 `new`、`continue`、`ff`、`verify`、`bulk-archive`、`onboard`。使用 `openspec config profile` 更改設定檔案。
+**profile。** 專案中安裝的斜槓命令集合。預設的 **Core** 包含 `propose`、`explore`、`apply`、`update`、`sync`、`archive`。**expanded** 集合還增加 `new`、`continue`、`ff`、`verify`、`bulk-archive`、`onboard`。使用 `openspec config profile` 更改 profile。
 
 **交付方式 (delivery)。** OpenSpec 為你的工具安裝技能、命令檔案，還是兩者都安裝。此項在全域範圍設定，並透過 `openspec update` 應用。
 
@@ -72,7 +72,7 @@ title: "術語表"
 
 **依賴圖 (dependency graph)。** 由產物的 `requires:` 關係構成的有向圖。它是一個 DAG（有向無環圖：箭頭只向前，不會形成迴圈），OpenSpec 用它判斷接下來可以建立什麼。
 
-**助力，而非關卡 (enablers, not gates)。** 產物依賴關係說明下一步*可以*做什麼，而不是*必須*做什麼這一原則。任何時候都可以回頭修改任一產物。參閱[核心概念速覽](/zh-Hant/overview/)。
+**助力，而非 gate (enablers, not gates)。** 產物依賴關係說明下一步*可以*做什麼，而不是*必須*做什麼這一原則。任何時候都可以回頭修改任一產物。參閱[核心概念速覽](/zh-Hant/overview/)。
 
 ## 跨儲存庫協作（beta）
 

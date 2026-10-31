@@ -66,7 +66,7 @@ Ein weiterer Abschnitt ist erwähnenswert. Wenn Ihr Delta eine noch nicht vorhan
 
 Der häufigste Fehler beim Verfassen ist keine schlecht formulierte Anforderung, sondern eine Änderung, die versucht, drei Änderungen auf einmal zu sein.
 
-**Eine gute Änderung verfolgt eine Absicht, die sich in einem Satz ausdrücken lässt.** „Einen Schalter für den Dunkelmodus hinzufügen.“ „Den Anmelde-Endpunkt ratenbegrenzen.“ „Sitzungen von Cookies weg migrieren.“ Wenn Sie die Änderung mit vielen „und außerdem“ beschreiben müssen, ist das ein Zeichen, dass Sie sie aufteilen sollten.
+**Eine gute Änderung verfolgt eine Absicht, die sich in einem Satz ausdrücken lässt.** „Einen Schalter für den Dunkelmodus hinzufügen.“ „Den Anmelde-endpoint ratenbegrenzen.“ „Sitzungen von Cookies weg migrieren.“ Wenn Sie die Änderung mit vielen „und außerdem“ beschreiben müssen, ist das ein Zeichen, dass Sie sie aufteilen sollten.
 
 Anzeichen dafür, dass eine Änderung zu groß ist:
 

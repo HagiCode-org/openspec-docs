@@ -64,7 +64,7 @@ AI:  Created openspec/changes/fix-login-redirect-loop/
 
 Comme la correction est consignée sous forme d'exigence `MODIFIED` avec un nouveau scénario, la personne suivante (ou la prochaine session d'IA) verra non seulement que le bogue a été corrigé, mais également ce que signifie « correct ». Continuez ensuite avec `/opsx:apply` et `/opsx:archive`, comme d'habitude.
 
-Conseil : pour une correction, un bon scénario est un test de régression rédigé en prose. « GIVEN un utilisateur déconnecté, WHEN il soumet des identifiants valides, THEN il arrive sur le tableau de bord et n'est pas redirigé à nouveau. » En le formulant ainsi, vous donnez une cible claire à l'implémentation.
+Conseil : pour une correction, un bon scénario est un test de régression rédigé en prose. « GIVEN un utilisateur déconnecté, WHEN il soumet des identifiants valides, THEN il arrive sur le dashboard et n'est pas redirigé à nouveau. » En le formulant ainsi, vous donnez une cible claire à l'implémentation.
 
 <a id="recipe-3-exploring-before-you-commit"></a>
 

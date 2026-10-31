@@ -109,9 +109,9 @@ sequenceDiagram
 
 ## Dois modos
 
-### Caminho rápido padrão (perfil `core`)
+### Caminho rápido padrão (profile `core`)
 
-Novas instalações usam por padrão o perfil `core`, que disponibiliza:
+Novas instalações usam por padrão o profile `core`, que disponibiliza:
 - `/opsx:explore`
 - `/opsx:propose`
 - `/opsx:apply`
@@ -128,7 +128,7 @@ Fluxo típico:
 
 #### Comece explorando (um hábito que vale a pena criar)
 
-`/opsx:explore` faz parte do perfil padrão; não é um recurso avançado opcional.
+`/opsx:explore` faz parte do profile padrão; não é um recurso avançado opcional.
 Use-o quando tiver um problema, mas ainda não tiver um plano — o que, ao
 trabalhar com um assistente de IA, acontece na maior parte das vezes.
 
@@ -560,7 +560,7 @@ Para obter detalhes e conhecer as opções dos comandos, consulte
 
 | Comando | Finalidade | Quando usar |
 |---------|---------|-------------|
-| `/opsx:propose` | Criar mudança e artefatos de planejamento | Caminho rápido padrão (perfil `core`) |
+| `/opsx:propose` | Criar mudança e artefatos de planejamento | Caminho rápido padrão (profile `core`) |
 | `/opsx:explore` | Refletir sobre ideias com a IA | Comece aqui se estiver em dúvida: requisitos pouco claros, investigação ou comparação de opções |
 | `/opsx:new` | Criar a estrutura de uma mudança | Modo expandido, controle explícito de artefatos |
 | `/opsx:continue` | Criar o próximo artefato | Modo expandido, criação de artefatos etapa por etapa |

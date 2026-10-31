@@ -52,7 +52,7 @@ Beides sind Dateien, die OpenSpec schreibt, damit Ihr Assistent den Workflow aus
 
 ### Wo sollte ich anfangen, wenn ich nicht sicher bin, was ich bauen soll?
 
-Mit `/opsx:explore`. Der Befehl ist ein Denkpartner ohne Verpflichtungen, der Ihre Codebasis liest, Optionen darlegt und ein vages Problem in einen konkreten Plan umwandelt – bevor Code geschrieben wird. Er ist im Standardprofil enthalten und somit immer verfügbar. Sobald der Plan klar ist, übergibt der Befehl an `/opsx:propose`. Das ist die beste Gewohnheit, die Sie sich aneignen können: Sie hält eine übereifrige KI davon ab, selbstbewusst das Falsche zu bauen. Siehe [Zuerst erkunden](/de-DE/explore/).
+Mit `/opsx:explore`. Der Befehl ist ein Denkpartner ohne Verpflichtungen, der Ihre Codebasis liest, Optionen darlegt und ein vages Problem in einen konkreten Plan umwandelt – bevor Code geschrieben wird. Er ist im Standard profile enthalten und somit immer verfügbar. Sobald der Plan klar ist, übergibt der Befehl an `/opsx:propose`. Das ist die beste Gewohnheit, die Sie sich aneignen können: Sie hält eine übereifrige KI davon ab, selbstbewusst das Falsche zu bauen. Siehe [Zuerst erkunden](/de-DE/explore/).
 
 ### Was ist der einfachste mögliche Ablauf?
 
@@ -66,9 +66,9 @@ Erkunden Sie die Idee, schlagen Sie den Plan vor, setzen Sie ihn um und archivie
 
 `/opsx:propose` ist der standardmäßige Befehl mit nur einem Schritt: Er erstellt die Änderung und entwirft alle Planungsartefakte auf einmal. `/opsx:new` gehört zum erweiterten Befehlssatz und legt nur die leere Änderung an. Die Artefakte erstellen Sie anschließend einzeln mit `/opsx:continue` (oder alle auf einmal mit `/opsx:ff`). Verwenden Sie „Propose“, sofern Sie nicht Schritt-für-Schritt-Steuerung wünschen. Siehe [Befehle](/de-DE/commands/).
 
-### Was sind die Profile `core` und expanded?
+### Was sind die profiles `core` und expanded?
 
-Ein Profil legt fest, welche Slash-Befehle installiert werden. **Core** (Standard) umfasst `propose`, `explore`, `apply`, `update`, `sync` und `archive`. Der **erweiterte** Satz ergänzt für eine feinere Steuerung `new`, `continue`, `ff`, `verify`, `bulk-archive` und `onboard`. Wechseln Sie das Profil mit `openspec config profile` und wenden Sie es anschließend mit `openspec update` an.
+Ein profile legt fest, welche Slash-Befehle installiert werden. **Core** (Standard) umfasst `propose`, `explore`, `apply`, `update`, `sync` und `archive`. Der **erweiterte** Satz ergänzt für eine feinere Steuerung `new`, `continue`, `ff`, `verify`, `bulk-archive` und `onboard`. Wechseln Sie das profile mit `openspec config profile` und wenden Sie es anschließend mit `openspec update` an.
 
 ### Muss ich `/opsx:sync` ausführen?
 

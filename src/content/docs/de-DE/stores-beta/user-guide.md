@@ -20,7 +20,7 @@ Das passt nicht mehr, sobald Ihre Planung größer ist als ein einzelnes Reposit
 - Ihr Team plant, bevor Code vorhanden ist, oder plant Dinge, die niemals zu
   Code in *diesem* Repository werden.
 - Ein Team verantwortet Anforderungen, die andere Teams verwenden. Die
-  Wiki-Version weicht ab, und Ihr Codieragent kann sie ohnehin nicht lesen.
+  Wiki-Version weicht ab, und Ihr coding agent kann sie ohnehin nicht lesen.
 
 Ein **Store** ist die Lösung: ein eigenständiges Repository, dessen einziger Zweck die Planung ist.
 Es hat den Ihnen bereits bekannten Aufbau mit `openspec/` – Spezifikationen und Änderungen –
@@ -439,7 +439,7 @@ zeigt an, welcher Fall zutrifft.
   Arbeitsbereichsdatei oder ordnerspezifischen Attach-Flags starten lässt, kann nicht als Opener hinzugefügt werden.
 - **Die Groß-/Kleinschreibung der Agent-JSON-Schlüssel ist uneinheitlich** (Schlüssel der Store-Familie verwenden
   `snake_case`, der Workflow-Familie `camelCase`). Dies ist im
-  [Agentvertrag](/de-DE/agent-contract/) dokumentiert; eine Vereinheitlichung ist auf eine
+  [Agent-Vertrag](/de-DE/agent-contract/) dokumentiert; eine Vereinheitlichung ist auf eine
   versionierte Veröffentlichung verschoben.
 
 ## Wo die einzelnen Dinge liegen
@@ -458,4 +458,4 @@ zeigt an, welcher Fall zutrifft.
 
 Die genauen Flags und JSON-Strukturen aller Befehle auf dieser Seite finden Sie in der
 [CLI-Referenz](/de-DE/cli/) (Stores, Doctor, Arbeitskontext, persönliche
-Worksets) und im [Agentvertrag](/de-DE/agent-contract/).
+Worksets) und im [Agent-Vertrag](/de-DE/agent-contract/).

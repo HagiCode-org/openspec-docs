@@ -1,5 +1,5 @@
 ---
-title: "OpenSpec 智慧代理程式契約"
+title: "OpenSpec agent 契約"
 ---
 
 `openspec` CLI 的機器可讀介面，已根據 `src/` 驗證（capstone 審計，2026-06-11）。以下每種資料結構均依據實際輸出程式碼記錄。
@@ -35,7 +35,7 @@ title: "OpenSpec 智慧代理程式契約"
 2. 否則，查詢最近的祖先目錄中的 `openspec/`：若為規劃目錄結構，則使用 `source: "nearest"`（若有 `store:` 指標則忽略，並向 stderr 輸出警告）；若只有設定檔案且 `store:` 指標有效，則使用該儲存庫（`source: "declared"`）。
 3. 沒有最近根目錄，但已設定全域 `defaultStore`（`openspec config set defaultStore <id>`）→ 使用該儲存庫（`source: "global_default"`）；若 ID 已失效，則返回底層儲存庫錯誤，並在 `fix` 中指出應執行 `openspec config unset defaultStore`。
 4. 沒有最近根目錄、沒有預設值，但存在已註冊儲存庫 → 返回錯誤 `no_root_with_registered_stores`。
-5. 沒有根目錄、預設值或儲存庫時：命令可能會將當前工作目錄視為 `source: "implicit"`；但 `doctor`、`context`、`list` 和批次 `validate` 會返回 `no_openspec_root`。對於包含 `openspec/project.md` 的舊專案，`list` 仍保留隱式根目錄回退行為。
+5. 沒有根目錄、預設值或儲存庫時：命令可能會將當前工作目錄視為 `source: "implicit"`；但 `doctor`、`context`、`list` 和批次 `validate` 會返回 `no_openspec_root`。對於包含 `openspec/project.md` 的舊專案，`list` 仍保留隱式根目錄 fallback 行為。
 
 成功的 JSON 載荷通常會嵌入根目錄；成功的 `schemas --json` 則有意保持為相容用的裸陣列，見 §4.13：
 
@@ -63,7 +63,7 @@ title: "OpenSpec 智慧代理程式契約"
 
 ### 4.4 `status --json`
 
-`{ "changeName", "schemaName", "planningHome"?: { "kind", "root", "changesDir", "defaultSchema" }, "changeRoot", "artifactPaths": { "<id>": {outputPath, resolvedOutputPath, existingOutputPaths} }, "nextSteps": ["..."], "actionContext": { "mode": "repo-local", "sourceOfTruth": "repo", "planningArtifacts", "linkedContext", "allowedEditRoots", "requiresAffectedAreaSelection", "constraints" }, "isPlanningComplete", "isComplete", "applyRequires", "artifacts": [ {id, outputPath, status: "done"|"skipped"|"ready"|"blocked", requires, missingDeps?} ], "root" }`。對於由儲存庫選定的根目錄，若當前路徑上最近的專案是僅含設定的根目錄，且其 `store:` 指標指向該儲存庫，則 `allowedEditRoots` 為 `[<declaring project>, <store>]`；其他情況（包括全域 `defaultStore`）則為 `[<store>]`，並附帶一條約束，提示智慧代理程式詢問應編輯哪個儲存庫。OpenSpec 不會把儲存庫的任務分派到各個儲存庫，因此聲明的專案是當前專案，而不是變更涉及的每一個儲存庫。`isPlanningComplete` 表示所有未跳過的規劃產物均已存在；跳過的產物視為滿足要求，無需建立。它不表示實作任務已經完成。為保持相容，`isComplete` 仍保留，且含義相同。每個產物的 `requires` 是其直接依賴 ID（所有狀態均存在，因此即使產物為 `done`，也能計算傳遞依賴集合）；只有狀態為 `blocked` 時才會出現 `missingDeps`。
+`{ "changeName", "schemaName", "planningHome"?: { "kind", "root", "changesDir", "defaultSchema" }, "changeRoot", "artifactPaths": { "<id>": {outputPath, resolvedOutputPath, existingOutputPaths} }, "nextSteps": ["..."], "actionContext": { "mode": "repo-local", "sourceOfTruth": "repo", "planningArtifacts", "linkedContext", "allowedEditRoots", "requiresAffectedAreaSelection", "constraints" }, "isPlanningComplete", "isComplete", "applyRequires", "artifacts": [ {id, outputPath, status: "done"|"skipped"|"ready"|"blocked", requires, missingDeps?} ], "root" }`。對於由儲存庫選定的根目錄，若當前路徑上最近的專案是僅含設定的根目錄，且其 `store:` 指標指向該儲存庫，則 `allowedEditRoots` 為 `[<declaring project>, <store>]`；其他情況（包括全域 `defaultStore`）則為 `[<store>]`，並附帶一條約束，提示 agent 詢問應編輯哪個儲存庫。OpenSpec 不會把儲存庫的任務分派到各個儲存庫，因此聲明的專案是當前專案，而不是變更涉及的每一個儲存庫。`isPlanningComplete` 表示所有未跳過的規劃產物均已存在；跳過的產物視為滿足要求，無需建立。它不表示實作任務已經完成。為保持相容，`isComplete` 仍保留，且含義相同。每個產物的 `requires` 是其直接依賴 ID（所有狀態均存在，因此即使產物為 `done`，也能計算傳遞依賴集合）；只有狀態為 `blocked` 時才會出現 `missingDeps`。
 
 `artifacts` 陣列按依賴順序排列。如果多個產物同時就緒，則依照模式中 `artifacts:` 的宣告順序排列（絕非按字母排序）。因此，第一個 `ready` 條目就是接下來應編寫的產物；`missingDeps` 也按相同順序排列。若某項產物的 `generates` 路徑位於 `specs/` 下，且變更的 `.openspec.yaml` 聲明瞭 `skip_specs: true`，其狀態會標記為 `"skipped"`；它滿足依賴關係，但不得建立。沒有活動變更時返回 `{ "changes": [], "message", "root" }`，退出碼為 0。
 
@@ -79,7 +79,7 @@ title: "OpenSpec 智慧代理程式契約"
 
 `{ "changeName", "changeDir", "schemaName", "contextFiles": { "<artifactId>": ["/abs", ...] }, "progress": {total,complete,remaining}, "tasks": [{id,description,done}], "state": "blocked"|"all_done"|"ready", "missingArtifacts"?, "missingPrerequisites"?, "warnings"?, "instruction", "references"?, "context"?, "operationGuidance"?, "root" }`。`missingArtifacts` 列出 apply 會因之受阻的內容（模式的 `apply.requires`）；`missingPrerequisites` 則按建置順序列出執行 apply 前仍需建立的全部內容，即這些依賴的傳遞閉包，因此可能更長。`warnings` 列出與變更本身相關、但不會阻止流程的問題；目前包括變更已可實作、但沒有差異規格說明且未設定 `skip_specs: true` 的情況，這種狀態會被 `openspec validate` 拒絕。
 
-每次呼叫都會從所選根目錄讀取可選欄位 `context` 和 `operationGuidance`。`context` 是提示詞層面的必需輸入，必須應用其中相關的專案事實、約定和限制；`operationGuidance` 是建議性輸入，只在適用且與內建工作流程相容時遵循。兩者都與狀態、任務、進度、上下文檔案及內建指令分開。
+每次呼叫都會從所選根目錄讀取可選欄位 `context` 和 `operationGuidance`。`context` 是 prompt 層面的必需輸入，必須應用其中相關的專案事實、約定和限制；`operationGuidance` 是建議性輸入，只在適用且與內建工作流程相容時遵循。兩者都與狀態、任務、進度、上下文檔案及內建指令分開。
 
 ### 4.7 `instructions archive --json`
 
@@ -91,11 +91,11 @@ title: "OpenSpec 智慧代理程式契約"
 
 ### 4.9 `archive <name> --json`
 
-成功：`{ "archive": { "change", "archivedAs": "YYYY-MM-DD-name", "path", "specsUpdated", "totals"?, "warnings"? }, "root" }`。失敗：`{ "archive": null, "root"?, "status": [d] }`，退出碼為 1。只有至少寫入或廢棄了一份規格檔案時，`specsUpdated` 才為 true。（如果變更刪除了某項能力的最後一條需求，該能力的規格檔案會被刪除；這要求變更的 `.openspec.yaml` 中設定 `retire_capabilities: true`。每次廢棄都會列入 `warnings`；只有規格檔案位於呼叫者當前檢出目錄時，才會附上可貼上執行的 Git 恢復命令。）已經同步過的變更仍會歸檔，但 totals 全為零，並在 `warnings` 中列出跳過的內容。JSON 模式嚴格禁止互動：每個原本的提示點都會轉換成 `archive_*` 程式碼。
+成功：`{ "archive": { "change", "archivedAs": "YYYY-MM-DD-name", "path", "specsUpdated", "totals"?, "warnings"? }, "root" }`。失敗：`{ "archive": null, "root"?, "status": [d] }`，退出碼為 1。只有至少寫入或廢棄了一份規格檔案時，`specsUpdated` 才為 true。（如果變更刪除了某項能力的最後一條需求，該能力的規格檔案會被刪除；這要求變更的 `.openspec.yaml` 中設定 `retire_capabilities: true`。每次廢棄都會列入 `warnings`；只有規格檔案位於呼叫者當前檢出目錄時，才會附上可貼上執行的 Git 恢復命令。）已經同步過的變更仍會歸檔，但 totals 全為零，並在 `warnings` 中列出跳過的內容。JSON 模式嚴格禁止互動：每個原本的 prompt 點都會轉換成 `archive_*` 程式碼。
 
 - **`archive: null`**：命令失敗。這並不保證檔案未被更改。
-- **`archive_retirement_cleanup_failed`**：變更已歸檔，但廢棄作業的備份驗證或清理失敗。列出的備份路徑可能已被更改或消失。訊息也可能回報因備援複製清理失敗而殘留的暫存來源。清理前請檢查目前的歸檔及所有回報的恢復路徑，並保留任何需要的內容。重試歸檔不會清理這些路徑。
-- **`archive_error`**：備援診斷無法判斷檔案是否已被更改。重試前請檢查變更、歸檔與受影響的規格說明。
+- **`archive_retirement_cleanup_failed`**：變更已歸檔，但廢棄作業的備份驗證或清理失敗。列出的備份路徑可能已被更改或消失。訊息也可能回報因 fallback 複製清理失敗而殘留的暫存來源。清理前請檢查目前的歸檔及所有回報的恢復路徑，並保留任何需要的內容。重試歸檔不會清理這些路徑。
+- **`archive_error`**：fallback 診斷無法判斷檔案是否已被更改。重試前請檢查變更、歸檔與受影響的規格說明。
 
 ### 4.10 `doctor --json`
 
@@ -107,7 +107,7 @@ title: "OpenSpec 智慧代理程式契約"
 
 ### 4.12 `store ... --json`
 
-setup/register：`{ "store": {id, root, metadata_path?}, "registry": {path, registered, already_registered}, "git": {is_repository, initialized, committed}, "created_files": [], "status": [] }`。unregister/remove：`{ "store", "registry": {path, removed}, "files": {deleted, deleted_path, left_on_disk}, "status": [] }`。list：`{ "stores": [{id, root}], "status": [] }`。doctor：`{ "stores": [ { id, root, metadata_path?, openspec_root: {...healthy, status}, metadata: {present, valid, id?, remote}, git: {is_repository, has_commits, has_uncommitted_changes, has_remote, origin_url}, status } ], "status": [] }`（`null` 表示未知/未檢查）。健康問題以 0 退出；失敗時使用相應空值載荷並以 1 退出。取消提示時以 130 退出。
+setup/register：`{ "store": {id, root, metadata_path?}, "registry": {path, registered, already_registered}, "git": {is_repository, initialized, committed}, "created_files": [], "status": [] }`。unregister/remove：`{ "store", "registry": {path, removed}, "files": {deleted, deleted_path, left_on_disk}, "status": [] }`。list：`{ "stores": [{id, root}], "status": [] }`。doctor：`{ "stores": [ { id, root, metadata_path?, openspec_root: {...healthy, status}, metadata: {present, valid, id?, remote}, git: {is_repository, has_commits, has_uncommitted_changes, has_remote, origin_url}, status } ], "status": [] }`（`null` 表示未知/未檢查）。健康問題以 0 退出；失敗時使用相應空值載荷並以 1 退出。取消 prompt 時以 130 退出。
 
 ### 4.13 `schemas --json` / `templates --json`
 
@@ -120,7 +120,7 @@ setup/register：`{ "store": {id, root, metadata_path?}, "registry": {path, regi
 | 成功，包括健康檢查發現問題（doctor/context/store doctor） | 0 | 載荷 |
 | `--json` 模式下命令失敗 | 1 | 一個含 `status: [d]` 和命令空值載荷的 JSON 文件 |
 | `validate` 中有失敗條目 | 1 | 完整報告 |
-| 取消提示（`store` 命令組，人類可讀模式） | 130 | 僅 stderr |
+| 取消 prompt（`store` 命令組，人類可讀模式） | 130 | 僅 stderr |
 
 ## 6. 診斷程式碼目錄
 
@@ -160,7 +160,7 @@ setup/register：`{ "store": {id, root, metadata_path?}, "registry": {path, regi
 
 `context_file_exists`、`context_output_dir_missing`。
 
-### 回退錯誤
+### fallback 錯誤
 
 `doctor_failed`、`context_failed`、`store_error`、`change_error`、`archive_error`。
 

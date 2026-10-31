@@ -61,7 +61,7 @@ openspec init --tools claude,cursor
 
 5. **현재 프로젝트를 초기화했는지 확인합니다.** 스킬은 프로젝트별로 작성됩니다. 저장소를 복제했거나 다른 폴더로 이동했다면 해당 위치에서 `openspec init`(또는 `openspec update`)을 실행하세요.
 
-6. **도구가 명령 파일을 지원하는지 확인합니다.** Codex, CodeArts, ForgeCode, Hermes, Kimi Code, Mistral Vibe, Zed Agent 및 공유 `.agents` 대상에는 `opsx-*` 명령 파일이 생성되지 않습니다. 대신 스킬을 사용하므로 `/opsx`가 자동 완성되지 않습니다. Codex에서는 `$openspec-propose`, Kimi Code에서는 `/skill:openspec-propose`, 나머지 도구에서는 `/openspec-propose`를 입력하세요. 공유 `.agents` 대상은 특정 공급업체에 종속되지 않으므로 `/openspec-propose`는 공통 형식일 뿐 항상 작동한다고 보장할 수 없습니다. 어시스턴트가 응답하지 않으면 스킬 호출 방법을 해당 도구의 문서에서 확인하세요. Amazon Q에는 명령 파일이 생성되지만 슬래시 메뉴가 아니라 프롬프트 라이브러리에 로드됩니다. `/opsx`가 아니라 `@opsx-propose`를 입력하세요. 각 도구의 호출 형식은 [호출 방법](/ko-KR/supported-tools/#호출-방법)에 나와 있습니다.
+6. **도구가 명령 파일을 지원하는지 확인합니다.** Codex, CodeArts, ForgeCode, Hermes, Kimi Code, Mistral Vibe, Zed Agent 및 공유 `.agents` 대상에는 `opsx-*` 명령 파일이 생성되지 않습니다. 대신 스킬을 사용하므로 `/opsx`가 자동 완성되지 않습니다. Codex에서는 `$openspec-propose`, Kimi Code에서는 `/skill:openspec-propose`, 나머지 도구에서는 `/openspec-propose`를 입력하세요. 공유 `.agents` 대상은 특정 공급업체에 종속되지 않으므로 `/openspec-propose`는 공통 형식일 뿐 항상 작동한다고 보장할 수 없습니다. 어시스턴트가 응답하지 않으면 스킬 호출 방법을 해당 도구의 문서에서 확인하세요. Amazon Q에는 명령 파일이 생성되지만 슬래시 메뉴가 아니라 prompt 라이브러리에 로드됩니다. `/opsx`가 아니라 `@opsx-propose`를 입력하세요. 각 도구의 호출 형식은 [호출 방법](/ko-KR/supported-tools/#호출-방법)에 나와 있습니다.
 
 ## 변경 사항 작업
 
@@ -120,9 +120,9 @@ AI에 맥락이 충분하지 않았습니다. 다음 방법을 사용해 보세�
 
 미완료 작업이 있어도 보관을 *차단하지는* 않지만 일반적으로 보관은 작업이 끝났다는 의미이므로 경고가 표시됩니다. 일부 변경 사항을 기록하려는 등 의도적으로 작업이 남아 있다면 계속 진행하세요. 그렇지 않다면 먼저 작업을 완료하세요. 아직 동기화하지 않은 경우 델타 사양을 기본 사양에 동기화할지도 묻습니다. 특별한 이유가 없다면 동기화에 동의하세요.
 
-### "User force closed the prompt with 0 null"(사용자가 프롬프트를 강제로 닫음)
+### "User force closed the prompt with 0 null"(사용자가 prompt를 강제로 닫음)
 
-AI 에이전트가 도구에서 호출하거나 CI 작업 또는 표준 입력이 닫힌 셸에서 실행하는 등 질문에 답할 수 없는 환경에서 `openspec archive`가 실행됐습니다. 보관은 최대 세 번 확인을 요청하며, 이전에는 응답할 수 없는 경우 원시 오류 메시지와 함께 실패했습니다.
+AI agent가 도구에서 호출하거나 CI 작업 또는 표준 입력이 닫힌 셸에서 실행하는 등 질문에 답할 수 없는 환경에서 `openspec archive`가 실행됐습니다. 보관은 최대 세 번 확인을 요청하며, 이전에는 응답할 수 없는 경우 원시 오류 메시지와 함께 실패했습니다.
 
 미리 확인에 동의하려면 `--yes`를 전달하세요.
 
@@ -132,7 +132,7 @@ openspec archive <change-name> --yes
 
 기존에 전달하던 플래그는 그대로 유지하세요. `--skip-specs`와 `--no-validate`는 보관 동작을 바꾸므로 `--yes`만 붙여 다시 실행하면 원래와 다른 명령이 됩니다. 최신 버전에서는 필요한 플래그와 복사해서 사용할 수 있는 `Fix:` 줄을 안내합니다. 목록에서 항목을 선택하려던 경우 변경 사항 이름도 명시하세요. 선택 목록에도 응답이 필요합니다.
 
-반면 출력을 파일로 리디렉션하거나 도구로 캡처하면서 답변을 파이프로 전달한 경우(`printf 'y\n' | openspec archive …`), 이전 버전은 프롬프트를 표시할 때 터미널 이스케이프 코드를 출력에 기록했습니다. 환경에 따라 파일이 크게 부풀어 오를 수 있었습니다. 최신 버전은 표준 출력이 터미널이 아니면 확인 프롬프트를 일반 텍스트로 읽고, 인수가 없는 `openspec archive`(대화형 변경 사항 선택기를 표시하는 명령)는 캡처에 메뉴를 렌더링하는 대신 변경 사항 이름을 먼저 전달하도록 요청합니다. 두 경우 모두 리디렉션 및 에이전트 실행이 깔끔하게 유지됩니다. 변경 사항 이름과 함께 `--yes`를 전달하면 프롬프트를 완전히 건너뜁니다.
+반면 출력을 파일로 리디렉션하거나 도구로 캡처하면서 답변을 파이프로 전달한 경우(`printf 'y\n' | openspec archive …`), 이전 버전은 prompt를 표시할 때 터미널 이스케이프 코드를 출력에 기록했습니다. 환경에 따라 파일이 크게 부풀어 오를 수 있었습니다. 최신 버전은 표준 출력이 터미널이 아니면 확인 prompts를 일반 텍스트로 읽고, 인수가 없는 `openspec archive`(대화형 변경 사항 선택기를 표시하는 명령)는 캡처에 메뉴를 렌더링하는 대신 변경 사항 이름을 먼저 전달하도록 요청합니다. 두 경우 모두 리디렉션 및 agent 실행이 깔끔하게 유지됩니다. 변경 사항 이름과 함께 `--yes`를 전달하면 prompts를 완전히 건너뜁니다.
 
 ## 구성
 
@@ -178,7 +178,7 @@ CI 또는 비대화형 셸에서 실행 중이며 OpenSpec이 정리할 이전 �
 openspec init --force
 ```
 
-Codex에서는 OpenSpec이 `$CODEX_HOME/prompts` 또는 `~/.codex/prompts`의 이전 관리형 프롬프트 파일을 감지할 수 있습니다. 정리 대상은 OpenSpec 허용 목록에 포함된 기존 Codex 프롬프트 파일 이름으로 제한되며, 비대화형 `openspec init`은 대체 파일인 `.agents/skills/openspec-*` 스킬이 존재하는 항목만 제거합니다. 비대화형 `openspec update`는 `--force`를 전달하지 않으면 기존 파일을 정리하지 않습니다.
+Codex에서는 OpenSpec이 `$CODEX_HOME/prompts` 또는 `~/.codex/prompts`의 이전 관리형 prompt 파일을 감지할 수 있습니다. 정리 대상은 OpenSpec 허용 목록에 포함된 기존 Codex prompt 파일 이름으로 제한되며, 비대화형 `openspec init`은 대체 파일인 `.agents/skills/openspec-*` 스킬이 존재하는 항목만 제거합니다. 비대화형 `openspec update`는 `--force`를 전달하지 않으면 기존 파일을 정리하지 않습니다.
 
 ### 마이그레이션 후 명령이 표시되지 않음
 
@@ -186,7 +186,7 @@ IDE를 다시 시작하세요. 스킬은 시작할 때 검색됩니다. 그래�
 
 ### 이전 `project.md`가 마이그레이션되지 않음
 
-의도된 동작입니다. 직접 작성한 컨텍스트가 들어 있을 수 있으므로 OpenSpec은 `project.md`를 자동으로 삭제하지 않습니다. 유용한 부분을 `config.yaml`의 `context:` 섹션으로 옮긴 다음 직접 삭제하세요. [마이그레이션 안내서](/ko-KR/migration-guide/#projectmd를-configyaml로-마이그레이션)에서 AI에 전달해 내용을 추려 내도록 하는 프롬프트를 포함해 전체 과정을 설명합니다.
+의도된 동작입니다. 직접 작성한 컨텍스트가 들어 있을 수 있으므로 OpenSpec은 `project.md`를 자동으로 삭제하지 않습니다. 유용한 부분을 `config.yaml`의 `context:` 섹션으로 옮긴 다음 직접 삭제하세요. [마이그레이션 안내서](/ko-KR/migration-guide/#projectmd를-configyaml로-마이그레이션)에서 AI에 전달해 내용을 추려 내도록 하는 prompt를 포함해 전체 과정을 설명합니다.
 
 ## 여전히 해결되지 않나요?
 
