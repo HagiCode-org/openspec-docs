@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://openspec.hagicode.com/sitemap-index.xml
