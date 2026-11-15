@@ -10,3 +10,6 @@ dist/
 # BEGIN generated English fallback docs
 src/content/.english-fallback-stage-*/
 # END generated English fallback docs
+
+# Local deja session-rule export (auto-extracted from agent sessions; not committed)
+.deja/
